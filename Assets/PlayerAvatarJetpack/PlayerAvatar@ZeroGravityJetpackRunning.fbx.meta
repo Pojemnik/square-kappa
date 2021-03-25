@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 359b4ab0c9a22fa4caccea9185879706
+guid: 348dd2bd63adad34ca1d807f358bab7c
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Take 001
+    second: ZeroGravityJetpackRunning
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,7 +35,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: ZeroGravityJetpackRunning
       takeName: Take 001
       internalID: 0
       firstFrame: 0
@@ -104,7 +104,12 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips: []
+  referencedClips:
+  - c4f29f9aa18230541993c7000e2c497d
+  - e3e1db9090bda1f4981afecad2406825
+  - da8e8102a368cb54483bf9d2502a43d5
+  - 96d3d8d1d6098b24b9dd3b6664baa459
+  - 359b4ab0c9a22fa4caccea9185879706
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
