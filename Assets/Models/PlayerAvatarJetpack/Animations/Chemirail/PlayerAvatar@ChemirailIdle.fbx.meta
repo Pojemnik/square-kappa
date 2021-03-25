@@ -1,8 +1,11 @@
 fileFormatVersion: 2
-guid: 6ab51f0564361af42802d74593f114d8
+guid: c2fd8885042a7284e8b48fc19a267e1e
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 906889066524992285
+    second: PlayerAvatarChemrailAnimations
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -23,7 +26,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -72,13 +75,7 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips:
-  - cc58bff54a11da24397e669eb22f4a7c
-  - 2d9d7c35075ae674ebeb86fef3d6b50b
-  - adb090fb4d611eb43afd3e112dd147c3
-  - 788ca33a61c0a6c43b621a606d1b57b1
-  - c17820305ff793a46a9d40c4a20df36e
-  - 5b6da8bf22ae9fa48b0f100b80878594
+  referencedClips: []
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
@@ -94,13 +91,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 
