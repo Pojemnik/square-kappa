@@ -96,18 +96,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void MovePlayer()
     {
-        Vector3 deltaSpeed = speed * Time.deltaTime;
+        Vector3 deltaSpeed = speed * Time.fixedDeltaTime;
         Vector3 moveDelta = new Vector3(rawInputXZ.x * deltaSpeed.x, rawInputY * deltaSpeed.y, rawInputXZ.y * deltaSpeed.z);
         if (moveDelta == Vector3.zero && lastMoveDelta != Vector3.zero)
         {
             animator.SetTrigger("Stop");
             jetpackController.OnStop();
         }
-        float deltaRoll = rollSpeed * Time.deltaTime * rawInputRoll;
         lastMoveDelta = moveDelta;
         rigidbody.AddRelativeForce(moveDelta);
+    }
+
+    private void RotatePlayer()
+    {
+        float deltaRoll = rollSpeed * Time.fixedDeltaTime * rawInputRoll;
         rigidbody.AddRelativeTorque(0, 0, deltaRoll);
+    }
+
+    private void FixedUpdate()
+    {
+        MovePlayer();
+        RotatePlayer();
     }
 }

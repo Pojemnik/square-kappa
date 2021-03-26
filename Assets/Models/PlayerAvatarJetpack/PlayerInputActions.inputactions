@@ -1,5 +1,5 @@
 {
-    "name": "InputActions",
+    "name": "PlayerInputActions",
     "maps": [
         {
             "name": "Player",
@@ -312,7 +312,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
+                    "name": "positive",
                     "id": "978c3a42-6081-48c9-a7c9-8851feef8780",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -323,7 +323,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
+                    "name": "negative",
                     "id": "c83a495c-05df-494f-aec6-50d906028210",
                     "path": "<Keyboard>/e",
                     "interactions": "",
