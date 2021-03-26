@@ -1,34 +1,12 @@
 fileFormatVersion: 2
-guid: 94a9bdcec7d460e4fbbc21975d250f6f
+guid: 9844e38e86feb0e47a1c331fa08984da
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable: []
-  externalObjects:
+  internalIDToNameTable:
   - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Gunsight
-    second: {fileID: 2100000, guid: 085c5d60206e1ba4aa14a6719d8b285c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Handles
-    second: {fileID: 2100000, guid: a1beb3e040958ed4aa33738efc5333ad, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Inner
-    second: {fileID: 2100000, guid: 7dfd19b9fad5c6f48bfe04538dc65f0d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Metal
-    second: {fileID: 2100000, guid: 7f7dc812f25080b45bce05be646a4e0e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Stock
-    second: {fileID: 2100000, guid: b11d4c95b910013478fed0322e799a7e, type: 2}
+      74: -1958992361124708889
+    second: Chemirail
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
