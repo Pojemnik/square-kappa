@@ -6,11 +6,13 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public Vector3 speed;
+    public float rollSpeed;
     public GameObject jetpack = null;
 
     private new Rigidbody rigidbody;
     private Vector2 rawInputXZ;
     private float rawInputY;
+    private float rawInputRoll;
     private Animator animator;
     private Vector3 lastMoveDelta;
     private JetpackController jetpackController;
@@ -50,7 +52,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void MoveUp(InputAction.CallbackContext context)
+    public void MoveVertical(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
@@ -62,22 +64,7 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("MoveUpDown");
             jetpackController.OnMoveUp();
         }
-        else
-        {
-            if (rawInputY > 0)
-            {
-                rawInputY = 0;
-            }
-        }
-    }
-
-    public void MoveDown(InputAction.CallbackContext context)
-    {
-        if(context.performed)
-        {
-            return;
-        }
-        if (context.ReadValue<float>() == 1)
+        else if (context.ReadValue<float>() == -1)
         {
             rawInputY = -1;
             animator.SetTrigger("MoveUpDown");
@@ -85,10 +72,27 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (rawInputY < 0)
-            {
-                rawInputY = 0;
-            }
+            rawInputY = 0;
+        }
+    }
+
+    public void Roll(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            return;
+        }
+        if (context.ReadValue<float>() == 1)
+        {
+            rawInputRoll = 1;
+        }
+        else if (context.ReadValue<float>() == -1)
+        {
+            rawInputRoll = -1;
+        }
+        else
+        {
+            rawInputRoll = 0;
         }
     }
 
@@ -96,12 +100,14 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 deltaSpeed = speed * Time.deltaTime;
         Vector3 moveDelta = new Vector3(rawInputXZ.x * deltaSpeed.x, rawInputY * deltaSpeed.y, rawInputXZ.y * deltaSpeed.z);
-        if(moveDelta == Vector3.zero && lastMoveDelta != Vector3.zero)
+        if (moveDelta == Vector3.zero && lastMoveDelta != Vector3.zero)
         {
             animator.SetTrigger("Stop");
             jetpackController.OnStop();
         }
+        float deltaRoll = rollSpeed * Time.deltaTime * rawInputRoll;
         lastMoveDelta = moveDelta;
-        rigidbody.AddForce(moveDelta);
+        rigidbody.AddRelativeForce(moveDelta);
+        rigidbody.AddRelativeTorque(0, 0, deltaRoll);
     }
 }

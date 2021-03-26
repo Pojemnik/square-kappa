@@ -1009,7 +1009,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1873565040}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: MoveUp
+        m_MethodName: MoveVertical
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1025,7 +1025,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1873565040}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: MoveDown
+        m_MethodName: Roll
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1035,8 +1035,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 01f8103d-83c8-4317-ba6e-87ed67b961e9
-    m_ActionName: Player/Down[/Keyboard/leftCtrl]
+    m_ActionId: d3abe99a-3a8c-4c01-b365-4e4bdd854138
+    m_ActionName: Player/Roll[/Keyboard/q,/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1054,7 +1054,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58809af716df9834092ee4f68708b242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: {x: 50, y: 50, z: 50}
+  speed: {x: 75, y: 75, z: 75}
+  rollSpeed: 50
   jetpack: {fileID: 343188622}
 --- !u!54 &1873565041
 Rigidbody:

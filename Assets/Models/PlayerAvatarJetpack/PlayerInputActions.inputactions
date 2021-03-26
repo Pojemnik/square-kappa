@@ -1,5 +1,5 @@
 {
-    "name": "Kappa",
+    "name": "InputActions",
     "maps": [
         {
             "name": "Player",
@@ -30,7 +30,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Up",
+                    "name": "Vertical",
                     "type": "Button",
                     "id": "e8e05ad2-9f94-4d9d-a756-de5054152d27",
                     "expectedControlType": "Button",
@@ -38,9 +38,9 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Down",
+                    "name": "Roll",
                     "type": "Button",
-                    "id": "01f8103d-83c8-4317-ba6e-87ed67b961e9",
+                    "id": "d3abe99a-3a8c-4c01-b365-4e4bdd854138",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -268,26 +268,70 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "972ee3a3-06a1-4c2b-b0f7-bd063cfedb71",
+                    "name": "1D Axis",
+                    "id": "dde1b676-c673-475c-b416-2313f1f16c1a",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Vertical",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "04605843-df71-415b-ae80-299ffaba7137",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Vertical",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "6982a4d6-899f-452d-a9b6-bc75c6f9c223",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Up",
+                    "action": "Vertical",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "55668441-199f-4435-8d3e-49a9a439039f",
-                    "path": "<Keyboard>/leftCtrl",
+                    "name": "1D Axis",
+                    "id": "fa4c1a05-fe13-4988-ba3e-97f866058560",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Down",
-                    "isComposite": false,
+                    "action": "Roll",
+                    "isComposite": true,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "978c3a42-6081-48c9-a7c9-8851feef8780",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "c83a495c-05df-494f-aec6-50d906028210",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },
