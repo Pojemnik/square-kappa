@@ -8,11 +8,13 @@ public class PlayerController : MonoBehaviour
     public Vector3 speed;
     public float rollSpeed;
     public GameObject jetpack = null;
+    public float cameraSensitivity;
 
     private new Rigidbody rigidbody;
     private Vector2 rawInputXZ;
     private float rawInputY;
     private float rawInputRoll;
+    private Vector2 rawInputLook;
     private Animator animator;
     private Vector3 lastMoveDelta;
     private JetpackController jetpackController;
@@ -23,6 +25,8 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         lastMoveDelta = Vector3.zero;
         jetpackController = jetpack.GetComponent<JetpackController>();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void MoveXZ(InputAction.CallbackContext context)
@@ -96,6 +100,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Look(InputAction.CallbackContext context)
+    {
+        rawInputLook = context.ReadValue<Vector2>();
+        rawInputLook = new Vector2(-rawInputLook.y, rawInputLook.x);
+    }
+
     private void MovePlayer()
     {
         Vector3 deltaSpeed = speed * Time.fixedDeltaTime;
@@ -112,7 +122,10 @@ public class PlayerController : MonoBehaviour
     private void RotatePlayer()
     {
         float deltaRoll = rollSpeed * Time.fixedDeltaTime * rawInputRoll;
+        Vector2 deltaLook = rawInputLook * cameraSensitivity;
         rigidbody.AddRelativeTorque(0, 0, deltaRoll);
+        Quaternion targetRotation = Quaternion.Euler((Vector3)deltaLook) * rigidbody.rotation;
+        rigidbody.MoveRotation(targetRotation);
     }
 
     private void FixedUpdate()
