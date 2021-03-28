@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
         float deltaRoll = rollSpeed * Time.fixedDeltaTime * rawInputRoll;
         Vector2 deltaLook = rawInputLook * cameraSensitivity;
         rigidbody.AddRelativeTorque(0, 0, deltaRoll);
-        Quaternion targetRotation = Quaternion.Euler((Vector3)deltaLook) * rigidbody.rotation;
+        Quaternion targetRotation = rigidbody.rotation * Quaternion.Euler((Vector3)deltaLook);
         rigidbody.MoveRotation(targetRotation);
     }
 
