@@ -9,20 +9,20 @@ public class PlayerController : MonoBehaviour
     public float rollSpeed;
     public GameObject jetpack = null;
     public float cameraSensitivity;
+    public Animator animator;
 
     private new Rigidbody rigidbody;
     private Vector2 rawInputXZ;
     private float rawInputY;
     private float rawInputRoll;
     private Vector2 rawInputLook;
-    private Animator animator;
     private Vector3 lastMoveDelta;
     private JetpackController jetpackController;
 
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
         lastMoveDelta = Vector3.zero;
         jetpackController = jetpack.GetComponent<JetpackController>();
         Cursor.visible = false;
