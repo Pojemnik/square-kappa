@@ -102,13 +102,13 @@ public class PlayerController : MonoBehaviour
     public void Look(InputAction.CallbackContext context)
     {
         rawInputLook = context.ReadValue<Vector2>();
-        rawInputLook = new Vector2(-rawInputLook.y, rawInputLook.x);
+        rawInputLook = new Vector2(-rawInputLook.y, -rawInputLook.x);
     }
 
     private void MovePlayer()
     {
         Vector3 deltaSpeed = speed * Time.fixedDeltaTime;
-        Vector3 moveDelta = new Vector3(rawInputXZ.x * deltaSpeed.x, rawInputY * deltaSpeed.y, rawInputXZ.y * deltaSpeed.z);
+        Vector3 moveDelta = new Vector3(rawInputXZ.x * deltaSpeed.x, rawInputY * deltaSpeed.y, -rawInputXZ.y * deltaSpeed.z);
         if (moveDelta == Vector3.zero && lastMoveDelta != Vector3.zero)
         {
             playerAnimator.SetTrigger("Stop");
@@ -121,9 +121,9 @@ public class PlayerController : MonoBehaviour
     private void RotatePlayer()
     {
         float deltaRoll = rollSpeed * Time.fixedDeltaTime * rawInputRoll;
-        Vector2 deltaLook = rawInputLook * cameraSensitivity;
-        rigidbody.AddRelativeTorque(0, 0, deltaRoll);
-        Quaternion targetRotation = rigidbody.rotation * Quaternion.Euler((Vector3)deltaLook);
+        Vector3 deltaLook = new Vector3(rawInputLook.x, 0, rawInputLook.y) * cameraSensitivity;
+        rigidbody.AddRelativeTorque(0, deltaRoll, 0);
+        Quaternion targetRotation = rigidbody.rotation * Quaternion.Euler(deltaLook);
         rigidbody.MoveRotation(targetRotation);
     }
 
