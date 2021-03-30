@@ -7,9 +7,9 @@ public class PlayerController : MonoBehaviour
 {
     public Vector3 speed;
     public float rollSpeed;
-    public GameObject jetpack = null;
     public float cameraSensitivity;
-    public Animator animator;
+    public GameObject jetpack = null;
+    public Animator playerAnimator = null;
 
     private new Rigidbody rigidbody;
     private Vector2 rawInputXZ;
@@ -22,9 +22,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        //animator = GetComponent<Animator>();
-        lastMoveDelta = Vector3.zero;
         jetpackController = jetpack.GetComponent<JetpackController>();
+        lastMoveDelta = Vector3.zero;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -38,12 +37,12 @@ public class PlayerController : MonoBehaviour
         rawInputXZ = context.ReadValue<Vector2>();
         if (rawInputXZ.y > 0)
         {
-            animator.SetTrigger("MoveForward");
+            playerAnimator.SetTrigger("MoveForward");
             jetpackController.OnMoveForward();
         }
         else if (rawInputXZ.y < 0)
         {
-            animator.SetTrigger("MoveBackward");
+            playerAnimator.SetTrigger("MoveBackward");
             jetpackController.OnMoveBackward();
         }
         if (rawInputXZ.x > 0)
@@ -65,13 +64,13 @@ public class PlayerController : MonoBehaviour
         if (context.ReadValue<float>() == 1)
         {
             rawInputY = 1;
-            animator.SetTrigger("MoveUpDown");
+            playerAnimator.SetTrigger("MoveUpDown");
             jetpackController.OnMoveUp();
         }
         else if (context.ReadValue<float>() == -1)
         {
             rawInputY = -1;
-            animator.SetTrigger("MoveUpDown");
+            playerAnimator.SetTrigger("MoveUpDown");
             jetpackController.OnMoveDown();
         }
         else
@@ -112,7 +111,7 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDelta = new Vector3(rawInputXZ.x * deltaSpeed.x, rawInputY * deltaSpeed.y, rawInputXZ.y * deltaSpeed.z);
         if (moveDelta == Vector3.zero && lastMoveDelta != Vector3.zero)
         {
-            animator.SetTrigger("Stop");
+            playerAnimator.SetTrigger("Stop");
             jetpackController.OnStop();
         }
         lastMoveDelta = moveDelta;
