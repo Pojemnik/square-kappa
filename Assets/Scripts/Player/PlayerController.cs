@@ -30,10 +30,6 @@ public class PlayerController : MonoBehaviour
 
     public void MoveXZ(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        {
-            return;
-        }
         rawInputXZ = context.ReadValue<Vector2>();
         if (rawInputXZ.y > 0)
         {
@@ -57,10 +53,6 @@ public class PlayerController : MonoBehaviour
 
     public void MoveVertical(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        {
-            return;
-        }
         if (context.ReadValue<float>() == 1)
         {
             rawInputY = 1;
@@ -81,10 +73,6 @@ public class PlayerController : MonoBehaviour
 
     public void Roll(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        {
-            return;
-        }
         if (context.ReadValue<float>() == 1)
         {
             rawInputRoll = 1;
