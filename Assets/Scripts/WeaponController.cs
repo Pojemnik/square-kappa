@@ -10,6 +10,8 @@ public class WeaponController : MonoBehaviour
     public bool continousShooting;
     public float projectileSpeed;
     public Vector3 projectileOffset;
+    public Vector3 projectileAngularOffset;
+    public float spreadRadius;
 
     private bool triggerHold = false;
     private new Transform transform;
@@ -33,9 +35,13 @@ public class WeaponController : MonoBehaviour
 
     private void Shoot()
     {
+        Vector3 spread = Random.insideUnitSphere * spreadRadius;
         GameObject projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
         projectile.transform.Translate(projectileOffset, Space.Self);
+        projectile.transform.Rotate(spread);
+        projectile.transform.Rotate(projectileAngularOffset);
         projectile.SetActive(true);
+        Destroy(projectile, 3);
         ProjectileController controller = projectile.GetComponent<ProjectileController>();
         controller.startSpeed = projectileSpeed;
         GameObject fireEffect = Instantiate(fireEffectPrefab, transform.position, transform.rotation);
