@@ -10,6 +10,7 @@ public class WeaponController : MonoBehaviour
     public bool continousShooting;
     public float projectileSpeed;
     public Vector3 projectileOffset;
+    public Vector3 flameOffset;
     public Vector3 projectileAngularOffset;
     public float spreadRadius;
 
@@ -45,9 +46,10 @@ public class WeaponController : MonoBehaviour
         ProjectileController controller = projectile.GetComponent<ProjectileController>();
         controller.startSpeed = projectileSpeed;
         GameObject fireEffect = Instantiate(fireEffectPrefab, transform.position, transform.rotation);
+        fireEffect.transform.parent = transform;
         fireEffect.SetActive(true);
-        fireEffect.transform.Translate(projectileOffset, Space.Self);
-        Destroy(fireEffect, (float)0.05);
+        fireEffect.transform.Translate(flameOffset, Space.Self);
+        Destroy(fireEffect, (float)0.1);
     }
 
     private void FixedUpdate()

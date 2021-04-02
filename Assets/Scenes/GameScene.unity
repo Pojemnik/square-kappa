@@ -305,9 +305,10 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5938995904749229982, guid: 81544cc963d193144ba25ed7c3e96d4a, type: 3}
   shootsPerSecond: 10
   continousShooting: 1
-  projectileSpeed: 75
-  projectileOffset: {x: 4, y: 0, z: 0}
-  projectileAngularOffset: {x: 0, y: 6, z: -11}
+  projectileSpeed: 250
+  projectileOffset: {x: 2, y: 0, z: 0}
+  flameOffset: {x: 4, y: 0, z: 0}
+  projectileAngularOffset: {x: 0, y: 2, z: -1}
   spreadRadius: 2
 --- !u!1 &705507993
 GameObject:
