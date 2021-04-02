@@ -123,75 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &114157175
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1868768521}
-    m_Modifications:
-    - target: {fileID: 1362533273023082374, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1362533273023082374, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1362533273023082374, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1362533273023082374, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1362533273023082374, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4.623
-      objectReference: {fileID: 0}
-    - target: {fileID: 1362533273023082374, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.015
-      objectReference: {fileID: 0}
-    - target: {fileID: 1362533273023082374, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.013
-      objectReference: {fileID: 0}
-    - target: {fileID: 1362533273023082374, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 1362533273023082374, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 1362533273023082374, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1362533273023082374, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1362533273023082374, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 1362533273023082374, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1362533273023082374, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1362533273023082379, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
-      propertyPath: m_Name
-      value: ChemirailFire
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
 --- !u!1001 &199316721
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -353,6 +284,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 650388825}
   m_CullTransparentMesh: 1
+--- !u!1 &680474983 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 94a9bdcec7d460e4fbbc21975d250f6f, type: 3}
+  m_PrefabInstance: {fileID: 199316721}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &680474985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680474983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad0feac5d23a1814b8f274de0660c439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireEffectPrefab: {fileID: 1362533273023082379, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
+  projectilePrefab: {fileID: 5938995904749229982, guid: 81544cc963d193144ba25ed7c3e96d4a, type: 3}
+  shootsPerSecond: 10
+  continousShooting: 1
+  projectileSpeed: 10
+  projectileOffset: {x: 4, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,6 +907,7 @@ MonoBehaviour:
   cameraSensitivity: 0.2
   jetpack: {fileID: 343188622}
   playerAnimator: {fileID: 1873565039}
+  weapon: {fileID: 680474983}
 --- !u!114 &1104122827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1011,7 +966,19 @@ MonoBehaviour:
     m_ActionId: 2571ac73-3613-47da-8a23-a27592dae2f5
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1104122826}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Fire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 3595dcb8-ec88-41fd-bb64-036cd09b1f07
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -1288,11 +1255,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1868768521 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 94a9bdcec7d460e4fbbc21975d250f6f, type: 3}
-  m_PrefabInstance: {fileID: 199316721}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1873565037
 PrefabInstance:
   m_ObjectHideFlags: 0

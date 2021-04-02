@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float cameraSensitivity;
     public GameObject jetpack = null;
     public Animator playerAnimator = null;
+    public GameObject weapon = null;
 
     private new Rigidbody rigidbody;
     private Vector2 rawInputXZ;
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 rawInputLook;
     private Vector3 lastMoveDelta;
     private JetpackController jetpackController;
+    private WeaponController weaponController;
 
     void Start()
     {
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour
         lastMoveDelta = Vector3.zero;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        weaponController = weapon.GetComponent<WeaponController>();
     }
 
     public void MoveXZ(InputAction.CallbackContext context)
@@ -91,6 +94,18 @@ public class PlayerController : MonoBehaviour
     {
         rawInputLook = context.ReadValue<Vector2>();
         rawInputLook = new Vector2(-rawInputLook.y, -rawInputLook.x);
+    }
+
+    public void Fire(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            weaponController.startShoot();
+        }
+        else if(context.canceled)
+        {
+            weaponController.stopShoot();
+        }
     }
 
     private void MovePlayer()
