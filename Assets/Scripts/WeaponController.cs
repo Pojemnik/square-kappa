@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    public GameObject fireEffectPrefab;
+    public GameObject flamePrefab;
     public GameObject projectilePrefab;
     public float shootsPerSecond;
     public bool continousShooting;
@@ -13,6 +13,7 @@ public class WeaponController : MonoBehaviour
     public Vector3 flameOffset;
     public Vector3 projectileAngularOffset;
     public float spreadRadius;
+    public Vector3 flameRotation;
 
     private bool triggerHold = false;
     private new Transform transform;
@@ -20,7 +21,7 @@ public class WeaponController : MonoBehaviour
 
     private void Awake()
     {
-        fireEffectPrefab.SetActive(false);
+        flamePrefab.SetActive(false);
         transform = GetComponent<Transform>();
     }
 
@@ -45,10 +46,11 @@ public class WeaponController : MonoBehaviour
         Destroy(projectile, 3);
         ProjectileController controller = projectile.GetComponent<ProjectileController>();
         controller.startSpeed = projectileSpeed;
-        GameObject fireEffect = Instantiate(fireEffectPrefab, transform.position, transform.rotation);
+        GameObject fireEffect = Instantiate(flamePrefab, transform.position, transform.rotation);
         fireEffect.transform.parent = transform;
-        fireEffect.SetActive(true);
         fireEffect.transform.Translate(flameOffset, Space.Self);
+        fireEffect.transform.Rotate(flameRotation);
+        fireEffect.SetActive(true);
         Destroy(fireEffect, (float)0.1);
     }
 

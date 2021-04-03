@@ -301,15 +301,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0feac5d23a1814b8f274de0660c439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireEffectPrefab: {fileID: 1362533273023082379, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
+  flamePrefab: {fileID: 1362533273023082379, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
   projectilePrefab: {fileID: 5938995904749229982, guid: 81544cc963d193144ba25ed7c3e96d4a, type: 3}
   shootsPerSecond: 10
   continousShooting: 1
   projectileSpeed: 250
-  projectileOffset: {x: 2, y: 0, z: 0}
+  projectileOffset: {x: -4, y: 0, z: 0}
   flameOffset: {x: 4, y: 0, z: 0}
   projectileAngularOffset: {x: 0, y: 2, z: -1}
   spreadRadius: 2
+  flameRotation: {x: 0, y: 90, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,6 +598,7 @@ GameObject:
   - component: {fileID: 1038125338}
   - component: {fileID: 1038125337}
   - component: {fileID: 1038125341}
+  - component: {fileID: 1038125342}
   m_Layer: 0
   m_Name: Refernce3
   m_TagString: Untagged
@@ -696,6 +698,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1038125342
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038125336}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1041469950
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,6 +824,7 @@ GameObject:
   - component: {fileID: 1042937934}
   - component: {fileID: 1042937933}
   - component: {fileID: 1042937937}
+  - component: {fileID: 1042937938}
   m_Layer: 0
   m_Name: Refernce2
   m_TagString: Untagged
@@ -908,6 +924,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1042937938
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042937932}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1104122825
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,6 +1239,7 @@ GameObject:
   - component: {fileID: 1338022376}
   - component: {fileID: 1338022375}
   - component: {fileID: 1338022379}
+  - component: {fileID: 1338022380}
   m_Layer: 0
   m_Name: Refernce1
   m_TagString: Untagged
@@ -1309,6 +1339,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1338022380
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338022374}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1873565037
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1661,6 +1704,7 @@ GameObject:
   - component: {fileID: 2064864492}
   - component: {fileID: 2064864491}
   - component: {fileID: 2064864495}
+  - component: {fileID: 2064864496}
   m_Layer: 0
   m_Name: Refernce4
   m_TagString: Untagged
@@ -1760,3 +1804,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &2064864496
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064864490}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_Center: {x: 0, y: 0, z: 0}
