@@ -101,10 +101,12 @@ public class PlayerController : MonoBehaviour
         if(context.started)
         {
             weaponController.startShoot();
+            playerAnimator.SetTrigger("Fire");
         }
         else if(context.canceled)
         {
             weaponController.stopShoot();
+            playerAnimator.SetTrigger("StopFire");
         }
     }
 
