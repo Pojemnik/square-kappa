@@ -1843,9 +1843,9 @@ PrefabInstance:
       value: 92.977
       objectReference: {fileID: 0}
     - target: {fileID: 8456810509085415533, guid: bc503eaa39318514089064651873f5f2, type: 3}
-      propertyPath: flamePrefab
-      value: 
-      objectReference: {fileID: 1362533273023082379, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
+      propertyPath: projectileOffset.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8763382052288514212, guid: bc503eaa39318514089064651873f5f2, type: 3}
       propertyPath: m_Name
       value: Chemirail

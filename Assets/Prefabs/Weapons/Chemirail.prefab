@@ -340,7 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0feac5d23a1814b8f274de0660c439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireEffectPrefab: {fileID: 1362533273023082379, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
+  flamePrefab: {fileID: 1362533273023082379, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
   projectilePrefab: {fileID: 5938995904749229982, guid: 81544cc963d193144ba25ed7c3e96d4a, type: 3}
   shootsPerSecond: 10
   continousShooting: 1
@@ -349,3 +349,4 @@ MonoBehaviour:
   flameOffset: {x: 4, y: 0, z: 0}
   projectileAngularOffset: {x: 0, y: 2, z: -1}
   spreadRadius: 2
+  flameRotation: {x: 0, y: 90, z: 0}

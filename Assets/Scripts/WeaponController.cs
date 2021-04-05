@@ -38,14 +38,13 @@ public class WeaponController : MonoBehaviour
     private void Shoot()
     {
         Vector3 spread = Random.insideUnitSphere * spreadRadius;
-        GameObject projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
-        projectile.transform.Translate(projectileOffset, Space.Self);
-        projectile.transform.Rotate(spread);
-        projectile.transform.Rotate(projectileAngularOffset);
+        Vector3 relativeOffset = projectileOffset.x * transform.forward +  projectileOffset.y * transform.right + projectileOffset.z * transform.up;
+        Quaternion relativeRotation = Quaternion.Euler(transform.TransformDirection(spread + projectileAngularOffset));
+        GameObject projectile = Instantiate(projectilePrefab, transform.position + relativeOffset, transform.rotation * relativeRotation);
         projectile.SetActive(true);
+        Rigidbody projectileRB = projectile.GetComponent<Rigidbody>();
+        projectileRB.AddRelativeForce(projectileSpeed, 0, 0, ForceMode.VelocityChange);
         Destroy(projectile, 3);
-        ProjectileController controller = projectile.GetComponent<ProjectileController>();
-        controller.startSpeed = projectileSpeed;
         GameObject fireEffect = Instantiate(flamePrefab, transform.position, transform.rotation);
         fireEffect.transform.parent = transform;
         fireEffect.transform.Translate(flameOffset, Space.Self);
