@@ -96,6 +96,11 @@ public class PlayerController : MonoBehaviour
         rawInputLook = new Vector2(-rawInputLook.y, -rawInputLook.x);
     }
 
+    public void LookAt(Vector3 direction)
+    {
+        rawInputLook = new Vector2(direction.x, direction.y);
+    }
+
     public void Fire(InputAction.CallbackContext context)
     {
         if(context.started)
