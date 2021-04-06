@@ -93,12 +93,13 @@ public class PlayerController : MonoBehaviour
     public void Look(InputAction.CallbackContext context)
     {
         rawInputLook = context.ReadValue<Vector2>();
-        rawInputLook = new Vector2(-rawInputLook.y, -rawInputLook.x);
+        //rawInputLook = new Vector2(-rawInputLook.y, -rawInputLook.x);
+        //print(rawInputLook);
     }
 
     public void LookAt(Vector3 direction)
     {
-        rawInputLook = new Vector2(direction.x, direction.y);
+        //rawInputLook = new Vector2(direction.x, direction.y);
     }
 
     public void Fire(InputAction.CallbackContext context)
@@ -131,10 +132,14 @@ public class PlayerController : MonoBehaviour
     private void RotatePlayer()
     {
         float deltaRoll = rollSpeed * Time.fixedDeltaTime * rawInputRoll;
-        Vector3 deltaLook = new Vector3(rawInputLook.x, 0, rawInputLook.y) * cameraSensitivity;
         rigidbody.AddRelativeTorque(0, deltaRoll, 0);
-        Quaternion targetRotation = rigidbody.rotation * Quaternion.Euler(deltaLook);
-        rigidbody.MoveRotation(targetRotation);
+        Vector2 deltaLook = rawInputLook * cameraSensitivity;
+        if (deltaLook != Vector2.zero)
+        {
+            Quaternion xRotation = Quaternion.AngleAxis(-deltaLook.x, Vector3.forward);
+            Quaternion yRotation = Quaternion.AngleAxis(-deltaLook.y, Vector3.right);
+            rigidbody.MoveRotation(rigidbody.rotation * xRotation * yRotation);
+        }
     }
 
     private void FixedUpdate()
