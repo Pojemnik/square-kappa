@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 rawInputXZ;
     private float rawInputY;
     private float rawInputRoll;
-    private Vector2 rawInputLook;
+    private Quaternion lookTarget;
     private Vector3 lastMoveDelta;
     private JetpackController jetpackController;
     private WeaponController weaponController;
@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         weaponController = weapon.GetComponent<WeaponController>();
+        lookTarget = rigidbody.rotation;
     }
 
     public void MoveXZ(InputAction.CallbackContext context)
@@ -90,16 +91,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Look(InputAction.CallbackContext context)
+    public void RelativeLook(InputAction.CallbackContext context)
     {
-        rawInputLook = context.ReadValue<Vector2>();
-        //rawInputLook = new Vector2(-rawInputLook.y, -rawInputLook.x);
-        //print(rawInputLook);
+        Vector2 rawInputLook = context.ReadValue<Vector2>();
+        Vector2 deltaLook = rawInputLook * cameraSensitivity;
+        if (deltaLook != Vector2.zero)
+        {
+            Quaternion xRotation = Quaternion.AngleAxis(-deltaLook.x, Vector3.forward);
+            Quaternion yRotation = Quaternion.AngleAxis(-deltaLook.y, Vector3.right);
+            lookTarget = rigidbody.rotation * xRotation * yRotation;
+        }
     }
 
     public void LookAt(Vector3 direction)
     {
-        //rawInputLook = new Vector2(direction.x, direction.y);
+        lookTarget = Quaternion.LookRotation(direction) * Quaternion.Euler(-90,0,0);
     }
 
     public void Fire(InputAction.CallbackContext context)
@@ -132,14 +138,8 @@ public class PlayerController : MonoBehaviour
     private void RotatePlayer()
     {
         float deltaRoll = rollSpeed * Time.fixedDeltaTime * rawInputRoll;
+        rigidbody.MoveRotation(lookTarget);
         rigidbody.AddRelativeTorque(0, deltaRoll, 0);
-        Vector2 deltaLook = rawInputLook * cameraSensitivity;
-        if (deltaLook != Vector2.zero)
-        {
-            Quaternion xRotation = Quaternion.AngleAxis(-deltaLook.x, Vector3.forward);
-            Quaternion yRotation = Quaternion.AngleAxis(-deltaLook.y, Vector3.right);
-            rigidbody.MoveRotation(rigidbody.rotation * xRotation * yRotation);
-        }
     }
 
     private void FixedUpdate()
