@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public GameObject jetpack = null;
     public Animator playerAnimator = null;
     public GameObject weapon = null;
+    public float weaponThrowForce;
 
     private new Rigidbody rigidbody;
     private Vector2 rawInputXZ;
@@ -110,6 +111,10 @@ public class PlayerController : MonoBehaviour
 
     public void Fire(InputAction.CallbackContext context)
     {
+        if(weapon == null || weaponController == null)
+        {
+            return;
+        }
         if (context.started)
         {
             weaponController.startShoot();
@@ -119,6 +124,14 @@ public class PlayerController : MonoBehaviour
         {
             weaponController.stopShoot();
             playerAnimator.SetTrigger("StopFire");
+        }
+    }
+
+    public void ActionOne(InputAction.CallbackContext context)
+    {
+        if(weapon != null)
+        {
+            DropWeapon();
         }
     }
 
@@ -140,6 +153,17 @@ public class PlayerController : MonoBehaviour
         float deltaRoll = rollSpeed * Time.fixedDeltaTime * rawInputRoll;
         rigidbody.MoveRotation(lookTarget * Quaternion.Euler(0, deltaRoll, 0));
         lookTarget = rigidbody.rotation;
+    }
+
+    private void DropWeapon()
+    {
+        Rigidbody weaponRB = weapon.GetComponent<Rigidbody>();
+        weaponRB.isKinematic = false;
+        weaponRB.AddRelativeForce(weaponThrowForce, 0, 0);
+        weaponRB.AddRelativeTorque(5, 7, 9);
+        weapon.transform.parent = null;
+        weapon = null;
+        weaponController = null;
     }
 
     private void FixedUpdate()

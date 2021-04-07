@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 380301330061350792}
   m_Layer: 0
   m_Name: ChemirailMissile
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
