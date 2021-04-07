@@ -169,8 +169,20 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.collider.gameObject.CompareTag("Item"))
             {
-                selectedItem = hit.collider.gameObject;
-                print(string.Format("Selected {0}", selectedItem.name));
+                if (selectedItem != hit.collider.gameObject)
+                {
+                    selectedItem = hit.collider.gameObject;
+                    selectedItem.GetComponent<PickableItem>().outline.enabled = true;
+                    print(string.Format("Selected {0}", selectedItem.name));
+                }
+            }
+        }
+        else
+        {
+            if (selectedItem)
+            {
+                selectedItem.GetComponent<PickableItem>().outline.enabled = false;
+                selectedItem = null;
             }
         }
     }
@@ -192,6 +204,7 @@ public class PlayerController : MonoBehaviour
         if (selectedItem)
         {
             weapon = selectedItem;
+            weapon.GetComponent<PickableItem>().outline.enabled = false;
             Rigidbody weaponRB = weapon.GetComponent<Rigidbody>();
             weaponRB.isKinematic = true;
             weapon.transform.parent = rightHand.transform;
