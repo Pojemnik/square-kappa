@@ -3079,10 +3079,6 @@ PrefabInstance:
       value: 92.977
       objectReference: {fileID: 0}
     - target: {fileID: 8456810509085415533, guid: bc503eaa39318514089064651873f5f2, type: 3}
-      propertyPath: projectileOffset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8456810509085415533, guid: bc503eaa39318514089064651873f5f2, type: 3}
       propertyPath: relativePosition.x
       value: -0.84014374
       objectReference: {fileID: 0}

@@ -15,10 +15,6 @@ public class WeaponController : MonoBehaviour
     public float spreadRadius;
     public Vector3 flameRotation;
 
-    [Header("Relative")]
-    public Vector3 relativePosition;
-    public Vector3 relativeRotation;
-
     private bool triggerHold = false;
     private new Transform transform;
     private float shootCooldown;

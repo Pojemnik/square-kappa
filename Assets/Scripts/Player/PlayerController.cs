@@ -170,6 +170,7 @@ public class PlayerController : MonoBehaviour
             if (hit.collider.gameObject.CompareTag("Item"))
             {
                 selectedItem = hit.collider.gameObject;
+                print(string.Format("Selected {0}", selectedItem.name));
             }
         }
     }
@@ -180,10 +181,12 @@ public class PlayerController : MonoBehaviour
         weaponRB.isKinematic = false;
         weaponRB.AddRelativeForce(weaponThrowForce, 0, 0);
         weaponRB.AddRelativeTorque(5, 7, 9);
+        weapon.layer = 0; //set layer to default
         weapon.transform.parent = null;
         weapon = null;
         weaponController = null;
     }
+
     private void PickWeapon()
     {
         if (selectedItem)
@@ -192,12 +195,14 @@ public class PlayerController : MonoBehaviour
             Rigidbody weaponRB = weapon.GetComponent<Rigidbody>();
             weaponRB.isKinematic = true;
             weapon.transform.parent = rightHand.transform;
+            weapon.layer = 6; //set layer to player layer
             weaponController = weapon.GetComponent<WeaponController>();
-            weapon.transform.localPosition = weaponController.relativePosition;
-            weapon.transform.localRotation = Quaternion.Euler(weaponController.relativeRotation);
+            PickableItem pickable = weapon.GetComponent<PickableItem>();
+            weapon.transform.localPosition = pickable.relativePosition;
+            weapon.transform.localRotation = Quaternion.Euler(pickable.relativeRotation);
+            selectedItem = null;
         }
     }
-
 
     private void FixedUpdate()
     {
