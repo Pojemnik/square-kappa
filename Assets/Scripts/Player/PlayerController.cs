@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public GameObject weapon = null;
     public float weaponThrowForce;
     public GameObject rightHand;
+    public float weaponPickupRange;
 
     private new Rigidbody rigidbody;
     private Vector2 rawInputXZ;
@@ -131,6 +133,10 @@ public class PlayerController : MonoBehaviour
 
     public void ActionOne(InputAction.CallbackContext context)
     {
+        if(!context.started)
+        {
+            return;
+        }
         if (weapon != null)
         {
             DropWeapon();
@@ -139,8 +145,25 @@ public class PlayerController : MonoBehaviour
 
     public void ActionTwo(InputAction.CallbackContext context)
     {
-        if (weapon == null)
+        if (!context.started)
         {
+            return;
+        }
+        if (weapon)
+        {
+            SwapWeapons();
+        }
+        else
+        {
+            PickWeapon();
+        }
+    }
+
+    private void SwapWeapons()
+    {
+        if (selectedItem)
+        {
+            DropWeapon();
             PickWeapon();
         }
     }
@@ -165,7 +188,7 @@ public class PlayerController : MonoBehaviour
         lookTarget = rigidbody.rotation;
         int layerMask = 1 << 6;
         layerMask = ~layerMask;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out RaycastHit hit, Mathf.Infinity, layerMask))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out RaycastHit hit, weaponPickupRange, layerMask))
         {
             if (hit.collider.gameObject.CompareTag("Item"))
             {
@@ -173,7 +196,6 @@ public class PlayerController : MonoBehaviour
                 {
                     selectedItem = hit.collider.gameObject;
                     selectedItem.GetComponent<PickableItem>().outline.enabled = true;
-                    print(string.Format("Selected {0}", selectedItem.name));
                 }
             }
         }
@@ -193,7 +215,7 @@ public class PlayerController : MonoBehaviour
         weaponRB.isKinematic = false;
         weaponRB.AddRelativeForce(weaponThrowForce, 0, 0);
         weaponRB.AddRelativeTorque(5, 7, 9);
-        weapon.layer = 0; //set layer to default
+        weapon.layer = 0; //default layer
         weapon.transform.parent = null;
         weapon = null;
         weaponController = null;
@@ -208,7 +230,7 @@ public class PlayerController : MonoBehaviour
             Rigidbody weaponRB = weapon.GetComponent<Rigidbody>();
             weaponRB.isKinematic = true;
             weapon.transform.parent = rightHand.transform;
-            weapon.layer = 6; //set layer to player layer
+            weapon.layer = 6; //player layer
             weaponController = weapon.GetComponent<WeaponController>();
             PickableItem pickable = weapon.GetComponent<PickableItem>();
             weapon.transform.localPosition = pickable.relativePosition;
