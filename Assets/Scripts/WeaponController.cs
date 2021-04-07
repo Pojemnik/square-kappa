@@ -15,6 +15,10 @@ public class WeaponController : MonoBehaviour
     public float spreadRadius;
     public Vector3 flameRotation;
 
+    [Header("Relative")]
+    public Vector3 relativePosition;
+    public Vector3 relativeRotation;
+
     private bool triggerHold = false;
     private new Transform transform;
     private float shootCooldown;
@@ -38,7 +42,7 @@ public class WeaponController : MonoBehaviour
     private void Shoot()
     {
         Vector3 spread = Random.insideUnitSphere * spreadRadius;
-        Vector3 relativeOffset = projectileOffset.x * transform.forward +  projectileOffset.y * transform.right + projectileOffset.z * transform.up;
+        Vector3 relativeOffset = projectileOffset.x * transform.forward + projectileOffset.y * transform.right + projectileOffset.z * transform.up;
         Quaternion relativeRotation = Quaternion.Euler(transform.TransformDirection(spread + projectileAngularOffset));
         GameObject projectile = Instantiate(projectilePrefab, transform.position + relativeOffset, transform.rotation * relativeRotation);
         projectile.SetActive(true);
@@ -55,15 +59,15 @@ public class WeaponController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(shootCooldown > 0)
+        if (shootCooldown > 0)
         {
             shootCooldown -= Time.fixedDeltaTime;
         }
-        if(triggerHold && shootCooldown <= 0)
+        if (triggerHold && shootCooldown <= 0)
         {
             Shoot();
             shootCooldown = (float)1 / shootsPerSecond;
-            if(!continousShooting)
+            if (!continousShooting)
             {
                 triggerHold = false;
             }

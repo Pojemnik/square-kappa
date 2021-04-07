@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public Animator playerAnimator = null;
     public GameObject weapon = null;
     public float weaponThrowForce;
+    public GameObject rightHand;
 
     private new Rigidbody rigidbody;
     private Vector2 rawInputXZ;
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 lastMoveDelta;
     private JetpackController jetpackController;
     private WeaponController weaponController;
+    private GameObject selectedItem;
 
     void Start()
     {
@@ -111,7 +113,7 @@ public class PlayerController : MonoBehaviour
 
     public void Fire(InputAction.CallbackContext context)
     {
-        if(weapon == null || weaponController == null)
+        if (weapon == null || weaponController == null)
         {
             return;
         }
@@ -129,9 +131,17 @@ public class PlayerController : MonoBehaviour
 
     public void ActionOne(InputAction.CallbackContext context)
     {
-        if(weapon != null)
+        if (weapon != null)
         {
             DropWeapon();
+        }
+    }
+
+    public void ActionTwo(InputAction.CallbackContext context)
+    {
+        if (weapon == null)
+        {
+            PickWeapon();
         }
     }
 
@@ -153,6 +163,15 @@ public class PlayerController : MonoBehaviour
         float deltaRoll = rollSpeed * Time.fixedDeltaTime * rawInputRoll;
         rigidbody.MoveRotation(lookTarget * Quaternion.Euler(0, deltaRoll, 0));
         lookTarget = rigidbody.rotation;
+        int layerMask = 1 << 6;
+        layerMask = ~layerMask;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out RaycastHit hit, Mathf.Infinity, layerMask))
+        {
+            if (hit.collider.gameObject.CompareTag("Item"))
+            {
+                selectedItem = hit.collider.gameObject;
+            }
+        }
     }
 
     private void DropWeapon()
@@ -165,6 +184,20 @@ public class PlayerController : MonoBehaviour
         weapon = null;
         weaponController = null;
     }
+    private void PickWeapon()
+    {
+        if (selectedItem)
+        {
+            weapon = selectedItem;
+            Rigidbody weaponRB = weapon.GetComponent<Rigidbody>();
+            weaponRB.isKinematic = true;
+            weapon.transform.parent = rightHand.transform;
+            weaponController = weapon.GetComponent<WeaponController>();
+            weapon.transform.localPosition = weaponController.relativePosition;
+            weapon.transform.localRotation = Quaternion.Euler(weaponController.relativeRotation);
+        }
+    }
+
 
     private void FixedUpdate()
     {
