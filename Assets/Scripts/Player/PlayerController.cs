@@ -105,17 +105,17 @@ public class PlayerController : MonoBehaviour
 
     public void LookAt(Vector3 direction)
     {
-        lookTarget = Quaternion.LookRotation(direction) * Quaternion.Euler(-90,0,0);
+        lookTarget = Quaternion.LookRotation(direction) * Quaternion.Euler(-90, 0, 0);
     }
 
     public void Fire(InputAction.CallbackContext context)
     {
-        if(context.started)
+        if (context.started)
         {
             weaponController.startShoot();
             playerAnimator.SetTrigger("Fire");
         }
-        else if(context.canceled)
+        else if (context.canceled)
         {
             weaponController.stopShoot();
             playerAnimator.SetTrigger("StopFire");
@@ -138,8 +138,8 @@ public class PlayerController : MonoBehaviour
     private void RotatePlayer()
     {
         float deltaRoll = rollSpeed * Time.fixedDeltaTime * rawInputRoll;
-        rigidbody.MoveRotation(lookTarget);
-        rigidbody.AddRelativeTorque(0, deltaRoll, 0);
+        rigidbody.MoveRotation(lookTarget * Quaternion.Euler(0, deltaRoll, 0));
+        lookTarget = rigidbody.rotation;
     }
 
     private void FixedUpdate()

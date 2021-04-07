@@ -1501,7 +1501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: {x: 50, y: 100, z: 50}
-  rollSpeed: 50
+  rollSpeed: 25
   cameraSensitivity: 0.4
   jetpack: {fileID: 343188622}
   playerAnimator: {fileID: 1873565039}
