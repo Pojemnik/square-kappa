@@ -308,6 +308,9 @@ GameObject:
   - component: {fileID: -6167557632125724416}
   - component: {fileID: -4399286686058453949}
   - component: {fileID: 2578028497287641176}
+  - component: {fileID: 1209723914497375081}
+  - component: {fileID: 6814518745184231787}
+  - component: {fileID: 4383466731469722432}
   m_Layer: 0
   m_Name: Chemirail
   m_TagString: Item
@@ -399,8 +402,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8.68973, y: 2.048961, z: 1}
-  m_Center: {x: 0.0010328293, y: -0.7769476, z: 0}
+  m_Size: {x: 6, y: 0.8, z: 0.5}
+  m_Center: {x: 1.4, y: -0.1, z: 0}
 --- !u!114 &2578028497287641176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,3 +419,42 @@ MonoBehaviour:
   relativePosition: {x: -0.84014374, y: 1.8507094, z: 0.11076574}
   relativeRotation: {x: 0.72698605, y: -0.000032179185, z: 92.977325}
   outline: {fileID: 926862414914682160}
+--- !u!65 &1209723914497375081
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8763382052288514212}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 2, z: 0.5}
+  m_Center: {x: -1.05, y: -0.7, z: 0}
+--- !u!65 &6814518745184231787
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8763382052288514212}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7, y: 2.2, z: 0.5}
+  m_Center: {x: 1.75, y: -0.8, z: 0}
+--- !u!65 &4383466731469722432
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8763382052288514212}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.8, y: 1.5, z: 0.5}
+  m_Center: {x: -3, y: -0.6, z: 0}
