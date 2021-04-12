@@ -186,7 +186,7 @@ public class PlayerController : MonoBehaviour
         float deltaRoll = rollSpeed * Time.fixedDeltaTime * rawInputRoll;
         rigidbody.MoveRotation(lookTarget * Quaternion.Euler(0, deltaRoll, 0));
         lookTarget = rigidbody.rotation;
-        int layerMask = 1 << 6;
+        int layerMask = 1 << 6 | 1 << 7; //do not include player and enemy layers
         layerMask = ~layerMask;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out RaycastHit hit, weaponPickupRange, layerMask))
         {
