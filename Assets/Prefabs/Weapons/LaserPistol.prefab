@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4010085492508274226}
   m_Layer: 0
   m_Name: LaserPistol
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5938995904749229982, guid: 81544cc963d193144ba25ed7c3e96d4a, type: 3}
   shootsPerSecond: 1
   continousShooting: 0
-  projectileSpeed: 10000
+  projectileSpeed: 100
   projectileOffset: {x: 0, y: 0, z: 0}
   flameOffset: {x: 4, y: 0, z: 0}
   projectileAngularOffset: {x: 0, y: 2, z: -1}

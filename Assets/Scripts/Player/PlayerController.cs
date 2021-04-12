@@ -190,6 +190,7 @@ public class PlayerController : MonoBehaviour
         layerMask = ~layerMask;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out RaycastHit hit, weaponPickupRange, layerMask))
         {
+            print(hit.collider.gameObject.name);
             if (hit.collider.gameObject.CompareTag("Item"))
             {
                 if (selectedItem != hit.collider.gameObject)
