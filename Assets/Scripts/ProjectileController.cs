@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour
 {
     public GameObject hitEffectPrefab;
+    public int damage;
 
     private new Rigidbody rigidbody;
     private new Collider collider;

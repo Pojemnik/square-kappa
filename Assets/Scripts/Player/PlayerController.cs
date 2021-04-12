@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private JetpackController jetpackController;
     private WeaponController weaponController;
     private GameObject selectedItem;
+    private Health health;
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         weaponController = weapon.GetComponent<WeaponController>();
         lookTarget = rigidbody.rotation;
+        health = GetComponent<Health>();
     }
 
     public void MoveXZ(InputAction.CallbackContext context)
@@ -237,6 +239,14 @@ public class PlayerController : MonoBehaviour
             weapon.transform.localPosition = pickable.relativePosition;
             weapon.transform.localRotation = Quaternion.Euler(pickable.relativeRotation);
             selectedItem = null;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if((collision.gameObject.layer == 8 && gameObject.layer == 7) || (collision.gameObject.layer == 9 && gameObject.layer == 6))
+        {
+            health.Damaged(collision.gameObject.GetComponent<ProjectileController>().damage);
         }
     }
 

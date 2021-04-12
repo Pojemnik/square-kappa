@@ -9,6 +9,11 @@ public class EnemyController : MonoBehaviour
     private PlayerController unitController;
     private new Rigidbody rigidbody;
 
+    public void OnDeath()
+    {
+        Destroy(gameObject);
+    }
+
     void Start()
     {
         unitController = GetComponent<PlayerController>();
