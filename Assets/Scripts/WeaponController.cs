@@ -41,6 +41,14 @@ public class WeaponController : MonoBehaviour
         Vector3 relativeOffset = projectileOffset.x * transform.forward + projectileOffset.y * transform.right + projectileOffset.z * transform.up;
         Quaternion relativeRotation = Quaternion.Euler(transform.TransformDirection(spread + projectileAngularOffset));
         GameObject projectile = Instantiate(projectilePrefab, transform.position + relativeOffset, transform.rotation * relativeRotation);
+        if(gameObject.layer == 6)
+        {
+            projectile.layer = 8;
+        }
+        else if(gameObject.layer == 7)
+        {
+            projectile.layer = 9;
+        }
         projectile.SetActive(true);
         Rigidbody projectileRB = projectile.GetComponent<Rigidbody>();
         projectileRB.AddRelativeForce(projectileSpeed, 0, 0, ForceMode.VelocityChange);
