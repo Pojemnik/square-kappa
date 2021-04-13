@@ -916,6 +916,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2944184331004176922, guid: ce504c29deef0084bbb6c18ab1db3820, type: 3}
+      propertyPath: speed.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944184331004176922, guid: ce504c29deef0084bbb6c18ab1db3820, type: 3}
+      propertyPath: speed.y
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944184331004176922, guid: ce504c29deef0084bbb6c18ab1db3820, type: 3}
+      propertyPath: speed.z
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 5314436662064659736, guid: ce504c29deef0084bbb6c18ab1db3820, type: 3}
       propertyPath: m_Layer
       value: 6
