@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public float cameraSensitivity;
     public GameObject jetpack = null;
     public Animator playerAnimator = null;
-    public GameObject weapon = null;
+    public GameObject currentWeapon = null;
     public float weaponThrowForce;
     public GameObject rightHand;
     public float weaponPickupRange;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private Quaternion lookTarget;
     private Vector3 lastMoveDelta;
     private JetpackController jetpackController;
-    private WeaponController weaponController;
+    private WeaponController currentWeaponController;
     private GameObject selectedItem;
     private Health health;
 
@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
         lastMoveDelta = Vector3.zero;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        weaponController = weapon.GetComponent<WeaponController>();
+        currentWeaponController = currentWeapon.GetComponent<WeaponController>();
         lookTarget = rigidbody.rotation;
         health = GetComponent<Health>();
     }
@@ -117,18 +117,18 @@ public class PlayerController : MonoBehaviour
 
     public void Fire(InputAction.CallbackContext context)
     {
-        if (weapon == null || weaponController == null)
+        if (currentWeapon == null || currentWeaponController == null)
         {
             return;
         }
         if (context.started)
         {
-            weaponController.startShoot();
+            currentWeaponController.startShoot();
             playerAnimator.SetTrigger("Fire");
         }
         else if (context.canceled)
         {
-            weaponController.stopShoot();
+            currentWeaponController.stopShoot();
             playerAnimator.SetTrigger("StopFire");
         }
     }
@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        if (weapon != null)
+        if (currentWeapon != null)
         {
             DropWeapon();
         }
@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        if (weapon)
+        if (currentWeapon)
         {
             SwapWeapons();
         }
@@ -214,35 +214,35 @@ public class PlayerController : MonoBehaviour
 
     private void DropWeapon()
     {
-        Rigidbody weaponRB = weapon.GetComponent<Rigidbody>();
+        Rigidbody weaponRB = currentWeapon.GetComponent<Rigidbody>();
         weaponRB.isKinematic = false;
         weaponRB.AddRelativeForce(weaponThrowForce, 0, 0);
         weaponRB.AddRelativeTorque(5, 7, 9);
-        weapon.layer = 0; //default layer
-        weapon.transform.parent = null;
-        weapon = null;
-        weaponController = null;
+        currentWeapon.layer = 0; //default layer
+        currentWeapon.transform.parent = null;
+        currentWeapon = null;
+        currentWeaponController = null;
     }
 
     private void PickWeapon()
     {
         if (selectedItem)
         {
-            weapon = selectedItem;
-            weapon.GetComponent<PickableItem>().outline.enabled = false;
-            Rigidbody weaponRB = weapon.GetComponent<Rigidbody>();
+            currentWeapon = selectedItem;
+            currentWeapon.GetComponent<PickableItem>().outline.enabled = false;
+            Rigidbody weaponRB = currentWeapon.GetComponent<Rigidbody>();
             weaponRB.isKinematic = true;
-            weapon.transform.parent = rightHand.transform;
-            weapon.layer = 6; //player layer
-            weaponController = weapon.GetComponent<WeaponController>();
-            PickableItem pickable = weapon.GetComponent<PickableItem>();
-            weapon.transform.localPosition = pickable.relativePosition;
-            weapon.transform.localRotation = Quaternion.Euler(pickable.relativeRotation);
+            currentWeapon.transform.parent = rightHand.transform;
+            currentWeapon.layer = 6; //player layer
+            currentWeaponController = currentWeapon.GetComponent<WeaponController>();
+            PickableItem pickable = currentWeapon.GetComponent<PickableItem>();
+            currentWeapon.transform.localPosition = pickable.relativePosition;
+            currentWeapon.transform.localRotation = Quaternion.Euler(pickable.relativeRotation);
             selectedItem = null;
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void OnCollisionEnter(Collision collision)
     {
         if((collision.gameObject.layer == 8 && gameObject.layer == 7) || (collision.gameObject.layer == 9 && gameObject.layer == 6))
         {

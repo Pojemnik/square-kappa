@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
+    [System.Serializable]
+    public enum WeaponSize
+    {
+        Small,
+        Big
+    }
+
     public GameObject flamePrefab;
     public GameObject projectilePrefab;
     public float shootsPerSecond;
@@ -14,6 +21,7 @@ public class WeaponController : MonoBehaviour
     public Vector3 projectileAngularOffset;
     public float spreadRadius;
     public Vector3 flameRotation;
+    public WeaponSize size;
 
     private bool triggerHold = false;
     private new Transform transform;
