@@ -6,6 +6,55 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [System.Serializable]
+    public class InventorySlot
+    {
+        public WeaponController.WeaponSize slotSize { get { return size; } }
+        public GameObject weapon { get { return weaponObject;  } }
+        public WeaponController controller { get { return controllerObject; } }
+        public bool empty { get { return weaponObject == null; } }
+
+        private GameObject weaponObject;
+        private WeaponController controllerObject;
+        private WeaponController.WeaponSize size;
+
+        public InventorySlot(WeaponController.WeaponSize weaponSize)
+        {
+            size = weaponSize;
+        }
+
+        public void AddWeapon(GameObject weapon)
+        {
+            if (empty)
+            {
+                WeaponController tempController = weapon.GetComponent<WeaponController>();
+                if(tempController.size != size)
+                {
+                    throw new Exception("Wrong weapon size!");
+                }
+                weaponObject = weapon;
+                controllerObject = tempController;
+                if(controllerObject == null)
+                {
+                    throw new Exception("No weapon controller in weapon!");
+                }
+            }
+            else
+            {
+                throw new Exception("Weapon slot already occupied");
+            }
+        }
+        public void RemoveWeapon()
+        {
+            if (weaponObject == null)
+            {
+                Debug.LogWarning("Removing empty weapon from inventory!");
+            }
+            weaponObject = null;
+            controllerObject = null;
+        }
+    }
+
     public Vector3 speed;
     public float rollSpeed;
     public float cameraSensitivity;
@@ -26,17 +75,24 @@ public class PlayerController : MonoBehaviour
     private WeaponController currentWeaponController;
     private GameObject selectedItem;
     private Health health;
+    private List<InventorySlot> inventory;
 
     void Start()
     {
+        //get components
         rigidbody = GetComponent<Rigidbody>();
         jetpackController = jetpack.GetComponent<JetpackController>();
+        currentWeaponController = currentWeapon.GetComponent<WeaponController>();
+        health = GetComponent<Health>();
+        //init camera
         lastMoveDelta = Vector3.zero;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        currentWeaponController = currentWeapon.GetComponent<WeaponController>();
         lookTarget = rigidbody.rotation;
-        health = GetComponent<Health>();
+        //init inventory
+        inventory.Add(new InventorySlot(WeaponController.WeaponSize.Big));
+        inventory.Add(new InventorySlot(WeaponController.WeaponSize.Small));
+        inventory.Add(new InventorySlot(WeaponController.WeaponSize.Small));
     }
 
     public void MoveXZ(InputAction.CallbackContext context)
@@ -135,7 +191,7 @@ public class PlayerController : MonoBehaviour
 
     public void ActionOne(InputAction.CallbackContext context)
     {
-        if(!context.started)
+        if (!context.started)
         {
             return;
         }
@@ -244,10 +300,14 @@ public class PlayerController : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if((collision.gameObject.layer == 8 && gameObject.layer == 7) || (collision.gameObject.layer == 9 && gameObject.layer == 6))
+        if ((collision.gameObject.layer == 8 && gameObject.layer == 7) || (collision.gameObject.layer == 9 && gameObject.layer == 6))
         {
             health.Damaged(collision.gameObject.GetComponent<ProjectileController>().damage);
         }
+    }
+
+    public void SelectWeapon1()
+    {
     }
 
     private void FixedUpdate()
