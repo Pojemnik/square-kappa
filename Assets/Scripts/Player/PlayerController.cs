@@ -387,7 +387,7 @@ public class PlayerController : MonoBehaviour
             if (inventory.AddWeapon(currentWeapon))
             {
                 //there is place for it in inventory
-                print(String.Format("Weapon {0} placed in inventory", currentWeapon.name));
+                //print(String.Format("Weapon {0} placed in inventory", currentWeapon.name));
                 currentWeapon.SetActive(false);
                 currentWeapon = null;
                 currentWeaponController = null;
@@ -395,7 +395,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 //there is no place
-                print(String.Format("No space in inventory. Dropping weapon {0}", currentWeapon.name));
+                //print(String.Format("No space in inventory. Dropping weapon {0}", currentWeapon.name));
                 DropWeapon();
             }
         }
@@ -403,7 +403,7 @@ public class PlayerController : MonoBehaviour
         {
             //take weapon from selected slot
             GrabWeapon(weapon);
-            print(String.Format("Taken weapon from inventory: {0}", weapon.name));
+            //print(String.Format("Taken weapon from inventory: {0}", weapon.name));
         }
     }
 
