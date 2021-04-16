@@ -7,10 +7,78 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [System.Serializable]
+    public class Inventory
+    {
+        private List<InventorySlot> smallSlots;
+        private List<InventorySlot> bigSlots;
+        private int totalSlots;
+        private int maxSmallSlots;
+        private int maxBigSlots;
+
+        public Inventory(int bigSlotsNumber, int smallSlotsNumber)
+        {
+            smallSlots = new List<InventorySlot>();
+            bigSlots = new List<InventorySlot>();
+            maxBigSlots = bigSlotsNumber;
+            maxSmallSlots = smallSlotsNumber;
+        }
+
+        public bool AddWeapon(GameObject weapon)
+        {
+            WeaponController.WeaponSize size = weapon.GetComponent<WeaponController>().size;
+            if (size == WeaponController.WeaponSize.Small)
+            {
+                if (smallSlots.Count < maxSmallSlots)
+                {
+                    smallSlots.Add(new InventorySlot(WeaponController.WeaponSize.Small));
+                    smallSlots[smallSlots.Count - 1].AddWeapon(weapon);
+                    return true;
+                }
+            }
+            if (size == WeaponController.WeaponSize.Big)
+            {
+                if (bigSlots.Count < maxBigSlots)
+                {
+                    bigSlots.Add(new InventorySlot(WeaponController.WeaponSize.Big));
+                    bigSlots[bigSlots.Count - 1].AddWeapon(weapon);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public GameObject GetWeapon(int index)
+        {
+            if (maxBigSlots > index)
+            {
+                if (bigSlots.Count > index)
+                {
+                    GameObject weapon = bigSlots[index].weapon;
+                    bigSlots.RemoveAt(index);
+                    return weapon;
+                }
+                return null;
+            }
+            index -= maxBigSlots;
+            if (maxSmallSlots > index)
+            {
+                if (smallSlots.Count > index)
+                {
+                    GameObject weapon = smallSlots[index].weapon;
+                    smallSlots.RemoveAt(index);
+                    return weapon;
+                }
+                return null;
+            }
+            return null;
+        }
+    }
+
+    [System.Serializable]
     public class InventorySlot
     {
         public WeaponController.WeaponSize slotSize { get { return size; } }
-        public GameObject weapon { get { return weaponObject;  } }
+        public GameObject weapon { get { return weaponObject; } }
         public WeaponController controller { get { return controllerObject; } }
         public bool empty { get { return weaponObject == null; } }
 
@@ -28,13 +96,13 @@ public class PlayerController : MonoBehaviour
             if (empty)
             {
                 WeaponController tempController = weapon.GetComponent<WeaponController>();
-                if(tempController.size != size)
+                if (tempController.size != size)
                 {
                     throw new Exception("Wrong weapon size!");
                 }
                 weaponObject = weapon;
                 controllerObject = tempController;
-                if(controllerObject == null)
+                if (controllerObject == null)
                 {
                     throw new Exception("No weapon controller in weapon!");
                 }
@@ -75,9 +143,9 @@ public class PlayerController : MonoBehaviour
     private WeaponController currentWeaponController;
     private GameObject selectedItem;
     private Health health;
-    private List<InventorySlot> inventory;
+    private Inventory inventory;
 
-    void Start()
+    public void Start()
     {
         //get components
         rigidbody = GetComponent<Rigidbody>();
@@ -90,9 +158,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         lookTarget = rigidbody.rotation;
         //init inventory
-        inventory.Add(new InventorySlot(WeaponController.WeaponSize.Big));
-        inventory.Add(new InventorySlot(WeaponController.WeaponSize.Small));
-        inventory.Add(new InventorySlot(WeaponController.WeaponSize.Small));
+        inventory = new Inventory(1, 2);
     }
 
     public void MoveXZ(InputAction.CallbackContext context)
@@ -284,16 +350,7 @@ public class PlayerController : MonoBehaviour
     {
         if (selectedItem)
         {
-            currentWeapon = selectedItem;
-            currentWeapon.GetComponent<PickableItem>().outline.enabled = false;
-            Rigidbody weaponRB = currentWeapon.GetComponent<Rigidbody>();
-            weaponRB.isKinematic = true;
-            currentWeapon.transform.parent = rightHand.transform;
-            currentWeapon.layer = 6; //player layer
-            currentWeaponController = currentWeapon.GetComponent<WeaponController>();
-            PickableItem pickable = currentWeapon.GetComponent<PickableItem>();
-            currentWeapon.transform.localPosition = pickable.relativePosition;
-            currentWeapon.transform.localRotation = Quaternion.Euler(pickable.relativeRotation);
+            GrabWeapon(selectedItem);
             selectedItem = null;
         }
     }
@@ -306,9 +363,74 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void SelectWeapon1()
+    private void GrabWeapon(GameObject weapon)
     {
+        currentWeapon = weapon;
+        currentWeapon.SetActive(true);
+        currentWeapon.GetComponent<PickableItem>().outline.enabled = false;
+        Rigidbody weaponRB = currentWeapon.GetComponent<Rigidbody>();
+        weaponRB.isKinematic = true;
+        currentWeapon.transform.parent = rightHand.transform;
+        currentWeapon.layer = 6; //player layer
+        currentWeaponController = currentWeapon.GetComponent<WeaponController>();
+        PickableItem pickable = currentWeapon.GetComponent<PickableItem>();
+        currentWeapon.transform.localPosition = pickable.relativePosition;
+        currentWeapon.transform.localRotation = Quaternion.Euler(pickable.relativeRotation);
     }
+
+    private void SelectWeapon(int slot)
+    {
+        GameObject weapon = inventory.GetWeapon(slot);
+        if (currentWeapon)
+        {
+            //some weapon currently in hands
+            if (inventory.AddWeapon(currentWeapon))
+            {
+                //there is place for it in inventory
+                print(String.Format("Weapon {0} placed in inventory", currentWeapon.name));
+                currentWeapon.SetActive(false);
+                currentWeapon = null;
+                currentWeaponController = null;
+            }
+            else
+            {
+                //there is no place
+                print(String.Format("No space in inventory. Dropping weapon {0}", currentWeapon.name));
+                DropWeapon();
+            }
+        }
+        if (weapon)
+        {
+            //take weapon from selected slot
+            GrabWeapon(weapon);
+            print(String.Format("Taken weapon from inventory: {0}", weapon.name));
+        }
+    }
+
+    public void SelectWeapon1(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            SelectWeapon(0);
+        }
+    }
+
+    public void SelectWeapon2(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            SelectWeapon(1);
+        }
+    }
+
+    public void SelectWeapon3(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            SelectWeapon(2);
+        }
+    }
+
 
     private void FixedUpdate()
     {
