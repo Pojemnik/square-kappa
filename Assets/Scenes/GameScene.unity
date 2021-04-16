@@ -1005,7 +1005,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2 Empty (small weapon)
+  m_text: '-'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1144,7 +1144,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3 Empty (small weapon)
+  m_text: '-'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1443,7 +1443,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1 Empty (big weapon)
+  m_text: '-'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1686,6 +1686,34 @@ PrefabInstance:
       propertyPath: currentWeapon
       value: 
       objectReference: {fileID: 706849829}
+    - target: {fileID: 2944184331004176922, guid: ce504c29deef0084bbb6c18ab1db3820, type: 3}
+      propertyPath: inventoryChange.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944184331004176922, guid: ce504c29deef0084bbb6c18ab1db3820, type: 3}
+      propertyPath: inventoryChange.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944184331004176922, guid: ce504c29deef0084bbb6c18ab1db3820, type: 3}
+      propertyPath: inventoryChange.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2128844749}
+    - target: {fileID: 2944184331004176922, guid: ce504c29deef0084bbb6c18ab1db3820, type: 3}
+      propertyPath: inventoryChange.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944184331004176922, guid: ce504c29deef0084bbb6c18ab1db3820, type: 3}
+      propertyPath: inventoryChange.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AddWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944184331004176922, guid: ce504c29deef0084bbb6c18ab1db3820, type: 3}
+      propertyPath: inventoryChange.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InventoryDisplayController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944184331004176922, guid: ce504c29deef0084bbb6c18ab1db3820, type: 3}
+      propertyPath: inventoryChange.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5314436662064659736, guid: ce504c29deef0084bbb6c18ab1db3820, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -1890,6 +1918,7 @@ GameObject:
   - component: {fileID: 2128844746}
   - component: {fileID: 2128844748}
   - component: {fileID: 2128844747}
+  - component: {fileID: 2128844749}
   m_Layer: 5
   m_Name: InventoryDisplay
   m_TagString: Untagged
@@ -1957,6 +1986,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2128844745}
   m_CullTransparentMesh: 1
+--- !u!114 &2128844749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128844745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c627faf9a4ad6104783c6c35769d65f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotDescriptions:
+  - {fileID: 1948555799}
+  - {fileID: 1412874592}
+  - {fileID: 1685327062}
+  slotSizes: 010000000000000000000000
 --- !u!1001 &2138208665
 PrefabInstance:
   m_ObjectHideFlags: 0

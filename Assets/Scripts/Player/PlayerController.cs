@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
             maxSmallSlots = smallSlotsNumber;
         }
 
-        public bool AddWeapon(GameObject weapon)
+        public int AddWeapon(GameObject weapon)
         {
             WeaponController.WeaponSize size = weapon.GetComponent<WeaponController>().size;
             if (size == WeaponController.WeaponSize.Small)
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
                 {
                     smallSlots.Add(new InventorySlot(WeaponController.WeaponSize.Small));
                     smallSlots[smallSlots.Count - 1].AddWeapon(weapon);
-                    return true;
+                    return smallSlots.Count - 1 + maxBigSlots;
                 }
             }
             if (size == WeaponController.WeaponSize.Big)
@@ -41,10 +41,10 @@ public class PlayerController : MonoBehaviour
                 {
                     bigSlots.Add(new InventorySlot(WeaponController.WeaponSize.Big));
                     bigSlots[bigSlots.Count - 1].AddWeapon(weapon);
-                    return true;
+                    return bigSlots.Count - 1;
                 }
             }
-            return false;
+            return -1;
         }
 
         public GameObject GetWeapon(int index)
@@ -132,6 +132,7 @@ public class PlayerController : MonoBehaviour
     public float weaponThrowForce;
     public GameObject rightHand;
     public float weaponPickupRange;
+    public UnityEngine.Events.UnityEvent<int, string> inventoryChange;
 
     private new Rigidbody rigidbody;
     private Vector2 rawInputXZ;
@@ -384,10 +385,12 @@ public class PlayerController : MonoBehaviour
         if (currentWeapon)
         {
             //some weapon currently in hands
-            if (inventory.AddWeapon(currentWeapon))
+            int insertedSlot = inventory.AddWeapon(currentWeapon);
+            if (insertedSlot != -1)
             {
                 //there is place for it in inventory
                 //print(String.Format("Weapon {0} placed in inventory", currentWeapon.name));
+                inventoryChange.Invoke(insertedSlot, currentWeapon.name);
                 currentWeapon.SetActive(false);
                 currentWeapon = null;
                 currentWeaponController = null;
@@ -402,6 +405,7 @@ public class PlayerController : MonoBehaviour
         if (weapon)
         {
             //take weapon from selected slot
+            inventoryChange.Invoke(slot, "");
             GrabWeapon(weapon);
             //print(String.Format("Taken weapon from inventory: {0}", weapon.name));
         }
