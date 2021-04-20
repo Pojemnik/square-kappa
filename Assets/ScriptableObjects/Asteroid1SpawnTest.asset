@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fce12a0b1f63fc4a9904e2fee264e1b, type: 3}
+  m_Name: Asteroid1SpawnTest
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6961237039126682592, guid: a88ab8a6781bd834ebfebccf4bf464d8, type: 3}
+  spawnData:
+  - initalPosition: {x: 5, y: 5, z: 5}
+    initalSpeed: {x: 1, y: 0, z: 1}
+    initalAngularSpeed: {x: 2, y: 1, z: 0}
+    scale: {x: 100, y: 100, z: 100}
+  - initalPosition: {x: 2, y: 5, z: 1}
+    initalSpeed: {x: 1, y: 1, z: 0}
+    initalAngularSpeed: {x: 2, y: 2, z: 1}
+    scale: {x: 120, y: 120, z: 100}
+  - initalPosition: {x: 5, y: 1, z: 3}
+    initalSpeed: {x: 2, y: 1, z: 0}
+    initalAngularSpeed: {x: 1, y: 0, z: 3}
+    scale: {x: 90, y: 100, z: 130}
