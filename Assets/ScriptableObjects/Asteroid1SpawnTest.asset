@@ -14,24 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 6961237039126682592, guid: a88ab8a6781bd834ebfebccf4bf464d8, type: 3}
   spawnData:
-  - initalPosition: {x: 5, y: 5, z: 5}
-    initalSpeed: {x: 1, y: 3, z: 1}
+  - initalPosition: {x: 60, y: 20, z: 27}
+    initalSpeed: {x: 0, y: 1.7, z: 0}
     initalAngularSpeed: {x: 0, y: 1, z: 0}
     scale: {x: 100, y: 100, z: 100}
     orbitEnabled: 1
-    orbitCenter: {x: 2, y: 2, z: 2}
-    orbitForceMultipler: 1
-  - initalPosition: {x: 2, y: 5, z: 1}
-    initalSpeed: {x: 1, y: 1, z: 4}
+    orbitCenter: {x: 30, y: 20, z: 27}
+    orbitForceMultipler: 9000
+  - initalPosition: {x: -2, y: 20, z: 27}
+    initalSpeed: {x: 0, y: 0, z: 1.7}
     initalAngularSpeed: {x: 0, y: 2, z: 1}
     scale: {x: 120, y: 120, z: 100}
     orbitEnabled: 1
-    orbitCenter: {x: 2, y: 2, z: 2}
-    orbitForceMultipler: 1
-  - initalPosition: {x: 5, y: 1, z: 3}
-    initalSpeed: {x: 2, y: -2, z: 5}
+    orbitCenter: {x: 30, y: 20, z: 27}
+    orbitForceMultipler: 9000
+  - initalPosition: {x: 30, y: 47, z: 27}
+    initalSpeed: {x: 0, y: 1.7, z: 0}
     initalAngularSpeed: {x: 0, y: 0, z: 3}
     scale: {x: 90, y: 100, z: 130}
     orbitEnabled: 1
-    orbitCenter: {x: 2, y: 2, z: 2}
-    orbitForceMultipler: 1
+    orbitCenter: {x: 30, y: 20, z: 27}
+    orbitForceMultipler: 9000

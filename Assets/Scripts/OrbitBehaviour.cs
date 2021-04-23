@@ -18,9 +18,20 @@ public class OrbitBehaviour : MonoBehaviour
     void Start()
     {
         Vector3 towardsCenter = center - rigidbody.position;
+        Vector3 y, z;
+        if (towardsCenter.normalized == Vector3.right || towardsCenter.normalized == Vector3.left)
+        {
+            y = Vector3.Cross(towardsCenter.normalized, Vector3.up);
+            z = Vector3.Cross(towardsCenter.normalized, y);
+        }
+        else
+        {
+            y = Vector3.Cross(towardsCenter.normalized, Vector3.right);
+            z = Vector3.Cross(towardsCenter.normalized, y);
+        }
         rigidbody.AddForce(initialSpeed.x * towardsCenter.normalized, ForceMode.VelocityChange);
-        rigidbody.AddForce(initialSpeed.y * Vector3.up, ForceMode.VelocityChange);
-        rigidbody.AddForce(initialSpeed.z * Vector3.Cross(Vector3.up, towardsCenter.normalized), ForceMode.VelocityChange);
+        rigidbody.AddForce(initialSpeed.y * y, ForceMode.VelocityChange);
+        rigidbody.AddForce(initialSpeed.z * z, ForceMode.VelocityChange);
         rigidbody.AddForce(towardsCenter.normalized * forceMultipler / towardsCenter.sqrMagnitude, ForceMode.Acceleration);
     }
 
