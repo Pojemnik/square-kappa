@@ -9,9 +9,12 @@ public class ObjectSpawnData : ScriptableObject
     public class SpawnData
     {
         public Vector3 initalPosition;
-        public Vector3 initalSpeed = Vector3.zero;
+        public Vector3 initalSpeed;
         public Vector3 initalAngularSpeed;
-        public Vector3 scale = Vector3.one;
+        public Vector3 scale;
+        public bool orbitEnabled;
+        public Vector3 orbitCenter;
+        public float orbitForceMultipler;
     }
     public GameObject prefab;
     public List<SpawnData> spawnData;
