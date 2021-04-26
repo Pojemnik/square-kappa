@@ -3,7 +3,27 @@ guid: a95eaf23816119543a02a047e6bc6f89
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Aerial
+    second: {fileID: 2100000, guid: 8fa08505842cdab45a811bf37abe48ce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hull
+    second: {fileID: 2100000, guid: eef66c82fddb5a741b03686990127d71, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Panels
+    second: {fileID: 2100000, guid: fe9759c8af6932d40b24e2c616b430ef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Steel
+    second: {fileID: 2100000, guid: 7427fa80b60b04749b4dd21dc2843f23, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
