@@ -146,13 +146,23 @@ public class PlayerController : MonoBehaviour
     private Health health;
     private Inventory inventory;
 
-    public void Start()
+    private void Awake()
     {
         //get components
         rigidbody = GetComponent<Rigidbody>();
-        jetpackController = jetpack.GetComponent<JetpackController>();
-        currentWeaponController = currentWeapon.GetComponent<WeaponController>();
         health = GetComponent<Health>();
+        if (jetpack != null)
+        {
+            jetpackController = jetpack.GetComponent<JetpackController>();
+        }
+        if (currentWeapon != null)
+        {
+            currentWeaponController = currentWeapon.GetComponent<WeaponController>();
+        }
+    }
+
+    public void Start()
+    {
         //init camera
         lastMoveDelta = Vector3.zero;
         Cursor.visible = false;
