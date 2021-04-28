@@ -62,6 +62,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Action3",
+                    "type": "Button",
+                    "id": "848a2afd-5b81-4e46-a0ef-33963452aa5d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Weapon1",
                     "type": "Button",
                     "id": "14640a21-ed10-4472-93e0-63fafc943545",
@@ -381,6 +389,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Weapon3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fc481475-f632-4196-91ad-bd7e4603e6dd",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Action3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

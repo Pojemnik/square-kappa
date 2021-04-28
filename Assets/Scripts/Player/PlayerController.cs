@@ -133,6 +133,9 @@ public class PlayerController : MonoBehaviour
     public GameObject rightHand;
     public float weaponPickupRange;
     public UnityEngine.Events.UnityEvent<int, string> inventoryChange;
+    public float dashForceMultipler;
+    public float dashStopForceMultipler;
+    public float dashCooldownTime;
 
     private new Rigidbody rigidbody;
     private Vector2 rawInputXZ;
@@ -145,6 +148,8 @@ public class PlayerController : MonoBehaviour
     private GameObject selectedItem;
     private Health health;
     private Inventory inventory;
+    private bool canDash;
+    private bool dashMode;
 
     private void Awake()
     {
@@ -159,6 +164,7 @@ public class PlayerController : MonoBehaviour
         {
             currentWeaponController = currentWeapon.GetComponent<WeaponController>();
         }
+        canDash = true;
     }
 
     public void Start()
@@ -294,6 +300,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void ActionThree(InputAction.CallbackContext context)
+    {
+        if (context.started && canDash)
+        {
+            Time.timeScale = 0.2F;
+            dashMode = true;
+            return;
+        }
+        if (context.canceled)
+        {
+            dashMode = false;
+            Time.timeScale = 1;
+        }
+    }
+
     private void SwapWeapons()
     {
         if (selectedItem)
@@ -312,8 +333,19 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetTrigger("Stop");
             jetpackController.OnStop();
         }
+        if (dashMode && moveDelta != Vector3.zero)
+        {
+            print("Dashed");
+            StartCoroutine(dashCoroutine(moveDelta * dashForceMultipler));
+            dashMode = false;
+            canDash = false;
+            StartCoroutine(dashCooldownCoroutine(dashCooldownTime));
+        }
+        else
+        {
+            rigidbody.AddRelativeForce(moveDelta);
+        }
         lastMoveDelta = moveDelta;
-        rigidbody.AddRelativeForce(moveDelta);
     }
 
     private void RotatePlayer()
@@ -387,6 +419,21 @@ public class PlayerController : MonoBehaviour
         PickableItem pickable = currentWeapon.GetComponent<PickableItem>();
         currentWeapon.transform.localPosition = pickable.relativePosition;
         currentWeapon.transform.localRotation = Quaternion.Euler(pickable.relativeRotation);
+    }
+
+    private IEnumerator dashCoroutine(Vector3 force)
+    {
+        Time.timeScale = 1;
+        rigidbody.AddRelativeForce(force, ForceMode.VelocityChange);
+        yield return new WaitForSecondsRealtime(1);
+        rigidbody.AddRelativeForce(-force * dashStopForceMultipler, ForceMode.VelocityChange);
+    }
+
+    private IEnumerator dashCooldownCoroutine(float time)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        canDash = true;
+        print("Can dash now");
     }
 
     private void SelectWeapon(int slot)
