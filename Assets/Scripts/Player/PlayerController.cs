@@ -251,7 +251,7 @@ public class PlayerController : MonoBehaviour
 
     public void LookAt(Vector3 direction)
     {
-        lookTarget = Quaternion.LookRotation(direction) * Quaternion.Euler(-90, 0, 0);
+        lookTarget = Quaternion.LookRotation(direction) * Quaternion.Euler(90, 0, 0);
     }
 
     public void Fire(InputAction.CallbackContext context)
@@ -266,6 +266,24 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetTrigger("Fire");
         }
         else if (context.canceled)
+        {
+            currentWeaponController.stopShoot();
+            playerAnimator.SetTrigger("StopFire");
+        }
+    }
+
+    public void Fire(bool state)
+    {
+        if (currentWeapon == null || currentWeaponController == null)
+        {
+            return;
+        }
+        if (state)
+        {
+            currentWeaponController.startShoot();
+            playerAnimator.SetTrigger("Fire");
+        }
+        else
         {
             currentWeaponController.stopShoot();
             playerAnimator.SetTrigger("StopFire");
@@ -313,6 +331,14 @@ public class PlayerController : MonoBehaviour
             dashMode = false;
             Time.timeScale = 1;
         }
+    }
+
+    public void MoveTowards(Vector3 direction)
+    {
+        direction = direction.normalized;
+        direction = transform.right * direction.x + transform.up * direction.y + transform.forward * direction.z;
+        rawInputXZ = new Vector3(direction.x, -direction.z);
+        rawInputY = direction.y;
     }
 
     private void SwapWeapons()
