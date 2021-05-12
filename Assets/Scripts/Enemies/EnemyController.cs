@@ -35,19 +35,32 @@ public class EnemyController : MonoBehaviour
             print("Too far to see");
             return;
         }
-        if (Physics.Raycast(transform.position, positionDelta, visionRange, layerMask))
+        RaycastHit raycastHit;
+        if (Physics.Raycast(transform.position, positionDelta, out raycastHit, visionRange, layerMask))
         {
-            if (positionDelta.magnitude < shootingRange)
+            //Player hit
+            if(raycastHit.transform.gameObject.layer == 6)
             {
-                unitController.Fire(true);
-                unitController.MoveTowards(Vector3.zero);
-                print("fire");
+                if (positionDelta.magnitude < shootingRange)
+                {
+                    //unitController.Fire(true);
+                    unitController.MoveTowards(Vector3.zero);
+                    print("fire");
+                }
+                else
+                {
+                    //unitController.Fire(false);
+                    unitController.MoveTowards(positionDelta);
+                }
             }
             else
             {
-                unitController.Fire(false);
-                unitController.MoveTowards(positionDelta);
+                print("Covered by an object");
             }
+        }
+        else
+        {
+            print("Error. Raycast hit nothing");
         }
     }
 }
