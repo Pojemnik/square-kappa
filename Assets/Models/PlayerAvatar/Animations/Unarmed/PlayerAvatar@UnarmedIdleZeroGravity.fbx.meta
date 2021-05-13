@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 6d1be36ff9efd7f47b40c77533d9917b
+guid: b1533ca3af79a5a4db5825f04fdfcaf1
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
-      74: -5863063741656754897
-    second: PlayerAvatarJetpackAnimationsTest
+      74: -3493364265033689556
+    second: PlayerAvatarUnarmedAnimations
   externalObjects: {}
   materials:
     materialImportMode: 2
