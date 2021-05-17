@@ -256,38 +256,34 @@ public class PlayerController : MonoBehaviour
 
     public void Fire(InputAction.CallbackContext context)
     {
-        if (currentWeapon == null || currentWeaponController == null)
-        {
-            return;
-        }
         if (context.started)
         {
-            currentWeaponController.startShoot();
-            playerAnimator.SetTrigger("Fire");
+            StartFire();
         }
         else if (context.canceled)
         {
-            currentWeaponController.stopShoot();
-            playerAnimator.SetTrigger("StopFire");
+            StopFire();
         }
     }
 
-    public void Fire(bool state)
+    public void StartFire()
     {
         if (currentWeapon == null || currentWeaponController == null)
         {
             return;
         }
-        if (state)
+        currentWeaponController.startShoot();
+        playerAnimator.SetTrigger("Fire");
+    }
+
+    public void StopFire()
+    {
+        if (currentWeapon == null || currentWeaponController == null)
         {
-            currentWeaponController.startShoot();
-            playerAnimator.SetTrigger("Fire");
+            return;
         }
-        else
-        {
-            currentWeaponController.stopShoot();
-            playerAnimator.SetTrigger("StopFire");
-        }
+        currentWeaponController.stopShoot();
+        playerAnimator.SetTrigger("StopFire");
     }
 
     public void ActionOne(InputAction.CallbackContext context)
@@ -314,7 +310,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            PickWeapon();
+            PickWeaponUp();
         }
     }
 
@@ -346,7 +342,7 @@ public class PlayerController : MonoBehaviour
         if (selectedItem)
         {
             DropWeapon();
-            PickWeapon();
+            PickWeaponUp();
         }
     }
 
@@ -362,10 +358,10 @@ public class PlayerController : MonoBehaviour
         if (dashMode && moveDelta != Vector3.zero)
         {
             print("Dashed");
-            StartCoroutine(dashCoroutine(moveDelta * dashForceMultipler));
+            StartCoroutine(DashCoroutine(moveDelta * dashForceMultipler));
             dashMode = false;
             canDash = false;
-            StartCoroutine(dashCooldownCoroutine(dashCooldownTime));
+            StartCoroutine(DashCooldownCoroutine(dashCooldownTime));
         }
         else
         {
@@ -379,18 +375,24 @@ public class PlayerController : MonoBehaviour
         float deltaRoll = rollSpeed * Time.fixedDeltaTime * rawInputRoll;
         rigidbody.MoveRotation(lookTarget * Quaternion.Euler(0, deltaRoll, 0));
         lookTarget = rigidbody.rotation;
-        int layerMask = 1 << 6 | 1 << 7; //do not include player and enemy layers
-        layerMask = ~layerMask;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out RaycastHit hit, weaponPickupRange, layerMask))
+    }
+
+    public void SelectWorldItem(GameObject item)
+    {
+        if(item)
         {
-            print(hit.collider.gameObject.name);
-            if (hit.collider.gameObject.CompareTag("Item"))
+            if (item.CompareTag("Item"))
             {
-                if (selectedItem != hit.collider.gameObject)
+                if (selectedItem != item)
                 {
-                    selectedItem = hit.collider.gameObject;
+                    selectedItem = item;
                     selectedItem.GetComponent<PickableItem>().outline.enabled = true;
                 }
+            }
+            else
+            {
+                //selectedItem.GetComponent<PickableItem>().outline.enabled = false;
+                selectedItem = null;
             }
         }
         else
@@ -413,9 +415,10 @@ public class PlayerController : MonoBehaviour
         currentWeapon.transform.parent = null;
         currentWeapon = null;
         currentWeaponController = null;
+        SetAnimatorLayer("Unarmed");
     }
 
-    private void PickWeapon()
+    private void PickWeaponUp()
     {
         if (selectedItem)
         {
@@ -442,12 +445,33 @@ public class PlayerController : MonoBehaviour
         currentWeapon.transform.parent = rightHand.transform;
         currentWeapon.layer = 6; //player layer
         currentWeaponController = currentWeapon.GetComponent<WeaponController>();
+        if(currentWeaponController.type == WeaponController.WeaponType.Rifle)
+        {
+            SetAnimatorLayer("Chemirail");
+        }
+        else if (currentWeaponController.type == WeaponController.WeaponType.Pistol)
+        {
+            SetAnimatorLayer("Laser Pistol");
+        }
         PickableItem pickable = currentWeapon.GetComponent<PickableItem>();
         currentWeapon.transform.localPosition = pickable.relativePosition;
         currentWeapon.transform.localRotation = Quaternion.Euler(pickable.relativeRotation);
     }
 
-    private IEnumerator dashCoroutine(Vector3 force)
+    private void SetAnimatorLayer(string name)
+    {
+        int index = playerAnimator.GetLayerIndex(name);
+        playerAnimator.SetLayerWeight(index, 1);
+        for(int i = 1; i < playerAnimator.layerCount; i++)
+        {
+            if(i != index)
+            {
+                playerAnimator.SetLayerWeight(i, 0);
+            }
+        }
+    }
+
+    private IEnumerator DashCoroutine(Vector3 force)
     {
         Time.timeScale = 1;
         rigidbody.AddRelativeForce(force, ForceMode.VelocityChange);
@@ -455,14 +479,14 @@ public class PlayerController : MonoBehaviour
         rigidbody.AddRelativeForce(-force * dashStopForceMultipler, ForceMode.VelocityChange);
     }
 
-    private IEnumerator dashCooldownCoroutine(float time)
+    private IEnumerator DashCooldownCoroutine(float time)
     {
         yield return new WaitForSecondsRealtime(time);
         canDash = true;
         print("Can dash now");
     }
 
-    private void SelectWeapon(int slot)
+    private void PickWeaponFromInventory(int slot)
     {
         GameObject weapon = inventory.GetWeapon(slot);
         if (currentWeapon)
@@ -494,30 +518,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void SelectWeapon1(InputAction.CallbackContext context)
+    public void PickWeapon1FromInventory(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            SelectWeapon(0);
+            PickWeaponFromInventory(0);
         }
     }
 
-    public void SelectWeapon2(InputAction.CallbackContext context)
+    public void PickWeapon2FromInventory(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            SelectWeapon(1);
+            PickWeaponFromInventory(1);
         }
     }
 
-    public void SelectWeapon3(InputAction.CallbackContext context)
+    public void PickWeapon3FromInventory(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            SelectWeapon(2);
+            PickWeaponFromInventory(2);
         }
     }
-
 
     private void FixedUpdate()
     {

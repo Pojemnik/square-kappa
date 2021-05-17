@@ -43,19 +43,19 @@ public class EnemyController : MonoBehaviour
             {
                 if (positionDelta.magnitude < shootingRange)
                 {
-                    //unitController.Fire(true);
+                    unitController.StartFire();
                     unitController.MoveTowards(Vector3.zero);
-                    print("fire");
+                    //print("fire");
                 }
                 else
                 {
-                    //unitController.Fire(false);
+                    unitController.StopFire();
                     unitController.MoveTowards(positionDelta);
                 }
             }
             else
             {
-                print("Covered by an object");
+                //print("Covered by an object");
             }
         }
         else
