@@ -256,38 +256,34 @@ public class PlayerController : MonoBehaviour
 
     public void Fire(InputAction.CallbackContext context)
     {
-        if (currentWeapon == null || currentWeaponController == null)
-        {
-            return;
-        }
         if (context.started)
         {
-            currentWeaponController.startShoot();
-            playerAnimator.SetTrigger("Fire");
+            StartFire();
         }
         else if (context.canceled)
         {
-            currentWeaponController.stopShoot();
-            playerAnimator.SetTrigger("StopFire");
+            StopFire();
         }
     }
 
-    public void Fire(bool state)
+    public void StartFire()
     {
         if (currentWeapon == null || currentWeaponController == null)
         {
             return;
         }
-        if (state)
+        currentWeaponController.startShoot();
+        playerAnimator.SetTrigger("Fire");
+    }
+
+    public void StopFire()
+    {
+        if (currentWeapon == null || currentWeaponController == null)
         {
-            currentWeaponController.startShoot();
-            playerAnimator.SetTrigger("Fire");
+            return;
         }
-        else
-        {
-            currentWeaponController.stopShoot();
-            playerAnimator.SetTrigger("StopFire");
-        }
+        currentWeaponController.stopShoot();
+        playerAnimator.SetTrigger("StopFire");
     }
 
     public void ActionOne(InputAction.CallbackContext context)

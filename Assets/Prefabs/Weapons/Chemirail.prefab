@@ -326,7 +326,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8763382052288514212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.84014374, y: 1.8507094, z: 0.11076574}
   m_LocalScale: {x: 0.11, y: 0.11, z: 0.11}
   m_Children:
   - {fileID: 1037741570220835456}
@@ -371,7 +371,7 @@ MonoBehaviour:
   continousShooting: 1
   projectileSpeed: 250
   projectileOffset: {x: 0, y: 0, z: 0}
-  flameOffset: {x: 4, y: 0, z: 0}
+  flameOffset: {x: 0.7, y: 0, z: 0}
   projectileAngularOffset: {x: 0, y: 2, z: -1}
   spreadRadius: 2
   flameRotation: {x: 0, y: 90, z: 0}

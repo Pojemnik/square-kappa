@@ -43,13 +43,13 @@ public class EnemyController : MonoBehaviour
             {
                 if (positionDelta.magnitude < shootingRange)
                 {
-                    //unitController.Fire(true);
+                    unitController.StartFire();
                     unitController.MoveTowards(Vector3.zero);
                     print("fire");
                 }
                 else
                 {
-                    //unitController.Fire(false);
+                    unitController.StopFire();
                     unitController.MoveTowards(positionDelta);
                 }
             }
