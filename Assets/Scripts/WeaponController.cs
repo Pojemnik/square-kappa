@@ -11,6 +11,13 @@ public class WeaponController : MonoBehaviour
         Big
     }
 
+    [System.Serializable]
+    public enum WeaponType
+    {
+        Pistol,
+        Rifle
+    }
+
     public GameObject flamePrefab;
     public GameObject projectilePrefab;
     public float shootsPerSecond;
@@ -22,6 +29,7 @@ public class WeaponController : MonoBehaviour
     public float spreadRadius;
     public Vector3 flameRotation;
     public WeaponSize size;
+    public WeaponType type;
 
     private bool triggerHold = false;
     private new Transform transform;

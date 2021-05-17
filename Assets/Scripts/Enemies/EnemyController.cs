@@ -45,7 +45,7 @@ public class EnemyController : MonoBehaviour
                 {
                     unitController.StartFire();
                     unitController.MoveTowards(Vector3.zero);
-                    print("fire");
+                    //print("fire");
                 }
                 else
                 {
@@ -55,7 +55,7 @@ public class EnemyController : MonoBehaviour
             }
             else
             {
-                print("Covered by an object");
+                //print("Covered by an object");
             }
         }
         else
