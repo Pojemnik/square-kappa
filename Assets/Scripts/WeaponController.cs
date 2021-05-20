@@ -65,16 +65,18 @@ public class WeaponController : MonoBehaviour
         {
             projectile.layer = 9;
         }
+        projectile.GetComponent<ProjectileController>().speed = projectileSpeed;
         projectile.SetActive(true);
-        Rigidbody projectileRB = projectile.GetComponent<Rigidbody>();
-        projectileRB.AddRelativeForce(projectileSpeed, 0, 0, ForceMode.VelocityChange);
         Destroy(projectile, 3);
-        GameObject fireEffect = Instantiate(flamePrefab, transform.position, transform.rotation);
-        fireEffect.transform.parent = transform;
-        fireEffect.transform.Translate(flameOffset, Space.Self);
-        fireEffect.transform.Rotate(flameRotation);
-        fireEffect.SetActive(true);
-        Destroy(fireEffect, (float)0.1);
+        if (flamePrefab)
+        {
+            GameObject fireEffect = Instantiate(flamePrefab, transform.position, transform.rotation);
+            fireEffect.transform.parent = transform;
+            fireEffect.transform.Translate(flameOffset, Space.Self);
+            fireEffect.transform.Rotate(flameRotation);
+            fireEffect.SetActive(true);
+            Destroy(fireEffect, 0.1F);
+        }
     }
 
     private void FixedUpdate()
@@ -86,7 +88,7 @@ public class WeaponController : MonoBehaviour
         if (triggerHold && shootCooldown <= 0)
         {
             Shoot();
-            shootCooldown = (float)1 / shootsPerSecond;
+            shootCooldown = 1F / shootsPerSecond;
             if (!continousShooting)
             {
                 triggerHold = false;
