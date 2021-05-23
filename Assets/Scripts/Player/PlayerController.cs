@@ -421,12 +421,11 @@ public class PlayerController : MonoBehaviour
                 if (selectedItem != item)
                 {
                     selectedItem = item;
-                    selectedItem.GetComponent<PickableItem>().outline.enabled = true;
+                    //selectedItem.GetComponent<PickableItem>().outline.enabled = true;
                 }
             }
             else
             {
-                //selectedItem.GetComponent<PickableItem>().outline.enabled = false;
                 selectedItem = null;
             }
         }
@@ -434,7 +433,7 @@ public class PlayerController : MonoBehaviour
         {
             if (selectedItem)
             {
-                selectedItem.GetComponent<PickableItem>().outline.enabled = false;
+                //selectedItem.GetComponent<PickableItem>().outline.enabled = false;
                 selectedItem = null;
             }
         }
@@ -445,9 +444,9 @@ public class PlayerController : MonoBehaviour
         Rigidbody weaponRB = currentWeapon.GetComponent<Rigidbody>();
         weaponRB.isKinematic = false;
         weaponRB.AddRelativeForce(weaponThrowForce, 0, 0);
-        weaponRB.AddRelativeTorque(5, 7, 9);
-        currentWeapon.layer = 0; //default layer
+        weaponRB.AddRelativeTorque(UnityEngine.Random.onUnitSphere);
         currentWeapon.transform.parent = null;
+        StartCoroutine(currentWeaponController.SetLayerAfterDelay(3F, 0));
         currentWeapon = null;
         currentWeaponController = null;
         SetAnimatorLayer("Unarmed");
@@ -474,7 +473,7 @@ public class PlayerController : MonoBehaviour
     {
         currentWeapon = weapon;
         currentWeapon.SetActive(true);
-        currentWeapon.GetComponent<PickableItem>().outline.enabled = false;
+        //currentWeapon.GetComponent<PickableItem>().outline.enabled = false;
         Rigidbody weaponRB = currentWeapon.GetComponent<Rigidbody>();
         weaponRB.isKinematic = true;
         currentWeapon.transform.parent = rightHand.transform;

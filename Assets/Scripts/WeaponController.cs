@@ -94,6 +94,12 @@ public class WeaponController : MonoBehaviour
         }
     }
 
+    public IEnumerator SetLayerAfterDelay(float time, int layer)
+    {
+        yield return new WaitForSeconds(time);
+        gameObject.layer = layer;
+    }
+
     private void FixedUpdate()
     {
         if (shootCooldown > 0)
