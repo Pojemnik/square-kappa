@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PickableItem))]
 public class WeaponController : MonoBehaviour
 {
     [System.Serializable]
@@ -31,12 +32,14 @@ public class WeaponController : MonoBehaviour
     public Vector3 projectileOffset;
     public Vector3 projectileAngularOffset;
     public float projectileScale;
+    public float projectileLifetime;
 
     [Header("Flame")]
     public GameObject flamePrefab;
     public Vector3 flameOffset;
     public Vector3 flameRotation;
     public float flameScale;
+    public float fireLifetime;
 
     private bool triggerHold = false;
     private new Transform transform;
@@ -75,7 +78,7 @@ public class WeaponController : MonoBehaviour
         projectile.GetComponent<ProjectileController>().speed = projectileSpeed;
         projectile.transform.localScale = Vector3.one * projectileScale;
         projectile.SetActive(true);
-        Destroy(projectile, 3);
+        Destroy(projectile, projectileLifetime);
         if (flamePrefab)
         {
             GameObject fireEffect = Instantiate(flamePrefab, transform.position, transform.rotation);
@@ -84,7 +87,7 @@ public class WeaponController : MonoBehaviour
             fireEffect.transform.Rotate(flameRotation);
             fireEffect.transform.localScale = Vector3.one * flameScale;
             fireEffect.SetActive(true);
-            Destroy(fireEffect, 0.1F);
+            Destroy(fireEffect, fireLifetime);
         }
     }
 

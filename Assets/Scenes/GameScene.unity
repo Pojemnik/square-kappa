@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 5.48
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: e940d82b9a46bc54f92ef357c7cfb4dc, type: 2}
@@ -836,13 +836,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8456810509085415533, guid: bc503eaa39318514089064651873f5f2, type: 3}
+      propertyPath: fireLifetime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8456810509085415533, guid: bc503eaa39318514089064651873f5f2, type: 3}
       propertyPath: projectileSpeed
-      value: 2
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8456810509085415533, guid: bc503eaa39318514089064651873f5f2, type: 3}
       propertyPath: projectilePrefab
       value: 
-      objectReference: {fileID: 281766771034090051, guid: fab229cdb83a24145ae63d0a056f0366, type: 3}
+      objectReference: {fileID: 692959159821720107, guid: 3ed9fa76de6d9054981c40126ad1bc62, type: 3}
+    - target: {fileID: 8456810509085415533, guid: bc503eaa39318514089064651873f5f2, type: 3}
+      propertyPath: projectileLifetime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8763382052288514212, guid: bc503eaa39318514089064651873f5f2, type: 3}
       propertyPath: m_Name
       value: Chemirail
@@ -1883,6 +1891,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 438720392696130709, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: fireLifetime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 438720392696130709, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: projectileSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 438720392696130709, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 692959159821720107, guid: 3ed9fa76de6d9054981c40126ad1bc62, type: 3}
+    - target: {fileID: 438720392696130709, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: projectileLifetime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 781317423780084828, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -2117,7 +2141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693629, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8412931878982057301, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2727,7 +2751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2040443331860475148, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3442874551779767494, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: m_Name
@@ -2735,7 +2759,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7226788360657399152, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8456162584534755485, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: m_LocalPosition.x

@@ -6,6 +6,8 @@ public class ProjectileController : MonoBehaviour
 {
     public GameObject hitEffectPrefab;
     public int damage;
+    [HideInInspector]
     public int[] ignoredLayers;
+    [HideInInspector]
     public float speed;
 }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Collider))]
 public class RegularProjectileController : ProjectileController
 {
     private new Rigidbody rigidbody;
@@ -23,9 +25,7 @@ public class RegularProjectileController : ProjectileController
                 return;
             }
         }
-        Destroy(Instantiate(hitEffectPrefab, collision.GetContact(0).point, Quaternion.Euler(collision.GetContact(0).normal)), 1);
-        Destroy(rigidbody);
-        Destroy(collider);
-        Destroy(gameObject, 1);
+        Destroy(Instantiate(hitEffectPrefab, collision.GetContact(0).point, Quaternion.Euler(collision.GetContact(0).normal)), 5);
+        Destroy(gameObject);
     }
 }
