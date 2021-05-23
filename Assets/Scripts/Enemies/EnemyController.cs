@@ -30,7 +30,7 @@ public class EnemyController : MonoBehaviour
         Vector3 positionDelta = player.transform.position - rigidbody.position;
         unitController.LookAt(positionDelta);
         Debug.DrawRay(transform.position, positionDelta);
-        if(positionDelta.magnitude > visionRange)
+        if (positionDelta.magnitude > visionRange)
         {
             print("Too far to see");
             return;
@@ -39,18 +39,19 @@ public class EnemyController : MonoBehaviour
         if (Physics.Raycast(transform.position, positionDelta, out raycastHit, visionRange, layerMask))
         {
             //Player hit
-            if(raycastHit.transform.gameObject.layer == 6)
+            if (raycastHit.transform.gameObject.layer == 6)
             {
                 if (positionDelta.magnitude < shootingRange)
                 {
                     unitController.StartFire();
-                    unitController.MoveTowards(Vector3.zero);
-                    //print("fire");
+                    //unitController.MoveTowards(Vector3.zero);
+                    unitController.MoveRelative(Vector3.zero);
                 }
                 else
                 {
                     unitController.StopFire();
-                    unitController.MoveTowards(positionDelta);
+                    //unitController.MoveTowards(positionDelta);
+                    unitController.MoveRelative(new Vector3(0, 0, 1));
                 }
             }
             else

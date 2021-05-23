@@ -208,7 +208,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void MoveVertical(InputAction.CallbackContext context)
+    public void MoveY(InputAction.CallbackContext context)
     {
         if (context.ReadValue<float>() == 1)
         {
@@ -344,6 +344,16 @@ public class PlayerController : MonoBehaviour
         rawInputY = direction.y;
     }
 
+    public void MoveRelative(Vector3 direction)
+    {
+        if(direction != Vector3.zero)
+        {
+            direction = direction.normalized;
+        }
+        rawInputY = direction.y;
+        rawInputXZ = new Vector2(direction.x, direction.z);
+    }
+
     private void SwapWeapons()
     {
         if (selectedItem)
@@ -355,26 +365,40 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        Vector3 deltaSpeed = speed * Time.fixedDeltaTime;
-        Vector3 moveDelta = new Vector3(rawInputXZ.x * deltaSpeed.x, rawInputY * deltaSpeed.y, -rawInputXZ.y * deltaSpeed.z);
-        if (moveDelta == Vector3.zero && lastMoveDelta != Vector3.zero)
+        Vector3 speedWithTime = speed * Time.fixedDeltaTime;
+        Vector3 moveDelta = new Vector3(rawInputXZ.x * speedWithTime.x, rawInputY * speedWithTime.y, rawInputXZ.y * speedWithTime.z);
+        Vector3[] cameraCooridinates = cameraController.forwardVector;
+        if (moveDelta == Vector3.zero)
         {
-            playerAnimator.SetTrigger("Stop");
-            jetpackController.OnStop();
-        }
-        if (dashMode && moveDelta != Vector3.zero)
-        {
-            print("Dashed");
-            StartCoroutine(DashCoroutine(moveDelta * dashForceMultipler));
-            dashMode = false;
-            canDash = false;
-            StartCoroutine(DashCooldownCoroutine(dashCooldownTime));
+            if (lastMoveDelta != Vector3.zero)
+            {
+                playerAnimator.SetTrigger("Stop");
+                jetpackController.OnStop();
+            }
         }
         else
         {
-            rigidbody.AddRelativeForce(moveDelta);
+            if (dashMode)
+            {
+                print("Dashed");
+                StartCoroutine(DashCoroutine(LocalToGlobalMovement(moveDelta * dashForceMultipler, cameraCooridinates)));
+                dashMode = false;
+                canDash = false;
+                StartCoroutine(DashCooldownCoroutine(dashCooldownTime));
+            }
+            else
+            {
+                Vector3 globalDelta = LocalToGlobalMovement(moveDelta, cameraCooridinates);
+                rigidbody.AddForce(globalDelta);
+            }
         }
         lastMoveDelta = moveDelta;
+    }
+
+    private Vector3 LocalToGlobalMovement(Vector3 moveDelta, Vector3[] cameraCooridinates)
+    {
+        Vector3 globalDelta = cameraCooridinates[0] * moveDelta.x + cameraCooridinates[1] * moveDelta.y + cameraCooridinates[2] * moveDelta.z;
+        return globalDelta;
     }
 
     private void RotatePlayer()
@@ -481,9 +505,9 @@ public class PlayerController : MonoBehaviour
     private IEnumerator DashCoroutine(Vector3 force)
     {
         Time.timeScale = 1;
-        rigidbody.AddRelativeForce(force, ForceMode.VelocityChange);
+        rigidbody.AddForce(force, ForceMode.VelocityChange);
         yield return new WaitForSecondsRealtime(1);
-        rigidbody.AddRelativeForce(-force * dashStopForceMultipler, ForceMode.VelocityChange);
+        rigidbody.AddForce(-force * dashStopForceMultipler, ForceMode.VelocityChange);
     }
 
     private IEnumerator DashCooldownCoroutine(float time)

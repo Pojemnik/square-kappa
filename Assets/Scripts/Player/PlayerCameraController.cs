@@ -21,6 +21,11 @@ public class PlayerCameraController : MonoBehaviour
     }
     [HideInInspector]
     public float targettingRange;
+    [HideInInspector]
+    public Vector3[] forwardVector
+    {
+        get { return new Vector3[3] { transform.right, transform.up, transform.forward }; }
+    }
     public int[] ignoredLayers;
 
     private int layerMask;
@@ -28,8 +33,6 @@ public class PlayerCameraController : MonoBehaviour
     void Start()
     {
         CalculateLayerMask();
-        //layerMask = (1 << 6) | (1 << 7); //do not include player and enemy layers
-        //layerMask = ~layerMask;
     }
 
     void FixedUpdate()
