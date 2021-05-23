@@ -48,11 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0feac5d23a1814b8f274de0660c439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flamePrefab: {fileID: 0}
-  projectilePrefab: {fileID: 3761920593106355367, guid: 67ea47bfd4fcae641a9e5e7c43511ee9, type: 3}
+  flamePrefab: {fileID: 1362533273023082379, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
+  projectilePrefab: {fileID: 5938995904749229982, guid: 81544cc963d193144ba25ed7c3e96d4a, type: 3}
   shootsPerSecond: 1
   continousShooting: 0
-  projectileSpeed: 0
+  projectileSpeed: 100
   projectileOffset: {x: 0, y: 0, z: 0}
   flameOffset: {x: 4, y: 0, z: 0}
   projectileAngularOffset: {x: 0, y: 2, z: -1}
@@ -72,8 +72,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f63eb59c9798bd74d83f76edc4e1138e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relativePosition: {x: -0.84014374, y: 1.8507094, z: 0.11076574}
-  relativeRotation: {x: 0.72698605, y: -0.000032179185, z: 92.977325}
+  relativePosition: {x: -0.789, y: 2.43, z: 0.264}
+  relativeRotation: {x: 0.7269861, y: -0.00003207245, z: 92.97733}
   outline: {fileID: 5831299402284343466}
 --- !u!65 &7147382110946266112
 BoxCollider:
