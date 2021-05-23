@@ -361,7 +361,7 @@ MonoBehaviour:
   flameOffset: {x: 0.7, y: 0, z: 0}
   flameRotation: {x: 0, y: 90, z: 0}
   flameScale: 0.1
-  fireLifetime: 0
+  fireLifetime: 0.2
 --- !u!54 &-6167557632125724416
 Rigidbody:
   m_ObjectHideFlags: 0
