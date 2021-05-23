@@ -41,6 +41,8 @@ public class WeaponController : MonoBehaviour
     public float flameScale;
     public float fireLifetime;
 
+    public Quaternion projectileDirection;
+
     private bool triggerHold = false;
     private new Transform transform;
     private float shootCooldown;
@@ -66,7 +68,8 @@ public class WeaponController : MonoBehaviour
         Vector3 spread = Random.insideUnitSphere * spreadRadius;
         Vector3 relativeOffset = projectileOffset.x * transform.forward + projectileOffset.y * transform.right + projectileOffset.z * transform.up;
         Quaternion relativeRotation = Quaternion.Euler(transform.TransformDirection(spread + projectileAngularOffset));
-        GameObject projectile = Instantiate(projectilePrefab, transform.position + relativeOffset, transform.rotation * relativeRotation);
+        GameObject projectile = Instantiate(projectilePrefab, transform.position + relativeOffset, projectileDirection * relativeRotation);
+        print((transform.rotation * relativeRotation).eulerAngles);
         if(gameObject.layer == 6)
         {
             projectile.layer = 8;
