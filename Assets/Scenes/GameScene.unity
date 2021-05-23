@@ -831,12 +831,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8456810509085415533, guid: bc503eaa39318514089064651873f5f2, type: 3}
-      propertyPath: fireLifetime
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8456810509085415533, guid: bc503eaa39318514089064651873f5f2, type: 3}
       propertyPath: projectileSpeed
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8456810509085415533, guid: bc503eaa39318514089064651873f5f2, type: 3}
       propertyPath: projectilePrefab
@@ -845,6 +841,14 @@ PrefabInstance:
     - target: {fileID: 8456810509085415533, guid: bc503eaa39318514089064651873f5f2, type: 3}
       propertyPath: projectileLifetime
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8456810509085415533, guid: bc503eaa39318514089064651873f5f2, type: 3}
+      propertyPath: projectileAngularOffset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8456810509085415533, guid: bc503eaa39318514089064651873f5f2, type: 3}
+      propertyPath: projectileAngularOffset.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8763382052288514212, guid: bc503eaa39318514089064651873f5f2, type: 3}
       propertyPath: m_Name
@@ -1898,7 +1902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 438720392696130709, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: projectileSpeed
-      value: 20
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 438720392696130709, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: projectilePrefab
@@ -1907,6 +1911,18 @@ PrefabInstance:
     - target: {fileID: 438720392696130709, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: projectileLifetime
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 438720392696130709, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: projectileOffset.y
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 438720392696130709, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: projectileAngularOffset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 438720392696130709, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: projectileAngularOffset.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 781317423780084828, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_Layer
@@ -2086,7 +2102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693617, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: visionRange
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693617, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: testAsteroid
@@ -2094,7 +2110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693617, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: shootingRange
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693619, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_RootOrder

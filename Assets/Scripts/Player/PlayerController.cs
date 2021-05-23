@@ -406,6 +406,10 @@ public class PlayerController : MonoBehaviour
         float deltaRoll = rollSpeed * Time.fixedDeltaTime * rawInputRoll;
         rigidbody.MoveRotation(lookTarget * Quaternion.Euler(0, deltaRoll, 0));
         lookTarget = rigidbody.rotation;
+        if(currentWeaponController)
+        {
+            currentWeaponController.projectileDirection = Quaternion.LookRotation(-cameraController.forwardVector[0], cameraController.forwardVector[1]);
+        }
     }
 
     private void SelectWorldItem(GameObject item)
