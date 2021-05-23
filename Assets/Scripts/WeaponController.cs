@@ -18,18 +18,25 @@ public class WeaponController : MonoBehaviour
         Rifle
     }
 
-    public GameObject flamePrefab;
-    public GameObject projectilePrefab;
+    [Header("Weapon parameters")]
     public float shootsPerSecond;
     public bool continousShooting;
-    public float projectileSpeed;
-    public Vector3 projectileOffset;
-    public Vector3 flameOffset;
-    public Vector3 projectileAngularOffset;
     public float spreadRadius;
-    public Vector3 flameRotation;
     public WeaponSize size;
     public WeaponType type;
+
+    [Header("Projectile")]
+    public GameObject projectilePrefab;
+    public float projectileSpeed;
+    public Vector3 projectileOffset;
+    public Vector3 projectileAngularOffset;
+    public float projectileScale;
+
+    [Header("Flame")]
+    public GameObject flamePrefab;
+    public Vector3 flameOffset;
+    public Vector3 flameRotation;
+    public float flameScale;
 
     private bool triggerHold = false;
     private new Transform transform;
@@ -66,6 +73,7 @@ public class WeaponController : MonoBehaviour
             projectile.layer = 9;
         }
         projectile.GetComponent<ProjectileController>().speed = projectileSpeed;
+        projectile.transform.localScale = Vector3.one * projectileScale;
         projectile.SetActive(true);
         Destroy(projectile, 3);
         if (flamePrefab)
@@ -74,6 +82,7 @@ public class WeaponController : MonoBehaviour
             fireEffect.transform.parent = transform;
             fireEffect.transform.Translate(flameOffset, Space.Self);
             fireEffect.transform.Rotate(flameRotation);
+            fireEffect.transform.localScale = Vector3.one * flameScale;
             fireEffect.SetActive(true);
             Destroy(fireEffect, 0.1F);
         }
