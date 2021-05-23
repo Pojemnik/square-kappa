@@ -129,13 +129,16 @@ public class PlayerController : MonoBehaviour
     public GameObject jetpack = null;
     public Animator playerAnimator = null;
     public GameObject currentWeapon = null;
-    public float weaponThrowForce;
     public GameObject rightHand;
-    public float weaponPickupRange;
     public UnityEngine.Events.UnityEvent<int, string> inventoryChange;
     public float dashForceMultipler;
     public float dashStopForceMultipler;
     public float dashCooldownTime;
+    public GameObject firstPresonCamera;
+
+    [Header("Item pickup")]
+    public float weaponPickupRange;
+    public float weaponThrowForce;
 
     private new Rigidbody rigidbody;
     private Vector2 rawInputXZ;
@@ -150,6 +153,7 @@ public class PlayerController : MonoBehaviour
     private Inventory inventory;
     private bool canDash;
     private bool dashMode;
+    private PlayerCameraController cameraController;
 
     private void Awake()
     {
@@ -165,6 +169,7 @@ public class PlayerController : MonoBehaviour
             currentWeaponController = currentWeapon.GetComponent<WeaponController>();
         }
         canDash = true;
+        cameraController = firstPresonCamera.GetComponent<PlayerCameraController>();
     }
 
     public void Start()
@@ -176,6 +181,8 @@ public class PlayerController : MonoBehaviour
         lookTarget = rigidbody.rotation;
         //init inventory
         inventory = new Inventory(1, 2);
+        cameraController.ignoredLayers = new int[2] { 6, 7 };
+        cameraController.targettingRange = weaponPickupRange;
     }
 
     public void MoveXZ(InputAction.CallbackContext context)
@@ -377,7 +384,7 @@ public class PlayerController : MonoBehaviour
         lookTarget = rigidbody.rotation;
     }
 
-    public void SelectWorldItem(GameObject item)
+    private void SelectWorldItem(GameObject item)
     {
         if(item)
         {
@@ -546,5 +553,9 @@ public class PlayerController : MonoBehaviour
     {
         MovePlayer();
         RotatePlayer();
+        if (cameraController)
+        {
+            SelectWorldItem(cameraController.targetItem);
+        }
     }
 }

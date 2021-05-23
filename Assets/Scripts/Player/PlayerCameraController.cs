@@ -4,27 +4,46 @@ using UnityEngine;
 
 public class PlayerCameraController : MonoBehaviour
 {
-    public GameObject player;
+    [HideInInspector]
+    public GameObject targetItem
+    {
+        get
+        {
+            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, targettingRange, layerMask))
+            {
+                return hit.collider.gameObject;
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
+    [HideInInspector]
+    public float targettingRange;
+    public int[] ignoredLayers;
 
-    private PlayerController playerController;
+    private int layerMask;
 
     void Start()
     {
-        playerController = player.GetComponent<PlayerController>();
+        CalculateLayerMask();
+        //layerMask = (1 << 6) | (1 << 7); //do not include player and enemy layers
+        //layerMask = ~layerMask;
     }
 
     void FixedUpdate()
     {
-        int layerMask = (1 << 6) | (1 << 7); //do not include player and enemy layers
-        layerMask = ~layerMask;
         Debug.DrawRay(transform.position, transform.forward, Color.magenta);
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, playerController.weaponPickupRange, layerMask))
+    }
+
+    private void CalculateLayerMask()
+    {
+        layerMask = 0;
+        foreach (int layer in ignoredLayers)
         {
-            playerController.SelectWorldItem(hit.collider.gameObject);
+            layerMask |= (1 << layer);
         }
-        else
-        {
-            playerController.SelectWorldItem(null);
-        }
+        layerMask = ~layerMask;
     }
 }
