@@ -1565,11 +1565,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 98455760828817492, guid: 19261387bce60da41a96e17ed8544884, type: 3}
       propertyPath: field of view
-      value: 50
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 98455760828817492, guid: 19261387bce60da41a96e17ed8544884, type: 3}
+      propertyPath: m_FOVAxisMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 98455760828817492, guid: 19261387bce60da41a96e17ed8544884, type: 3}
       propertyPath: m_FocalLength
-      value: 25.734083
+      value: 14.3010435
+      objectReference: {fileID: 0}
+    - target: {fileID: 98455760828817492, guid: 19261387bce60da41a96e17ed8544884, type: 3}
+      propertyPath: m_GateFitMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 858333051699750469, guid: 19261387bce60da41a96e17ed8544884, type: 3}
       propertyPath: m_Layer
