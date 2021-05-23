@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[System.Serializable]
+public class IntEvent : UnityEvent<int> {}
+
 public class Health : MonoBehaviour
 {
     public int maxHealth;
     public UnityEvent deathEvent;
-    public UnityEvent damageEvent;
+    public IntEvent healthChangeEvent;
 
     private int currentHealth;
 
@@ -19,7 +22,7 @@ public class Health : MonoBehaviour
     public void Damaged(int amount)
     {
         currentHealth -= amount;
-        damageEvent.Invoke();
+        healthChangeEvent.Invoke(currentHealth);
         if(currentHealth <= 0)
         {
             currentHealth = 0;

@@ -22,10 +22,14 @@ public class DisplayController : MonoBehaviour
 
     public void SetValue(int value)
     {
-        if(value > maxValue || value < 0)
+        if(value > maxValue)
         {
-            Debug.LogError("Incorrect value in display!");
+            Debug.LogError("Too high value in display!");
             return;
+        }
+        if(value < 0)
+        {
+            value = 0;
         }
         int i = 0;
         while(value > 0)
@@ -33,6 +37,16 @@ public class DisplayController : MonoBehaviour
             int d = value % 10;
             digits[i++].sprite = digitTextures[d];
             value /= 10;
+        }
+        //display zero if value = 0
+        if(i == 0)
+        {
+            digits[i++].sprite = digitTextures[0];
+        }
+        //do not display leading zeros
+        while (i < digits.Capacity)
+        {
+            digits[i++].enabled = false;
         }
     }
 }
