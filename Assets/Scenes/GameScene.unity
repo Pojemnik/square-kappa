@@ -740,6 +740,7 @@ GameObject:
   - component: {fileID: 650388826}
   - component: {fileID: 650388828}
   - component: {fileID: 650388827}
+  - component: {fileID: 650388829}
   m_Layer: 5
   m_Name: Crosshair
   m_TagString: Untagged
@@ -757,7 +758,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1104424665}
   m_Father: {fileID: 1041469954}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -804,6 +806,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 650388825}
   m_CullTransparentMesh: 1
+--- !u!114 &650388829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650388825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 393e77bc48051794d828abb164331636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitMarkerDisplayTime: 0.1
+  hitMarker: {fileID: 1104424664}
 --- !u!1001 &725844826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1409,7 +1425,6 @@ RectTransform:
   - {fileID: 650388826}
   - {fileID: 1209641059}
   - {fileID: 2128844746}
-  - {fileID: 1104424665}
   m_Father: {fileID: 0}
   m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1500,12 +1515,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1104424664}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1041469954}
-  m_RootOrder: 3
+  m_Father: {fileID: 650388826}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2413,15 +2428,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: healthChangeEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: healthChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: healthChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 650388829}
+    - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: healthChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: healthChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnEnemyHit
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: healthChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CrosshairController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: healthChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693617, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: player
