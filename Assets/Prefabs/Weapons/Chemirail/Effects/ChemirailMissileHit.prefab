@@ -285,7 +285,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 4
+      scalar: 8
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -976,7 +976,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 100
+        scalar: 50
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -3871,7 +3871,7 @@ ParticleSystem:
   LightsModule:
     enabled: 1
     ratio: 1
-    light: {fileID: 0}
+    light: {fileID: 2332891506585092958}
     randomDistribution: 1
     color: 1
     range: 1
@@ -3879,7 +3879,7 @@ ParticleSystem:
     rangeCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 10
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3932,7 +3932,7 @@ ParticleSystem:
     intensityCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 10
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4880,7 +4880,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1037425900621842703
 Transform:
   m_ObjectHideFlags: 0
@@ -4907,8 +4907,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 8
-  m_Range: 12
+  m_Intensity: 1
+  m_Range: 4
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
