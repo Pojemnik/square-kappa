@@ -688,8 +688,8 @@ Rigidbody:
   m_GameObject: {fileID: 8307458533412693629}
   serializedVersion: 2
   m_Mass: 0.5
-  m_Drag: 1
-  m_AngularDrag: 1
+  m_Drag: 0
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -707,7 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58809af716df9834092ee4f68708b242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: {x: 200, y: 200, z: 200}
+  speed: {x: 50, y: 50, z: 50}
   rollSpeed: 50
   cameraSensitivity: 0.2
   jetpack: {fileID: 9190558576262164462}
@@ -736,7 +736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  shootingRange: 40
+  shootingRange: 30
   visionRange: 200
 --- !u!114 &4104375640541538898
 MonoBehaviour:
