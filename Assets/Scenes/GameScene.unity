@@ -819,6 +819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitMarkerDisplayTime: 0.1
+  hitMarkerFadeTime: 0.1
   hitMarker: {fileID: 1104424664}
 --- !u!1001 &725844826
 PrefabInstance:
@@ -1507,7 +1508,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1104424665
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1547,7 +1548,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cbddc8415b9a2a045b2f796542e3ce74, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 584edc7b7e1e86045b7dd68fa643ff0b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2427,8 +2428,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: healthChangeEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 650388829}
+    - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnEnemyDeath
       objectReference: {fileID: 0}
     - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: healthChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -2447,8 +2468,16 @@ PrefabInstance:
       value: OnEnemyHit
       objectReference: {fileID: 0}
     - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: CrosshairController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: healthChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: CrosshairController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4104375640541538898, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: healthChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

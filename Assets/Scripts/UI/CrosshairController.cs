@@ -5,35 +5,34 @@ using UnityEngine;
 public class CrosshairController : MonoBehaviour
 {
     public float hitMarkerDisplayTime;
+    public float hitMarkerFadeTime;
     public GameObject hitMarker;
 
-    private int hits;
+    private UnityEngine.UI.Image hitMarkerImage;
 
     void Start()
     {
-        hits = 0;
+        hitMarkerImage = hitMarker.GetComponent<UnityEngine.UI.Image>();
+        hitMarkerImage.color = Color.clear;
     }
 
     public void OnEnemyHit()
     {
-        hitMarker.SetActive(true);
-        hits++;
+        hitMarkerImage.color = Color.white;
+        hitMarkerImage.CrossFadeAlpha(1, 0, true);
+        StartCoroutine(HideHitMarker(hitMarkerDisplayTime));
+    }
+
+    public void OnEnemyDeath()
+    {
+        hitMarkerImage.color = Color.red;
+        hitMarkerImage.CrossFadeAlpha(1, 0, true);
         StartCoroutine(HideHitMarker(hitMarkerDisplayTime));
     }
 
     private IEnumerator HideHitMarker(float time)
     {
         yield return new WaitForSecondsRealtime(time);
-        hits--;
-        if (hits == 0)
-        {
-            hitMarker.SetActive(false);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        hitMarkerImage.CrossFadeAlpha(0, hitMarkerFadeTime, true);
     }
 }
