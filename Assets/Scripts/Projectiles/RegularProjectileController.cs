@@ -13,7 +13,7 @@ public class RegularProjectileController : ProjectileController
     {
         rigidbody = GetComponent<Rigidbody>();
         collider = GetComponent<Collider>();
-        rigidbody.AddRelativeForce(speed, 0, 0, ForceMode.VelocityChange);
+        rigidbody.AddRelativeForce(0, 0, speed, ForceMode.VelocityChange);
     }
 
     private void OnCollisionEnter(Collision collision)

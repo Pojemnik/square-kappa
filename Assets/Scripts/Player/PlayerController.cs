@@ -408,7 +408,7 @@ public class PlayerController : MonoBehaviour
         lookTarget = rigidbody.rotation;
         if(currentWeaponController)
         {
-            currentWeaponController.projectileDirection = Quaternion.LookRotation(-cameraController.forwardVector[0], cameraController.forwardVector[1]);
+            currentWeaponController.projectileDirection = Quaternion.LookRotation(cameraController.forwardVector[2], cameraController.forwardVector[1]);
         }
     }
 

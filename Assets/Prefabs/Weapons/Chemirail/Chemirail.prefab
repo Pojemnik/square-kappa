@@ -57,12 +57,12 @@ MonoBehaviour:
   type: 1
   projectilePrefab: {fileID: 5938995904749229982, guid: 81544cc963d193144ba25ed7c3e96d4a, type: 3}
   projectileSpeed: 50
-  projectileOffset: {x: 0, y: 0.9, z: 0}
+  projectileOffset: {x: 0, y: 0, z: 0}
   projectileAngularOffset: {x: 0, y: 0, z: 0}
   projectileScale: 0.1
   projectileLifetime: 5
   flamePrefab: {fileID: 1362533273023082379, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
-  flameOffset: {x: 0.5, y: 0, z: 0}
+  flameOffset: {x: 0, y: 0, z: 0.55}
   flameRotation: {x: 0, y: 90, z: 0}
   flameScale: 0.1
   fireLifetime: 0.2
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   relativePosition: {x: -0.8460076, y: 2.2142096, z: 0.1656046}
-  relativeRotation: {x: 355.7261, y: 0.25122523, z: 86.73127}
+  relativeRotation: {x: 265.7261, y: 0.25122523, z: 86.73127}
   outline: {fileID: 0}
 --- !u!65 &1209723914497375081
 BoxCollider:

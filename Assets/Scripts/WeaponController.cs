@@ -66,7 +66,7 @@ public class WeaponController : MonoBehaviour
     private void Shoot()
     {
         Vector3 spread = Random.insideUnitSphere * spreadRadius;
-        Vector3 relativeOffset = projectileOffset.x * transform.forward + projectileOffset.y * transform.right + projectileOffset.z * transform.up;
+        Vector3 relativeOffset = projectileOffset.x * transform.right + projectileOffset.y * transform.up + projectileOffset.z * transform.forward;
         Quaternion relativeRotation = Quaternion.Euler(transform.TransformDirection(spread + projectileAngularOffset));
         GameObject projectile = Instantiate(projectilePrefab, transform.position + relativeOffset, projectileDirection * relativeRotation);
         if(gameObject.layer == 6)
