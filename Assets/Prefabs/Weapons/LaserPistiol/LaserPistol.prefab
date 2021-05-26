@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4710709793634388195}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.23921, y: 19.825699, z: 24.720737}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7323699056941967899}
@@ -64,6 +64,7 @@ MonoBehaviour:
   flameRotation: {x: 0, y: 90, z: 0}
   flameScale: 0
   fireLifetime: 0
+  projectileDirection: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1019652684330726460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,8 +91,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.6, y: 0.1, z: 0.1}
-  m_Center: {x: -0.025, y: 0, z: 0}
+  m_Size: {x: 0.1, y: 0.1, z: 0.6}
+  m_Center: {x: 0, y: 0, z: -0.025}
 --- !u!65 &3527605547195684927
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -103,8 +104,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.2, z: 0.04}
-  m_Center: {x: -0.15, y: -0.08, z: 0}
+  m_Size: {x: 0.04, y: 0.2, z: 0.1}
+  m_Center: {x: 0, y: -0.08, z: -0.15}
 --- !u!54 &4010085492508274226
 Rigidbody:
   m_ObjectHideFlags: 0
