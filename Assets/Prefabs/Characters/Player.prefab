@@ -447,9 +447,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  dashForceMultipler: 100
+  dashForceMultipler: 2
   dashStopForceMultipler: 0.25
-  dashCooldownTime: 10
+  dashCooldownTime: 2
   firstPresonCamera: {fileID: 7226788360657399152}
   weaponPickupRange: 1
   weaponThrowForce: 33
