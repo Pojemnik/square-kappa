@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fce12a0b1f63fc4a9904e2fee264e1b, type: 3}
+  m_Name: GeneratedData4
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 2873120454824665452, guid: 73006b74822c133498caa2ccbd9aab92, type: 3}
+  spawnData:
+  - initalPosition: {x: 0.0795858, y: -8.955239, z: 2.2757106}
+    initalSpeed: {x: 0, y: 2.4074497, z: 4.382258}
+    initalAngularSpeed: {x: -0.27771342, y: -0.057831723, z: -0.5517322}
+    scale: {x: 100.816925, y: 100.37738, z: 100.00668}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: 1.998769, y: -3.0682144, z: -8.920456}
+    initalSpeed: {x: 0, y: 0.4876727, z: 4.9761605}
+    initalAngularSpeed: {x: 0.49407986, y: -0.5883622, z: -0.3795778}
+    scale: {x: 99.3695, y: 99.53742, z: 99.50297}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: -1.3243792, y: -9.932689, z: 2.2769322}
+    initalSpeed: {x: 0, y: 4.8630123, z: 1.1623731}
+    initalAngularSpeed: {x: 0.440151, y: 0.44941017, z: 0.67590404}
+    scale: {x: 99.814865, y: 99.73321, z: 99.551865}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: 3.9298449, y: 8.705441, z: -1.3387746}
+    initalSpeed: {x: 0, y: 0.432325, z: 4.9812746}
+    initalAngularSpeed: {x: -0.60881615, y: -0.087047495, z: 0.15398887}
+    scale: {x: 99.9379, y: 99.10786, z: 100.18838}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: -1.1960688, y: -8.289809, z: 6.20705}
+    initalSpeed: {x: 0, y: 1.2338346, z: 4.845374}
+    initalAngularSpeed: {x: -0.6967383, y: -0.34682196, z: 0.50873077}
+    scale: {x: 100.15871, y: 100.800934, z: 100.26138}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: -8.163948, y: -3.860308, z: -4.6004496}
+    initalSpeed: {x: 0, y: 3.710649, z: 3.351281}
+    initalAngularSpeed: {x: -0.2967419, y: -0.26685768, z: 0.10106744}
+    scale: {x: 100.565506, y: 100.65563, z: 99.822876}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: 1.5784466, y: 8.886767, z: 4.8024387}
+    initalSpeed: {x: 0, y: 3.9590163, z: 3.0538812}
+    initalAngularSpeed: {x: -0.33886254, y: 0.32005146, z: 0.7903352}
+    scale: {x: 100.361046, y: 100.65797, z: 100.53831}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: 2.2008142, y: -5.919053, z: -8.527181}
+    initalSpeed: {x: 0, y: 0.8441478, z: 4.9282265}
+    initalAngularSpeed: {x: 0.3075523, y: 0.7678261, z: 0.16144472}
+    scale: {x: 100.06619, y: 100.61279, z: 99.50386}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: 7.51825, y: -3.1590335, z: -5.1600695}
+    initalSpeed: {x: 0, y: 3.3277183, z: 3.7317946}
+    initalAngularSpeed: {x: 0.65056103, y: -0.49314025, z: 0.042210285}
+    scale: {x: 99.34109, y: 99.28195, z: 99.84348}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: 5.7055283, y: -7.2806754, z: -3.910062}
+    initalSpeed: {x: 0, y: 4.8335123, z: 1.279515}
+    initalAngularSpeed: {x: -0.5099337, y: -0.0077936584, z: 0.49154797}
+    scale: {x: 100.17558, y: 99.49367, z: 99.513756}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: 3.961599, y: -8.043002, z: -3.9316049}
+    initalSpeed: {x: 0, y: 0.91952085, z: 4.914721}
+    initalAngularSpeed: {x: -0.44128636, y: 0.3543029, z: 0.13211735}
+    scale: {x: 100.734474, y: 100.02726, z: 99.713554}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: -2.1259923, y: -7.0274916, z: 8.02413}
+    initalSpeed: {x: 0, y: 4.6362877, z: 1.8721209}
+    initalAngularSpeed: {x: -0.09243712, y: 0.049915396, z: 0.58253676}
+    scale: {x: 99.95296, y: 100.682846, z: 100.46934}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9

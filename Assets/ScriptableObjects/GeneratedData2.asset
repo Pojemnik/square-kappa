@@ -1,0 +1,156 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fce12a0b1f63fc4a9904e2fee264e1b, type: 3}
+  m_Name: GeneratedData2
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6961237039126682592, guid: a88ab8a6781bd834ebfebccf4bf464d8, type: 3}
+  spawnData:
+  - initalPosition: {x: -5.20668, y: 4.409519, z: 7.5912075}
+    initalSpeed: {x: 0, y: 3.602137, z: 3.4676516}
+    initalAngularSpeed: {x: 0.70821834, y: 0.46549332, z: 0.5221695}
+    scale: {x: 300.36926, y: 300.0623, z: 300.55927}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: 6.884384, y: -4.575928, z: -3.8390064}
+    initalSpeed: {x: 0, y: 2.7446988, z: 4.1793094}
+    initalAngularSpeed: {x: -0.22940828, y: -0.2386656, z: -0.56366163}
+    scale: {x: 300.17477, y: 299.29816, z: 299.79388}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: -6.4612365, y: -7.013015, z: 4.3531084}
+    initalSpeed: {x: 0, y: 3.699698, z: 3.3633666}
+    initalAngularSpeed: {x: 0.000560416, y: -0.34224463, z: 0.35637146}
+    scale: {x: 299.5687, y: 299.74036, z: 300.1375}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: -9.299333, y: 1.2823372, z: -3.0250955}
+    initalSpeed: {x: 0, y: 0.034794807, z: 4.999879}
+    initalAngularSpeed: {x: -0.580828, y: -0.41136554, z: 0.0016167595}
+    scale: {x: 299.90442, y: 300.51462, z: 300.0688}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: 1.815613, y: -8.709657, z: -5.940728}
+    initalSpeed: {x: 0, y: 2.8014061, z: 4.1415124}
+    initalAngularSpeed: {x: -0.39594522, y: -0.42100835, z: -0.49787384}
+    scale: {x: 299.92465, y: 299.6313, z: 299.31668}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: -2.2862873, y: 7.7023277, z: -6.159797}
+    initalSpeed: {x: 0, y: 3.9635868, z: 3.0479467}
+    initalAngularSpeed: {x: 0.3463404, y: -0.47065747, z: 0.5208781}
+    scale: {x: 299.07687, y: 299.78772, z: 299.72034}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: -6.6915455, y: 1.5504483, z: 6.4692736}
+    initalSpeed: {x: 0, y: 4.097411, z: 2.8655229}
+    initalAngularSpeed: {x: 0.042046703, y: 0.28421703, z: 0.56446743}
+    scale: {x: 300.09766, y: 300.84644, z: 300.2825}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: -3.7554066, y: -9.866373, z: -0.21924762}
+    initalSpeed: {x: 0, y: 0.84781647, z: 4.9275966}
+    initalAngularSpeed: {x: -0.019291606, y: -0.9417688, z: -0.28592265}
+    scale: {x: 300.94727, y: 300.0638, z: 299.8613}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: 2.7134507, y: 7.1946125, z: 6.7114124}
+    initalSpeed: {x: 0, y: 3.9054518, z: 3.12209}
+    initalAngularSpeed: {x: 0.33241194, y: -0.15807697, z: 0.7710498}
+    scale: {x: 299.48642, y: 299.94067, z: 299.35016}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: -3.1423213, y: -3.4456522, z: -9.765175}
+    initalSpeed: {x: 0, y: 4.1404524, z: 2.8029723}
+    initalAngularSpeed: {x: 0.23910823, y: -0.096986584, z: -0.41247103}
+    scale: {x: 299.56128, y: 299.50504, z: 300.4257}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: 8.545964, y: -3.797917, z: 5.1511273}
+    initalSpeed: {x: 0, y: 4.3360705, z: 2.4896772}
+    initalAngularSpeed: {x: -0.2576819, y: -0.52858675, z: -0.75761944}
+    scale: {x: 299.80292, y: 300.64, z: 300.1277}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: -7.104268, y: 4.7692647, z: 4.433008}
+    initalSpeed: {x: 0, y: 3.5392332, z: 3.5318308}
+    initalAngularSpeed: {x: -0.011114755, y: -0.91200846, z: 0.020532714}
+    scale: {x: 300.18457, y: 299.88168, z: 299.22385}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: -7.457189, y: 0.60574394, z: 7.384176}
+    initalSpeed: {x: 0, y: 4.6523724, z: 1.8317837}
+    initalAngularSpeed: {x: 0.86951953, y: -0.29372996, z: -0.19824801}
+    scale: {x: 300.447, y: 299.78745, z: 300.26096}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: -9.300788, y: 3.9221761, z: 2.333272}
+    initalSpeed: {x: 0, y: 3.3255112, z: 3.7337615}
+    initalAngularSpeed: {x: -0.17605713, y: -0.81279516, z: 0.20046906}
+    scale: {x: 300.81995, y: 299.82492, z: 300.50995}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: 0.32878193, y: -10.22429, z: 3.7729611}
+    initalSpeed: {x: 0, y: 2.4829087, z: 4.3399496}
+    initalAngularSpeed: {x: 0.008123433, y: -0.6795343, z: 0.49530286}
+    scale: {x: 299.30142, y: 300.24792, z: 299.33075}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: -7.268237, y: -4.6376877, z: 4.658044}
+    initalSpeed: {x: 0, y: 4.2898493, z: 2.5685003}
+    initalAngularSpeed: {x: -0.5292552, y: 0.52756476, z: -0.6134263}
+    scale: {x: 300.5273, y: 299.68298, z: 299.80112}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: -10.724508, y: 1.3159328, z: 0.32825541}
+    initalSpeed: {x: 0, y: 2.7829995, z: 4.1539035}
+    initalAngularSpeed: {x: -0.2713634, y: 0.6359655, z: -0.45497614}
+    scale: {x: 299.30383, y: 300.0517, z: 300.23172}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: 8.72769, y: 3.068511, z: -0.8292686}
+    initalSpeed: {x: 0, y: 2.747713, z: 4.1773286}
+    initalAngularSpeed: {x: 0.35173893, y: -0.6340924, z: 0.16176492}
+    scale: {x: 300.20987, y: 300.0104, z: 300.8038}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: -4.960468, y: 7.5831323, z: 4.393451}
+    initalSpeed: {x: 0, y: 2.7319512, z: 4.1876535}
+    initalAngularSpeed: {x: 0.26261416, y: -0.0016613257, z: -0.1493121}
+    scale: {x: 299.72592, y: 299.15094, z: 300.17117}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
+  - initalPosition: {x: 4.435442, y: 0.18705261, z: -8.943429}
+    initalSpeed: {x: 0, y: 0.94578385, z: 4.9097347}
+    initalAngularSpeed: {x: -0.5195907, y: 0.3513682, z: 0.5599818}
+    scale: {x: 300.3569, y: 300.19592, z: 299.82526}
+    orbitEnabled: 1
+    orbitCenter: {x: 0, y: 0, z: 0}
+    orbitForceMultipler: 9
