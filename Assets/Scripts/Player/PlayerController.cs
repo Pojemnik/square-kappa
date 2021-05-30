@@ -142,6 +142,9 @@ public class PlayerController : MonoBehaviour
     public float weaponPickupRange;
     public float weaponThrowForce;
 
+    [Header("Events")]
+    public UnityEngine.Events.UnityEvent<Vector3> hitEvent;
+
     private new Rigidbody rigidbody;
     private Vector2 rawInputXZ;
     private float rawInputY;
@@ -488,6 +491,9 @@ public class PlayerController : MonoBehaviour
         if ((collision.gameObject.layer == 8 && gameObject.layer == 7) || (collision.gameObject.layer == 9 && gameObject.layer == 6))
         {
             health.Damaged(collision.gameObject.GetComponent<ProjectileController>().damage);
+            Vector3 collisionPoint = collision.GetContact(0).point;
+            Vector3 towardsCollision = collisionPoint - transform.position;
+            hitEvent.Invoke(towardsCollision);
         }
     }
 
