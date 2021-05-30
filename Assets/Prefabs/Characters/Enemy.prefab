@@ -721,6 +721,7 @@ MonoBehaviour:
   dashStopForceMultipler: 0
   dashCooldownTime: 0
   firstPresonCamera: {fileID: 4998033257216051909}
+  shootInCameraDirection: 1
   weaponPickupRange: 0
   weaponThrowForce: 0
 --- !u!114 &8307458533412693617
@@ -1868,7 +1869,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8456810509085415533, guid: bc503eaa39318514089064651873f5f2, type: 3}
       propertyPath: projectileOffset.x
-      value: 0
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8456810509085415533, guid: bc503eaa39318514089064651873f5f2, type: 3}
+      propertyPath: projectileOffset.y
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8763382052288514212, guid: bc503eaa39318514089064651873f5f2, type: 3}
       propertyPath: m_Name

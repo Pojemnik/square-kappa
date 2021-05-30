@@ -135,6 +135,7 @@ public class PlayerController : MonoBehaviour
     public float dashStopForceMultipler;
     public float dashCooldownTime;
     public GameObject firstPresonCamera;
+    public bool shootInCameraDirection = true;
 
     [Header("Item pickup")]
     public float weaponPickupRange;
@@ -408,7 +409,14 @@ public class PlayerController : MonoBehaviour
         lookTarget = rigidbody.rotation;
         if(currentWeaponController)
         {
-            currentWeaponController.projectileDirection = Quaternion.LookRotation(cameraController.forwardVector[2], cameraController.forwardVector[1]);
+            if (shootInCameraDirection)
+            {
+                currentWeaponController.projectileDirection = Quaternion.LookRotation(cameraController.forwardVector[2], cameraController.forwardVector[1]);
+            }
+            else
+            {
+                currentWeaponController.projectileDirection = Quaternion.LookRotation(transform.up, -transform.forward);
+            }
         }
     }
 
