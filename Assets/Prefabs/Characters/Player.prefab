@@ -425,7 +425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58809af716df9834092ee4f68708b242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: {x: 200, y: 200, z: 200}
+  speed: {x: 28000, y: 28000, z: 28000}
   rollSpeed: 25
   cameraSensitivity: 0.4
   jetpack: {fileID: 2552100881092469564}
@@ -447,10 +447,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  dashForceMultipler: 2
+  dashForceMultipler: 0.012
   dashStopForceMultipler: 0.25
   dashCooldownTime: 2
   firstPresonCamera: {fileID: 7226788360657399152}
+  shootInCameraDirection: 1
   weaponPickupRange: 1
   weaponThrowForce: 33
 --- !u!54 &5087437213990912334
@@ -461,7 +462,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3442874551779767494}
   serializedVersion: 2
-  m_Mass: 0.5
+  m_Mass: 70
   m_Drag: 1
   m_AngularDrag: 1
   m_UseGravity: 0
