@@ -45,7 +45,14 @@ public class OrbitSpawnGenerator : EditorWindow
                 return;
             }
             data.prefab = prefab;
-            data.spawnData.Clear();
+            if (data.spawnData != null)
+            {
+                data.spawnData.Clear();
+            }
+            else
+            {
+                data.spawnData = new System.Collections.Generic.List<ObjectSpawnData.SpawnData>();
+            }
             for(int i = 0; i < amount; i++)
             {
                 ObjectSpawnData.SpawnData temp = new ObjectSpawnData.SpawnData();
