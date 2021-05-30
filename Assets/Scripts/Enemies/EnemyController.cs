@@ -29,9 +29,7 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         Vector3 positionDelta = player.transform.position - rigidbody.position;
-        unitController.LookAt(positionDelta);
-        //Debug.DrawRay(rigidbody.position, transform.up, Color.green);
-        Debug.DrawRay(rigidbody.position, positionDelta);
+        unitController.SetLookTarget(positionDelta);
         if (positionDelta.magnitude > visionRange)
         {
             print("Too far to see");
@@ -63,5 +61,11 @@ public class EnemyController : MonoBehaviour
         {
             print("Error. Raycast hit nothing");
         }
+    }
+
+    private void FixedUpdate()
+    {
+        Debug.DrawRay(rigidbody.position, transform.up, Color.green);
+        Debug.DrawRay(rigidbody.position, player.transform.position - rigidbody.position, Color.red);
     }
 }

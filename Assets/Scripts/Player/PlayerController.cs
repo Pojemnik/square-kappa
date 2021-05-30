@@ -135,6 +135,7 @@ public class PlayerController : MonoBehaviour
     public float dashStopForceMultipler;
     public float dashCooldownTime;
     public GameObject firstPresonCamera;
+    [HideInInspector]
     public bool shootInCameraDirection = true;
 
     [Header("Item pickup")]
@@ -155,6 +156,7 @@ public class PlayerController : MonoBehaviour
     private bool canDash;
     private bool dashMode;
     private PlayerCameraController cameraController;
+    private Vector3 shootDirection;
 
     private void Awake()
     {
@@ -268,9 +270,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void LookAt(Vector3 direction)
+    public void SetLookTarget(Vector3 direction)
     {
         lookTarget = Quaternion.LookRotation(direction) * Quaternion.Euler(90, 0, 0);
+        shootDirection = direction;
     }
 
     public void Fire(InputAction.CallbackContext context)
@@ -426,7 +429,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                currentWeaponController.projectileDirection = Quaternion.LookRotation(transform.up, -transform.forward);
+                currentWeaponController.projectileDirection = Quaternion.LookRotation(shootDirection);
             }
         }
     }
