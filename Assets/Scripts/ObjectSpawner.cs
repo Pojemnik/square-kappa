@@ -18,10 +18,15 @@ public class ObjectSpawner : MonoBehaviour
                 if (spawn.orbitEnabled)
                 {
                     OrbitBehaviour orbit = o.GetComponent<OrbitBehaviour>();
+                    if(!orbit)
+                    {
+                       orbit =  o.AddComponent<OrbitBehaviour>();
+                    }
                     orbit.enabled = true;
-                    //orbit.position = spawn.orbitCenter;
-                    //orbit.gravity = spawn.orbitForceMultipler;
-                    //orbit.initialSpeed = spawn.initalSpeed;
+                    orbit.globalPosition = true;
+                    orbit.position = spawn.orbitCenter;
+                    orbit.gravity = spawn.orbitForceMultipler;
+                    orbit.initialSpeed = spawn.initalSpeed;
                 }
                 else
                 {
