@@ -63,7 +63,7 @@ MonoBehaviour:
   projectileLifetime: 5
   flamePrefab: {fileID: 1362533273023082379, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
   flameOffset: {x: 0, y: 0, z: 0.55}
-  flameRotation: {x: 0, y: 90, z: 0}
+  flameRotation: {x: 0, y: 0, z: 0}
   flameScale: 0.1
   fireLifetime: 0.2
   projectileDirection: {x: 0, y: 0, z: 0, w: 0}

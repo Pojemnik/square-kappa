@@ -184,6 +184,17 @@ public class PlayerController : MonoBehaviour
         inventory = new Inventory(1, 2);
         cameraController.ignoredLayers = new int[2] { 6, 7 };
         cameraController.targettingRange = weaponPickupRange;
+        if(currentWeapon != null)
+        {
+            if (currentWeaponController.type == WeaponController.WeaponType.Rifle)
+            {
+                SetAnimatorLayer("Chemirail");
+            }
+            else if (currentWeaponController.type == WeaponController.WeaponType.Pistol)
+            {
+                SetAnimatorLayer("Laser Pistol");
+            }
+        }
     }
 
     public void MoveXZ(InputAction.CallbackContext context)
