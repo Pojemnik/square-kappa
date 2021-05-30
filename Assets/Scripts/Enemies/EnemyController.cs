@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         unitController = GetComponent<PlayerController>();
+        unitController.shootInCameraDirection = false;
         rigidbody = GetComponent<Rigidbody>();
         layerMask = (1 << 7) | (1 << 8) | (1 << 9);
         layerMask = ~layerMask;
@@ -29,7 +30,8 @@ public class EnemyController : MonoBehaviour
     {
         Vector3 positionDelta = player.transform.position - rigidbody.position;
         unitController.LookAt(positionDelta);
-        Debug.DrawRay(transform.position, positionDelta);
+        //Debug.DrawRay(rigidbody.position, transform.up, Color.green);
+        Debug.DrawRay(rigidbody.position, positionDelta);
         if (positionDelta.magnitude > visionRange)
         {
             print("Too far to see");
