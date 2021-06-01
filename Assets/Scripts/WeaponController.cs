@@ -77,7 +77,9 @@ public class WeaponController : MonoBehaviour
         {
             projectile.layer = 9;
         }
-        projectile.GetComponent<ProjectileController>().speed = projectileSpeed;
+        ProjectileController projectileController = projectile.GetComponent<ProjectileController>();
+        projectileController.speed = projectileSpeed;
+        projectileController.direction = projectile.transform.forward;
         projectile.transform.localScale = Vector3.one * projectileScale;
         projectile.SetActive(true);
         Destroy(projectile, projectileLifetime);

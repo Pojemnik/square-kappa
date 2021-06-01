@@ -490,10 +490,9 @@ public class PlayerController : MonoBehaviour
     {
         if ((collision.gameObject.layer == 8 && gameObject.layer == 7) || (collision.gameObject.layer == 9 && gameObject.layer == 6))
         {
-            health.Damaged(collision.gameObject.GetComponent<ProjectileController>().damage);
-            Vector3 collisionPoint = collision.GetContact(0).point;
-            Vector3 towardsCollision = collisionPoint - transform.position;
-            hitEvent.Invoke(towardsCollision);
+            ProjectileController projectile = collision.gameObject.GetComponent<ProjectileController>();
+            health.Damaged(projectile.damage);
+            hitEvent.Invoke(projectile.direction);
         }
     }
 

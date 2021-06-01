@@ -13,15 +13,18 @@ public class CrosshairController : MonoBehaviour
     public float offsetFromCrosshair;
     public GameObject damageMarker;
 
-    private UnityEngine.UI.Image damageMarkerimage;
+    [Header("Player")]
+    public GameObject playerCenter;
+
+    private UnityEngine.UI.Image damageMarkerImage;
     private UnityEngine.UI.Image hitMarkerImage;
 
     void Start()
     {
         hitMarkerImage = hitMarker.GetComponent<UnityEngine.UI.Image>();
         hitMarkerImage.color = Color.clear;
-        damageMarkerimage = damageMarker.GetComponent<UnityEngine.UI.Image>();
-        damageMarkerimage.color = Color.clear;
+        damageMarkerImage = damageMarker.GetComponent<UnityEngine.UI.Image>();
+        //damageMarkerimage.color = Color.clear;
     }
 
     public void OnEnemyHit()
@@ -38,9 +41,12 @@ public class CrosshairController : MonoBehaviour
         StartCoroutine(HideHitMarker(hitMarkerDisplayTime));
     }
 
-    public void OnPlayerHit(Vector3 hitPosition)
+    public void OnPlayerHit(Vector3 projectileDirection)
     {
-        print(hitPosition);
+        Transform cameraTransform = Camera.main.transform;
+        Vector3 towardsHitPoint = -projectileDirection;
+        Vector2 screenPosition = new Vector2(Vector3.Dot(towardsHitPoint, cameraTransform.right), Vector3.Dot(towardsHitPoint, cameraTransform.up));
+        damageMarkerImage.rectTransform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(screenPosition.y, screenPosition.x) * Mathf.Rad2Deg + 90);
     }
 
     private IEnumerator HideHitMarker(float time)

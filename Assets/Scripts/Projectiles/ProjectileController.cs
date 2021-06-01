@@ -10,4 +10,6 @@ public class ProjectileController : MonoBehaviour
     public int[] ignoredLayers;
     [HideInInspector]
     public float speed;
+    [HideInInspector]
+    public Vector3 direction;
 }
