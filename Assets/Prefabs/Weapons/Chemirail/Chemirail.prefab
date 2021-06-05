@@ -52,7 +52,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootsPerSecond: 10
   continousShooting: 1
-  spreadRadius: 0.5
+  baseSpread: 0.5
+  spreadDecrease: 0.05
+  spreadIncrease: 0.1
   size: 1
   type: 1
   projectilePrefab: {fileID: 5938995904749229982, guid: 81544cc963d193144ba25ed7c3e96d4a, type: 3}

@@ -26,6 +26,7 @@ public class CrosshairController : MonoBehaviour
     [Header("Crosshair settings")]
     public float defaultRadius;
     public float radiusToSpreadRatio;
+    public float minimalRadius;
 
     private UnityEngine.UI.Image damageMarkerImage;
     private UnityEngine.UI.Image hitMarkerImage;
@@ -53,12 +54,16 @@ public class CrosshairController : MonoBehaviour
     {
         if(weapon)
         {
-            SetCrosshairRadius(weapon.spreadRadius * radiusToSpreadRatio);
+            SetCrosshairRadius(weapon.spread * radiusToSpreadRatio);
         }
     }
 
     void SetCrosshairRadius(float radius)
     {
+        if(radius < minimalRadius)
+        {
+            radius = minimalRadius;
+        }
         upLine.transform.localPosition = new Vector3(0, radius, 0);
         downLine.transform.localPosition = new Vector3(0, -radius, 0);
         leftLine.transform.localPosition = new Vector3(-radius, 0, 0);

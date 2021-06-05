@@ -22,7 +22,17 @@ public class WeaponController : MonoBehaviour
     [Header("Weapon parameters")]
     public float shootsPerSecond;
     public bool continousShooting;
-    public float spreadRadius;
+    [HideInInspector]
+    public float spread
+    {
+        get
+        {
+            return spreadRadius;
+        }
+    }
+    public float baseSpread;
+    public float spreadDecrease;
+    public float spreadIncrease;
     public WeaponSize size;
     public WeaponType type;
 
@@ -46,11 +56,13 @@ public class WeaponController : MonoBehaviour
     private bool triggerHold = false;
     private new Transform transform;
     private float shootCooldown;
+    private float spreadRadius;
 
     private void Awake()
     {
         flamePrefab.SetActive(false);
         transform = GetComponent<Transform>();
+        spreadRadius = baseSpread;
     }
 
     public void startShoot()
@@ -61,19 +73,20 @@ public class WeaponController : MonoBehaviour
     public void stopShoot()
     {
         triggerHold = false;
+        StartCoroutine(ReduceSpread(shootCooldown));
     }
 
     private void Shoot()
     {
-        Vector3 spread = Random.insideUnitSphere * spreadRadius;
+        Vector3 projectleSpread = Random.insideUnitSphere * spreadRadius;
         Vector3 relativeOffset = projectileOffset.x * transform.right + projectileOffset.y * transform.up + projectileOffset.z * transform.forward;
-        Quaternion relativeRotation = Quaternion.Euler(transform.TransformDirection(spread + projectileAngularOffset));
+        Quaternion relativeRotation = Quaternion.Euler(transform.TransformDirection(projectleSpread + projectileAngularOffset));
         GameObject projectile = Instantiate(projectilePrefab, transform.position + relativeOffset, projectileDirection * relativeRotation);
-        if(gameObject.layer == 6)
+        if (gameObject.layer == 6)
         {
             projectile.layer = 8;
         }
-        else if(gameObject.layer == 7)
+        else if (gameObject.layer == 7)
         {
             projectile.layer = 9;
         }
@@ -93,6 +106,7 @@ public class WeaponController : MonoBehaviour
             fireEffect.SetActive(true);
             Destroy(fireEffect, fireLifetime);
         }
+        spreadRadius += spreadIncrease;
     }
 
     public IEnumerator SetLayerAfterDelay(float time, int layer)
@@ -114,6 +128,23 @@ public class WeaponController : MonoBehaviour
             if (!continousShooting)
             {
                 triggerHold = false;
+            }
+        }
+    }
+
+    public IEnumerator ReduceSpread(float time)
+    {
+        yield return new WaitForSeconds(time);
+        if (!triggerHold)
+        {
+            spreadRadius -= spreadDecrease;
+            if (spreadRadius <= baseSpread)
+            {
+                spreadRadius = baseSpread;
+            }
+            else
+            {
+                StartCoroutine(ReduceSpread(time));
             }
         }
     }
