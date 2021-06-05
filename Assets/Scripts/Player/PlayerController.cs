@@ -144,6 +144,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Events")]
     public UnityEngine.Events.UnityEvent<Vector3> hitEvent;
+    public UnityEngine.Events.UnityEvent<WeaponController> weaponChangeEvent;
 
     private new Rigidbody rigidbody;
     private Vector2 rawInputXZ;
@@ -517,6 +518,7 @@ public class PlayerController : MonoBehaviour
         PickableItem pickable = currentWeapon.GetComponent<PickableItem>();
         currentWeapon.transform.localPosition = pickable.relativePosition;
         currentWeapon.transform.localRotation = Quaternion.Euler(pickable.relativeRotation);
+        weaponChangeEvent.Invoke(currentWeaponController);
     }
 
     private void SetAnimatorLayer(string name)

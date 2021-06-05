@@ -17,8 +17,24 @@ public class CrosshairController : MonoBehaviour
     [Header("Player")]
     public GameObject playerCenter;
 
+    [Header("Crosshair lines")]
+    public GameObject upLine;
+    public GameObject downLine;
+    public GameObject leftLine;
+    public GameObject rightLine;
+
+    [Header("Crosshair settings")]
+    public float defaultRadius;
+    public float radiusToSpreadRatio;
+
     private UnityEngine.UI.Image damageMarkerImage;
     private UnityEngine.UI.Image hitMarkerImage;
+    private UnityEngine.UI.Image upImage;
+    private UnityEngine.UI.Image downImage;
+    private UnityEngine.UI.Image leftImage;
+    private UnityEngine.UI.Image rightImage;
+
+    private WeaponController weapon;
 
     void Start()
     {
@@ -26,6 +42,27 @@ public class CrosshairController : MonoBehaviour
         hitMarkerImage.color = Color.clear;
         damageMarkerImage = damageMarkerPrefab.GetComponent<UnityEngine.UI.Image>();
         damageMarkerImage.CrossFadeAlpha(0, 0, true);
+        upImage = upLine.GetComponent<UnityEngine.UI.Image>();
+        downImage = downLine.GetComponent<UnityEngine.UI.Image>();
+        leftImage = leftLine.GetComponent<UnityEngine.UI.Image>();
+        rightImage = rightLine.GetComponent<UnityEngine.UI.Image>();
+        SetCrosshairRadius(defaultRadius);
+    }
+
+    private void Update()
+    {
+        if(weapon)
+        {
+            SetCrosshairRadius(weapon.spreadRadius * radiusToSpreadRatio);
+        }
+    }
+
+    void SetCrosshairRadius(float radius)
+    {
+        upLine.transform.localPosition = new Vector3(0, radius, 0);
+        downLine.transform.localPosition = new Vector3(0, -radius, 0);
+        leftLine.transform.localPosition = new Vector3(-radius, 0, 0);
+        rightLine.transform.localPosition = new Vector3(radius, 0, 0);
     }
 
     public void OnEnemyHit()
@@ -52,6 +89,11 @@ public class CrosshairController : MonoBehaviour
         damageMarkerImage.rectTransform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(screenPosition.y, screenPosition.x) * Mathf.Rad2Deg + 90);
         damageMarkerImage.CrossFadeAlpha(1, 0, true);
         StartCoroutine(HideDamageMarker(damageMarkerDisplayTime, damageMarkerImage));
+    }
+
+    public void OnWeaponChange(WeaponController newWeapon)
+    {
+        weapon = newWeapon;
     }
 
     private IEnumerator HideHitMarker(float time)
