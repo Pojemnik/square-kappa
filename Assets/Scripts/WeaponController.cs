@@ -31,6 +31,7 @@ public class WeaponController : MonoBehaviour
         }
     }
     public float baseSpread;
+    public float maxSpread;
     public float spreadDecrease;
     public float spreadIncrease;
     public WeaponSize size;
@@ -106,7 +107,14 @@ public class WeaponController : MonoBehaviour
             fireEffect.SetActive(true);
             Destroy(fireEffect, fireLifetime);
         }
-        spreadRadius += spreadIncrease;
+        if (spreadRadius < maxSpread)
+        {
+            spreadRadius += spreadIncrease;
+        }
+        else
+        {
+            spreadRadius = maxSpread;
+        }
     }
 
     public IEnumerator SetLayerAfterDelay(float time, int layer)

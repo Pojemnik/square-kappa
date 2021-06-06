@@ -53,6 +53,7 @@ MonoBehaviour:
   shootsPerSecond: 10
   continousShooting: 1
   baseSpread: 0.5
+  maxSpread: 8
   spreadDecrease: 0.05
   spreadIncrease: 0.1
   size: 1
