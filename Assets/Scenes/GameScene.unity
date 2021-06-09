@@ -5155,6 +5155,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1802519187}
     - target: {fileID: 3415701483049605099, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
+      propertyPath: owner
+      value: 
+      objectReference: {fileID: 384541754}
+    - target: {fileID: 3415701483049605099, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: jetpack
       value: 
       objectReference: {fileID: 1449892649}
@@ -5177,6 +5181,10 @@ PrefabInstance:
     - target: {fileID: 3415701483049605099, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: rollSpeed
       value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415701483049605099, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
+      propertyPath: cameraAiming
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3415701483049605099, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: cameraSensitivity

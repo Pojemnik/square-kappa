@@ -16,12 +16,13 @@ public class UnitMovement : MonoBehaviour
     private float cameraSensitivity;
 
     [Header("References")]
-    [SerializeField]
-    private Animator animator = null;
+    public Unit owner;
     [SerializeField]
     private GameObject jetpack = null;
     [SerializeField]
     private GameObject firstPresonCamera;
+    [SerializeField]
+    private bool cameraAiming;
 
     //input
     private Vector3 rawInput;
@@ -45,12 +46,12 @@ public class UnitMovement : MonoBehaviour
         rawInput.z = rawInputXZ.y;
         if (rawInput.z > 0)
         {
-            animator.SetTrigger("MoveForward");
+            owner.UnitAnimator.SetTrigger("MoveForward");
             jetpackController.OnMoveForward();
         }
         else if (rawInput.z < 0)
         {
-            animator.SetTrigger("MoveBackward");
+            owner.UnitAnimator.SetTrigger("MoveBackward");
             jetpackController.OnMoveBackward();
         }
         if (rawInput.x > 0)
@@ -68,13 +69,13 @@ public class UnitMovement : MonoBehaviour
         if (context.ReadValue<float>() == 1)
         {
             rawInput.y = 1;
-            animator.SetTrigger("MoveUpDown");
+            owner.UnitAnimator.SetTrigger("MoveUpDown");
             jetpackController.OnMoveUp();
         }
         else if (context.ReadValue<float>() == -1)
         {
             rawInput.y = -1;
-            animator.SetTrigger("MoveUpDown");
+            owner.UnitAnimator.SetTrigger("MoveUpDown");
             jetpackController.OnMoveDown();
         }
         else
@@ -142,7 +143,7 @@ public class UnitMovement : MonoBehaviour
         {
             if (lastMoveDelta != Vector3.zero)
             {
-                animator.SetTrigger("Stop");
+                owner.UnitAnimator.SetTrigger("Stop");
                 jetpackController.OnStop();
             }
         }
@@ -165,6 +166,14 @@ public class UnitMovement : MonoBehaviour
         float deltaRoll = rollSpeed * Time.fixedDeltaTime * rawInputRoll;
         rigidbody.MoveRotation(lookTarget * Quaternion.Euler(0, deltaRoll, 0));
         lookTarget = rigidbody.rotation;
+        if (cameraAiming)
+        {
+            owner.TowardsTarget = Quaternion.LookRotation(cameraController.orientation[2], cameraController.orientation[1]);
+        }
+        else
+        {
+            owner.TowardsTarget = Quaternion.LookRotation(shootDirection);
+        }
     }
 
     private void Start()

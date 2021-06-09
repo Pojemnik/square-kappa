@@ -39,6 +39,17 @@ public class PlayerController : Unit
 
     public override GameObject CurrentWeapon { get { return currentWeapon; } set { currentWeapon = value; } }
     public override Animator UnitAnimator { get { return playerAnimator; } set { playerAnimator = value; } }
+    public override Quaternion TowardsTarget { get { return targetDirection; }
+        set 
+        { 
+            targetDirection = value;
+            if(currentWeaponController != null)
+            {
+                currentWeaponController.projectileDirection = targetDirection;
+            }
+        } 
+    }
+    private Quaternion targetDirection;
 
     private void Awake()
     {
