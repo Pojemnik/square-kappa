@@ -677,11 +677,70 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a88ab8a6781bd834ebfebccf4bf464d8, type: 3}
+--- !u!1 &342516403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 342516405}
+  - component: {fileID: 342516404}
+  m_Layer: 0
+  m_Name: TimeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &342516404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342516403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4800500e0a0139b4687b9595f2496d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slowTime: 0.2
+--- !u!4 &342516405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342516403}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 54
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &384541749 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3442874551779767494, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
   m_PrefabInstance: {fileID: 6165911239540120079}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &384541750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384541749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69bc7f20dae75d449a0f02c33bfc3bd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashForceMultipler: 0.012
+  dashStopForceMultipler: 0.25
+  dashCooldownTime: 2
 --- !u!114 &384541754 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9028151093970926094, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
@@ -1794,6 +1853,49 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7b0a6241c8c67b4e8f3925d2fe1236e, type: 3}
+--- !u!1 &755404426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 755404428}
+  - component: {fileID: 755404427}
+  m_Layer: 0
+  m_Name: EventManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &755404427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755404426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ff23a9560e793488d989d4fd969d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &755404428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755404426}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 55
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &816360255
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5254,6 +5356,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: MainCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 9028151093970926094, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
+      propertyPath: dashing
+      value: 
+      objectReference: {fileID: 384541750}
     - target: {fileID: 9028151093970926094, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: movement
       value: 

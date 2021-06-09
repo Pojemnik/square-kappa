@@ -7,9 +7,6 @@ public class PlayerController : Unit
 {
     public GameObject rightHand;
     public UnityEngine.Events.UnityEvent<int, string> inventoryChange;
-    public float dashForceMultipler;
-    public float dashStopForceMultipler;
-    public float dashCooldownTime;
     public WeaponController currentWeaponController;
     [HideInInspector]
     public bool shootInCameraDirection = true;
@@ -27,8 +24,7 @@ public class PlayerController : Unit
     private GameObject selectedItem;
     private Health health;
     private Inventory inventory;
-    private bool canDash;
-    private bool dashMode;
+    
     private PlayerCameraController cameraController;
     [SerializeField]
     private GameObject firstPresonCamera;
@@ -36,18 +32,21 @@ public class PlayerController : Unit
 
     public UnitMovement movement;
     public UnitShooting shooting;
+    public UnitDash dashing;
 
     public override GameObject CurrentWeapon { get { return currentWeapon; } set { currentWeapon = value; } }
     public override Animator UnitAnimator { get { return playerAnimator; } set { playerAnimator = value; } }
-    public override Quaternion TowardsTarget { get { return targetDirection; }
-        set 
-        { 
+    public override Quaternion TowardsTarget
+    {
+        get { return targetDirection; }
+        set
+        {
             targetDirection = value;
-            if(currentWeaponController != null)
+            if (currentWeaponController != null)
             {
                 currentWeaponController.projectileDirection = targetDirection;
             }
-        } 
+        }
     }
     private Quaternion targetDirection;
 
@@ -59,7 +58,6 @@ public class PlayerController : Unit
         {
             currentWeaponController = currentWeapon.GetComponent<WeaponController>();
         }
-        canDash = true;
         cameraController = firstPresonCamera.GetComponent<PlayerCameraController>();
     }
 
@@ -72,7 +70,7 @@ public class PlayerController : Unit
         inventory = new Inventory(1, 2);
         cameraController.ignoredLayers = new int[2] { 6, 7 };
         cameraController.targettingRange = weaponPickupRange;
-        if(currentWeapon != null)
+        if (currentWeapon != null)
         {
             if (currentWeaponController.type == WeaponController.WeaponType.Rifle)
             {
@@ -115,16 +113,13 @@ public class PlayerController : Unit
 
     public void ActionThree(InputAction.CallbackContext context)
     {
-        if (context.started && canDash)
+        if (context.started)
         {
-            Time.timeScale = 0.2F;
-            dashMode = true;
-            return;
+            dashing.EnableDashMode();
         }
         if (context.canceled)
         {
-            dashMode = false;
-            Time.timeScale = 1;
+            dashing.DisableDashMode();
         }
     }
 
@@ -139,14 +134,13 @@ public class PlayerController : Unit
 
     private void SelectWorldItem(GameObject item)
     {
-        if(item)
+        if (item)
         {
             if (item.CompareTag("Item"))
             {
                 if (selectedItem != item)
                 {
                     selectedItem = item;
-                    //selectedItem.GetComponent<PickableItem>().outline.enabled = true;
                 }
             }
             else
@@ -158,7 +152,6 @@ public class PlayerController : Unit
         {
             if (selectedItem)
             {
-                //selectedItem.GetComponent<PickableItem>().outline.enabled = false;
                 selectedItem = null;
             }
         }
@@ -191,8 +184,10 @@ public class PlayerController : Unit
         if ((collision.gameObject.layer == 8 && gameObject.layer == 7) || (collision.gameObject.layer == 9 && gameObject.layer == 6))
         {
             ProjectileController projectile = collision.gameObject.GetComponent<ProjectileController>();
-            health.Damaged(projectile.damage);
-            hitEvent.Invoke(projectile.direction);
+            if (projectile)
+            {
+                hitEvent.Invoke(projectile.direction);
+            }
         }
     }
 
@@ -206,7 +201,7 @@ public class PlayerController : Unit
         currentWeapon.transform.parent = rightHand.transform;
         currentWeapon.layer = 6; //player layer
         currentWeaponController = currentWeapon.GetComponent<WeaponController>();
-        if(currentWeaponController.type == WeaponController.WeaponType.Rifle)
+        if (currentWeaponController.type == WeaponController.WeaponType.Rifle)
         {
             SetAnimatorLayer("Chemirail");
         }
@@ -224,29 +219,14 @@ public class PlayerController : Unit
     {
         int index = playerAnimator.GetLayerIndex(name);
         playerAnimator.SetLayerWeight(index, 1);
-        for(int i = 1; i < playerAnimator.layerCount; i++)
+        for (int i = 1; i < playerAnimator.layerCount; i++)
         {
-            if(i != index)
+            if (i != index)
             {
                 playerAnimator.SetLayerWeight(i, 0);
             }
         }
     }
-
-    //private IEnumerator DashCoroutine(Vector3 force)
-    //{
-    //    Time.timeScale = 1;
-    //    rigidbody.AddForce(force, ForceMode.VelocityChange);
-    //    yield return new WaitForSecondsRealtime(1);
-    //    rigidbody.AddForce(-force * dashStopForceMultipler, ForceMode.VelocityChange);
-    //}
-    //
-    //private IEnumerator DashCooldownCoroutine(float time)
-    //{
-    //    yield return new WaitForSecondsRealtime(time);
-    //    canDash = true;
-    //    print("Can dash now");
-    //}
 
     private void PickWeaponFromInventory(int slot)
     {
