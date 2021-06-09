@@ -22,7 +22,7 @@ public class PlayerCameraController : MonoBehaviour
     [HideInInspector]
     public float targettingRange;
     [HideInInspector]
-    public Vector3[] forwardVector
+    public Vector3[] orientation
     {
         get { return new Vector3[3] { transform.right, transform.up, transform.forward }; }
     }

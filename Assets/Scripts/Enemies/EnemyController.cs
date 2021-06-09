@@ -2,6 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface IAIState
+{
+    void Enter(PlayerController unitController);
+    void Update(PlayerController unitController);
+    void Exit(PlayerController unitController);
+}
+
+public class AIEmptyState : IAIState
+{
+    public void Enter(PlayerController unitController) { }
+    public void Exit(PlayerController unitController) { }
+    public void Update(PlayerController unitController) { }
+}
+
+public class AIMovingState : AIEmptyState
+{
+    private Rigidbody rigidbody;
+
+    public new void Enter(PlayerController unitController)
+    {
+        rigidbody = unitController.gameObject.GetComponent<Rigidbody>();
+    }
+
+    public new void Update(PlayerController unitController)
+    {
+        //Vector3 positionDelta = target.transform.position - unitController.gameObject.rigidbody.position;
+        //unitController.SetLookTarget(positionDelta);
+        //if (positionDelta.magnitude > visionRange)
+        //{
+        //    print("Too far to see");
+        //    return;
+        //}
+    }
+}
+
+public class AIStateMachine
+{
+
+}
+
 public class EnemyController : MonoBehaviour
 {
     public GameObject player;
@@ -29,7 +69,7 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         Vector3 positionDelta = player.transform.position - rigidbody.position;
-        unitController.SetLookTarget(positionDelta);
+        unitController.movement.SetLookTarget(positionDelta);
         if (positionDelta.magnitude > visionRange)
         {
             print("Too far to see");
@@ -43,13 +83,13 @@ public class EnemyController : MonoBehaviour
             {
                 if (positionDelta.magnitude < shootingRange)
                 {
-                    unitController.StartFire();
-                    unitController.MoveRelative(Vector3.zero);
+                    unitController.shooting.StartFire();
+                    unitController.movement.MoveRelative(Vector3.zero);
                 }
                 else
                 {
-                    unitController.StopFire();
-                    unitController.MoveRelative(new Vector3(0, 0, 1));
+                    unitController.shooting.StopFire();
+                    unitController.movement.MoveRelative(new Vector3(0, 0, 1));
                 }
             }
             else
