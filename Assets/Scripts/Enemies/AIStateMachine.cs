@@ -32,12 +32,13 @@ public class AIBaseState
             return TargetStatus.Unavailable;
         }
     }
+
     public virtual void Enter() { }
     public virtual void Update() { }
     public virtual void Exit() { }
 }
 
-public class AIMoveState : AIBaseState
+public class AIMoveTowardsTargetState : AIBaseState
 {
     private UnitMovement movement;
 
@@ -111,11 +112,11 @@ public class AIShootState : AIBaseState
                 else
                 {
                     shooting.StopFire();
-                    owner.ChangeState(new AIMoveState());
+                    owner.ChangeState(new AIMoveTowardsTargetState());
                 }
                 break;
             case TargetStatus.Covered:
-                owner.ChangeState(new AIMoveState());
+                owner.ChangeState(new AIMoveTowardsTargetState());
                 break;
             case TargetStatus.Unavailable:
                 //Do nothing
@@ -143,7 +144,7 @@ public class AIStateMachine : MonoBehaviour
 
     private void Start()
     {
-        ChangeState(new AIMoveState());
+        ChangeState(new AIMoveTowardsTargetState());
     }
 
     private void Update()
