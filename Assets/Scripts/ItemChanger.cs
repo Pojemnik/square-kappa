@@ -62,7 +62,7 @@ public class ItemChanger : MonoBehaviour
         owner.CurrentWeapon.transform.parent = null;
         StartCoroutine(owner.CurrentWeaponController.SetLayerAfterDelay(3F, 0));
         owner.CurrentWeapon = null;
-        //SetAnimatorLayer("Unarmed");
+        owner.AnimationController.UpdateWeaponAnimation(null);
     }
 
     public void GrabWeapon(GameObject weapon)
@@ -73,15 +73,7 @@ public class ItemChanger : MonoBehaviour
         weaponRB.isKinematic = true;
         owner.CurrentWeapon.transform.parent = weaponMountingPoint.transform;
         owner.CurrentWeapon.layer = 6; //player layer
-        if (owner.CurrentWeaponController.type == WeaponController.WeaponType.Rifle)
-        {
-            //TODO animation component
-            //owner.SetAnimatorLayer("Chemirail");
-        }
-        else if (owner.CurrentWeaponController.type == WeaponController.WeaponType.Pistol)
-        {
-            //SetAnimatorLayer("Laser Pistol");
-        }
+        owner.AnimationController.UpdateWeaponAnimation(owner.CurrentWeaponController);
         PickableItem pickable = owner.CurrentWeapon.GetComponent<PickableItem>();
         owner.CurrentWeapon.transform.localPosition = pickable.relativePosition;
         owner.CurrentWeapon.transform.localRotation = Quaternion.Euler(pickable.relativeRotation);

@@ -27,7 +27,7 @@ public class UnitShooting : MonoBehaviour
             return;
         }
         owner.CurrentWeaponController.startShoot();
-        owner.UnitAnimator.SetTrigger("Fire");
+        owner.AnimationController.SetState("Fire");
     }
 
     public void StopFire()
@@ -37,6 +37,6 @@ public class UnitShooting : MonoBehaviour
             return;
         }
         owner.CurrentWeaponController.stopShoot();
-        owner.UnitAnimator.SetTrigger("StopFire");
+        owner.AnimationController.SetState("StopFire");
     }
 }

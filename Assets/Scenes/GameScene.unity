@@ -755,6 +755,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 384541754}
   cameraSensitivity: 0.4
+--- !u!114 &384541752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384541749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e91970466fdcc254b91f2e67de959e3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 384541754}
+  animator: {fileID: 1081670933}
 --- !u!114 &384541754 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9028151093970926094, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
@@ -5491,6 +5505,10 @@ PrefabInstance:
       propertyPath: currentWeapon
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 9028151093970926094, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
+      propertyPath: animationController
+      value: 
+      objectReference: {fileID: 384541752}
     - target: {fileID: 9028151093970926094, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: hitEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1

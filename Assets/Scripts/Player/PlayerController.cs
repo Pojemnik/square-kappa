@@ -12,10 +12,14 @@ public class PlayerController : Unit
     public UnityEngine.Events.UnityEvent<int, string> inventoryChange;
     private Inventory inventory;
 
+    [Header("Components")]
     public UnitMovement movement;
     public UnitShooting shooting;
     public UnitDash dashing;
     public ItemChanger itemChanger;
+    [SerializeField]
+    private UnitAnimationController animationController;
+    public override UnitAnimationController AnimationController { get => animationController; }
 
     private WeaponController currentWeaponController;
     public override WeaponController CurrentWeaponController { get => currentWeaponController; }
@@ -36,9 +40,7 @@ public class PlayerController : Unit
             }
         }
     }
-    [SerializeField]
-    private Animator playerAnimator;
-    public override Animator UnitAnimator { get { return playerAnimator; } set { playerAnimator = value; } }
+    
     public override Quaternion TowardsTarget
     {
         get { return targetDirection; }
@@ -70,18 +72,6 @@ public class PlayerController : Unit
         Cursor.lockState = CursorLockMode.Locked;
         //init inventory
         inventory = new Inventory(1, 2);
-
-        if (currentWeapon != null)
-        {
-            if (currentWeaponController.type == WeaponController.WeaponType.Rifle)
-            {
-                SetAnimatorLayer("Chemirail");
-            }
-            else if (currentWeaponController.type == WeaponController.WeaponType.Pistol)
-            {
-                SetAnimatorLayer("Laser Pistol");
-            }
-        }
     }
 
     public void DropItem()
@@ -122,19 +112,6 @@ public class PlayerController : Unit
             if (projectile)
             {
                 hitEvent.Invoke(projectile.direction);
-            }
-        }
-    }
-
-    public void SetAnimatorLayer(string name)
-    {
-        int index = playerAnimator.GetLayerIndex(name);
-        playerAnimator.SetLayerWeight(index, 1);
-        for (int i = 1; i < playerAnimator.layerCount; i++)
-        {
-            if (i != index)
-            {
-                playerAnimator.SetLayerWeight(i, 0);
             }
         }
     }

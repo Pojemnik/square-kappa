@@ -41,12 +41,12 @@ public class UnitMovement : MonoBehaviour
         rawInput.z = vector.y;
         if (rawInput.z > 0)
         {
-            owner.UnitAnimator.SetTrigger("MoveForward");
+            owner.AnimationController.SetState("MoveForward");
             jetpackController.OnMoveForward();
         }
         else if (rawInput.z < 0)
         {
-            owner.UnitAnimator.SetTrigger("MoveBackward");
+            owner.AnimationController.SetState("MoveBackward");
             jetpackController.OnMoveBackward();
         }
         if (rawInput.x > 0)
@@ -64,13 +64,13 @@ public class UnitMovement : MonoBehaviour
         if (value == 1)
         {
             rawInput.y = 1;
-            owner.UnitAnimator.SetTrigger("MoveUpDown");
+            owner.AnimationController.SetState("MoveUpDown");
             jetpackController.OnMoveUp();
         }
         else if (value == -1)
         {
             rawInput.y = -1;
-            owner.UnitAnimator.SetTrigger("MoveUpDown");
+            owner.AnimationController.SetState("MoveUpDown");
             jetpackController.OnMoveDown();
         }
         else
@@ -136,7 +136,7 @@ public class UnitMovement : MonoBehaviour
         {
             if (lastMoveDelta != Vector3.zero)
             {
-                owner.UnitAnimator.SetTrigger("Stop");
+                owner.AnimationController.SetState("Stop");
                 jetpackController.OnStop();
             }
         }
