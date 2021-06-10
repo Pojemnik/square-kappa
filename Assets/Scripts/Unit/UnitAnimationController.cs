@@ -5,7 +5,7 @@ using UnityEngine;
 public class UnitAnimationController : MonoBehaviour
 {
     [Header("Refernces")]
-    public PlayerController owner;
+    public UnitController owner;
     [SerializeField]
     private Animator animator;
 

@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputAdapter : MonoBehaviour
 {
-    public PlayerController owner;
+    public UnitController owner;
     [SerializeField]
     private float cameraSensitivity;
 

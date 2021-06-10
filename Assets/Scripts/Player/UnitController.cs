@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : Unit
+public class UnitController : Unit
 {
     [Header("Events")]
     public UnityEngine.Events.UnityEvent<Vector3> hitEvent;
