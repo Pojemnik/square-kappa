@@ -7,7 +7,7 @@ public class PlayerController : Unit
 {
     [Header("Events")]
     public UnityEngine.Events.UnityEvent<Vector3> hitEvent;
-    
+
     //TODO fix inventory
     public UnityEngine.Events.UnityEvent<int, string> inventoryChange;
     private Inventory inventory;
@@ -60,7 +60,7 @@ public class PlayerController : Unit
         {
             currentWeaponController = currentWeapon.GetComponent<WeaponController>();
         }
-        
+
     }
 
     public void Start()
@@ -70,7 +70,7 @@ public class PlayerController : Unit
         Cursor.lockState = CursorLockMode.Locked;
         //init inventory
         inventory = new Inventory(1, 2);
-        
+
         if (currentWeapon != null)
         {
             if (currentWeaponController.type == WeaponController.WeaponType.Rifle)
@@ -84,24 +84,16 @@ public class PlayerController : Unit
         }
     }
 
-    public void ActionOne(InputAction.CallbackContext context)
+    public void DropItem()
     {
-        if (!context.started)
-        {
-            return;
-        }
         if (currentWeapon != null)
         {
             itemChanger.DropWeapon();
         }
     }
 
-    public void ActionTwo(InputAction.CallbackContext context)
+    public void PickItem()
     {
-        if (!context.started)
-        {
-            return;
-        }
         if (currentWeapon)
         {
             itemChanger.SwapWeapons();
@@ -112,16 +104,14 @@ public class PlayerController : Unit
         }
     }
 
-    public void ActionThree(InputAction.CallbackContext context)
+    public void StartDash()
     {
-        if (context.started)
-        {
-            dashing.EnableDashMode();
-        }
-        if (context.canceled)
-        {
-            dashing.DisableDashMode();
-        }
+        dashing.EnableDashMode();
+    }
+
+    public void CancelDash()
+    {
+        dashing.DisableDashMode();
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -149,7 +139,7 @@ public class PlayerController : Unit
         }
     }
 
-    private void PickWeaponFromInventory(int slot)
+    public void PickWeaponFromInventory(int slot)
     {
         GameObject weapon = inventory.GetWeapon(slot);
         if (currentWeapon)
@@ -180,29 +170,4 @@ public class PlayerController : Unit
             //print(String.Format("Taken weapon from inventory: {0}", weapon.name));
         }
     }
-
-    public void PickWeapon1FromInventory(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            PickWeaponFromInventory(0);
-        }
-    }
-
-    public void PickWeapon2FromInventory(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            PickWeaponFromInventory(1);
-        }
-    }
-
-    public void PickWeapon3FromInventory(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            PickWeaponFromInventory(2);
-        }
-    }
-
 }

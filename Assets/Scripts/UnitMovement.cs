@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class UnitMovement : MonoBehaviour
 {
@@ -12,8 +11,6 @@ public class UnitMovement : MonoBehaviour
     private float rollSpeed;
 
     [Header("Camera")]
-    [SerializeField]
-    private float cameraSensitivity;
     public bool cameraAiming;
 
     [Header("References")]
@@ -38,11 +35,10 @@ public class UnitMovement : MonoBehaviour
     private Vector3 lastMoveDelta;
     private Vector3 shootDirection;
 
-    public void MoveXZ(InputAction.CallbackContext context)
+    public void MoveXZ(Vector2 vector)
     {
-        Vector2 rawInputXZ = context.ReadValue<Vector2>();
-        rawInput.x = rawInputXZ.x;
-        rawInput.z = rawInputXZ.y;
+        rawInput.x = vector.x;
+        rawInput.z = vector.y;
         if (rawInput.z > 0)
         {
             owner.UnitAnimator.SetTrigger("MoveForward");
@@ -63,15 +59,15 @@ public class UnitMovement : MonoBehaviour
         }
     }
 
-    public void MoveY(InputAction.CallbackContext context)
+    public void MoveY(float value)
     {
-        if (context.ReadValue<float>() == 1)
+        if (value == 1)
         {
             rawInput.y = 1;
             owner.UnitAnimator.SetTrigger("MoveUpDown");
             jetpackController.OnMoveUp();
         }
-        else if (context.ReadValue<float>() == -1)
+        else if (value == -1)
         {
             rawInput.y = -1;
             owner.UnitAnimator.SetTrigger("MoveUpDown");
@@ -83,13 +79,13 @@ public class UnitMovement : MonoBehaviour
         }
     }
 
-    public void Roll(InputAction.CallbackContext context)
+    public void Roll(float value)
     {
-        if (context.ReadValue<float>() == 1)
+        if (value == 1)
         {
             rawInputRoll = 1;
         }
-        else if (context.ReadValue<float>() == -1)
+        else if (value == -1)
         {
             rawInputRoll = -1;
         }
@@ -98,10 +94,8 @@ public class UnitMovement : MonoBehaviour
             rawInputRoll = 0;
         }
     }
-    public void RelativeLook(InputAction.CallbackContext context)
+    public void RelativeLook(Vector2 deltaLook)
     {
-        Vector2 rawInputLook = context.ReadValue<Vector2>();
-        Vector2 deltaLook = rawInputLook * cameraSensitivity;
         if (deltaLook != Vector2.zero)
         {
             Quaternion xRotation = Quaternion.AngleAxis(-deltaLook.x, Vector3.forward);
