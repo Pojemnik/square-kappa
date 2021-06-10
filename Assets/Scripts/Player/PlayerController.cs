@@ -5,36 +5,31 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : Unit
 {
-    public GameObject rightHand;
-    public UnityEngine.Events.UnityEvent<int, string> inventoryChange;
-    public WeaponController currentWeaponController;
-    [HideInInspector]
-    public bool shootInCameraDirection = true;
-    [SerializeField]
-    private Animator playerAnimator;
-
     [Header("Item pickup")]
     public float weaponPickupRange;
     public float weaponThrowForce;
+    public GameObject rightHand;
+    public UnityEngine.Events.UnityEvent<int, string> inventoryChange;
+    public WeaponController currentWeaponController;
+    private PlayerCameraController cameraController;
+    [SerializeField]
+    private GameObject firstPresonCamera;
 
     [Header("Events")]
     public UnityEngine.Events.UnityEvent<Vector3> hitEvent;
     public UnityEngine.Events.UnityEvent<WeaponController> weaponChangeEvent;
 
     private GameObject selectedItem;
-    private Health health;
     private Inventory inventory;
-    
-    private PlayerCameraController cameraController;
-    [SerializeField]
-    private GameObject firstPresonCamera;
-    private GameObject currentWeapon;
 
     public UnitMovement movement;
     public UnitShooting shooting;
     public UnitDash dashing;
 
+    private GameObject currentWeapon;
     public override GameObject CurrentWeapon { get { return currentWeapon; } set { currentWeapon = value; } }
+    [SerializeField]
+    private Animator playerAnimator;
     public override Animator UnitAnimator { get { return playerAnimator; } set { playerAnimator = value; } }
     public override Quaternion TowardsTarget
     {
@@ -53,7 +48,6 @@ public class PlayerController : Unit
     private void Awake()
     {
         //get components
-        health = GetComponent<Health>();
         if (currentWeapon != null)
         {
             currentWeaponController = currentWeapon.GetComponent<WeaponController>();

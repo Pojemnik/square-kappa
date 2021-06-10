@@ -60,7 +60,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         unitController = GetComponent<PlayerController>();
-        unitController.shootInCameraDirection = false;
+        unitController.movement.cameraAiming = false;
         rigidbody = GetComponent<Rigidbody>();
         layerMask = (1 << 7) | (1 << 8) | (1 << 9);
         layerMask = ~layerMask;

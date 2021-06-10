@@ -14,6 +14,7 @@ public class UnitMovement : MonoBehaviour
     [Header("Camera")]
     [SerializeField]
     private float cameraSensitivity;
+    public bool cameraAiming;
 
     [Header("References")]
     public Unit owner;
@@ -21,8 +22,6 @@ public class UnitMovement : MonoBehaviour
     private GameObject jetpack = null;
     [SerializeField]
     private GameObject firstPresonCamera;
-    [SerializeField]
-    private bool cameraAiming;
 
     //input
     private Vector3 rawInput;
