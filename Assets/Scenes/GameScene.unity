@@ -765,6 +765,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 384541754}
+--- !u!114 &384541757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384541749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8c9dc94c38f5e469ca932e5433fbea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 384541754}
+  firstPresonCamera: {fileID: 955685874}
+  weaponPickupRange: 1
+  weaponThrowForce: 33
+  weaponMountingPoint: {fileID: 814856783}
+  weaponChangeEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 650388829}
+        m_TargetAssemblyTypeName: CrosshairController, Assembly-CSharp
+        m_MethodName: OnWeaponChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &419232116
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1896,6 +1928,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 55
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &814856783 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7089718064159878052, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
+  m_PrefabInstance: {fileID: 6165911239540120079}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &816360255
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5368,6 +5405,10 @@ PrefabInstance:
       propertyPath: shooting
       value: 
       objectReference: {fileID: 384541755}
+    - target: {fileID: 9028151093970926094, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
+      propertyPath: itemChanger
+      value: 
+      objectReference: {fileID: 384541757}
     - target: {fileID: 9028151093970926094, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: UnitAnimator
       value: 

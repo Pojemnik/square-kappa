@@ -5,29 +5,37 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : Unit
 {
-    [Header("Item pickup")]
-    public float weaponPickupRange;
-    public float weaponThrowForce;
-    public GameObject rightHand;
-    public UnityEngine.Events.UnityEvent<int, string> inventoryChange;
-    public WeaponController currentWeaponController;
-    private PlayerCameraController cameraController;
-    [SerializeField]
-    private GameObject firstPresonCamera;
-
     [Header("Events")]
     public UnityEngine.Events.UnityEvent<Vector3> hitEvent;
-    public UnityEngine.Events.UnityEvent<WeaponController> weaponChangeEvent;
-
-    private GameObject selectedItem;
+    
+    //TODO fix inventory
+    public UnityEngine.Events.UnityEvent<int, string> inventoryChange;
     private Inventory inventory;
 
     public UnitMovement movement;
     public UnitShooting shooting;
     public UnitDash dashing;
+    public ItemChanger itemChanger;
 
+    private WeaponController currentWeaponController;
+    public override WeaponController CurrentWeaponController { get => currentWeaponController; }
     private GameObject currentWeapon;
-    public override GameObject CurrentWeapon { get { return currentWeapon; } set { currentWeapon = value; } }
+    public override GameObject CurrentWeapon
+    {
+        get { return currentWeapon; }
+        set
+        {
+            currentWeapon = value;
+            if (currentWeapon)
+            {
+                currentWeaponController = currentWeapon.GetComponent<WeaponController>();
+            }
+            else
+            {
+                currentWeaponController = null;
+            }
+        }
+    }
     [SerializeField]
     private Animator playerAnimator;
     public override Animator UnitAnimator { get { return playerAnimator; } set { playerAnimator = value; } }
@@ -52,7 +60,7 @@ public class PlayerController : Unit
         {
             currentWeaponController = currentWeapon.GetComponent<WeaponController>();
         }
-        cameraController = firstPresonCamera.GetComponent<PlayerCameraController>();
+        
     }
 
     public void Start()
@@ -62,8 +70,7 @@ public class PlayerController : Unit
         Cursor.lockState = CursorLockMode.Locked;
         //init inventory
         inventory = new Inventory(1, 2);
-        cameraController.ignoredLayers = new int[2] { 6, 7 };
-        cameraController.targettingRange = weaponPickupRange;
+        
         if (currentWeapon != null)
         {
             if (currentWeaponController.type == WeaponController.WeaponType.Rifle)
@@ -85,7 +92,7 @@ public class PlayerController : Unit
         }
         if (currentWeapon != null)
         {
-            DropWeapon();
+            itemChanger.DropWeapon();
         }
     }
 
@@ -97,11 +104,11 @@ public class PlayerController : Unit
         }
         if (currentWeapon)
         {
-            SwapWeapons();
+            itemChanger.SwapWeapons();
         }
         else
         {
-            PickWeaponUp();
+            itemChanger.PickWeaponUp();
         }
     }
 
@@ -117,62 +124,6 @@ public class PlayerController : Unit
         }
     }
 
-    private void SwapWeapons()
-    {
-        if (selectedItem)
-        {
-            DropWeapon();
-            PickWeaponUp();
-        }
-    }
-
-    private void SelectWorldItem(GameObject item)
-    {
-        if (item)
-        {
-            if (item.CompareTag("Item"))
-            {
-                if (selectedItem != item)
-                {
-                    selectedItem = item;
-                }
-            }
-            else
-            {
-                selectedItem = null;
-            }
-        }
-        else
-        {
-            if (selectedItem)
-            {
-                selectedItem = null;
-            }
-        }
-    }
-
-    private void DropWeapon()
-    {
-        Rigidbody weaponRB = currentWeapon.GetComponent<Rigidbody>();
-        weaponRB.isKinematic = false;
-        weaponRB.AddRelativeForce(weaponThrowForce, 0, 0);
-        weaponRB.AddRelativeTorque(UnityEngine.Random.onUnitSphere);
-        currentWeapon.transform.parent = null;
-        StartCoroutine(currentWeaponController.SetLayerAfterDelay(3F, 0));
-        currentWeapon = null;
-        currentWeaponController = null;
-        SetAnimatorLayer("Unarmed");
-    }
-
-    private void PickWeaponUp()
-    {
-        if (selectedItem)
-        {
-            GrabWeapon(selectedItem);
-            selectedItem = null;
-        }
-    }
-
     public void OnCollisionEnter(Collision collision)
     {
         if ((collision.gameObject.layer == 8 && gameObject.layer == 7) || (collision.gameObject.layer == 9 && gameObject.layer == 6))
@@ -185,31 +136,7 @@ public class PlayerController : Unit
         }
     }
 
-    private void GrabWeapon(GameObject weapon)
-    {
-        currentWeapon = weapon;
-        currentWeapon.SetActive(true);
-        //currentWeapon.GetComponent<PickableItem>().outline.enabled = false;
-        Rigidbody weaponRB = currentWeapon.GetComponent<Rigidbody>();
-        weaponRB.isKinematic = true;
-        currentWeapon.transform.parent = rightHand.transform;
-        currentWeapon.layer = 6; //player layer
-        currentWeaponController = currentWeapon.GetComponent<WeaponController>();
-        if (currentWeaponController.type == WeaponController.WeaponType.Rifle)
-        {
-            SetAnimatorLayer("Chemirail");
-        }
-        else if (currentWeaponController.type == WeaponController.WeaponType.Pistol)
-        {
-            SetAnimatorLayer("Laser Pistol");
-        }
-        PickableItem pickable = currentWeapon.GetComponent<PickableItem>();
-        currentWeapon.transform.localPosition = pickable.relativePosition;
-        currentWeapon.transform.localRotation = Quaternion.Euler(pickable.relativeRotation);
-        weaponChangeEvent.Invoke(currentWeaponController);
-    }
-
-    private void SetAnimatorLayer(string name)
+    public void SetAnimatorLayer(string name)
     {
         int index = playerAnimator.GetLayerIndex(name);
         playerAnimator.SetLayerWeight(index, 1);
@@ -242,14 +169,14 @@ public class PlayerController : Unit
             {
                 //there is no place
                 //print(String.Format("No space in inventory. Dropping weapon {0}", currentWeapon.name));
-                DropWeapon();
+                //DropWeapon();
             }
         }
         if (weapon)
         {
             //take weapon from selected slot
             inventoryChange.Invoke(slot, "");
-            GrabWeapon(weapon);
+            //GrabWeapon(weapon);
             //print(String.Format("Taken weapon from inventory: {0}", weapon.name));
         }
     }
@@ -278,11 +205,4 @@ public class PlayerController : Unit
         }
     }
 
-    private void FixedUpdate()
-    {
-        if (cameraController)
-        {
-            SelectWorldItem(cameraController.targetItem);
-        }
-    }
 }
