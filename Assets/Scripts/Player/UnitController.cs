@@ -17,6 +17,7 @@ public class UnitController : Unit
     public UnitShooting shooting;
     public UnitDash dashing;
     public ItemChanger itemChanger;
+    private Health health;
     [SerializeField]
     private UnitAnimationController animationController;
     public override UnitAnimationController AnimationController { get => animationController; }
@@ -62,7 +63,7 @@ public class UnitController : Unit
         {
             currentWeaponController = currentWeapon.GetComponent<WeaponController>();
         }
-
+        health = GetComponent<Health>();
     }
 
     public void Start()
@@ -113,6 +114,7 @@ public class UnitController : Unit
             {
                 hitEvent.Invoke(projectile.direction);
             }
+            health.Damaged(projectile.damage);
         }
     }
 

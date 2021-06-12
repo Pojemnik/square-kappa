@@ -26,11 +26,6 @@ public class RegularProjectileController : ProjectileController
                 return;
             }
         }
-        Health othersHealth = other.GetComponent<Health>();
-        if(othersHealth)
-        {
-            othersHealth.Damaged(damage);
-        }
         Destroy(Instantiate(hitEffectPrefab, collision.GetContact(0).point, Quaternion.Euler(collision.GetContact(0).normal)), 5);
         Destroy(gameObject);
     }
