@@ -96,6 +96,7 @@ public class AIShootState : AIBaseState
     //TODO: Move constants to some scriptable object
     private void UpdateShooting()
     {
+        AIShootingRulesInterpretation interpretation = owner.enemyController.ShootingRulesInterpretation;
         if (lastShootingMode != shootingMode)
         {
             lastShoot = false;
@@ -111,7 +112,7 @@ public class AIShootState : AIBaseState
             case AIShootingMode.Burst:
                 if (lastShoot)
                 {
-                    if (phaseTime >= 2)
+                    if (phaseTime >= interpretation.BurstDuration)
                     {
                         shooting.StopFire();
                         phaseTime = 0;
@@ -120,7 +121,7 @@ public class AIShootState : AIBaseState
                 }
                 else
                 {
-                    if (phaseTime >= 2)
+                    if (phaseTime >= interpretation.TimeBetweenBursts)
                     {
                         shooting.StartFire();
                         phaseTime = 0;
@@ -137,7 +138,7 @@ public class AIShootState : AIBaseState
                 }
                 else
                 {
-                    if (phaseTime >= 2)
+                    if (phaseTime >= interpretation.TimeBetweenShoots)
                     {
                         shooting.StartFire();
                         phaseTime = 0;

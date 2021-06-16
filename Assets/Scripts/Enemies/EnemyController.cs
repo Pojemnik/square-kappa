@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
     [HideInInspector]
     public int layerMask;
     public AIShootingRules ShootingRules;
+    public AIShootingRulesInterpretation ShootingRulesInterpretation;
 
     [SerializeField]
     private AIStateMachine AIMovementStateMachine;

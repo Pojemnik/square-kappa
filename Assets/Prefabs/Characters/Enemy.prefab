@@ -742,6 +742,7 @@ MonoBehaviour:
   targetDistance: 5
   layerMask: 0
   ShootingRules: {fileID: 11400000, guid: bdf46c5fdb1218643b596cafe7c586b2, type: 2}
+  ShootingRulesInterpretation: {fileID: 11400000, guid: 1b8f2961fc3e0de40a99b548c0215a91, type: 2}
   AIMovementStateMachine: {fileID: 3548833648783009657}
   AIShootingStateMachine: {fileID: 6467860290344237073}
 --- !u!114 &4104375640541538898
