@@ -18,6 +18,7 @@ public class AIBaseState
         Vector3 position = owner.enemyController.transform.position;
         Vector3 targetPosition = owner.enemyController.target.transform.position;
         RaycastHit raycastHit;
+        Debug.DrawRay(position, targetPosition - position, Color.red);
         bool hit = Physics.Raycast(position, targetPosition - position, out raycastHit, owner.enemyController.VisionRange, owner.enemyController.layerMask);
         if (hit)
         {
@@ -57,14 +58,13 @@ public class AIMoveTowardsTargetState : AIBaseState
         switch (TargetInSightCheck(6))
         {
             case TargetStatus.InSight:
-                if (positionDelta.magnitude < owner.enemyController.ShootingRange)
+                if (positionDelta.magnitude <= owner.enemyController.targetDistance)
                 {
-                    owner.ChangeState(new AIShootState());
+                    movement.MoveRelative(Vector3.zero);
                 }
-                else if(positionDelta.magnitude < owner.enemyController.VisionRange)
-                { 
+                else if (positionDelta.magnitude <= owner.enemyController.VisionRange)
+                {
                     movement.MoveRelative(new Vector3(0, 0, 1));
-                    Debug.Log("Moving towards target");
                 }
                 else
                 {
@@ -78,7 +78,6 @@ public class AIMoveTowardsTargetState : AIBaseState
                 break;
             case TargetStatus.Unavailable:
                 //Do nothing
-                Debug.Log("Target unavailable");
                 break;
         }
     }
@@ -88,12 +87,77 @@ public class AIShootState : AIBaseState
 {
     private UnitShooting shooting;
     private UnitMovement movement;
+    private AIShootingRules shootingRules;
+    private AIShootingMode shootingMode;
+    private AIShootingMode lastShootingMode;
+    private bool lastShoot;
+    private float phaseTime;
+
+    //TODO: Move constants to some scriptable object
+    private void UpdateShooting()
+    {
+        if (lastShootingMode != shootingMode)
+        {
+            lastShoot = false;
+            phaseTime = 0;
+            Debug.Log(string.Format("New shooting mode: {0}", shootingMode));
+        }
+        phaseTime += Time.deltaTime;
+        switch (shootingMode)
+        {
+            case AIShootingMode.Continous:
+                shooting.StartFire();
+                break;
+            case AIShootingMode.Burst:
+                if (lastShoot)
+                {
+                    if (phaseTime >= 2)
+                    {
+                        shooting.StopFire();
+                        phaseTime = 0;
+                        lastShoot = false;
+                    }
+                }
+                else
+                {
+                    if (phaseTime >= 2)
+                    {
+                        shooting.StartFire();
+                        phaseTime = 0;
+                        lastShoot = true;
+                    }
+                }
+                break;
+            case AIShootingMode.OneShot:
+                if (lastShoot)
+                {
+                    lastShoot = false;
+                    phaseTime = 0;
+                    shooting.StopFire();
+                }
+                else
+                {
+                    if (phaseTime >= 2)
+                    {
+                        shooting.StartFire();
+                        phaseTime = 0;
+                        lastShoot = true;
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
     public override void Enter()
     {
         shooting = owner.enemyController.unitController.shooting;
         movement = owner.enemyController.unitController.movement;
-        Debug.Log("Entering shoot state");
+        shootingRules = owner.enemyController.ShootingRules;
+        lastShootingMode = AIShootingMode.NoShooting;
+        phaseTime = 0;
+        lastShoot = false;
     }
 
     public override void Update()
@@ -105,24 +169,34 @@ public class AIShootState : AIBaseState
         switch (TargetInSightCheck(6))
         {
             case TargetStatus.InSight:
-                if (positionDelta.magnitude < owner.enemyController.ShootingRange)
+                lastShootingMode = shootingMode;
+                shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules);
+                switch (shootingMode)
                 {
-                    shooting.StartFire();
-                }
-                else
-                {
-                    shooting.StopFire();
-                    owner.ChangeState(new AIMoveTowardsTargetState());
+                    case AIShootingMode.NoShooting:
+                        shooting.StopFire();
+                        break;
+                    case AIShootingMode.Error:
+                        Debug.LogError("AI shooting mode error!");
+                        break;
+                    default:
+                        UpdateShooting();
+                        break;
                 }
                 break;
             case TargetStatus.Covered:
-                owner.ChangeState(new AIMoveTowardsTargetState());
+                shooting.StopFire();
                 break;
             case TargetStatus.Unavailable:
-                //Do nothing
+                shooting.StopFire();
                 break;
         }
     }
+}
+
+public class AIAvoidObstacleState : AIBaseState
+{
+    //TODO: implement
 }
 
 public class AIStateMachine : MonoBehaviour
@@ -140,11 +214,6 @@ public class AIStateMachine : MonoBehaviour
         currentState = state;
         currentState.owner = this;
         currentState.Enter();
-    }
-
-    private void Start()
-    {
-        ChangeState(new AIMoveTowardsTargetState());
     }
 
     private void Update()

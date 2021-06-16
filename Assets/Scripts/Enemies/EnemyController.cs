@@ -10,14 +10,16 @@ public class EnemyController : MonoBehaviour
     public GameObject weapon;
 
     [Header("Enemy properites")]
-    public float ShootingRange;
     public float VisionRange;
+    public float targetDistance;
     [HideInInspector]
     public int layerMask;
     public AIShootingRules ShootingRules;
 
     [SerializeField]
-    private AIStateMachine AIStateMachine;
+    private AIStateMachine AIMovementStateMachine;
+    [SerializeField]
+    private AIStateMachine AIShootingStateMachine;
 
     public void OnDeath()
     {
@@ -28,6 +30,8 @@ public class EnemyController : MonoBehaviour
     {
         unitController.CurrentWeapon = weapon;
         unitController.movement.cameraAiming = false;
+        AIMovementStateMachine.ChangeState(new AIMoveTowardsTargetState());
+        AIShootingStateMachine.ChangeState(new AIShootState());
         layerMask = (1 << 7) | (1 << 8) | (1 << 9);
         layerMask = ~layerMask;
     }

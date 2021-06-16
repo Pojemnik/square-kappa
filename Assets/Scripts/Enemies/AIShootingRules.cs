@@ -12,26 +12,28 @@ public enum AIShootingMode
     Error
 }
 
+[CreateAssetMenu(fileName = "AIRules", menuName = "ScriptableObjects/AIShootingRules")]
 public class AIShootingRules : ScriptableObject
 {
     [System.Serializable]
     public struct AIShootingRule
     {
-        readonly public float minDistace;
-        readonly public float maxDistace;
-        readonly public AIShootingMode shootingMode;
+        public float minDistace;
+        public float maxDistace;
+        public AIShootingMode shootingMode;
     }
 
     public List<AIShootingRule> rules;
 }
 
-public class AIShootingRuleCalculator
+public static class AIShootingRuleCalculator
 {
-    static AIShootingMode GetShootingMode(float distanceToTarget, AIShootingRules rules)
+    public static AIShootingMode GetShootingMode(float distanceToTarget, AIShootingRules rules)
     {
         foreach(AIShootingRules.AIShootingRule rule in rules.rules)
         {
-            if(distanceToTarget >= rule.minDistace && distanceToTarget < rule.maxDistace)
+            bool closerThanMax = distanceToTarget < rule.maxDistace || rule.maxDistace == -1;
+            if (distanceToTarget >= rule.minDistace && closerThanMax)
             {
                 return rule.shootingMode;
             }
