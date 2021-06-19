@@ -6,6 +6,9 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     public WeaponConfig config;
+    public float spreadReductionParameter;
+    public float spreadReductionDelay;
+
     [HideInInspector]
     public float spread
     {
@@ -22,6 +25,7 @@ public class WeaponController : MonoBehaviour
     private new Transform transform;
     private float shootCooldown;
     private float spreadRadius;
+    private float spreadReductionCooldown;
 
     private void Awake()
     {
@@ -38,7 +42,7 @@ public class WeaponController : MonoBehaviour
     public void stopShoot()
     {
         triggerHold = false;
-        StartCoroutine(ReduceSpread(shootCooldown));
+        spreadReductionCooldown = spreadReductionDelay;
     }
 
     private void Shoot()
@@ -102,22 +106,19 @@ public class WeaponController : MonoBehaviour
                 triggerHold = false;
             }
         }
-    }
-
-    public IEnumerator ReduceSpread(float time)
-    {
-        yield return new WaitForSeconds(time);
-        if (!triggerHold)
+        if (!triggerHold && spreadRadius > config.baseSpread)
         {
-            spreadRadius -= config.spreadDecrease;
-            if (spreadRadius <= config.baseSpread)
+            spreadReductionCooldown += Time.fixedDeltaTime;
+            spreadRadius -= GetCooldownReductionValue(spreadReductionCooldown);
+            if(spreadRadius < config.baseSpread)
             {
                 spreadRadius = config.baseSpread;
             }
-            else
-            {
-                StartCoroutine(ReduceSpread(time));
-            }
         }
     }
+
+    private float GetCooldownReductionValue(float time)
+    {
+        return time * spreadReductionParameter;
+    }    
 }
