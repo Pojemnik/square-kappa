@@ -6,7 +6,6 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     public WeaponConfig config;
-    
 
     [HideInInspector]
     public float spread

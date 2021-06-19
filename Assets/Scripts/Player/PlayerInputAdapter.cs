@@ -5,9 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputAdapter : MonoBehaviour
 {
-    public UnitController owner;
     [SerializeField]
     private float cameraSensitivity;
+    [Header("References")]
+    public UnitController owner;
 
     public void MoveXZ(InputAction.CallbackContext context)
     {
