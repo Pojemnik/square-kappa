@@ -31,11 +31,11 @@ public class UnitAnimationController : MonoBehaviour
     {
         if (newWeapon)
         {
-            if (newWeapon.type == WeaponController.WeaponType.Rifle)
+            if (newWeapon.config.type == WeaponConfig.WeaponType.Rifle)
             {
                 SetAnimatorLayer("Chemirail");
             }
-            else if (newWeapon.type == WeaponController.WeaponType.Pistol)
+            else if (newWeapon.config.type == WeaponConfig.WeaponType.Pistol)
             {
                 SetAnimatorLayer("Laser Pistol");
             }

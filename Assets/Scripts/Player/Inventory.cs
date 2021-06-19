@@ -20,21 +20,21 @@ public class Inventory
 
     public int AddWeapon(GameObject weapon)
     {
-        WeaponController.WeaponSize size = weapon.GetComponent<WeaponController>().size;
-        if (size == WeaponController.WeaponSize.Small)
+        WeaponConfig.WeaponSize size = weapon.GetComponent<WeaponConfig>().size;
+        if (size == WeaponConfig.WeaponSize.Small)
         {
             if (smallSlots.Count < maxSmallSlots)
             {
-                smallSlots.Add(new InventorySlot(WeaponController.WeaponSize.Small));
+                smallSlots.Add(new InventorySlot(WeaponConfig.WeaponSize.Small));
                 smallSlots[smallSlots.Count - 1].AddWeapon(weapon);
                 return smallSlots.Count - 1 + maxBigSlots;
             }
         }
-        if (size == WeaponController.WeaponSize.Big)
+        if (size == WeaponConfig.WeaponSize.Big)
         {
             if (bigSlots.Count < maxBigSlots)
             {
-                bigSlots.Add(new InventorySlot(WeaponController.WeaponSize.Big));
+                bigSlots.Add(new InventorySlot(WeaponConfig.WeaponSize.Big));
                 bigSlots[bigSlots.Count - 1].AddWeapon(weapon);
                 return bigSlots.Count - 1;
             }
@@ -72,16 +72,16 @@ public class Inventory
 [System.Serializable]
 public class InventorySlot
 {
-    public WeaponController.WeaponSize slotSize { get { return size; } }
+    public WeaponConfig.WeaponSize slotSize { get { return size; } }
     public GameObject weapon { get { return weaponObject; } }
     public WeaponController controller { get { return controllerObject; } }
     public bool empty { get { return weaponObject == null; } }
 
     private GameObject weaponObject;
     private WeaponController controllerObject;
-    private WeaponController.WeaponSize size;
+    private WeaponConfig.WeaponSize size;
 
-    public InventorySlot(WeaponController.WeaponSize weaponSize)
+    public InventorySlot(WeaponConfig.WeaponSize weaponSize)
     {
         size = weaponSize;
     }
@@ -91,7 +91,7 @@ public class InventorySlot
         if (empty)
         {
             WeaponController tempController = weapon.GetComponent<WeaponController>();
-            if (tempController.size != size)
+            if (tempController.config.size != size)
             {
                 throw new System.Exception("Wrong weapon size!");
             }

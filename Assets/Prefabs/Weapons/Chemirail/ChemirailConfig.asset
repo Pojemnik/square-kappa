@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 901fa569f4e33734ead711d8ba8e4fc4, type: 3}
+  m_Name: ChemirailConfig
+  m_EditorClassIdentifier: 
+  shootsPerSecond: 10
+  continousShooting: 1
+  baseSpread: 0.5
+  maxSpread: 8
+  spreadDecrease: 0.05
+  spreadIncrease: 0.1
+  size: 1
+  type: 1
+  projectilePrefab: {fileID: 5938995904749229982, guid: 81544cc963d193144ba25ed7c3e96d4a, type: 3}
+  projectileSpeed: 50
+  projectileOffset: {x: 0, y: 0, z: 0}
+  projectileAngularOffset: {x: 0, y: 0, z: 0}
+  projectileScale: 0.1
+  projectileLifetime: 5
+  flamePrefab: {fileID: 1362533273023082379, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
+  flameOffset: {x: 0, y: 0, z: 0.55}
+  flameRotation: {x: 0, y: 0, z: 0}
+  flameScale: 0.1
+  fireLifetime: 0.2
