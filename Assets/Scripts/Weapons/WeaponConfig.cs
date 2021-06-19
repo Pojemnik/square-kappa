@@ -25,8 +25,9 @@ public class WeaponConfig : ScriptableObject
     
     public float baseSpread;
     public float maxSpread;
-    public float spreadDecrease;
     public float spreadIncrease;
+    public float spreadReductionParameter;
+    public float spreadReductionDelay;
     public WeaponSize size;
     public WeaponType type;
 

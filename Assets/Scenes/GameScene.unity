@@ -1657,9 +1657,9 @@ MonoBehaviour:
   downLine: {fileID: 485330828}
   leftLine: {fileID: 1121025794}
   rightLine: {fileID: 528596555}
-  defaultRadius: 18
-  radiusToSpreadRatio: 15
-  minimalRadius: 12
+  defaultRadius: 14
+  radiusToSpreadRatio: 12
+  minimalRadius: 10
 --- !u!1001 &725844826
 PrefabInstance:
   m_ObjectHideFlags: 0

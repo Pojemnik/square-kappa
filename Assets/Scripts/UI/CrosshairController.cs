@@ -54,7 +54,7 @@ public class CrosshairController : MonoBehaviour
     {
         if(weapon)
         {
-            SetCrosshairRadius(weapon.spread * radiusToSpreadRatio);
+            SetCrosshairRadius(weapon.spread * radiusToSpreadRatio + minimalRadius);
         }
     }
 

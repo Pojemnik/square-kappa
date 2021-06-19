@@ -6,8 +6,7 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     public WeaponConfig config;
-    public float spreadReductionParameter;
-    public float spreadReductionDelay;
+    
 
     [HideInInspector]
     public float spread
@@ -42,7 +41,7 @@ public class WeaponController : MonoBehaviour
     public void stopShoot()
     {
         triggerHold = false;
-        spreadReductionCooldown = spreadReductionDelay;
+        spreadReductionCooldown = config.spreadReductionDelay;
     }
 
     private void Shoot()
@@ -119,6 +118,6 @@ public class WeaponController : MonoBehaviour
 
     private float GetCooldownReductionValue(float time)
     {
-        return time * spreadReductionParameter;
+        return time * config.spreadReductionParameter;
     }    
 }

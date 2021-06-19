@@ -16,8 +16,9 @@ MonoBehaviour:
   continousShooting: 1
   baseSpread: 0.5
   maxSpread: 8
-  spreadDecrease: 0.05
-  spreadIncrease: 0.1
+  spreadIncrease: 0.15
+  spreadReductionParameter: 0.3
+  spreadReductionDelay: 0.2
   size: 1
   type: 1
   projectilePrefab: {fileID: 5938995904749229982, guid: 81544cc963d193144ba25ed7c3e96d4a, type: 3}
