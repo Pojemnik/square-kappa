@@ -5,8 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class CircleOrbitBehaviour : MonoBehaviour
 {
+    [Tooltip("Radius of orbit in units")]
     public float radius;
+    [Tooltip("Number of points connected by line which create orbit gizmo - it doesn't influence orbit itself")]
     public int points;
+    [Tooltip("Time to complete one orbit")]
     public float orbitalPeriod;
 
     private List<Vector2> orbitPath = null;
@@ -89,7 +92,6 @@ public class CircleOrbitBehaviour : MonoBehaviour
                 rigidbody.isKinematic = false;
                 rigidbody.AddForce(transform.right * 2 * Mathf.PI * radius / orbitalPeriod, ForceMode.VelocityChange);
                 linearVelocityValue = 2 * Mathf.PI * radius / orbitalPeriod;
-                print("Orbit start");
             }
         }
         else

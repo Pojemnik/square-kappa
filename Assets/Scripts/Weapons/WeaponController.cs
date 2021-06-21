@@ -27,7 +27,6 @@ public class WeaponController : MonoBehaviour
 
     private void Awake()
     {
-        config.flamePrefab.SetActive(false);
         transform = GetComponent<Transform>();
         spreadRadius = config.baseSpread;
     }
