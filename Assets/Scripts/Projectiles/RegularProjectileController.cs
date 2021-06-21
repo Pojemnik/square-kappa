@@ -18,9 +18,10 @@ public class RegularProjectileController : ProjectileController
 
     private void OnCollisionEnter(Collision collision)
     {
+        GameObject other = collision.collider.gameObject;
         foreach (int layer in ignoredLayers)
         {
-            if (collision.collider.gameObject.layer == layer)
+            if (other.layer == layer)
             {
                 return;
             }

@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public GameObject player;
-    public float shootingRange;
-    public float visionRange;
+    [Header("Refernces")]
+    public GameObject target;
+    public UnitController unitController;
+    public GameObject weapon;
 
-    private PlayerController unitController;
-    private new Rigidbody rigidbody;
-    private int layerMask;
+    [Header("Enemy properites")]
+    public float VisionRange;
+    public float targetDistance;
+    [HideInInspector]
+    public int layerMask;
+    public AIShootingRules ShootingRules;
+    public AIShootingRulesInterpretation ShootingRulesInterpretation;
+
+    [SerializeField]
+    private AIStateMachine AIMovementStateMachine;
+    [SerializeField]
+    private AIStateMachine AIShootingStateMachine;
 
     public void OnDeath()
     {
@@ -19,53 +29,11 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        unitController = GetComponent<PlayerController>();
-        unitController.shootInCameraDirection = false;
-        rigidbody = GetComponent<Rigidbody>();
+        unitController.CurrentWeapon = weapon;
+        unitController.movement.cameraAiming = false;
+        AIMovementStateMachine.ChangeState(new AIMoveTowardsTargetState());
+        AIShootingStateMachine.ChangeState(new AIShootState());
         layerMask = (1 << 7) | (1 << 8) | (1 << 9);
         layerMask = ~layerMask;
-    }
-
-    void Update()
-    {
-        Vector3 positionDelta = player.transform.position - rigidbody.position;
-        unitController.SetLookTarget(positionDelta);
-        if (positionDelta.magnitude > visionRange)
-        {
-            print("Too far to see");
-            return;
-        }
-        RaycastHit raycastHit;
-        if (Physics.Raycast(transform.position, positionDelta, out raycastHit, visionRange, layerMask))
-        {
-            //Player hit
-            if (raycastHit.transform.gameObject.layer == 6)
-            {
-                if (positionDelta.magnitude < shootingRange)
-                {
-                    unitController.StartFire();
-                    unitController.MoveRelative(Vector3.zero);
-                }
-                else
-                {
-                    unitController.StopFire();
-                    unitController.MoveRelative(new Vector3(0, 0, 1));
-                }
-            }
-            else
-            {
-                //print("Covered by an object");
-            }
-        }
-        else
-        {
-            print("Error. Raycast hit nothing");
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        Debug.DrawRay(rigidbody.position, transform.up, Color.green);
-        Debug.DrawRay(rigidbody.position, player.transform.position - rigidbody.position, Color.red);
     }
 }
