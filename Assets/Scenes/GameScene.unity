@@ -3112,7 +3112,7 @@ MonoBehaviour:
   radius: 10
   points: 60
   orbitalPeriod: 10
-  drawWhenSelectedOnly: 0
+  drawWhenSelectedOnly: 1
 --- !u!1001 &1319613379
 PrefabInstance:
   m_ObjectHideFlags: 0

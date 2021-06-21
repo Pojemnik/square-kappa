@@ -11,7 +11,7 @@ public class CircleOrbitBehaviour : MonoBehaviour
     public int points;
     [Tooltip("Time to complete one orbit")]
     public float orbitalPeriod;
-    [Tooltip("Time to complete one orbit")]
+    [Tooltip("When on, orbit gizmo is drawn only when object is selected in insepector")]
     public bool drawWhenSelectedOnly;
 
     private List<Vector2> orbitPath = null;
