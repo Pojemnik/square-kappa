@@ -12,7 +12,7 @@ public class CrosshairController : MonoBehaviour
     [Header("Damage marker")]
     public float damageMarkerDisplayTime;
     public float damageMarkerFadeTime;
-    public GameObject damageMarkerPrefab;
+    public GameObject damageMarker;
 
     [Header("Player")]
     public GameObject playerCenter;
@@ -36,12 +36,13 @@ public class CrosshairController : MonoBehaviour
     private UnityEngine.UI.Image rightImage;
 
     private WeaponController weapon;
+    private Coroutine damageMerkerFadeOut;
 
     void Start()
     {
         hitMarkerImage = hitMarker.GetComponent<UnityEngine.UI.Image>();
         hitMarkerImage.color = Color.clear;
-        damageMarkerImage = damageMarkerPrefab.GetComponent<UnityEngine.UI.Image>();
+        damageMarkerImage = damageMarker.GetComponent<UnityEngine.UI.Image>();
         damageMarkerImage.CrossFadeAlpha(0, 0, true);
         upImage = upLine.GetComponent<UnityEngine.UI.Image>();
         downImage = downLine.GetComponent<UnityEngine.UI.Image>();
@@ -86,14 +87,17 @@ public class CrosshairController : MonoBehaviour
 
     public void OnPlayerHit(Vector3 projectileDirection)
     {
+        if (damageMerkerFadeOut != null)
+        {
+            StopCoroutine(damageMerkerFadeOut);
+        }
         Transform cameraTransform = Camera.main.transform;
         Vector3 towardsHitPoint = -projectileDirection;
         Vector2 screenPosition = new Vector2(Vector3.Dot(towardsHitPoint, cameraTransform.right), Vector3.Dot(towardsHitPoint, cameraTransform.up));
-        GameObject damageMarker = Instantiate(damageMarkerPrefab, transform);
         UnityEngine.UI.Image damageMarkerImage = damageMarker.GetComponent<UnityEngine.UI.Image>();
         damageMarkerImage.rectTransform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(screenPosition.y, screenPosition.x) * Mathf.Rad2Deg + 90);
         damageMarkerImage.CrossFadeAlpha(1, 0, true);
-        StartCoroutine(HideDamageMarker(damageMarkerDisplayTime, damageMarkerImage));
+        damageMerkerFadeOut = StartCoroutine(HideDamageMarker(damageMarkerDisplayTime, damageMarkerImage));
     }
 
     public void OnWeaponChange(WeaponController newWeapon)
@@ -111,6 +115,5 @@ public class CrosshairController : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(time);
         marker.CrossFadeAlpha(0, damageMarkerFadeTime, true);
-        Destroy(marker.gameObject, damageMarkerFadeTime);
     }
 }
