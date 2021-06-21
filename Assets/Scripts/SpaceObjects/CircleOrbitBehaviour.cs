@@ -11,6 +11,8 @@ public class CircleOrbitBehaviour : MonoBehaviour
     public int points;
     [Tooltip("Time to complete one orbit")]
     public float orbitalPeriod;
+    [Tooltip("Time to complete one orbit")]
+    public bool drawWhenSelectedOnly;
 
     private List<Vector2> orbitPath = null;
     private new Rigidbody rigidbody;
@@ -48,6 +50,23 @@ public class CircleOrbitBehaviour : MonoBehaviour
 #if UNITY_EDITOR
     void OnDrawGizmosSelected()
     {
+        if (drawWhenSelectedOnly)
+        {
+            DrawGizmo();
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!drawWhenSelectedOnly)
+        {
+            DrawGizmo();
+        }
+    }
+#endif
+
+    private void DrawGizmo()
+    {
         if (running)
         {
             DrawCircularOrbitGizmo(center);
@@ -65,7 +84,7 @@ public class CircleOrbitBehaviour : MonoBehaviour
             Gizmos.DrawLine(transform.position + transform.forward * radius, transform.position + transform.forward * radius + transform.right * directionGizmoLength);
         }
     }
-#endif
+
 
     private void Awake()
     {
@@ -84,7 +103,7 @@ public class CircleOrbitBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(rigidbody.isKinematic)
+        if (rigidbody.isKinematic)
         {
             if (Mathf.Abs((transform.position - startPosition).sqrMagnitude) < 0.1) //that's pretty big epsilon
             {
