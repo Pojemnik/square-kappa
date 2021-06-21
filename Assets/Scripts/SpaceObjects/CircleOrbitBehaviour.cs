@@ -6,13 +6,17 @@ using UnityEngine;
 public class CircleOrbitBehaviour : MonoBehaviour
 {
     [Tooltip("Radius of orbit in units")]
-    public float radius;
+    [SerializeField]
+    private float radius;
     [Tooltip("Number of points connected by line which create orbit gizmo - it doesn't influence orbit itself")]
-    public int points;
+    [SerializeField]
+    private int points;
     [Tooltip("Time to complete one orbit")]
-    public float orbitalPeriod;
+    [SerializeField]
+    private float orbitalPeriod;
     [Tooltip("When on, orbit gizmo is drawn only when object is selected in insepector")]
-    public bool drawWhenSelectedOnly;
+    [SerializeField]
+    private bool drawWhenSelectedOnly;
 
     private List<Vector2> orbitPath = null;
     private new Rigidbody rigidbody;
