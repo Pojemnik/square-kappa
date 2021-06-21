@@ -69,8 +69,8 @@ public class UnitController : Unit
     public void Start()
     {
         //init camera
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
         //init inventory
         inventory = new Inventory(1, 2);
     }
