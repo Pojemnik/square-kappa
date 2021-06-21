@@ -14,6 +14,11 @@ public class DebugHelper : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             UnityEditor.EditorWindow.FocusWindowIfItsOpen(typeof(UnityEditor.SceneView));
         }
+        else
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 #endif
 }

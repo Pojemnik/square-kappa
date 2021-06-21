@@ -7,8 +7,6 @@ public class CircleOrbitBehaviour : MonoBehaviour
 {
     public float radius;
     public int points;
-    [Range(0, 360)]
-    public float startPositionAngle;
     public float orbitalPeriod;
 
     private List<Vector2> orbitPath = null;
@@ -17,6 +15,7 @@ public class CircleOrbitBehaviour : MonoBehaviour
     private Vector3 center;
     private bool running = false;
     private float linearVelocityValue;
+    private const float directionGizmoLength = 5;
 
     private List<Vector2> GenerateCircle(float radius, int points)
     {
@@ -28,38 +27,50 @@ public class CircleOrbitBehaviour : MonoBehaviour
         return circle;
     }
 
+    private void DrawCircularOrbitGizmo(Vector3 orbitCenter)
+    {
+        Gizmos.color = Color.green;
+        int i = 0;
+        for (int j = 1; j < orbitPath.Count; j++, i++)
+        {
+            Vector3 globalPointi = orbitPath[i].x * transform.forward + orbitPath[i].y * transform.right + orbitCenter;
+            Vector3 globalPointj = orbitPath[j].x * transform.forward + orbitPath[j].y * transform.right + orbitCenter;
+            Gizmos.DrawLine(globalPointi, globalPointj);
+        }
+        Vector3 globalPointFirst = orbitPath[0].x * transform.forward + orbitPath[0].y * transform.right + orbitCenter;
+        Vector3 globalPointLast = orbitPath[orbitPath.Count - 1].x * transform.forward + orbitPath[orbitPath.Count - 1].y * transform.right + orbitCenter;
+        Gizmos.DrawLine(globalPointFirst, globalPointLast);
+    }
+
 #if UNITY_EDITOR
     void OnDrawGizmosSelected()
     {
-        if (!running)
+        if (running)
+        {
+            DrawCircularOrbitGizmo(center);
+        }
+        else
         {
             if (orbitPath == null || orbitPath.Count == 0 || orbitPath.Count != points)
             {
                 orbitPath = GenerateCircle(radius, points);
             }
-            Gizmos.color = Color.green;
-            int i = 0;
-            for (int j = 1; j < orbitPath.Count; j++, i++)
-            {
-                Vector3 globalPointi = orbitPath[i].x * transform.forward + orbitPath[i].y * transform.right + transform.position;
-                Vector3 globalPointj = orbitPath[j].x * transform.forward + orbitPath[j].y * transform.right + transform.position;
-                Gizmos.DrawLine(globalPointi, globalPointj);
-            }
-            Vector3 globalPointFirst = orbitPath[0].x * transform.forward + orbitPath[0].y * transform.right + transform.position;
-            Vector3 globalPointLast = orbitPath[orbitPath.Count - 1].x * transform.forward + orbitPath[orbitPath.Count - 1].y * transform.right + transform.position;
-            Gizmos.DrawLine(globalPointFirst, globalPointLast);
+            DrawCircularOrbitGizmo(transform.position);
             Gizmos.color = Color.blue;
-            Gizmos.DrawLine(transform.position, transform.position + Quaternion.AngleAxis(startPositionAngle, transform.up) * transform.forward * radius);
+            Gizmos.DrawLine(transform.position, transform.position + transform.forward * radius);
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position + transform.forward * radius, transform.position + transform.forward * radius + transform.right * directionGizmoLength);
         }
     }
 #endif
 
     private void Awake()
     {
+        orbitPath = GenerateCircle(radius, points);
         center = transform.position;
         rigidbody = GetComponent<Rigidbody>();
         rigidbody.isKinematic = true;
-        startPosition = transform.position + Quaternion.AngleAxis(startPositionAngle, transform.up) * transform.forward * radius;
+        startPosition = transform.position + transform.forward * radius;
     }
 
     private void Start()
