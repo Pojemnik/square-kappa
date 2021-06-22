@@ -5,6 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class CircleOrbitBehaviour : MonoBehaviour
 {
+    private struct LocalDirections
+    {
+        public Vector3 forward;
+        public Vector3 right;
+        public Vector3 up;
+    }
+
     [Tooltip("Radius of orbit in units")]
     [SerializeField]
     private float radius;
@@ -17,6 +24,11 @@ public class CircleOrbitBehaviour : MonoBehaviour
     [Tooltip("When on, orbit gizmo is drawn only when object is selected in insepector")]
     [SerializeField]
     private bool drawWhenSelectedOnly;
+    [Header("Behaviour on orbit")]
+    [SerializeField]
+    private Vector3 startRotation;
+    [SerializeField]
+    private Vector3 startAngularSpeed;
 
     private List<Vector2> orbitPath = null;
     private new Rigidbody rigidbody;
@@ -25,6 +37,7 @@ public class CircleOrbitBehaviour : MonoBehaviour
     private bool running = false;
     private float linearVelocityValue;
     private const float directionGizmoLength = 5;
+    private LocalDirections localDirections;
 
     private List<Vector2> GenerateCircle(float radius, int points)
     {
@@ -36,18 +49,18 @@ public class CircleOrbitBehaviour : MonoBehaviour
         return circle;
     }
 
-    private void DrawCircularOrbitGizmo(Vector3 orbitCenter)
+    private void DrawCircularOrbitGizmo(Vector3 orbitCenter, LocalDirections direction)
     {
         Gizmos.color = Color.green;
         int i = 0;
         for (int j = 1; j < orbitPath.Count; j++, i++)
         {
-            Vector3 globalPointi = orbitPath[i].x * transform.forward + orbitPath[i].y * transform.right + orbitCenter;
-            Vector3 globalPointj = orbitPath[j].x * transform.forward + orbitPath[j].y * transform.right + orbitCenter;
+            Vector3 globalPointi = orbitPath[i].x * direction.forward + orbitPath[i].y * direction.right + orbitCenter;
+            Vector3 globalPointj = orbitPath[j].x * direction.forward + orbitPath[j].y * direction.right + orbitCenter;
             Gizmos.DrawLine(globalPointi, globalPointj);
         }
-        Vector3 globalPointFirst = orbitPath[0].x * transform.forward + orbitPath[0].y * transform.right + orbitCenter;
-        Vector3 globalPointLast = orbitPath[orbitPath.Count - 1].x * transform.forward + orbitPath[orbitPath.Count - 1].y * transform.right + orbitCenter;
+        Vector3 globalPointFirst = orbitPath[0].x * direction.forward + orbitPath[0].y * direction.right + orbitCenter;
+        Vector3 globalPointLast = orbitPath[orbitPath.Count - 1].x * direction.forward + orbitPath[orbitPath.Count - 1].y * direction.right + orbitCenter;
         Gizmos.DrawLine(globalPointFirst, globalPointLast);
     }
 
@@ -73,19 +86,23 @@ public class CircleOrbitBehaviour : MonoBehaviour
     {
         if (running)
         {
-            DrawCircularOrbitGizmo(center);
+            DrawCircularOrbitGizmo(center, localDirections);
         }
         else
         {
+            LocalDirections direction;
+            direction.forward = transform.forward;
+            direction.right = transform.right;
+            direction.up = transform.up;
             if (orbitPath == null || orbitPath.Count == 0 || orbitPath.Count != points)
             {
                 orbitPath = GenerateCircle(radius, points);
             }
-            DrawCircularOrbitGizmo(transform.position);
+            DrawCircularOrbitGizmo(transform.position, direction);
             Gizmos.color = Color.blue;
-            Gizmos.DrawLine(transform.position, transform.position + transform.forward * radius);
+            Gizmos.DrawLine(transform.position, transform.position + direction.forward * radius);
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position + transform.forward * radius, transform.position + transform.forward * radius + transform.right * directionGizmoLength);
+            Gizmos.DrawLine(transform.position + direction.forward * radius, transform.position + direction.forward * radius + direction.right * directionGizmoLength);
         }
     }
 
@@ -101,6 +118,9 @@ public class CircleOrbitBehaviour : MonoBehaviour
 
     private void Start()
     {
+        localDirections.forward = transform.forward;
+        localDirections.right = transform.right;
+        localDirections.up = transform.up;
         rigidbody.MovePosition(startPosition);
         running = true;
     }
@@ -114,6 +134,8 @@ public class CircleOrbitBehaviour : MonoBehaviour
                 rigidbody.velocity = Vector3.zero;
                 rigidbody.isKinematic = false;
                 rigidbody.AddForce(transform.right * 2 * Mathf.PI * radius / orbitalPeriod, ForceMode.VelocityChange);
+                rigidbody.rotation = Quaternion.Euler(startRotation);
+                rigidbody.AddRelativeTorque(startAngularSpeed, ForceMode.VelocityChange);
                 linearVelocityValue = 2 * Mathf.PI * radius / orbitalPeriod;
             }
         }
