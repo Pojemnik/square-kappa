@@ -38,6 +38,8 @@ public class WeaponConfig : ScriptableObject
     public WeaponSize size;
     [Tooltip("Weapon type used for selecting animation")]
     public WeaponType type;
+    [Tooltip("Backwards force applied to shooter while shooting")]
+    public float backwardsForce;
 
     [Header("Projectile")]
     public GameObject projectilePrefab;

@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PickableItem))]
 public class WeaponController : MonoBehaviour
 {
     public WeaponConfig config;
+
+    [HideInInspector]
+    public UnityEvent ShootEvent;
 
     [HideInInspector]
     public float spread
@@ -80,6 +84,7 @@ public class WeaponController : MonoBehaviour
         {
             spreadRadius = config.maxSpread;
         }
+        ShootEvent.Invoke();
     }
 
     public IEnumerator SetLayerAfterDelay(float time, int layer)

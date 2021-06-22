@@ -21,6 +21,7 @@ MonoBehaviour:
   spreadReductionDelay: 0.2
   size: 1
   type: 1
+  backwardsForce: 1000
   projectilePrefab: {fileID: 5938995904749229982, guid: 81544cc963d193144ba25ed7c3e96d4a, type: 3}
   projectileSpeed: 50
   projectileOffset: {x: 0, y: 0, z: 0}
