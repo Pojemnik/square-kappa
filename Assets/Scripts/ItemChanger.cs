@@ -18,7 +18,7 @@ public class ItemChanger : MonoBehaviour
     public GameObject weaponMountingPoint;
 
     [Header("Events")]
-    public UnityEngine.Events.UnityEvent<RangedWeaponController> weaponChangeEvent;
+    public UnityEngine.Events.UnityEvent<WeaponController> weaponChangeEvent;
 
     private void SelectWorldItem(GameObject item)
     {
@@ -60,7 +60,7 @@ public class ItemChanger : MonoBehaviour
         weaponRB.AddRelativeForce(weaponThrowForce, 0, 0);
         weaponRB.AddRelativeTorque(UnityEngine.Random.onUnitSphere);
         owner.CurrentWeapon.transform.parent = null;
-        StartCoroutine(owner.CurrentWeaponController.SetLayerAfterDelay(3F, 0));
+        StartCoroutine(owner.CurrentWeapon.GetComponent<PickableItem>().SetLayerAfterDelay(3F, 0));
         owner.CurrentWeapon = null;
         owner.AnimationController.UpdateWeaponAnimation(null);
     }

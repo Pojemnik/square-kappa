@@ -27,15 +27,15 @@ public class UnitAnimationController : MonoBehaviour
         }
     }
 
-    public void UpdateWeaponAnimation(RangedWeaponController newWeapon)
+    public void UpdateWeaponAnimation(WeaponController newWeapon)
     {
         if (newWeapon)
         {
-            if (newWeapon.config.type == RangedWeaponConfig.WeaponType.Rifle)
+            if (newWeapon.Config.type == WeaponConfig.WeaponType.Rifle)
             {
                 SetAnimatorLayer("Chemirail");
             }
-            else if (newWeapon.config.type == RangedWeaponConfig.WeaponType.Pistol)
+            else if (newWeapon.Config.type == WeaponConfig.WeaponType.Pistol)
             {
                 SetAnimatorLayer("Laser Pistol");
             }

@@ -5,21 +5,17 @@ using UnityEngine.Events;
 
 public class RangedWeaponController : WeaponController
 {
-    public override WeaponConfig config { get => rangedConfig; }
-    [HideInInspector]
-    public UnityEvent ShootEvent;
+    public override WeaponConfig Config { get => rangedConfig; }
+    public override UnityEvent AttackEvent { get => shootEvent; }
+    public override Quaternion AttackDirection { get => projectileDirection; set { projectileDirection = value; } }
 
-    [HideInInspector]
-    public float spread
+    public override float Spread
     {
         get
         {
             return spreadRadius;
         }
     }
-
-    [HideInInspector]
-    public Quaternion projectileDirection;
 
     [SerializeField]
     private RangedWeaponConfig rangedConfig;
@@ -28,19 +24,32 @@ public class RangedWeaponController : WeaponController
     private float shootCooldown;
     private float spreadRadius;
     private float spreadReductionCooldown;
+    private UnityEvent shootEvent;
+    private Quaternion projectileDirection;
 
     private void Awake()
     {
         transform = GetComponent<Transform>();
         spreadRadius = rangedConfig.baseSpread;
+        shootEvent = new UnityEvent();
     }
 
-    public void startShoot()
+    public override void StartAttack()
+    {
+        startShoot();
+    }
+
+    public override void StopAttack()
+    {
+        stopShoot();
+    }
+
+    private void startShoot()
     {
         triggerHold = true;
     }
 
-    public void stopShoot()
+    private void stopShoot()
     {
         triggerHold = false;
         spreadReductionCooldown = rangedConfig.spreadReductionDelay;
@@ -84,13 +93,7 @@ public class RangedWeaponController : WeaponController
         {
             spreadRadius = rangedConfig.maxSpread;
         }
-        ShootEvent.Invoke();
-    }
-
-    public IEnumerator SetLayerAfterDelay(float time, int layer)
-    {
-        yield return new WaitForSeconds(time);
-        gameObject.layer = layer;
+        AttackEvent.Invoke();
     }
 
     private void FixedUpdate()

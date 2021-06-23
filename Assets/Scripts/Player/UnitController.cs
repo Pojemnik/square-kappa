@@ -22,8 +22,8 @@ public class UnitController : Unit
     private UnitAnimationController animationController;
     public override UnitAnimationController AnimationController { get => animationController; }
 
-    private RangedWeaponController currentWeaponController;
-    public override RangedWeaponController CurrentWeaponController { get => currentWeaponController; }
+    private WeaponController currentWeaponController;
+    public override WeaponController CurrentWeaponController { get => currentWeaponController; }
     private GameObject currentWeapon;
     public override GameObject CurrentWeapon
     {
@@ -50,7 +50,7 @@ public class UnitController : Unit
             targetDirection = value;
             if (currentWeaponController != null)
             {
-                currentWeaponController.projectileDirection = targetDirection;
+                currentWeaponController.AttackDirection = targetDirection;
             }
         }
     }

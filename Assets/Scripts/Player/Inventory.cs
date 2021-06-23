@@ -91,7 +91,7 @@ public class InventorySlot
         if (empty)
         {
             RangedWeaponController tempController = weapon.GetComponent<RangedWeaponController>();
-            if (tempController.config.size != size)
+            if (tempController.Config.size != size)
             {
                 throw new System.Exception("Wrong weapon size!");
             }

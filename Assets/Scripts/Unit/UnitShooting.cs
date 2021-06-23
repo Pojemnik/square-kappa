@@ -12,10 +12,10 @@ public class UnitShooting : MonoBehaviour
     [SerializeField]
     private bool useDefaultWeapon;
     [SerializeField]
-    private RangedWeaponController defaultWeaponController;
+    private WeaponController defaultWeaponController;
 
     private new Rigidbody rigidbody;
-    private RangedWeaponController weaponController = null;
+    private WeaponController weaponController = null;
 
     private void Awake()
     {
@@ -26,17 +26,17 @@ public class UnitShooting : MonoBehaviour
         }
     }
 
-    private void ChangeWeaponController(RangedWeaponController newController)
+    private void ChangeWeaponController(WeaponController newController)
     {
         if (weaponController != null)
         {
-            weaponController.ShootEvent.RemoveListener(OnWeaponShoot);
+            weaponController.AttackEvent.RemoveListener(OnWeaponShoot);
         }
         weaponController = newController;
-        weaponController.ShootEvent.AddListener(OnWeaponShoot);
+        weaponController.AttackEvent.AddListener(OnWeaponShoot);
     }
 
-    public void StartFire()
+    private bool UpdateWeaponController()
     {
         if (owner.CurrentWeaponController == null)
         {
@@ -46,7 +46,7 @@ public class UnitShooting : MonoBehaviour
             }
             else
             {
-                return;
+                return false;
             }
         }
         bool defaultWeaponInUse = useDefaultWeapon && (owner.CurrentWeaponController == null) && weaponController == defaultWeaponController;
@@ -54,18 +54,29 @@ public class UnitShooting : MonoBehaviour
         {
             ChangeWeaponController(owner.CurrentWeaponController);
         }
-        owner.CurrentWeaponController.startShoot();
-        owner.AnimationController.SetState("Fire");
+        return true;
+    }
+
+    public void StartFire()
+    {
+        if (UpdateWeaponController())
+        {
+            weaponController.StartAttack();
+            owner.AnimationController.SetState("Fire");
+        }
     }
 
     public void StopFire()
     {
-        owner.CurrentWeaponController.stopShoot();
-        owner.AnimationController.SetState("StopFire");
+        if (UpdateWeaponController())
+        {
+            weaponController.StopAttack();
+            owner.AnimationController.SetState("StopFire");
+        }
     }
 
     private void OnWeaponShoot()
     {
-        rigidbody.AddForce(-transform.up * weaponController.config.backwardsForce);
+        rigidbody.AddForce(-transform.up * weaponController.Config.backwardsForce);
     }
 }

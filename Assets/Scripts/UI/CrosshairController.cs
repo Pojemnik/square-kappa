@@ -35,7 +35,7 @@ public class CrosshairController : MonoBehaviour
     private UnityEngine.UI.Image leftImage;
     private UnityEngine.UI.Image rightImage;
 
-    private RangedWeaponController weapon;
+    private WeaponController weapon;
     private Coroutine damageMerkerFadeOut;
 
     void Start()
@@ -55,7 +55,7 @@ public class CrosshairController : MonoBehaviour
     {
         if(weapon)
         {
-            SetCrosshairRadius(weapon.spread * radiusToSpreadRatio + minimalRadius);
+            SetCrosshairRadius(weapon.Spread * radiusToSpreadRatio + minimalRadius);
         }
     }
 
@@ -100,7 +100,7 @@ public class CrosshairController : MonoBehaviour
         damageMerkerFadeOut = StartCoroutine(HideDamageMarker(damageMarkerDisplayTime, damageMarkerImage));
     }
 
-    public void OnWeaponChange(RangedWeaponController newWeapon)
+    public void OnWeaponChange(WeaponController newWeapon)
     {
         weapon = newWeapon;
     }
