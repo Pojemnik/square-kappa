@@ -30,6 +30,18 @@ public class PlayerInputAdapter : MonoBehaviour
         owner.movement.RelativeLook(rawInputLook * cameraSensitivity);
     }
 
+    public void Fire(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            owner.shooting.StartFire();
+        }
+        else if (context.canceled)
+        {
+            owner.shooting.StopFire();
+        }
+    }
+
     public void DropItem(InputAction.CallbackContext context)
     {
         if (!context.started)

@@ -16,13 +16,13 @@ public class UnitShooting : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
     }
 
-    public void Fire(InputAction.CallbackContext context)
+    public void StartFire()
     {
         if (owner.CurrentWeapon == null || owner.CurrentWeaponController == null)
         {
             return;
         }
-        if(owner.CurrentWeaponController != weaponController)
+        if (owner.CurrentWeaponController != weaponController)
         {
             if (weaponController != null)
             {
@@ -31,18 +31,6 @@ public class UnitShooting : MonoBehaviour
             weaponController = owner.CurrentWeaponController;
             weaponController.ShootEvent.AddListener(OnWeaponShoot);
         }
-        if (context.started)
-        {
-            StartFire();
-        }
-        else if (context.canceled)
-        {
-            StopFire();
-        }
-    }
-
-    public void StartFire()
-    {
         owner.CurrentWeaponController.startShoot();
         owner.AnimationController.SetState("Fire");
     }
