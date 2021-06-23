@@ -22,8 +22,8 @@ public class UnitController : Unit
     private UnitAnimationController animationController;
     public override UnitAnimationController AnimationController { get => animationController; }
 
-    private WeaponController currentWeaponController;
-    public override WeaponController CurrentWeaponController { get => currentWeaponController; }
+    private RangedWeaponController currentWeaponController;
+    public override RangedWeaponController CurrentWeaponController { get => currentWeaponController; }
     private GameObject currentWeapon;
     public override GameObject CurrentWeapon
     {
@@ -33,7 +33,7 @@ public class UnitController : Unit
             currentWeapon = value;
             if (currentWeapon)
             {
-                currentWeaponController = currentWeapon.GetComponent<WeaponController>();
+                currentWeaponController = currentWeapon.GetComponent<RangedWeaponController>();
             }
             else
             {
@@ -61,7 +61,7 @@ public class UnitController : Unit
         //get components
         if (currentWeapon != null)
         {
-            currentWeaponController = currentWeapon.GetComponent<WeaponController>();
+            currentWeaponController = currentWeapon.GetComponent<RangedWeaponController>();
         }
         health = GetComponent<Health>();
     }

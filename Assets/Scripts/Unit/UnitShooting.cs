@@ -8,28 +8,51 @@ public class UnitShooting : MonoBehaviour
     [Header("Refernces")]
     public Unit owner;
 
+    [Header("Default weapon")]
+    [SerializeField]
+    private bool useDefaultWeapon;
+    [SerializeField]
+    private RangedWeaponController defaultWeaponController;
+
     private new Rigidbody rigidbody;
-    private WeaponController weaponController = null;
+    private RangedWeaponController weaponController = null;
 
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        if (useDefaultWeapon)
+        {
+            weaponController = defaultWeaponController;
+        }
+    }
+
+    private void ChangeWeaponController(RangedWeaponController newController)
+    {
+        if (weaponController != null)
+        {
+            weaponController.ShootEvent.RemoveListener(OnWeaponShoot);
+        }
+        weaponController = newController;
+        weaponController.ShootEvent.AddListener(OnWeaponShoot);
     }
 
     public void StartFire()
     {
-        if (owner.CurrentWeapon == null || owner.CurrentWeaponController == null)
+        if (owner.CurrentWeaponController == null)
         {
-            return;
-        }
-        if (owner.CurrentWeaponController != weaponController)
-        {
-            if (weaponController != null)
+            if (useDefaultWeapon)
             {
-                weaponController.ShootEvent.RemoveListener(OnWeaponShoot);
+                ChangeWeaponController(defaultWeaponController);
             }
-            weaponController = owner.CurrentWeaponController;
-            weaponController.ShootEvent.AddListener(OnWeaponShoot);
+            else
+            {
+                return;
+            }
+        }
+        bool defaultWeaponInUse = useDefaultWeapon && (owner.CurrentWeaponController == null) && weaponController == defaultWeaponController;
+        if (owner.CurrentWeaponController != weaponController && !defaultWeaponInUse)
+        {
+            ChangeWeaponController(owner.CurrentWeaponController);
         }
         owner.CurrentWeaponController.startShoot();
         owner.AnimationController.SetState("Fire");

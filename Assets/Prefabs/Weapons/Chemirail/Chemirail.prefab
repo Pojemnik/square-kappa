@@ -50,10 +50,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0feac5d23a1814b8f274de0660c439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: 2dfb529c6dd3d3345bb803310666bd17, type: 2}
-  spreadReductionParameter: 0.3
-  spreadReductionDelay: 0.2
+  ShootEvent:
+    m_PersistentCalls:
+      m_Calls: []
   projectileDirection: {x: 0, y: 0, z: 0, w: 0}
+  rangedConfig: {fileID: 11400000, guid: 2dfb529c6dd3d3345bb803310666bd17, type: 2}
 --- !u!54 &-6167557632125724416
 Rigidbody:
   m_ObjectHideFlags: 0

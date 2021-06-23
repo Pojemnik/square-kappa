@@ -18,7 +18,7 @@ public class ItemChanger : MonoBehaviour
     public GameObject weaponMountingPoint;
 
     [Header("Events")]
-    public UnityEngine.Events.UnityEvent<WeaponController> weaponChangeEvent;
+    public UnityEngine.Events.UnityEvent<RangedWeaponController> weaponChangeEvent;
 
     private void SelectWorldItem(GameObject item)
     {
