@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(UnitShooting))]
+[RequireComponent(typeof(UnitController))]
 public class EnemyController : MonoBehaviour
 {
     [Header("Refernces")]
     public GameObject target;
     public UnitController unitController;
     public GameObject weapon;
+    [SerializeField]
+    private UnitShooting shooting;
 
     [Header("Enemy properites")]
     public float VisionRange;
@@ -30,6 +34,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         unitController.CurrentWeapon = weapon;
+        shooting.ChangeWeaponController(weapon.GetComponent<WeaponController>());
         unitController.movement.cameraAiming = false;
         AIMovementStateMachine.ChangeState(new AIMoveTowardsTargetState());
         AIShootingStateMachine.ChangeState(new AIShootState());
