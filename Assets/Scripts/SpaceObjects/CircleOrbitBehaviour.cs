@@ -12,23 +12,31 @@ public class CircleOrbitBehaviour : MonoBehaviour
         public Vector3 up;
     }
 
+    [Header("Orbit parameters")]
     [Tooltip("Radius of orbit in units")]
     [SerializeField]
     private float radius;
-    [Tooltip("Number of points connected by line which create orbit gizmo - it doesn't influence orbit itself")]
-    [SerializeField]
-    private int points;
     [Tooltip("Time to complete one orbit")]
     [SerializeField]
     private float orbitalPeriod;
-    [Tooltip("When on, orbit gizmo is drawn only when object is selected in insepector")]
-    [SerializeField]
-    private bool drawWhenSelectedOnly;
+
     [Header("Behaviour on orbit")]
     [SerializeField]
     private Vector3 startRotation;
     [SerializeField]
     private Vector3 startAngularSpeed;
+
+    [Header("Gizmo parameters")]
+    [Tooltip("Number of points connected by line which create orbit gizmo - it doesn't influence orbit itself")]
+    [SerializeField]
+    private int points;
+    [Tooltip("When on, orbit gizmo is drawn only when object is selected in insepector")]
+    [SerializeField]
+    private bool drawWhenSelectedOnly;
+    [SerializeField]
+    private Color selectedColor = Color.yellow;
+    [SerializeField]
+    private Color notSelectedColor = Color.green;
 
     private List<Vector2> orbitPath = null;
     private new Rigidbody rigidbody;
@@ -49,9 +57,9 @@ public class CircleOrbitBehaviour : MonoBehaviour
         return circle;
     }
 
-    private void DrawCircularOrbitGizmo(Vector3 orbitCenter, LocalDirections direction)
+    private void DrawCircularOrbitGizmo(Vector3 orbitCenter, LocalDirections direction, Color color)
     {
-        Gizmos.color = Color.green;
+        Gizmos.color = color;
         int i = 0;
         for (int j = 1; j < orbitPath.Count; j++, i++)
         {
@@ -69,7 +77,7 @@ public class CircleOrbitBehaviour : MonoBehaviour
     {
         if (drawWhenSelectedOnly)
         {
-            DrawGizmo();
+            DrawGizmo(selectedColor);
         }
     }
 
@@ -77,16 +85,16 @@ public class CircleOrbitBehaviour : MonoBehaviour
     {
         if (!drawWhenSelectedOnly)
         {
-            DrawGizmo();
+            DrawGizmo(notSelectedColor);
         }
     }
 #endif
 
-    private void DrawGizmo()
+    private void DrawGizmo(Color pathColor)
     {
         if (running)
         {
-            DrawCircularOrbitGizmo(center, localDirections);
+            DrawCircularOrbitGizmo(center, localDirections, pathColor);
         }
         else
         {
@@ -98,7 +106,7 @@ public class CircleOrbitBehaviour : MonoBehaviour
             {
                 orbitPath = GenerateCircle(radius, points);
             }
-            DrawCircularOrbitGizmo(transform.position, direction);
+            DrawCircularOrbitGizmo(transform.position, direction, pathColor);
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(transform.position, transform.position + direction.forward * radius);
             Gizmos.color = Color.red;
