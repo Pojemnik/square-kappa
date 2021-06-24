@@ -35,7 +35,7 @@ public class UnitShooting : MonoBehaviour
         if (weaponController != null)
         {
             weaponController.StartAttack();
-            owner.AnimationController.SetState("Fire");
+            owner.AnimationController.SetStaticState("Fire");
         }
     }
 
@@ -44,7 +44,7 @@ public class UnitShooting : MonoBehaviour
         if (weaponController != null)
         {
             weaponController.StopAttack();
-            owner.AnimationController.SetState("StopFire");
+            owner.AnimationController.ResetStaticState("Fire");
         }
     }
 

@@ -14,6 +14,16 @@ public class UnitAnimationController : MonoBehaviour
         animator.SetTrigger(state);
     }
 
+    public void SetStaticState(string state)
+    {
+        animator.SetBool(state, true);
+    }
+
+    public void ResetStaticState(string state)
+    {
+        animator.SetBool(state, false);
+    }
+
     public void SetAnimatorLayer(string name)
     {
         int index = animator.GetLayerIndex(name);
