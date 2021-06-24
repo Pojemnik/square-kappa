@@ -6,13 +6,8 @@ using UnityEngine.InputSystem;
 public class UnitShooting : MonoBehaviour
 {
     [Header("Refernces")]
-    public Unit owner;
-
-    [Header("Default weapon")]
     [SerializeField]
-    private bool useDefaultWeapon;
-    [SerializeField]
-    private WeaponController defaultWeaponController;
+    private Unit owner;
 
     private new Rigidbody rigidbody;
     private WeaponController weaponController = null;
@@ -20,46 +15,24 @@ public class UnitShooting : MonoBehaviour
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
-        if (useDefaultWeapon)
-        {
-            weaponController = defaultWeaponController;
-        }
     }
 
-    private void ChangeWeaponController(WeaponController newController)
+    public void ChangeWeaponController(WeaponController newController)
     {
         if (weaponController != null)
         {
             weaponController.AttackEvent.RemoveListener(OnWeaponShoot);
         }
         weaponController = newController;
-        weaponController.AttackEvent.AddListener(OnWeaponShoot);
-    }
-
-    private bool UpdateWeaponController()
-    {
-        if (owner.CurrentWeaponController == null)
+        if (weaponController != null)
         {
-            if (useDefaultWeapon)
-            {
-                ChangeWeaponController(defaultWeaponController);
-            }
-            else
-            {
-                return false;
-            }
+            weaponController.AttackEvent.AddListener(OnWeaponShoot);
         }
-        bool defaultWeaponInUse = useDefaultWeapon && (owner.CurrentWeaponController == null) && weaponController == defaultWeaponController;
-        if (owner.CurrentWeaponController != weaponController && !defaultWeaponInUse)
-        {
-            ChangeWeaponController(owner.CurrentWeaponController);
-        }
-        return true;
     }
 
     public void StartFire()
     {
-        if (UpdateWeaponController())
+        if (weaponController != null)
         {
             weaponController.StartAttack();
             owner.AnimationController.SetState("Fire");
@@ -68,7 +41,7 @@ public class UnitShooting : MonoBehaviour
 
     public void StopFire()
     {
-        if (UpdateWeaponController())
+        if (weaponController != null)
         {
             weaponController.StopAttack();
             owner.AnimationController.SetState("StopFire");

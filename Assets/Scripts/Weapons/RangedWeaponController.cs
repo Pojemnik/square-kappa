@@ -20,7 +20,6 @@ public class RangedWeaponController : WeaponController
     [SerializeField]
     private RangedWeaponConfig rangedConfig;
     private bool triggerHold = false;
-    private new Transform transform;
     private float shootCooldown;
     private float spreadRadius;
     private float spreadReductionCooldown;
@@ -29,7 +28,6 @@ public class RangedWeaponController : WeaponController
 
     private void Awake()
     {
-        transform = GetComponent<Transform>();
         spreadRadius = rangedConfig.baseSpread;
         shootEvent = new UnityEvent();
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "RangedWeaponConfig", menuName = "ScriptableObjects/WeaponConfig")]
+[CreateAssetMenu(fileName = "RangedWeaponConfig", menuName = "ScriptableObjects/WeaponConfig/Ranged")]
 public class RangedWeaponConfig : WeaponConfig
 {
     [Header("Weapon parameters")]

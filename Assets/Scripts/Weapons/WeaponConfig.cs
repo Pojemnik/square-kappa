@@ -15,7 +15,8 @@ public class WeaponConfig : ScriptableObject
     public enum WeaponType
     {
         Pistol,
-        Rifle
+        Rifle,
+        Fists
     }
     [Tooltip("Size of slot taken by weapon in inventory")]
     public WeaponSize size;

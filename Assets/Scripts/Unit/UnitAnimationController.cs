@@ -31,23 +31,28 @@ public class UnitAnimationController : MonoBehaviour
     {
         if (newWeapon)
         {
-            if (newWeapon.Config.type == WeaponConfig.WeaponType.Rifle)
+            switch(newWeapon.Config.type)
             {
-                SetAnimatorLayer("Chemirail");
-            }
-            else if (newWeapon.Config.type == WeaponConfig.WeaponType.Pistol)
-            {
-                SetAnimatorLayer("Laser Pistol");
+                case WeaponConfig.WeaponType.Rifle:
+                    SetAnimatorLayer("Chemirail");
+                    break;
+                case WeaponConfig.WeaponType.Pistol:
+                    SetAnimatorLayer("Laser Pistol");
+                    break;
+                case WeaponConfig.WeaponType.Fists:
+                    SetAnimatorLayer("Unarmed");
+                    break;
+                default:
+                    SetAnimatorLayer("Unarmed");
+                    Debug.LogError("Unkonown weapon type. Used default");
+                    break;
+
             }
         }
         else
         {
             SetAnimatorLayer("Unarmed");
+            Debug.LogError("Weapon in null. Animation set to default");
         }
-    }
-
-    private void Start()
-    {
-        UpdateWeaponAnimation(owner.CurrentWeaponController);
     }
 }

@@ -33,7 +33,7 @@ public class UnitController : Unit
             currentWeapon = value;
             if (currentWeapon)
             {
-                currentWeaponController = currentWeapon.GetComponent<RangedWeaponController>();
+                currentWeaponController = currentWeapon.GetComponent<WeaponController>();
             }
             else
             {
@@ -81,14 +81,7 @@ public class UnitController : Unit
 
     public void PickItem()
     {
-        if (currentWeapon)
-        {
-            itemChanger.SwapWeapons();
-        }
-        else
-        {
-            itemChanger.PickWeaponUp();
-        }
+        itemChanger.PickOrSwapWeapon();
     }
 
     public void StartDash()

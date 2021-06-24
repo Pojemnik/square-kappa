@@ -4973,9 +4973,37 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5653950778987106431, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
+      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653950778987106431, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
+      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653950778987106431, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 650388829}
+    - target: {fileID: 5653950778987106431, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
+      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 384541755}
+    - target: {fileID: 5653950778987106431, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
+      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653950778987106431, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
+      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ChangeWeaponController
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653950778987106431, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
+      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnitShooting, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653950778987106431, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
+      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6165911240001322639, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
