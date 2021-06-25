@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MeleWeaponConfig", menuName = "ScriptableObjects/WeaponConfig/Mele")]
 public class MeleWeaponConfig : WeaponConfig
 {
-    public float damage;
+    public int damage;
     public float attacksPerSecond;
     public float range;
 }

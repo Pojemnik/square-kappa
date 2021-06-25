@@ -45,6 +45,16 @@ public class MeleWeaponController : WeaponController
         AttackEvent.Invoke();
     }
 
+    private GameObject GetTopParent(GameObject obj)
+    {
+        Transform transform = obj.transform;
+        while (transform.parent != null)
+        {
+            transform = transform.parent;
+        }
+        return transform.gameObject;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         currentCollision = other.gameObject;
@@ -73,7 +83,13 @@ public class MeleWeaponController : WeaponController
         }
         if (nextCollisionIsAttack && currentCollision != null)
         {
-            print(currentCollision);
+            GameObject topParent = GetTopParent(currentCollision);
+            Health targetsHealth = topParent.GetComponent<Health>();
+            if (targetsHealth != null)
+            {
+                //Change direction, when mele ememies are added
+                targetsHealth.Damaged(new DamageInfo(meleConfig.damage, transform.forward));
+            }
             nextCollisionIsAttack = false;
         }
     }
