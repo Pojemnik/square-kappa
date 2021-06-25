@@ -85,14 +85,14 @@ public class CrosshairController : MonoBehaviour
         StartCoroutine(HideHitMarker(hitMarkerDisplayTime));
     }
 
-    public void OnPlayerHit(Vector3 projectileDirection)
+    public void OnPlayerHit(DamageInfo info)
     {
         if (damageMerkerFadeOut != null)
         {
             StopCoroutine(damageMerkerFadeOut);
         }
         Transform cameraTransform = Camera.main.transform;
-        Vector3 towardsHitPoint = -projectileDirection;
+        Vector3 towardsHitPoint = -info.direction;
         Vector2 screenPosition = new Vector2(Vector3.Dot(towardsHitPoint, cameraTransform.right), Vector3.Dot(towardsHitPoint, cameraTransform.up));
         UnityEngine.UI.Image damageMarkerImage = damageMarker.GetComponent<UnityEngine.UI.Image>();
         damageMarkerImage.rectTransform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(screenPosition.y, screenPosition.x) * Mathf.Rad2Deg + 90);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Collider))]
 public class MeleWeaponController : WeaponController
 {
     public override WeaponConfig Config { get => meleConfig; }
@@ -16,11 +17,16 @@ public class MeleWeaponController : WeaponController
     public override void StartAttack()
     {
         attacking = true;
+        if (stopCoroutine != null)
+        {
+            StopCoroutine(stopCoroutine);
+        }
     }
 
     public override void StopAttack()
     {
         attacking = false;
+        stopCoroutine = StartCoroutine(StopAttackCoroutine());
     }
 
     [SerializeField]
@@ -29,10 +35,24 @@ public class MeleWeaponController : WeaponController
     private Quaternion attackDirection;
     private bool attacking;
     private float attackCooldown;
+    private bool nextCollisionIsAttack;
+    private Coroutine stopCoroutine;
+    private GameObject currentCollision;
 
     private void Attack()
     {
+        nextCollisionIsAttack = true;
         AttackEvent.Invoke();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        currentCollision = other.gameObject;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        currentCollision = null;
     }
 
     private void Awake()
@@ -51,5 +71,16 @@ public class MeleWeaponController : WeaponController
             Attack();
             attackCooldown = 1F / meleConfig.attacksPerSecond;
         }
+        if (nextCollisionIsAttack && currentCollision != null)
+        {
+            print(currentCollision);
+            nextCollisionIsAttack = false;
+        }
+    }
+
+    private IEnumerator StopAttackCoroutine()
+    {
+        yield return new WaitForSeconds(1F / meleConfig.attacksPerSecond);
+        nextCollisionIsAttack = false;
     }
 }

@@ -7,13 +7,20 @@ using UnityEngine;
 public class RegularProjectileController : ProjectileController
 {
     private new Rigidbody rigidbody;
-    private new Collider collider;
 
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        collider = GetComponent<Collider>();
         rigidbody.AddRelativeForce(0, 0, speed, ForceMode.VelocityChange);
+    }
+
+    private GameObject GetTopParent(Transform transform)
+    {
+        while (transform.parent != null)
+        {
+            transform = transform.parent;
+        }
+        return transform.gameObject;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -25,6 +32,12 @@ public class RegularProjectileController : ProjectileController
             {
                 return;
             }
+        }
+        GameObject topParent = GetTopParent(other.transform);
+        Health othersHealth = topParent.gameObject.GetComponent<Health>();
+        if (othersHealth != null)
+        {
+            othersHealth.Damaged(new DamageInfo(damage, direction));
         }
         Destroy(Instantiate(hitEffectPrefab, collision.GetContact(0).point, Quaternion.Euler(collision.GetContact(0).normal)), 5);
         Destroy(gameObject);

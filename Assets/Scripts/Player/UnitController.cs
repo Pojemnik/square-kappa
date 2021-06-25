@@ -6,8 +6,6 @@ using UnityEngine.InputSystem;
 public class UnitController : Unit
 {
     [Header("Events")]
-    public UnityEngine.Events.UnityEvent<Vector3> hitEvent;
-
     //TODO fix inventory
     public UnityEngine.Events.UnityEvent<int, string> inventoryChange;
     private Inventory inventory;
@@ -17,7 +15,6 @@ public class UnitController : Unit
     public UnitShooting shooting;
     public UnitDash dashing;
     public ItemChanger itemChanger;
-    private Health health;
     [SerializeField]
     private UnitAnimationController animationController;
     public override UnitAnimationController AnimationController { get => animationController; }
@@ -63,7 +60,6 @@ public class UnitController : Unit
         {
             currentWeaponController = currentWeapon.GetComponent<RangedWeaponController>();
         }
-        health = GetComponent<Health>();
     }
 
     public void Start()
@@ -92,19 +88,6 @@ public class UnitController : Unit
     public void CancelDash()
     {
         dashing.DisableDashMode();
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        if ((collision.gameObject.layer == 8 && gameObject.layer == 7) || (collision.gameObject.layer == 9 && gameObject.layer == 6))
-        {
-            ProjectileController projectile = collision.gameObject.GetComponent<ProjectileController>();
-            if (projectile)
-            {
-                hitEvent.Invoke(projectile.direction);
-            }
-            health.Damaged(projectile.damage);
-        }
     }
 
     public void PickWeaponFromInventory(int slot)
