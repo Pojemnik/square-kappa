@@ -14,24 +14,30 @@ public class ItemChanger : MonoBehaviour
     private bool useDefaultWeapon;
     [SerializeField]
     private GameObject defaultWeapon;
-    private WeaponController defaultWeaponController;
-
-    private PlayerCameraController cameraController;
+    
     [Header("Camera")]
     [SerializeField]
     private GameObject firstPresonCamera;
-    private GameObject selectedItem;
 
     [Header("Item pickup")]
     [SerializeField]
     private float weaponPickupRange;
     [SerializeField]
+    private GameObject weaponMountingPoint;
+
+    [Header("Item dropping")]
+    [SerializeField]
     private float weaponThrowForce;
     [SerializeField]
-    private GameObject weaponMountingPoint;
+    private float weaponDropCollisionTimeout;
 
     [Header("Events")]
     public UnityEngine.Events.UnityEvent<WeaponController> weaponChangeEvent;
+
+    private WeaponController defaultWeaponController;
+    private PlayerCameraController cameraController;
+    private GameObject selectedItem;
+    private new Rigidbody rigidbody;
 
     private void SelectWorldItem(GameObject item)
     {
@@ -87,11 +93,12 @@ public class ItemChanger : MonoBehaviour
         }
         Rigidbody weaponRB = owner.CurrentWeapon.GetComponent<Rigidbody>();
         weaponRB.isKinematic = false;
-        weaponRB.AddRelativeForce(weaponThrowForce, 0, 0);
-        weaponRB.AddRelativeTorque(Random.onUnitSphere);
+        weaponRB.AddRelativeForce(0, 0, weaponThrowForce);
+        weaponRB.AddRelativeTorque(0, -20, 0);
         owner.CurrentWeapon.transform.parent = null;
+        weaponRB.AddForce(rigidbody.velocity, ForceMode.VelocityChange);
         owner.CurrentWeaponController.StopAttack();
-        StartCoroutine(owner.CurrentWeapon.GetComponent<PickableItem>().SetLayerAfterDelay(3F, 0));
+        StartCoroutine(owner.CurrentWeapon.GetComponent<PickableItem>().SetLayerAfterDelay(weaponDropCollisionTimeout, 0));
         if (useDefaultWeapon)
         {
             GrabWeapon(defaultWeapon);
@@ -135,6 +142,7 @@ public class ItemChanger : MonoBehaviour
     private void Awake()
     {
         cameraController = firstPresonCamera.GetComponent<PlayerCameraController>();
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     private void Start()
