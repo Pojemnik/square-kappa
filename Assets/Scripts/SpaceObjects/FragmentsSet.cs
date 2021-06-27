@@ -6,4 +6,10 @@ using UnityEngine;
 public class FragmentsSet : ScriptableObject
 {
     public List<GameObject> framgents;
+
+    public GameObject GetRandomFragment()
+    {
+        int index = Random.Range(0, framgents.Count - 1);
+        return framgents[index];
+    }
 }
