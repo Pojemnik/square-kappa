@@ -17,7 +17,7 @@ MonoBehaviour:
   fragmentsNumber:
     min: 5
     max: 10
-  fragmentsVelocity:
+  fragmentsInitialForce:
     min: 10000
     max: 100000
   fragmentsScale:

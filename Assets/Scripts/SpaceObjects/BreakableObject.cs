@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Health))]
 public class BreakableObject : MonoBehaviour
 {
     [Header("Fragments settings")]
@@ -9,6 +10,8 @@ public class BreakableObject : MonoBehaviour
     private FragmentsSet fragments;
     [SerializeField]
     private BreakableObjectSettings settings;
+
+    private Health objectsHealth;
 
     private Vector3 RandomVector(float minValue, float maxValue)
     {
@@ -29,7 +32,7 @@ public class BreakableObject : MonoBehaviour
         GameObject fragment = Instantiate(prefab, transform.position + positionDelta, Quaternion.Euler(startRotation));
         fragment.transform.localScale = scale;
         Rigidbody fragmentsRB = fragment.GetComponent<Rigidbody>();
-        float velocity = Random.Range(settings.fragmentsVelocity.min, settings.fragmentsVelocity.max);
+        float velocity = Random.Range(settings.fragmentsInitialForce.min, settings.fragmentsInitialForce.max);
         fragmentsRB.AddExplosionForce(velocity, transform.position, settings.fragmentsSpawnRange * 10);
         fragmentsRB.AddTorque(RandomVector(settings.fragmentsAngularForce));
     }
@@ -42,5 +45,11 @@ public class BreakableObject : MonoBehaviour
             CreateFragment();
         }
         Destroy(gameObject);
+    }
+
+    private void Start()
+    {
+        objectsHealth = GetComponent<Health>();
+        objectsHealth.deathEvent.AddListener(OnBreak);
     }
 }
