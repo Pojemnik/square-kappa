@@ -34,6 +34,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         unitController.CurrentWeapon = weapon;
+        unitController.AnimationController.UpdateWeaponAnimation(unitController.CurrentWeaponController);
         shooting.ChangeWeaponController(weapon.GetComponent<WeaponController>());
         unitController.movement.cameraAiming = false;
         AIMovementStateMachine.ChangeState(new AIMoveTowardsTargetState());
