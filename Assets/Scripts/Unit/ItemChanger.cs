@@ -90,6 +90,7 @@ public class ItemChanger : MonoBehaviour
         weaponRB.AddRelativeForce(weaponThrowForce, 0, 0);
         weaponRB.AddRelativeTorque(Random.onUnitSphere);
         owner.CurrentWeapon.transform.parent = null;
+        owner.CurrentWeaponController.StopAttack();
         StartCoroutine(owner.CurrentWeapon.GetComponent<PickableItem>().SetLayerAfterDelay(3F, 0));
         if (useDefaultWeapon)
         {
