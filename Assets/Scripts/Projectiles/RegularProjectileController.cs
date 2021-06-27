@@ -14,9 +14,9 @@ public class RegularProjectileController : ProjectileController
         rigidbody.AddRelativeForce(0, 0, speed, ForceMode.VelocityChange);
     }
 
-    private GameObject GetTopParent(Transform transform)
+    private GameObject GetParentWithHealth(Transform transform)
     {
-        while (transform.parent != null)
+        while (transform.parent != null && !transform.gameObject.CompareTag("Player") && !transform.gameObject.CompareTag("Enemy"))
         {
             transform = transform.parent;
         }
@@ -33,7 +33,7 @@ public class RegularProjectileController : ProjectileController
                 return;
             }
         }
-        GameObject topParent = GetTopParent(other.transform);
+        GameObject topParent = GetParentWithHealth(other.transform);
         Health othersHealth = topParent.gameObject.GetComponent<Health>();
         if (othersHealth != null)
         {

@@ -666,7 +666,7 @@ GameObject:
   - component: {fileID: 2965096203321282277}
   m_Layer: 7
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -714,9 +714,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58809af716df9834092ee4f68708b242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitEvent:
-    m_PersistentCalls:
-      m_Calls: []
   inventoryChange:
     m_PersistentCalls:
       m_Calls: []
@@ -777,6 +774,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   healthChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  damageEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &3548833648783009657
@@ -1403,7 +1403,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 19261387bce60da41a96e17ed8544884, type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1166754175604888097, guid: 19261387bce60da41a96e17ed8544884, type: 3}
       propertyPath: m_Layer
