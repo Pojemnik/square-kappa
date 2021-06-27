@@ -14,6 +14,16 @@ public class UnitAnimationController : MonoBehaviour
         animator.SetTrigger(state);
     }
 
+    public void SetStaticState(string state)
+    {
+        animator.SetBool(state, true);
+    }
+
+    public void ResetStaticState(string state)
+    {
+        animator.SetBool(state, false);
+    }
+
     public void SetAnimatorLayer(string name)
     {
         int index = animator.GetLayerIndex(name);
@@ -31,23 +41,28 @@ public class UnitAnimationController : MonoBehaviour
     {
         if (newWeapon)
         {
-            if (newWeapon.config.type == WeaponConfig.WeaponType.Rifle)
+            switch(newWeapon.Config.type)
             {
-                SetAnimatorLayer("Chemirail");
-            }
-            else if (newWeapon.config.type == WeaponConfig.WeaponType.Pistol)
-            {
-                SetAnimatorLayer("Laser Pistol");
+                case WeaponConfig.WeaponType.Rifle:
+                    SetAnimatorLayer("Chemirail");
+                    break;
+                case WeaponConfig.WeaponType.Pistol:
+                    SetAnimatorLayer("Laser Pistol");
+                    break;
+                case WeaponConfig.WeaponType.Fists:
+                    SetAnimatorLayer("Unarmed");
+                    break;
+                default:
+                    SetAnimatorLayer("Unarmed");
+                    Debug.LogError("Unkonown weapon type. Used default");
+                    break;
+
             }
         }
         else
         {
             SetAnimatorLayer("Unarmed");
+            Debug.LogError("Weapon in null. Animation set to default");
         }
-    }
-
-    private void Start()
-    {
-        UpdateWeaponAnimation(owner.CurrentWeaponController);
     }
 }

@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 public class UnitShooting : MonoBehaviour
 {
     [Header("Refernces")]
-    public Unit owner;
+    [SerializeField]
+    private Unit owner;
 
     private new Rigidbody rigidbody;
     private WeaponController weaponController = null;
@@ -16,33 +17,39 @@ public class UnitShooting : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
     }
 
+    public void ChangeWeaponController(WeaponController newController)
+    {
+        if (weaponController != null)
+        {
+            weaponController.AttackEvent.RemoveListener(OnWeaponShoot);
+        }
+        weaponController = newController;
+        if (weaponController != null)
+        {
+            weaponController.AttackEvent.AddListener(OnWeaponShoot);
+        }
+    }
+
     public void StartFire()
     {
-        if (owner.CurrentWeapon == null || owner.CurrentWeaponController == null)
+        if (weaponController != null)
         {
-            return;
+            weaponController.StartAttack();
+            owner.AnimationController.SetStaticState("Fire");
         }
-        if (owner.CurrentWeaponController != weaponController)
-        {
-            if (weaponController != null)
-            {
-                weaponController.ShootEvent.RemoveListener(OnWeaponShoot);
-            }
-            weaponController = owner.CurrentWeaponController;
-            weaponController.ShootEvent.AddListener(OnWeaponShoot);
-        }
-        owner.CurrentWeaponController.startShoot();
-        owner.AnimationController.SetState("Fire");
     }
 
     public void StopFire()
     {
-        owner.CurrentWeaponController.stopShoot();
-        owner.AnimationController.SetState("StopFire");
+        if (weaponController != null)
+        {
+            weaponController.StopAttack();
+            owner.AnimationController.ResetStaticState("Fire");
+        }
     }
 
     private void OnWeaponShoot()
     {
-        rigidbody.AddForce(-transform.up * weaponController.config.backwardsForce);
+        rigidbody.AddForce(-transform.up * weaponController.Config.backwardsForce);
     }
 }

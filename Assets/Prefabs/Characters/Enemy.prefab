@@ -740,6 +740,7 @@ MonoBehaviour:
   target: {fileID: 0}
   unitController: {fileID: 8307458533412693616}
   weapon: {fileID: 781317423780084828}
+  shooting: {fileID: 5611851873559394222}
   VisionRange: 100
   targetDistance: 5
   layerMask: 0
