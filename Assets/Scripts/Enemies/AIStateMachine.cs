@@ -46,7 +46,6 @@ public class AIMoveTowardsTargetState : AIBaseState
     public override void Enter()
     {
         movement = owner.enemyController.unitController.movement;
-        Debug.Log("Entering move state");
     }
 
     public override void Update()
@@ -69,12 +68,10 @@ public class AIMoveTowardsTargetState : AIBaseState
                 else
                 {
                     movement.MoveRelative(Vector3.zero);
-                    Debug.Log("Too far to see");
                 }
                 break;
             case TargetStatus.Covered:
                 //Avoid obstacle
-                Debug.Log("Covered by an object");
                 break;
             case TargetStatus.Unavailable:
                 //Do nothing
@@ -101,7 +98,6 @@ public class AIShootState : AIBaseState
         {
             lastShoot = false;
             phaseTime = 0;
-            Debug.Log(string.Format("New shooting mode: {0}", shootingMode));
         }
         phaseTime += Time.deltaTime;
         switch (shootingMode)

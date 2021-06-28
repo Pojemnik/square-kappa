@@ -18,7 +18,11 @@ public class CrosshairController : MonoBehaviour
     [SerializeField]
     private float damageMarkerFadeTime;
     [SerializeField]
-    private float distanceFromCenter;
+    private float damageMarkerDistanceFromCenter;
+    [SerializeField]
+    private bool damageMarkerShowWhenForward;
+    [SerializeField]
+    private float damageMarkerMaxForwardAngle;
     [SerializeField]
     private GameObject damageMarker;
 
@@ -94,17 +98,22 @@ public class CrosshairController : MonoBehaviour
 
     public void OnPlayerHit(DamageInfo info)
     {
+        Transform cameraTransform = Camera.main.transform;
+        Vector3 towardsHitPoint = -info.direction;
+        float angle = Vector3.Angle(cameraTransform.forward, towardsHitPoint);
+        if(!damageMarkerShowWhenForward && angle < damageMarkerMaxForwardAngle)
+        {
+            return;
+        }
         if (damageMerkerFadeOut != null)
         {
             StopCoroutine(damageMerkerFadeOut);
         }
-        Transform cameraTransform = Camera.main.transform;
-        Vector3 towardsHitPoint = -info.direction;
         Vector2 screenPosition = new Vector2(Vector3.Dot(towardsHitPoint, cameraTransform.right), Vector3.Dot(towardsHitPoint, cameraTransform.up));
         UnityEngine.UI.Image damageMarkerImage = damageMarker.GetComponent<UnityEngine.UI.Image>();
         Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(screenPosition.y, screenPosition.x) * Mathf.Rad2Deg + 90);
         damageMarkerImage.rectTransform.rotation = rotation;
-        damageMarkerImage.rectTransform.anchoredPosition = Vector3.zero + rotation * Vector3.down * distanceFromCenter;
+        damageMarkerImage.rectTransform.anchoredPosition = Vector3.zero + rotation * Vector3.down * damageMarkerDistanceFromCenter;
         damageMarkerImage.CrossFadeAlpha(1, 0, true);
         damageMerkerFadeOut = StartCoroutine(HideDamageMarker(damageMarkerDisplayTime, damageMarkerImage));
     }
