@@ -2152,6 +2152,7 @@ MonoBehaviour:
   hitMarker: {fileID: 1104424664}
   damageMarkerDisplayTime: 1
   damageMarkerFadeTime: 0.2
+  distanceFromCenter: 100
   damageMarker: {fileID: 398945384}
   playerCenter: {fileID: 1527445185}
   upLine: {fileID: 1007667561}

@@ -5,36 +5,47 @@ using UnityEngine;
 public class CrosshairController : MonoBehaviour
 {
     [Header("Hit marker")]
-    public float hitMarkerDisplayTime;
-    public float hitMarkerFadeTime;
-    public GameObject hitMarker;
+    [SerializeField]
+    private float hitMarkerDisplayTime;
+    [SerializeField]
+    private float hitMarkerFadeTime;
+    [SerializeField]
+    private GameObject hitMarker;
 
     [Header("Damage marker")]
-    public float damageMarkerDisplayTime;
-    public float damageMarkerFadeTime;
-    public GameObject damageMarker;
+    [SerializeField]
+    private float damageMarkerDisplayTime;
+    [SerializeField]
+    private float damageMarkerFadeTime;
+    [SerializeField]
+    private float distanceFromCenter;
+    [SerializeField]
+    private GameObject damageMarker;
 
     [Header("Player")]
-    public GameObject playerCenter;
+    [SerializeField]
+    private GameObject playerCenter;
 
     [Header("Crosshair lines")]
-    public GameObject upLine;
-    public GameObject downLine;
-    public GameObject leftLine;
-    public GameObject rightLine;
+    [SerializeField]
+    private GameObject upLine;
+    [SerializeField]
+    private GameObject downLine;
+    [SerializeField]
+    private GameObject leftLine;
+    [SerializeField]
+    private GameObject rightLine;
 
     [Header("Crosshair settings")]
-    public float defaultRadius;
-    public float radiusToSpreadRatio;
-    public float minimalRadius;
+    [SerializeField]
+    private float defaultRadius;
+    [SerializeField]
+    private float radiusToSpreadRatio;
+    [SerializeField]
+    private float minimalRadius;
 
     private UnityEngine.UI.Image damageMarkerImage;
     private UnityEngine.UI.Image hitMarkerImage;
-    private UnityEngine.UI.Image upImage;
-    private UnityEngine.UI.Image downImage;
-    private UnityEngine.UI.Image leftImage;
-    private UnityEngine.UI.Image rightImage;
-
     private WeaponController weapon;
     private Coroutine damageMerkerFadeOut;
 
@@ -44,10 +55,6 @@ public class CrosshairController : MonoBehaviour
         hitMarkerImage.color = Color.clear;
         damageMarkerImage = damageMarker.GetComponent<UnityEngine.UI.Image>();
         damageMarkerImage.CrossFadeAlpha(0, 0, true);
-        upImage = upLine.GetComponent<UnityEngine.UI.Image>();
-        downImage = downLine.GetComponent<UnityEngine.UI.Image>();
-        leftImage = leftLine.GetComponent<UnityEngine.UI.Image>();
-        rightImage = rightLine.GetComponent<UnityEngine.UI.Image>();
         SetCrosshairRadius(defaultRadius);
     }
 
@@ -95,7 +102,9 @@ public class CrosshairController : MonoBehaviour
         Vector3 towardsHitPoint = -info.direction;
         Vector2 screenPosition = new Vector2(Vector3.Dot(towardsHitPoint, cameraTransform.right), Vector3.Dot(towardsHitPoint, cameraTransform.up));
         UnityEngine.UI.Image damageMarkerImage = damageMarker.GetComponent<UnityEngine.UI.Image>();
-        damageMarkerImage.rectTransform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(screenPosition.y, screenPosition.x) * Mathf.Rad2Deg + 90);
+        Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(screenPosition.y, screenPosition.x) * Mathf.Rad2Deg + 90);
+        damageMarkerImage.rectTransform.rotation = rotation;
+        damageMarkerImage.rectTransform.anchoredPosition = Vector3.zero + rotation * Vector3.down * distanceFromCenter;
         damageMarkerImage.CrossFadeAlpha(1, 0, true);
         damageMerkerFadeOut = StartCoroutine(HideDamageMarker(damageMarkerDisplayTime, damageMarkerImage));
     }
