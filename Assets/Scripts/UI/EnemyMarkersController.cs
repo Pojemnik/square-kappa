@@ -12,6 +12,8 @@ public class EnemyMarkersController : MonoBehaviour
     [Header("Settings")]
     [SerializeField]
     private float detectionRange;
+    [SerializeField]
+    private float arrowsDistanceFromCenter;
 
     [Header("Prefabs")]
     [SerializeField]
@@ -49,9 +51,10 @@ public class EnemyMarkersController : MonoBehaviour
 
     private void RemoveKeysNotOnList(Dictionary<int, GameObject> dict, IEnumerable<int> enemiesIds)
     {
-        var toRemove = dict.Where(e => !enemiesIds.Contains(e.Key)).Select(e => e.Key);
+        var toRemove = dict.Where(e => !enemiesIds.Contains(e.Key)).Select(e => e.Key).ToList<int>();
         foreach (int key in toRemove)
         {
+            Destroy(dict[key]);
             dict.Remove(key);
         }
     }
@@ -73,31 +76,37 @@ public class EnemyMarkersController : MonoBehaviour
         Vector3 cameraPos = Camera.main.gameObject.transform.position;
         foreach (GameObject enemy in enemies)
         {
+            int enemyId = enemy.GetInstanceID();
             if ((cameraPos - enemy.transform.position).sqrMagnitude > detectionRange * detectionRange)
             {
-                int enemyId = enemy.GetInstanceID();
                 markers[enemyId].SetActive(false);
                 arrows[enemyId].SetActive(false);
                 continue;
             }
             Vector3 screenPos = Camera.main.WorldToScreenPoint(enemy.transform.position);
-            //print(string.Format("Enemy: {0} in position {1}", enemy.name, screenPos));
             bool onScreenX = screenPos.x > 0 && screenPos.x < Camera.main.pixelWidth;
             bool onScreenY = screenPos.y > 0 && screenPos.y < Camera.main.pixelHeight;
-            bool onScreenZ = screenPos.x > 0;
+            bool onScreenZ = screenPos.z > 0;
             if (onScreenX && onScreenY && onScreenZ)
             {
-                int enemyId = enemy.GetInstanceID();
                 markers[enemyId].transform.position = screenPos;
                 markers[enemyId].SetActive(true);
                 arrows[enemyId].SetActive(false);
             }
             else
             {
-                int enemyId = enemy.GetInstanceID();
-                markers[enemyId].SetActive(false);
-                arrows[enemyId].SetActive(false);
                 //Not on screen, display arrow
+                markers[enemyId].SetActive(false);
+                arrows[enemyId].SetActive(true);
+                Transform cameraTransform = Camera.main.transform;
+                Vector3 towardsEnemy = enemy.transform.position - cameraPos;
+                Vector2 screenPosition = new Vector2(Vector3.Dot(towardsEnemy, cameraTransform.right), Vector3.Dot(towardsEnemy, cameraTransform.up));
+                Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(screenPosition.y, screenPosition.x) * Mathf.Rad2Deg);
+                Vector2 cameraScreenCenter = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight) / 2;
+                print(towardsEnemy);
+                print(screenPos);
+                arrows[enemyId].transform.position = rotation * Vector3.right * arrowsDistanceFromCenter + (Vector3)cameraScreenCenter;
+                arrows[enemyId].transform.rotation = rotation;
             }
         }
     }

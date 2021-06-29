@@ -113,7 +113,7 @@ public class CrosshairController : MonoBehaviour
         UnityEngine.UI.Image damageMarkerImage = damageMarker.GetComponent<UnityEngine.UI.Image>();
         Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(screenPosition.y, screenPosition.x) * Mathf.Rad2Deg + 90);
         damageMarkerImage.rectTransform.rotation = rotation;
-        damageMarkerImage.rectTransform.anchoredPosition = Vector3.zero + rotation * Vector3.down * damageMarkerDistanceFromCenter;
+        damageMarkerImage.rectTransform.anchoredPosition = rotation * Vector3.down * damageMarkerDistanceFromCenter;
         damageMarkerImage.CrossFadeAlpha(1, 0, true);
         damageMerkerFadeOut = StartCoroutine(HideDamageMarker(damageMarkerDisplayTime, damageMarkerImage));
     }
