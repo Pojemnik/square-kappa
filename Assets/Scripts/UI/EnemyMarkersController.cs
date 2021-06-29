@@ -11,8 +11,10 @@ public class EnemyMarkersController : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField]
+    [Tooltip("Maximum distance in which marker is being displayed")]
     private float detectionRange;
     [SerializeField]
+    [Tooltip("Distance between center of the screen end arrowd of enemy marker")]
     private float arrowsDistanceFromCenter;
 
     [Header("Prefabs")]
@@ -59,6 +61,14 @@ public class EnemyMarkersController : MonoBehaviour
         }
     }
 
+    private bool IsScreenPointInViewport(Vector3 screenPos)
+    {
+        bool onScreenX = screenPos.x > 0 && screenPos.x < Camera.main.pixelWidth;
+        bool onScreenY = screenPos.y > 0 && screenPos.y < Camera.main.pixelHeight;
+        bool onScreenZ = screenPos.z > 0;
+        return onScreenX && onScreenY && onScreenZ;
+    }
+
     private void Awake()
     {
         arrows = new Dictionary<int, GameObject>();
@@ -79,16 +89,15 @@ public class EnemyMarkersController : MonoBehaviour
             int enemyId = enemy.GetInstanceID();
             if ((cameraPos - enemy.transform.position).sqrMagnitude > detectionRange * detectionRange)
             {
+                //Further than detection range
                 markers[enemyId].SetActive(false);
                 arrows[enemyId].SetActive(false);
                 continue;
             }
             Vector3 screenPos = Camera.main.WorldToScreenPoint(enemy.transform.position);
-            bool onScreenX = screenPos.x > 0 && screenPos.x < Camera.main.pixelWidth;
-            bool onScreenY = screenPos.y > 0 && screenPos.y < Camera.main.pixelHeight;
-            bool onScreenZ = screenPos.z > 0;
-            if (onScreenX && onScreenY && onScreenZ)
+            if (IsScreenPointInViewport(screenPos))
             {
+                //On screen, display marker
                 markers[enemyId].transform.position = screenPos;
                 markers[enemyId].SetActive(true);
                 arrows[enemyId].SetActive(false);
@@ -103,8 +112,6 @@ public class EnemyMarkersController : MonoBehaviour
                 Vector2 screenPosition = new Vector2(Vector3.Dot(towardsEnemy, cameraTransform.right), Vector3.Dot(towardsEnemy, cameraTransform.up));
                 Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(screenPosition.y, screenPosition.x) * Mathf.Rad2Deg);
                 Vector2 cameraScreenCenter = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight) / 2;
-                print(towardsEnemy);
-                print(screenPos);
                 arrows[enemyId].transform.position = rotation * Vector3.right * arrowsDistanceFromCenter + (Vector3)cameraScreenCenter;
                 arrows[enemyId].transform.rotation = rotation;
             }
