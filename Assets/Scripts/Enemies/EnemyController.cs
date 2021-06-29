@@ -26,13 +26,18 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private AIStateMachine AIShootingStateMachine;
 
+    private EnemyManager manager;
+
     public void OnDeath()
     {
+        manager.RemoveEnemy(gameObject);
         Destroy(gameObject);
     }
 
     void Start()
     {
+        manager = FindObjectOfType<EnemyManager>();
+        manager.AddEnemy(gameObject);
         unitController.CurrentWeapon = weapon;
         unitController.AnimationController.UpdateWeaponAnimation(unitController.CurrentWeaponController);
         shooting.ChangeWeaponController(weapon.GetComponent<WeaponController>());
