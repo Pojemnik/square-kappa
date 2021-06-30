@@ -16,6 +16,11 @@ public class EnemyMarkersController : MonoBehaviour
     [SerializeField]
     [Tooltip("Distance between center of the screen end arrowd of enemy marker")]
     private float arrowsDistanceFromCenter;
+    [SerializeField]
+    [Tooltip("Sets minimum and maximum marker scale. " +
+        "Minimum is used, when distance from enemy = Detection Range, " +
+        "maximum, when distance = 0. Game needs to be restarted to apply changes")]
+    private MinMax<float> markerScaleBounds;
 
     [Header("Prefabs")]
     [SerializeField]
@@ -26,6 +31,7 @@ public class EnemyMarkersController : MonoBehaviour
     private List<GameObject> enemies;
     private Dictionary<int, GameObject> arrows;
     private Dictionary<int, GameObject> markers;
+    private float scaleFactor;
 
     private void OnEnemyListChange()
     {
@@ -73,6 +79,7 @@ public class EnemyMarkersController : MonoBehaviour
     {
         arrows = new Dictionary<int, GameObject>();
         markers = new Dictionary<int, GameObject>();
+        scaleFactor = (markerScaleBounds.min - markerScaleBounds.max) / detectionRange;
     }
 
     private void Start()
@@ -87,33 +94,39 @@ public class EnemyMarkersController : MonoBehaviour
         foreach (GameObject enemy in enemies)
         {
             int enemyId = enemy.GetInstanceID();
-            if ((cameraPos - enemy.transform.position).sqrMagnitude > detectionRange * detectionRange)
+            float distanceToEnemy = (cameraPos - enemy.transform.position).magnitude;
+            GameObject marker = markers[enemyId];
+            GameObject arrow = arrows[enemyId];
+            if (distanceToEnemy > detectionRange)
             {
                 //Further than detection range
-                markers[enemyId].SetActive(false);
-                arrows[enemyId].SetActive(false);
+                marker.SetActive(false);
+                arrow.SetActive(false);
                 continue;
             }
             Vector3 screenPos = Camera.main.WorldToScreenPoint(enemy.transform.position);
+            float scale = scaleFactor * distanceToEnemy + markerScaleBounds.max;
             if (IsScreenPointInViewport(screenPos))
             {
                 //On screen, display marker
-                markers[enemyId].transform.position = screenPos;
-                markers[enemyId].SetActive(true);
-                arrows[enemyId].SetActive(false);
+                marker.transform.position = screenPos;
+                marker.SetActive(true);
+                arrow.SetActive(false);
+                marker.transform.localScale = new Vector3(scale, scale, 1);
             }
             else
             {
                 //Not on screen, display arrow
-                markers[enemyId].SetActive(false);
-                arrows[enemyId].SetActive(true);
+                marker.SetActive(false);
+                arrow.SetActive(true);
                 Transform cameraTransform = Camera.main.transform;
                 Vector3 towardsEnemy = enemy.transform.position - cameraPos;
                 Vector2 screenPosition = new Vector2(Vector3.Dot(towardsEnemy, cameraTransform.right), Vector3.Dot(towardsEnemy, cameraTransform.up));
                 Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(screenPosition.y, screenPosition.x) * Mathf.Rad2Deg);
                 Vector2 cameraScreenCenter = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight) / 2;
-                arrows[enemyId].transform.position = rotation * Vector3.right * arrowsDistanceFromCenter + (Vector3)cameraScreenCenter;
-                arrows[enemyId].transform.rotation = rotation;
+                arrow.transform.position = rotation * Vector3.right * arrowsDistanceFromCenter + (Vector3)cameraScreenCenter;
+                arrow.transform.rotation = rotation;
+                arrow.transform.localScale = new Vector3(scale, scale, 1);
             }
         }
     }

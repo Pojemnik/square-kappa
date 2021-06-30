@@ -3998,8 +3998,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyManager: {fileID: 1979741552}
-  detectionRange: 1000
+  detectionRange: 100
   arrowsDistanceFromCenter: 300
+  markerScaleBounds:
+    min: 0.5
+    max: 1.5
   arrowPrefab: {fileID: 5403635933705174779, guid: fe4e16a26dcc96548bdf07eeb838a8da, type: 3}
   markerPrefab: {fileID: 7380555506521333920, guid: b787f02d00aea4841b4f875d6d9bfdfe, type: 3}
 --- !u!1 &1121025794
