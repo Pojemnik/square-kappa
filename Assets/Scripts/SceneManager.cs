@@ -9,13 +9,18 @@ public class SceneManager : MonoBehaviour
 
     [Header("Game over screen")]
     [SerializeField]
+    private bool enableGameOver;
+    [SerializeField]
     private GameObject gameOverScreen;
     [SerializeField]
     private float gameOverScreenDisplayTime;
 
     public void OnPlayerDeath()
     {
-        StartCoroutine(DisplayGameOverScreen(gameOverScreenDisplayTime));
+        if (enableGameOver)
+        {
+            StartCoroutine(DisplayGameOverScreen(gameOverScreenDisplayTime));
+        }
     }
 
     private IEnumerator DisplayGameOverScreen(float time)

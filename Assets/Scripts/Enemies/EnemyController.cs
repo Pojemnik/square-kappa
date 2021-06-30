@@ -21,17 +21,45 @@ public class EnemyController : MonoBehaviour
     public AIShootingRules ShootingRules;
     public AIShootingRulesInterpretation ShootingRulesInterpretation;
 
+    [Header("Ragdoll properities")]
+    [SerializeField]
+    private bool enableRagdoll;
+
     [SerializeField]
     private AIStateMachine AIMovementStateMachine;
     [SerializeField]
     private AIStateMachine AIShootingStateMachine;
 
     private EnemyManager manager;
+    private Rigidbody[] childrenRigidbodies;
 
     public void OnDeath()
     {
-        manager.RemoveEnemy(gameObject);
-        Destroy(gameObject);
+        if (enableRagdoll)
+        {
+            DeactivateComponents();
+            manager.RemoveEnemy(gameObject);
+            foreach (Rigidbody rb in childrenRigidbodies)
+            {
+                rb.isKinematic = false;
+            }
+            enabled = false;
+        }
+        else
+        {
+            manager.RemoveEnemy(gameObject);
+            Destroy(gameObject);
+        }
+    }
+
+    private void DeactivateComponents()
+    {
+        AIMovementStateMachine.enabled = false;
+        AIShootingStateMachine.enabled = false;
+        unitController.enabled = false;
+        shooting.StopFire();
+        shooting.enabled = false;
+        GetComponent<Health>().enabled = false;
     }
 
     void Start()
@@ -46,5 +74,6 @@ public class EnemyController : MonoBehaviour
         AIShootingStateMachine.ChangeState(new AIShootState());
         layerMask = (1 << 7) | (1 << 8) | (1 << 9);
         layerMask = ~layerMask;
+        childrenRigidbodies = GetComponentsInChildren<Rigidbody>();
     }
 }

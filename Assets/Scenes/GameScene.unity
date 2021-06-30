@@ -1017,7 +1017,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693629, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8604330729651740367, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: firstPresonCamera
@@ -1343,7 +1343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693629, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8604330729651740367, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: firstPresonCamera
@@ -1616,7 +1616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693629, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8604330729651740367, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: firstPresonCamera
@@ -3210,7 +3210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693629, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8604330729651740367, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: firstPresonCamera
@@ -3381,6 +3381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startSceneName: GameScene
+  enableGameOver: 0
   gameOverScreen: {fileID: 1468594146}
   gameOverScreenDisplayTime: 5
 --- !u!1001 &932758654
@@ -6132,7 +6133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693629, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8604330729651740367, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: firstPresonCamera
@@ -6751,6 +6752,10 @@ PrefabInstance:
     - target: {fileID: 8307458533412693617, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: visionRange
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8307458533412693617, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: enableRagdoll
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693618, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_Drag
@@ -7596,7 +7601,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693629, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8604330729651740367, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: firstPresonCamera
