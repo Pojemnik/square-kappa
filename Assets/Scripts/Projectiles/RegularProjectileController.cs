@@ -16,7 +16,7 @@ public class RegularProjectileController : ProjectileController
 
     private GameObject GetParentWithHealth(Transform transform)
     {
-        while (transform.parent != null && !transform.gameObject.CompareTag("Player") && !transform.gameObject.CompareTag("Enemy"))
+        while (transform.parent != null && transform.gameObject.GetComponent<Health>() == null)
         {
             transform = transform.parent;
         }

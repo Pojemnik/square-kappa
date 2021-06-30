@@ -21,6 +21,9 @@ public class EnemyMarkersController : MonoBehaviour
         "Minimum is used, when distance from enemy = Detection Range, " +
         "maximum, when distance = 0. Game needs to be restarted to apply changes")]
     private MinMax<float> markerScaleBounds;
+    [SerializeField]
+    [Tooltip("Display markers on enemies covered by an object")]
+    private bool showHiddenEnemies;
 
     [Header("Prefabs")]
     [SerializeField]
@@ -32,6 +35,7 @@ public class EnemyMarkersController : MonoBehaviour
     private Dictionary<int, GameObject> arrows;
     private Dictionary<int, GameObject> markers;
     private float scaleFactor;
+    private int raycastLayerMask;
 
     private void OnEnemyListChange()
     {
@@ -75,11 +79,33 @@ public class EnemyMarkersController : MonoBehaviour
         return onScreenX && onScreenY && onScreenZ;
     }
 
+    private bool EnemyHiddenOrTooFar(Vector3 enemyArmaturePosition, Vector3 cameraPos)
+    {
+        Debug.DrawRay(cameraPos, enemyArmaturePosition - cameraPos);
+        if (Physics.Raycast(cameraPos, enemyArmaturePosition - cameraPos, out RaycastHit hit, detectionRange, raycastLayerMask))
+        {
+            if (!hit.collider.gameObject.CompareTag("Enemy") && !showHiddenEnemies)
+            {
+                print("Enemy hidden behind an object");
+                return true;
+            }
+        }
+        else
+        {
+            //Further than detection range
+            print("Raycast hit nothing");
+            return true;
+        }
+        return false;
+    }
+
     private void Awake()
     {
         arrows = new Dictionary<int, GameObject>();
         markers = new Dictionary<int, GameObject>();
         scaleFactor = (markerScaleBounds.min - markerScaleBounds.max) / detectionRange;
+        //Ignore layers: player, player projectile, enemy projectile
+        raycastLayerMask = ~((1 << 6) | (1 << 8) | (1 << 9));
     }
 
     private void Start()
@@ -94,17 +120,17 @@ public class EnemyMarkersController : MonoBehaviour
         foreach (GameObject enemy in enemies)
         {
             int enemyId = enemy.GetInstanceID();
-            float distanceToEnemy = (cameraPos - enemy.transform.position).magnitude;
+            Vector3 enemyArmaturePosition = enemy.transform.GetChild(0).position;
+            float distanceToEnemy = (cameraPos - enemyArmaturePosition).magnitude;
             GameObject marker = markers[enemyId];
             GameObject arrow = arrows[enemyId];
-            if (distanceToEnemy > detectionRange)
+            if (EnemyHiddenOrTooFar(enemyArmaturePosition, cameraPos))
             {
-                //Further than detection range
-                marker.SetActive(false);
                 arrow.SetActive(false);
+                marker.SetActive(false);
                 continue;
             }
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(enemy.transform.position);
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(enemyArmaturePosition);
             float scale = scaleFactor * distanceToEnemy + markerScaleBounds.max;
             if (IsScreenPointInViewport(screenPos))
             {
@@ -120,7 +146,7 @@ public class EnemyMarkersController : MonoBehaviour
                 marker.SetActive(false);
                 arrow.SetActive(true);
                 Transform cameraTransform = Camera.main.transform;
-                Vector3 towardsEnemy = enemy.transform.position - cameraPos;
+                Vector3 towardsEnemy = enemyArmaturePosition - cameraPos;
                 Vector2 screenPosition = new Vector2(Vector3.Dot(towardsEnemy, cameraTransform.right), Vector3.Dot(towardsEnemy, cameraTransform.up));
                 Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(screenPosition.y, screenPosition.x) * Mathf.Rad2Deg);
                 Vector2 cameraScreenCenter = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight) / 2;
