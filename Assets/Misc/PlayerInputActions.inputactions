@@ -92,6 +92,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ChangeEnemyMarkersDisplayMode",
+                    "type": "Button",
+                    "id": "cdc0ecd0-fb93-4e23-874b-e40bc83de132",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -402,6 +410,17 @@
                     "action": "Action3",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "60758775-2b61-436e-83ba-f68b94c6dc83",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ChangeEnemyMarkersDisplayMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -486,14 +505,6 @@
                     "type": "PassThrough",
                     "id": "684dc2cd-78c1-49a9-b7ce-59df76277320",
                     "expectedControlType": "Quaternion",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "ChangeEnemyMarkersDisplayMode",
-                    "type": "Button",
-                    "id": "7b2152e9-0104-4b5b-8212-4f31bc31a77f",
-                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -914,17 +925,6 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3361e0e9-b4be-4301-8412-141320732f3f",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeEnemyMarkersDisplayMode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

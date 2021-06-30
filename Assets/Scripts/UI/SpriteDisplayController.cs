@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DisplayController : MonoBehaviour
+public class SpriteDisplayController : MonoBehaviour
 {
     public List<Sprite> digitTextures;
     public int defaultValue;

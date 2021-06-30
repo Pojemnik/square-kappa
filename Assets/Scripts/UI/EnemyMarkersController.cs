@@ -24,16 +24,22 @@ public class EnemyMarkersController : MonoBehaviour
     [SerializeField]
     [Tooltip("Display markers on enemies covered by an object")]
     private bool showHiddenEnemies;
+    [SerializeField]
+    [Tooltip("Distace between enemy marker and distance display")]
+    private Vector2 distanceDisplayOffset;
 
     [Header("Prefabs")]
     [SerializeField]
     private GameObject arrowPrefab;
     [SerializeField]
     private GameObject markerPrefab;
+    [SerializeField]
+    private GameObject distanceDisplayPrefab;
 
     private List<GameObject> enemies;
     private Dictionary<int, GameObject> arrows;
     private Dictionary<int, GameObject> markers;
+    private Dictionary<int, VectorDisplayController> distanceDisplays;
     private float scaleFactor;
     private int raycastLayerMask;
     private MarkersDisplayMode displayMode;
@@ -46,14 +52,27 @@ public class EnemyMarkersController : MonoBehaviour
 
     public void ChangeDisplayMode()
     {
-        if(displayMode == MarkersDisplayMode.ChangeSize)
+        if (displayMode == MarkersDisplayMode.ChangeSize)
         {
             displayMode = MarkersDisplayMode.ShowDistance;
+            foreach(VectorDisplayController display in distanceDisplays.Values)
+            {
+                display.transform.parent.gameObject.SetActive(true);
+            }
+            foreach (GameObject marker in markers.Values)
+            {
+                marker.transform.localScale = Vector3.one;
+            }
         }
-        else if(displayMode == MarkersDisplayMode.ShowDistance)
+        else if (displayMode == MarkersDisplayMode.ShowDistance)
         {
             displayMode = MarkersDisplayMode.ChangeSize;
+            foreach (VectorDisplayController display in distanceDisplays.Values)
+            {
+                display.transform.parent.gameObject.SetActive(false);
+            }
         }
+        print(string.Format("Display mode: {0}", displayMode));
     }
 
     private void OnEnemyListChange()
@@ -63,6 +82,7 @@ public class EnemyMarkersController : MonoBehaviour
         AddNewKeysOnList(enemiesIds);
         RemoveKeysNotOnList(arrows, enemiesIds);
         RemoveKeysNotOnList(markers, enemiesIds);
+        RemoveKeysNotOnList(distanceDisplays, enemiesIds);
     }
 
     private void AddNewKeysOnList(IEnumerable<int> enemiesIds)
@@ -77,15 +97,31 @@ public class EnemyMarkersController : MonoBehaviour
             {
                 markers.Add(id, Instantiate(markerPrefab, transform));
             }
+            if (!distanceDisplays.ContainsKey(id))
+            {
+                GameObject display = Instantiate(distanceDisplayPrefab, markers[id].transform);
+                display.transform.localPosition = distanceDisplayOffset;
+                distanceDisplays.Add(id, display.transform.GetChild(0).gameObject.GetComponent< VectorDisplayController>());
+            }
         }
     }
 
     private void RemoveKeysNotOnList(Dictionary<int, GameObject> dict, IEnumerable<int> enemiesIds)
     {
-        var toRemove = dict.Where(e => !enemiesIds.Contains(e.Key)).Select(e => e.Key).ToList<int>();
+        List<int> toRemove = dict.Where(e => !enemiesIds.Contains(e.Key)).Select(e => e.Key).ToList();
         foreach (int key in toRemove)
         {
             Destroy(dict[key]);
+            dict.Remove(key);
+        }
+    }
+
+    private void RemoveKeysNotOnList(Dictionary<int, VectorDisplayController> dict, IEnumerable<int> enemiesIds)
+    {
+        List<int> toRemove = dict.Where(e => !enemiesIds.Contains(e.Key)).Select(e => e.Key).ToList();
+        foreach (int key in toRemove)
+        {
+            Destroy(dict[key].transform.parent.gameObject);
             dict.Remove(key);
         }
     }
@@ -105,14 +141,12 @@ public class EnemyMarkersController : MonoBehaviour
         {
             if (!hit.collider.gameObject.CompareTag("Enemy") && !showHiddenEnemies)
             {
-                print("Enemy hidden behind an object");
                 return true;
             }
         }
         else
         {
             //Further than detection range
-            print("Raycast hit nothing");
             return true;
         }
         return false;
@@ -122,6 +156,7 @@ public class EnemyMarkersController : MonoBehaviour
     {
         arrows = new Dictionary<int, GameObject>();
         markers = new Dictionary<int, GameObject>();
+        distanceDisplays = new Dictionary<int, VectorDisplayController>();
         scaleFactor = (markerScaleBounds.min - markerScaleBounds.max) / detectionRange;
         //Ignore layers: player, player projectile, enemy projectile
         raycastLayerMask = ~((1 << 6) | (1 << 8) | (1 << 9));
@@ -132,6 +167,10 @@ public class EnemyMarkersController : MonoBehaviour
     {
         enemyManager.enemiesListChangedEvent.AddListener(OnEnemyListChange);
         OnEnemyListChange();
+        foreach (VectorDisplayController display in distanceDisplays.Values)
+        {
+            display.transform.parent.gameObject.SetActive(false);
+        }
     }
 
     private void Update()
@@ -158,7 +197,16 @@ public class EnemyMarkersController : MonoBehaviour
                 marker.transform.position = screenPos;
                 marker.SetActive(true);
                 arrow.SetActive(false);
-                marker.transform.localScale = new Vector3(scale, scale, 1);
+                if (displayMode == MarkersDisplayMode.ChangeSize)
+                {
+                    marker.transform.localScale = new Vector3(scale, scale, 1);
+                }
+                else if(displayMode == MarkersDisplayMode.ShowDistance)
+                {
+                    //Display distance
+                    VectorDisplayController distanceDisplay = distanceDisplays[enemyId];
+                    distanceDisplay.UpdateValue((int)distanceToEnemy);
+                }
             }
             else
             {
@@ -172,7 +220,10 @@ public class EnemyMarkersController : MonoBehaviour
                 Vector2 cameraScreenCenter = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight) / 2;
                 arrow.transform.position = rotation * Vector3.right * arrowsDistanceFromCenter + (Vector3)cameraScreenCenter;
                 arrow.transform.rotation = rotation;
-                arrow.transform.localScale = new Vector3(scale, scale, 1);
+                if (displayMode == MarkersDisplayMode.ChangeSize)
+                {
+                    arrow.transform.localScale = new Vector3(scale, scale, 1);
+                }
             }
         }
     }
