@@ -36,6 +36,25 @@ public class EnemyMarkersController : MonoBehaviour
     private Dictionary<int, GameObject> markers;
     private float scaleFactor;
     private int raycastLayerMask;
+    private MarkersDisplayMode displayMode;
+
+    private enum MarkersDisplayMode
+    {
+        ChangeSize,
+        ShowDistance
+    }
+
+    public void ChangeDisplayMode()
+    {
+        if(displayMode == MarkersDisplayMode.ChangeSize)
+        {
+            displayMode = MarkersDisplayMode.ShowDistance;
+        }
+        else if(displayMode == MarkersDisplayMode.ShowDistance)
+        {
+            displayMode = MarkersDisplayMode.ChangeSize;
+        }
+    }
 
     private void OnEnemyListChange()
     {
@@ -106,6 +125,7 @@ public class EnemyMarkersController : MonoBehaviour
         scaleFactor = (markerScaleBounds.min - markerScaleBounds.max) / detectionRange;
         //Ignore layers: player, player projectile, enemy projectile
         raycastLayerMask = ~((1 << 6) | (1 << 8) | (1 << 9));
+        displayMode = MarkersDisplayMode.ChangeSize;
     }
 
     private void Start()

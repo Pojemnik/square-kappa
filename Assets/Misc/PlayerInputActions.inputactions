@@ -488,6 +488,14 @@
                     "expectedControlType": "Quaternion",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ChangeEnemyMarkersDisplayMode",
+                    "type": "Button",
+                    "id": "7b2152e9-0104-4b5b-8212-4f31bc31a77f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -906,6 +914,17 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3361e0e9-b4be-4301-8412-141320732f3f",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeEnemyMarkersDisplayMode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
