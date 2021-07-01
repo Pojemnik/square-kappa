@@ -25,6 +25,10 @@ public class Health : MonoBehaviour
 
     public void Damaged(DamageInfo info)
     {
+        if(!enabled)
+        {
+            return;
+        }
         currentHealth -= info.amount;
         healthChangeEvent.Invoke(currentHealth);
         damageEvent.Invoke(info);

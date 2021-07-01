@@ -24,19 +24,6 @@ public class UnitAnimationController : MonoBehaviour
         animator.SetBool(state, false);
     }
 
-    public void SetAnimatorLayer(string name)
-    {
-        int index = animator.GetLayerIndex(name);
-        animator.SetLayerWeight(index, 1);
-        for (int i = 1; i < animator.layerCount; i++)
-        {
-            if (i != index)
-            {
-                animator.SetLayerWeight(i, 0);
-            }
-        }
-    }
-
     public void UpdateWeaponAnimation(WeaponController newWeapon)
     {
         if (newWeapon)
@@ -63,6 +50,25 @@ public class UnitAnimationController : MonoBehaviour
         {
             SetAnimatorLayer("Unarmed");
             Debug.LogError("Weapon in null. Animation set to default");
+        }
+    }
+
+    public void Deactivate()
+    {
+        animator.enabled = false;
+        enabled = false;
+    }
+
+    private void SetAnimatorLayer(string name)
+    {
+        int index = animator.GetLayerIndex(name);
+        animator.SetLayerWeight(index, 1);
+        for (int i = 1; i < animator.layerCount; i++)
+        {
+            if (i != index)
+            {
+                animator.SetLayerWeight(i, 0);
+            }
         }
     }
 }

@@ -29,9 +29,13 @@ public class EnemyController : MonoBehaviour
     [Header("Ragdoll properities")]
     [SerializeField]
     private bool enableRagdoll;
+    [SerializeField]
+    [Tooltip("Maximum force applied to every rigidbody in a ragdoll on its start")]
+    private float maxForce;
 
     private EnemyManager manager;
-    private Rigidbody[] childrenRigidbodies;
+    private Collider[] childrenColliders;
+    private List<Rigidbody> rigidbodies;
 
     public void OnDeath()
     {
@@ -48,10 +52,18 @@ public class EnemyController : MonoBehaviour
 
     private void StartRagdoll()
     {
-        foreach (Rigidbody rb in childrenRigidbodies)
-        {
-            rb.isKinematic = false;
-        }
+        //foreach (Collider collider in childrenColliders)
+        //{
+        //    rigidbodies.Add(collider.gameObject.AddComponent<Rigidbody>());
+        //}
+        //foreach(Rigidbody rb in rigidbodies)
+        //{
+        //    if (rb != null)
+        //    {
+        //        rb.AddForce(new Vector3(Random.Range(0, maxForce), Random.Range(0, maxForce), Random.Range(0, maxForce)));
+        //        rb.isKinematic = false;
+        //    }
+        //}
         DropWeapon();
         DeactivateComponents();
         manager.RemoveEnemy(gameObject);
@@ -62,6 +74,7 @@ public class EnemyController : MonoBehaviour
     {
         AIMovementStateMachine.enabled = false;
         AIShootingStateMachine.enabled = false;
+        unitController.AnimationController.Deactivate();
         unitController.enabled = false;
         shooting.StopFire();
         shooting.enabled = false;
@@ -80,6 +93,10 @@ public class EnemyController : MonoBehaviour
     {
         manager = FindObjectOfType<EnemyManager>();
         manager.AddEnemy(gameObject);
+        CrosshairController crosshair = FindObjectOfType<CrosshairController>();
+        Health health = GetComponent<Health>();
+        health.deathEvent.AddListener(crosshair.OnEnemyDeath);
+        health.healthChangeEvent.AddListener(delegate { crosshair.OnEnemyHit(); });
         unitController.CurrentWeapon = weapon;
         unitController.AnimationController.UpdateWeaponAnimation(unitController.CurrentWeaponController);
         shooting.ChangeWeaponController(weapon.GetComponent<WeaponController>());
@@ -88,6 +105,7 @@ public class EnemyController : MonoBehaviour
         AIShootingStateMachine.ChangeState(new AIShootState());
         layerMask = (1 << 7) | (1 << 8) | (1 << 9);
         layerMask = ~layerMask;
-        childrenRigidbodies = GetComponentsInChildren<Rigidbody>();
+        childrenColliders = GetComponentsInChildren<Collider>();
+        rigidbodies = new List<Rigidbody>(GetComponentsInChildren<Rigidbody>());
     }
 }

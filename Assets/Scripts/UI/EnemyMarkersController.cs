@@ -179,7 +179,7 @@ public class EnemyMarkersController : MonoBehaviour
         foreach (GameObject enemy in enemies)
         {
             int enemyId = enemy.GetInstanceID();
-            Vector3 enemyArmaturePosition = enemy.transform.GetChild(0).position;
+            Vector3 enemyArmaturePosition = enemy.transform.GetChild(0).GetChild(0).position;
             float distanceToEnemy = (cameraPos - enemyArmaturePosition).magnitude;
             GameObject marker = markers[enemyId];
             GameObject arrow = arrows[enemyId];
