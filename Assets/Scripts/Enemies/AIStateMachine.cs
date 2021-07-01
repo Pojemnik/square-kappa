@@ -63,7 +63,7 @@ public class AIMoveTowardsTargetState : AIBaseState
                 }
                 else if (positionDelta.magnitude <= owner.enemyController.VisionRange)
                 {
-                    movement.MoveRelative(new Vector3(0, 0, 1));
+                    movement.MoveRelative(Vector3.forward);
                 }
                 else
                 {
@@ -187,6 +187,42 @@ public class AIShootState : AIBaseState
             case TargetStatus.Unavailable:
                 shooting.StopFire();
                 break;
+        }
+    }
+}
+
+public class AIMoveToPointState : AIBaseState
+{
+    private List<AIPathNode> nodes;
+    private AIPathNode nextNode;
+    private UnitMovement movement;
+
+    public AIMoveToPointState(List<AIPathNode> nodesList)
+    {
+        nodes = nodesList;
+        
+    }
+
+    public override void Enter()
+    {
+        nextNode = nodes[0];
+        movement = owner.enemyController.unitController.movement;
+    }
+
+    public override void Update()
+    {
+        Vector3 position = owner.transform.position;
+        Vector3 targetPosition = nextNode.transform.position;
+        Vector3 towardsTarget = targetPosition - position;
+        if (towardsTarget.magnitude < nextNode.epsilonRadius)
+        {
+            Debug.Log(string.Format("Arrived at point {0}", nextNode));
+            movement.MoveRelative(Vector3.zero);
+        }
+        else
+        {
+            movement.SetLookTarget(towardsTarget);
+            movement.MoveRelative(Vector3.forward);
         }
     }
 }

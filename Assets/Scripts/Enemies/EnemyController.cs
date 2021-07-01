@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(Health))]
 public class EnemyController : MonoBehaviour
 {
-    [Header("Refernces")]
+    [Header("References")]
     public GameObject target;
     public UnitController unitController;
     public GameObject weapon;
@@ -101,8 +101,6 @@ public class EnemyController : MonoBehaviour
         unitController.AnimationController.UpdateWeaponAnimation(unitController.CurrentWeaponController);
         shooting.ChangeWeaponController(weapon.GetComponent<WeaponController>());
         unitController.movement.cameraAiming = false;
-        AIMovementStateMachine.ChangeState(new AIMoveTowardsTargetState());
-        AIShootingStateMachine.ChangeState(new AIShootState());
         layerMask = (1 << 7) | (1 << 8) | (1 << 9);
         layerMask = ~layerMask;
         childrenColliders = GetComponentsInChildren<Collider>();
