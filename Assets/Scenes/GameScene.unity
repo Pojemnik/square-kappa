@@ -6814,6 +6814,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8604330729651740367, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: speed.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604330729651740367, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: speed.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604330729651740367, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: speed.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604330729651740367, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: firstPresonCamera
       value: 
       objectReference: {fileID: 1273298562}

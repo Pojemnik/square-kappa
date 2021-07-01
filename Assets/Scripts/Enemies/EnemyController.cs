@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(UnitShooting))]
 [RequireComponent(typeof(UnitController))]
+[RequireComponent(typeof(Health))]
 public class EnemyController : MonoBehaviour
 {
     [Header("Refernces")]
@@ -12,6 +13,10 @@ public class EnemyController : MonoBehaviour
     public GameObject weapon;
     [SerializeField]
     private UnitShooting shooting;
+    [SerializeField]
+    private AIStateMachine AIMovementStateMachine;
+    [SerializeField]
+    private AIStateMachine AIShootingStateMachine;
 
     [Header("Enemy properites")]
     public float VisionRange;
@@ -25,11 +30,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private bool enableRagdoll;
 
-    [SerializeField]
-    private AIStateMachine AIMovementStateMachine;
-    [SerializeField]
-    private AIStateMachine AIShootingStateMachine;
-
     private EnemyManager manager;
     private Rigidbody[] childrenRigidbodies;
 
@@ -37,19 +37,25 @@ public class EnemyController : MonoBehaviour
     {
         if (enableRagdoll)
         {
-            DeactivateComponents();
-            manager.RemoveEnemy(gameObject);
-            foreach (Rigidbody rb in childrenRigidbodies)
-            {
-                rb.isKinematic = false;
-            }
-            enabled = false;
+            StartRagdoll();
         }
         else
         {
             manager.RemoveEnemy(gameObject);
             Destroy(gameObject);
         }
+    }
+
+    private void StartRagdoll()
+    {
+        foreach (Rigidbody rb in childrenRigidbodies)
+        {
+            rb.isKinematic = false;
+        }
+        DropWeapon();
+        DeactivateComponents();
+        manager.RemoveEnemy(gameObject);
+        enabled = false;
     }
 
     private void DeactivateComponents()
@@ -62,7 +68,15 @@ public class EnemyController : MonoBehaviour
         GetComponent<Health>().enabled = false;
     }
 
-    void Start()
+    private void DropWeapon()
+    {
+        unitController.CurrentWeapon.transform.parent = null;
+        unitController.CurrentWeapon.tag = "Item";
+        unitController.CurrentWeapon.layer = 0;
+        unitController.CurrentWeapon = null;
+    }
+
+    private void Start()
     {
         manager = FindObjectOfType<EnemyManager>();
         manager.AddEnemy(gameObject);
