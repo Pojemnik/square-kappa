@@ -2947,6 +2947,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyController: {fileID: 729718492}
   firstNode: {fileID: 1075159654}
+  speedEpsilon: 1
 --- !u!4 &730203787 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8307458533412693619, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}

@@ -195,15 +195,19 @@ public class AIMoveToPointState : AIBaseState
 {
     private AIPathNode nextNode;
     private UnitMovement movement;
+    private bool isMovingTowardsTarget;
+    private readonly float speedEpsilon;
 
-    public AIMoveToPointState(AIPathNode next)
+    public AIMoveToPointState(AIPathNode next, float eps)
     {
         nextNode = next;
+        speedEpsilon = eps;
     }
 
     public override void Enter()
     {
         movement = owner.enemyController.unitController.movement;
+        isMovingTowardsTarget = true;
     }
 
     public override void Update()
@@ -212,15 +216,32 @@ public class AIMoveToPointState : AIBaseState
         Vector3 targetPosition = nextNode.transform.position;
         Debug.DrawLine(position, targetPosition, Color.cyan);
         Vector3 towardsTarget = targetPosition - position;
-        if (towardsTarget.magnitude < nextNode.epsilonRadius)
+        if (isMovingTowardsTarget)
         {
-            Debug.Log(string.Format("Arrived at point {0}", nextNode));
-            movement.MoveRelative(Vector3.zero);
+            if (towardsTarget.magnitude < nextNode.epsilonRadius)
+            {
+                Debug.Log(string.Format("Arrived at point {0}, stopping", nextNode));
+                movement.MoveRelative(Vector3.zero);
+                isMovingTowardsTarget = false;
+            }
+            else
+            {
+                movement.SetLookTarget(towardsTarget);
+                movement.MoveRelative(Vector3.forward);
+            }
         }
         else
         {
-            movement.SetLookTarget(towardsTarget);
-            movement.MoveRelative(Vector3.forward);
+            if (movement.Velocity.magnitude > speedEpsilon)
+            {
+                movement.SetLookTarget(-movement.Velocity);
+                movement.MoveRelative(Vector3.forward);
+            }
+            else
+            {
+                Debug.Log(string.Format("Stopped at point {0}. Proceeding to next node...", nextNode));
+                owner.ChangeState(new AIMoveToPointState(nextNode.next, speedEpsilon));
+            }
         }
     }
 }

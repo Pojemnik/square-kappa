@@ -22,6 +22,8 @@ public class UnitMovement : MonoBehaviour
     [SerializeField]
     private GameObject firstPresonCamera;
 
+    public Vector3 Velocity { get => rigidbody.velocity; }
+
     //input
     private Vector3 rawInput;
     private float rawInputRoll;
@@ -111,14 +113,6 @@ public class UnitMovement : MonoBehaviour
     {
         lookTarget = Quaternion.LookRotation(direction) * Quaternion.Euler(90, 0, 0);
         shootDirection = direction;
-    }
-
-    public void MoveTowards(Vector3 direction)
-    {
-        direction = direction.normalized;
-        direction = transform.right * direction.x + transform.up * direction.y + transform.forward * direction.z;
-        rawInput = direction;
-        rawInput.z = -rawInput.z;
     }
 
     public void MoveRelative(Vector3 direction)

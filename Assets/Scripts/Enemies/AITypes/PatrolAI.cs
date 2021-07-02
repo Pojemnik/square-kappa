@@ -6,9 +6,11 @@ public class PatrolAI : AIStateMachine
 {
     [SerializeField]
     private AIPathNode firstNode;
+    [SerializeField]
+    private float speedEpsilon;
 
     private void Awake()
     {
-        ChangeState(new AIMoveToPointState(firstNode));
+        ChangeState(new AIMoveToPointState(firstNode, speedEpsilon));
     }
 }
