@@ -193,19 +193,16 @@ public class AIShootState : AIBaseState
 
 public class AIMoveToPointState : AIBaseState
 {
-    private List<AIPathNode> nodes;
     private AIPathNode nextNode;
     private UnitMovement movement;
 
-    public AIMoveToPointState(List<AIPathNode> nodesList)
+    public AIMoveToPointState(AIPathNode next)
     {
-        nodes = nodesList;
-        
+        nextNode = next;
     }
 
     public override void Enter()
     {
-        nextNode = nodes[0];
         movement = owner.enemyController.unitController.movement;
     }
 
@@ -213,6 +210,7 @@ public class AIMoveToPointState : AIBaseState
     {
         Vector3 position = owner.transform.position;
         Vector3 targetPosition = nextNode.transform.position;
+        Debug.DrawLine(position, targetPosition, Color.cyan);
         Vector3 towardsTarget = targetPosition - position;
         if (towardsTarget.magnitude < nextNode.epsilonRadius)
         {
