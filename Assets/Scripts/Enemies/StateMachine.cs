@@ -7,6 +7,7 @@ namespace AI
     public class BaseState
     {
         public StateMachine owner;
+        protected UnitMovement movement;
 
         protected enum TargetStatus
         {
@@ -43,8 +44,6 @@ namespace AI
 
     public class MoveTowardsTargetState : BaseState
     {
-        private UnitMovement movement;
-
         public override void Enter()
         {
             movement = owner.enemyController.unitController.movement;
@@ -85,7 +84,6 @@ namespace AI
     public class ShootState : BaseState
     {
         private UnitShooting shooting;
-        private UnitMovement movement;
         private AIShootingRules shootingRules;
         private AIShootingMode shootingMode;
         private AIShootingMode lastShootingMode;
@@ -195,14 +193,13 @@ namespace AI
 
     public class MoveToPointState : BaseState
     {
-        private AIPathNode nextNode;
-        private UnitMovement movement;
+        private readonly AIPathNode pathNode;
         private bool isMovingTowardsTarget;
         private readonly float speedEpsilon;
 
-        public MoveToPointState(AIPathNode next, float eps)
+        public MoveToPointState(AIPathNode node, float eps)
         {
-            nextNode = next;
+            pathNode = node;
             speedEpsilon = eps;
         }
 
@@ -215,14 +212,14 @@ namespace AI
         public override void Update()
         {
             Vector3 position = owner.transform.position;
-            Vector3 targetPosition = nextNode.transform.position;
+            Vector3 targetPosition = pathNode.transform.position;
             Debug.DrawLine(position, targetPosition, Color.cyan);
             Vector3 towardsTarget = targetPosition - position;
             if (isMovingTowardsTarget)
             {
-                if (towardsTarget.magnitude < nextNode.epsilonRadius)
+                if (towardsTarget.magnitude < pathNode.epsilonRadius)
                 {
-                    Debug.Log(string.Format("Arrived at point {0}, stopping", nextNode));
+                    Debug.Log(string.Format("Arrived at point {0}, stopping", pathNode));
                     movement.MoveRelative(Vector3.zero);
                     isMovingTowardsTarget = false;
                 }
@@ -234,16 +231,41 @@ namespace AI
             }
             else
             {
-                if (movement.Velocity.magnitude > speedEpsilon)
-                {
-                    movement.SmoothLook(movement.Velocity, 180);
-                    movement.MoveRelative(-Vector3.forward);
-                }
-                else
-                {
-                    Debug.Log(string.Format("Stopped at point {0}. Proceeding to next node...", nextNode));
-                    owner.ChangeState(new MoveToPointState(nextNode.next, speedEpsilon));
-                }
+                owner.ChangeState(new StopAtPointState(pathNode, speedEpsilon));
+            }
+        }
+    }
+
+    public class StopAtPointState : BaseState
+    {
+        private readonly float speedEpsilon;
+        private readonly AIPathNode pathNode;
+
+        public StopAtPointState(AIPathNode node, float eps)
+        {
+            speedEpsilon = eps;
+            pathNode = node;
+        }
+
+        public override void Enter()
+        {
+            movement = owner.enemyController.unitController.movement;
+        }
+
+        public override void Update()
+        {
+            Vector3 position = owner.transform.position;
+            Vector3 targetPosition = pathNode.transform.position;
+            Debug.DrawLine(position, targetPosition, Color.cyan);
+            if (movement.Velocity.magnitude > speedEpsilon)
+            {
+                movement.SmoothLook(movement.Velocity, 180);
+                movement.MoveRelative(-Vector3.forward);
+            }
+            else
+            {
+                Debug.Log(string.Format("Stopped at point {0}. Proceeding to next node...", pathNode));
+                owner.ChangeState(new MoveToPointState(pathNode.next, speedEpsilon));
             }
         }
     }

@@ -34,8 +34,6 @@ public class EnemyController : MonoBehaviour
     private float maxForce;
 
     private EnemyManager manager;
-    private Collider[] childrenColliders;
-    private List<Rigidbody> rigidbodies;
 
     public void OnDeath()
     {
@@ -103,7 +101,5 @@ public class EnemyController : MonoBehaviour
         unitController.movement.cameraAiming = false;
         layerMask = (1 << 7) | (1 << 8) | (1 << 9);
         layerMask = ~layerMask;
-        childrenColliders = GetComponentsInChildren<Collider>();
-        rigidbodies = new List<Rigidbody>(GetComponentsInChildren<Rigidbody>());
     }
 }
