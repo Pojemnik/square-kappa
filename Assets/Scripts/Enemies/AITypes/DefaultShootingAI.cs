@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefaultShootingAI : AIStateMachine
+namespace AI
 {
-    private void Awake()
+    public class DefaultShootingAI : StateMachine
     {
-        ChangeState(new AIShootState());
+        private void Awake()
+        {
+            ChangeState(new ShootState());
+        }
     }
 }

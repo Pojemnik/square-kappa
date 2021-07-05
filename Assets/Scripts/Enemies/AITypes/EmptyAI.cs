@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EmptyAI : AIStateMachine
+namespace AI
 {
-    private void Awake()
+    public class EmptyAI : StateMachine
     {
-        ChangeState(new AIBaseState());
+        private void Awake()
+        {
+            ChangeState(new BaseState());
+        }
     }
 }

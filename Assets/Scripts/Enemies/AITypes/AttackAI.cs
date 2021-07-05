@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackAI : AIStateMachine
+namespace AI
 {
-    private void Awake()
+    public class AttackAI : StateMachine
     {
-        ChangeState(new AIMoveTowardsTargetState());
+        private void Awake()
+        {
+            ChangeState(new MoveTowardsTargetState());
+        }
     }
 }

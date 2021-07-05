@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatrolAI : AIStateMachine
+namespace AI
 {
-    [SerializeField]
-    private AIPathNode firstNode;
-    [SerializeField]
-    private float speedEpsilon;
-
-    private void Awake()
+    public class PatrolAI : StateMachine
     {
-        ChangeState(new AIMoveToPointState(firstNode, speedEpsilon));
+        [SerializeField]
+        private AIPathNode firstNode;
+        [SerializeField]
+        private float speedEpsilon;
+
+        private void Awake()
+        {
+            ChangeState(new MoveToPointState(firstNode, speedEpsilon));
+        }
     }
 }
