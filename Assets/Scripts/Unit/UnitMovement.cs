@@ -115,13 +115,6 @@ public class UnitMovement : MonoBehaviour
         shootDirection = direction;
     }
 
-    public void SmoothLook(Vector3 target, float rotationSpeed)
-    {
-        Quaternion targetRotation = Quaternion.LookRotation(target) * Quaternion.Euler(90, 0, 0);
-        float t = Vector3.Angle(lookTarget * Vector3.forward, targetRotation * Vector3.forward)/rotationSpeed;
-        lookTarget = Quaternion.Slerp(lookTarget, targetRotation, t);
-    }
-
     public void MoveRelative(Vector3 direction)
     {
         if (direction != Vector3.zero)

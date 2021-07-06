@@ -8,6 +8,7 @@ namespace AI
     {
         public StateMachine owner;
         protected UnitMovement movement;
+        protected const float rotationalSpeed = 90;
 
         protected enum TargetStatus
         {
@@ -37,18 +38,16 @@ namespace AI
             }
         }
 
-        public virtual void Enter() { }
+        public virtual void Enter()
+        {
+            movement = owner.enemyController.unitController.movement;
+        }
         public virtual void Update() { }
         public virtual void Exit() { }
     }
 
     public class MoveTowardsTargetState : BaseState
     {
-        public override void Enter()
-        {
-            movement = owner.enemyController.unitController.movement;
-        }
-
         public override void Update()
         {
             Vector3 position = owner.enemyController.transform.position;
@@ -149,8 +148,8 @@ namespace AI
 
         public override void Enter()
         {
+            base.Enter();
             shooting = owner.enemyController.unitController.shooting;
-            movement = owner.enemyController.unitController.movement;
             shootingRules = owner.enemyController.ShootingRules;
             lastShootingMode = AIShootingMode.NoShooting;
             phaseTime = 0;
@@ -194,7 +193,6 @@ namespace AI
     public class MoveToPointState : BaseState
     {
         private readonly AIPathNode pathNode;
-        private bool isMovingTowardsTarget;
         private readonly float speedEpsilon;
 
         public MoveToPointState(AIPathNode node, float eps)
@@ -205,8 +203,7 @@ namespace AI
 
         public override void Enter()
         {
-            movement = owner.enemyController.unitController.movement;
-            isMovingTowardsTarget = true;
+            base.Enter();
         }
 
         public override void Update()
@@ -215,23 +212,16 @@ namespace AI
             Vector3 targetPosition = pathNode.transform.position;
             Debug.DrawLine(position, targetPosition, Color.cyan);
             Vector3 towardsTarget = targetPosition - position;
-            if (isMovingTowardsTarget)
+            if (towardsTarget.magnitude < pathNode.epsilonRadius)
             {
-                if (towardsTarget.magnitude < pathNode.epsilonRadius)
-                {
-                    Debug.Log(string.Format("Arrived at point {0}, stopping", pathNode));
-                    movement.MoveRelative(Vector3.zero);
-                    isMovingTowardsTarget = false;
-                }
-                else
-                {
-                    movement.SetLookTarget(towardsTarget);
-                    movement.MoveRelative(Vector3.forward);
-                }
+                Debug.Log(string.Format("Arrived at point {0}, stopping", pathNode));
+                movement.MoveRelative(Vector3.zero);
+                owner.ChangeState(new StopAtPointState(pathNode, speedEpsilon));
             }
             else
             {
-                owner.ChangeState(new StopAtPointState(pathNode, speedEpsilon));
+                movement.SetLookTarget(towardsTarget);
+                movement.MoveRelative(Vector3.forward);
             }
         }
     }
@@ -247,11 +237,6 @@ namespace AI
             pathNode = node;
         }
 
-        public override void Enter()
-        {
-            movement = owner.enemyController.unitController.movement;
-        }
-
         public override void Update()
         {
             Vector3 position = owner.transform.position;
@@ -259,20 +244,61 @@ namespace AI
             Debug.DrawLine(position, targetPosition, Color.cyan);
             if (movement.Velocity.magnitude > speedEpsilon)
             {
-                movement.SmoothLook(movement.Velocity, 180);
+                movement.SetLookTarget(movement.Velocity);
                 movement.MoveRelative(-Vector3.forward);
             }
             else
             {
-                Debug.Log(string.Format("Stopped at point {0}. Proceeding to next node...", pathNode));
-                owner.ChangeState(new MoveToPointState(pathNode.next, speedEpsilon));
+                Debug.Log(string.Format("Stopped at point {0}. Starting rotation", pathNode));
+                movement.MoveRelative(Vector3.zero);
+                owner.ChangeState(new RotateTowardsPointState(pathNode.next, speedEpsilon));
             }
         }
     }
 
-    public class AvoidObstacleState : BaseState
+    public class RotateTowardsPointState : BaseState
     {
-        //TODO: implement
+        private const int angleEpsilon = 5;
+        private readonly float speedEpsilon;
+        private readonly AIPathNode pathNode;
+        private Vector3 startDirection;
+        private Vector3 targetDirection;
+        private float startTime;
+        private float duration;
+
+        public RotateTowardsPointState(AIPathNode node, float eps)
+        {
+            speedEpsilon = eps;
+            pathNode = node;
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            Vector3 position = owner.transform.position;
+            Vector3 targetPosition = pathNode.transform.position;
+            targetDirection = (targetPosition - position).normalized;
+            startDirection = owner.transform.up;
+            startTime = Time.time;
+            duration = Vector3.Angle(targetDirection, startDirection) / rotationalSpeed;
+        }
+
+        public override void Update()
+        {
+            Vector3 position = owner.transform.position;
+            Vector3 targetPosition = pathNode.transform.position;
+            Vector3 towardsTarget = targetPosition - position;
+            float t = (Time.time - startTime) / duration;
+            if (Vector3.Angle(towardsTarget, owner.transform.up) < angleEpsilon || t >= 1)
+            {
+                Debug.Log(string.Format("Finished rotating at point {0}, starting movement", pathNode));
+                owner.ChangeState(new MoveToPointState(pathNode, speedEpsilon));
+            }
+            else
+            {
+                movement.SetLookTarget(Vector3.Slerp(startDirection, targetDirection, t));
+            }
+        }
     }
 
     public class StateMachine : MonoBehaviour
