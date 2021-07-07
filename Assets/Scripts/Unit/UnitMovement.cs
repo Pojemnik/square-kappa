@@ -115,7 +115,7 @@ public class UnitMovement : MonoBehaviour
         shootDirection = direction;
     }
 
-    public void MoveRelative(Vector3 direction)
+    public void MoveRelativeToCamera(Vector3 direction)
     {
         if (direction != Vector3.zero)
         {
@@ -124,10 +124,15 @@ public class UnitMovement : MonoBehaviour
         rawInput = direction;
     }
 
+    public void MoveInGlobalCoordinates(Vector3 direction)
+    {
+        rigidbody.AddForce(Vector3.Scale(direction.normalized, speed) * Time.fixedDeltaTime);
+    }
+
     private void MoveUnit()
     {
         Vector3 speedWithTime = speed * Time.fixedDeltaTime;
-        Vector3 moveDelta = new Vector3(rawInput.x * speedWithTime.x, rawInput.y * speedWithTime.y, rawInput.z * speedWithTime.z);
+        Vector3 moveDelta = Vector3.Scale(rawInput, speedWithTime);
         Vector3[] cameraCooridinates = cameraController.orientation;
         if (moveDelta == Vector3.zero)
         {

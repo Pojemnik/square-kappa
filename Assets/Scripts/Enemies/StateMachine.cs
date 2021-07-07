@@ -59,15 +59,15 @@ namespace AI
                 case TargetStatus.InSight:
                     if (positionDelta.magnitude <= owner.enemyController.targetDistance)
                     {
-                        movement.MoveRelative(Vector3.zero);
+                        movement.MoveRelativeToCamera(Vector3.zero);
                     }
                     else if (positionDelta.magnitude <= owner.enemyController.VisionRange)
                     {
-                        movement.MoveRelative(Vector3.forward);
+                        movement.MoveRelativeToCamera(Vector3.forward);
                     }
                     else
                     {
-                        movement.MoveRelative(Vector3.zero);
+                        movement.MoveRelativeToCamera(Vector3.zero);
                     }
                     break;
                 case TargetStatus.Covered:
@@ -215,13 +215,14 @@ namespace AI
             if (towardsTarget.magnitude < pathNode.epsilonRadius)
             {
                 Debug.Log(string.Format("Arrived at point {0}, stopping", pathNode));
-                movement.MoveRelative(Vector3.zero);
+                movement.MoveRelativeToCamera(Vector3.zero);
                 owner.ChangeState(new StopAtPointState(pathNode, speedEpsilon));
             }
             else
             {
                 movement.SetLookTarget(towardsTarget);
-                movement.MoveRelative(Vector3.forward);
+                //movement.MoveRelativeToCamera(Vector3.forward);
+                movement.MoveInGlobalCoordinates(towardsTarget);
             }
         }
     }
@@ -244,13 +245,13 @@ namespace AI
             Debug.DrawLine(position, targetPosition, Color.cyan);
             if (movement.Velocity.magnitude > speedEpsilon)
             {
-                movement.SetLookTarget(movement.Velocity);
-                movement.MoveRelative(-Vector3.forward);
+                //movement.SetLookTarget(movement.Velocity);
+                movement.MoveInGlobalCoordinates(-movement.Velocity);
             }
             else
             {
                 Debug.Log(string.Format("Stopped at point {0}. Starting rotation", pathNode));
-                movement.MoveRelative(Vector3.zero);
+                movement.MoveRelativeToCamera(Vector3.zero);
                 owner.ChangeState(new RotateTowardsPointState(pathNode.next, speedEpsilon));
             }
         }
