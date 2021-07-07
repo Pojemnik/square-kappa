@@ -115,6 +115,18 @@ public class UnitMovement : MonoBehaviour
         shootDirection = direction;
     }
 
+    public void SetLookTarget(Vector3 direction, Vector3 up)
+    {
+        lookTarget = Quaternion.LookRotation(direction, up) * Quaternion.Euler(90, 0, 0);
+        shootDirection = direction;
+    }
+
+    public void SetLookTarget(Quaternion target)
+    {
+        lookTarget = target * Quaternion.Euler(90, 0, 0);
+        shootDirection = target * Vector3.forward;
+    }
+
     public void MoveRelativeToCamera(Vector3 direction)
     {
         if (direction != Vector3.zero)

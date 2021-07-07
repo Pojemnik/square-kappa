@@ -8,7 +8,7 @@ namespace AI
     {
         public StateMachine owner;
         protected UnitMovement movement;
-        protected const float rotationalSpeed = 90;
+        protected const float rotationalSpeed = 45;
 
         protected enum TargetStatus
         {
@@ -194,6 +194,7 @@ namespace AI
     {
         private readonly AIPathNode pathNode;
         private readonly float speedEpsilon;
+        private Vector3 up;
 
         public MoveToPointState(AIPathNode node, float eps)
         {
@@ -204,6 +205,7 @@ namespace AI
         public override void Enter()
         {
             base.Enter();
+            up = owner.transform.forward;
         }
 
         public override void Update()
@@ -220,8 +222,6 @@ namespace AI
             }
             else
             {
-                movement.SetLookTarget(towardsTarget);
-                //movement.MoveRelativeToCamera(Vector3.forward);
                 movement.MoveInGlobalCoordinates(towardsTarget);
             }
         }
@@ -245,7 +245,6 @@ namespace AI
             Debug.DrawLine(position, targetPosition, Color.cyan);
             if (movement.Velocity.magnitude > speedEpsilon)
             {
-                //movement.SetLookTarget(movement.Velocity);
                 movement.MoveInGlobalCoordinates(-movement.Velocity);
             }
             else
@@ -259,11 +258,10 @@ namespace AI
 
     public class RotateTowardsPointState : BaseState
     {
-        private const int angleEpsilon = 5;
         private readonly float speedEpsilon;
         private readonly AIPathNode pathNode;
-        private Vector3 startDirection;
-        private Vector3 targetDirection;
+        private Quaternion startDirection;
+        private Quaternion targetDirection;
         private float startTime;
         private float duration;
 
@@ -278,26 +276,23 @@ namespace AI
             base.Enter();
             Vector3 position = owner.transform.position;
             Vector3 targetPosition = pathNode.transform.position;
-            targetDirection = (targetPosition - position).normalized;
-            startDirection = owner.transform.up;
+            targetDirection = Quaternion.LookRotation(targetPosition - position);
+            startDirection = owner.transform.rotation * Quaternion.Euler(-90, 0, 0);
             startTime = Time.time;
-            duration = Vector3.Angle(targetDirection, startDirection) / rotationalSpeed;
+            duration = Vector3.Angle(targetDirection.eulerAngles, startDirection.eulerAngles) / rotationalSpeed;
         }
 
         public override void Update()
         {
-            Vector3 position = owner.transform.position;
-            Vector3 targetPosition = pathNode.transform.position;
-            Vector3 towardsTarget = targetPosition - position;
             float t = (Time.time - startTime) / duration;
-            if (Vector3.Angle(towardsTarget, owner.transform.up) < angleEpsilon || t >= 1)
+            if (t >= 1)
             {
                 Debug.Log(string.Format("Finished rotating at point {0}, starting movement", pathNode));
                 owner.ChangeState(new MoveToPointState(pathNode, speedEpsilon));
             }
             else
             {
-                movement.SetLookTarget(Vector3.Slerp(startDirection, targetDirection, t));
+                movement.SetLookTarget(Quaternion.Slerp(startDirection, targetDirection, t));
             }
         }
     }

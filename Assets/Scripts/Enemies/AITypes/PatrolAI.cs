@@ -13,7 +13,7 @@ namespace AI
 
         private void Awake()
         {
-            ChangeState(new MoveToPointState(firstNode, speedEpsilon));
+            ChangeState(new RotateTowardsPointState(firstNode, speedEpsilon));
         }
     }
 }
