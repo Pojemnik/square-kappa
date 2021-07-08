@@ -8,4 +8,6 @@ public class PatrolAIConfig : ScriptableObject
 {
     public float speedEpsilon;
     public float rotationalSpeed;
+    public float movementSpeed;
+    public float acceleration;
 }

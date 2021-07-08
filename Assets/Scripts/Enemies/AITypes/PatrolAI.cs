@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace AI
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class PatrolAI : StateMachine
     {
         [SerializeField]
@@ -17,6 +18,7 @@ namespace AI
             {
                 throw new System.Exception(string.Format("No PatrolAIConfig in object {0}", name));
             }
+            GetComponent<Rigidbody>().drag = 0;
             ChangeState(new RotateTowardsPointState(firstNode, config));
         }
     }

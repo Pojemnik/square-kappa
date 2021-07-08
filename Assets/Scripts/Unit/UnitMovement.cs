@@ -141,6 +141,16 @@ public class UnitMovement : MonoBehaviour
         rigidbody.AddForce(Vector3.Scale(direction.normalized, speed) * Time.fixedDeltaTime);
     }
 
+    public void MoveInGlobalCoordinatesIgnoringSpeed(Vector3 direction)
+    {
+        rigidbody.AddForce(direction * Time.fixedDeltaTime, ForceMode.VelocityChange);
+    }
+
+    public void MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(Vector3 direction)
+    {
+        rigidbody.AddForce(direction, ForceMode.VelocityChange);
+    }
+
     private void MoveUnit()
     {
         Vector3 speedWithTime = speed * Time.fixedDeltaTime;
