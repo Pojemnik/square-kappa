@@ -9,11 +9,15 @@ namespace AI
         [SerializeField]
         private AIPathNode firstNode;
         [SerializeField]
-        private float speedEpsilon;
+        private PatrolAIConfig config;
 
         private void Awake()
         {
-            ChangeState(new RotateTowardsPointState(firstNode, speedEpsilon));
+            if(config == null)
+            {
+                throw new System.Exception(string.Format("No PatrolAIConfig in object {0}", name));
+            }
+            ChangeState(new RotateTowardsPointState(firstNode, config));
         }
     }
 }

@@ -8,7 +8,6 @@ namespace AI
     {
         public StateMachine owner;
         protected UnitMovement movement;
-        protected const float rotationalSpeed = 45;
 
         protected enum TargetStatus
         {
@@ -193,19 +192,17 @@ namespace AI
     public class MoveToPointState : BaseState
     {
         private readonly AIPathNode pathNode;
-        private readonly float speedEpsilon;
-        private Vector3 up;
+        private PatrolAIConfig config;
 
-        public MoveToPointState(AIPathNode node, float eps)
+        public MoveToPointState(AIPathNode node, PatrolAIConfig aIConfig)
         {
             pathNode = node;
-            speedEpsilon = eps;
+            config = aIConfig;
         }
 
         public override void Enter()
         {
             base.Enter();
-            up = owner.transform.forward;
         }
 
         public override void Update()
@@ -218,7 +215,7 @@ namespace AI
             {
                 Debug.Log(string.Format("Arrived at point {0}, stopping", pathNode));
                 movement.MoveRelativeToCamera(Vector3.zero);
-                owner.ChangeState(new StopAtPointState(pathNode, speedEpsilon));
+                owner.ChangeState(new StopAtPointState(pathNode, config));
             }
             else
             {
@@ -229,13 +226,13 @@ namespace AI
 
     public class StopAtPointState : BaseState
     {
-        private readonly float speedEpsilon;
         private readonly AIPathNode pathNode;
+        private PatrolAIConfig config;
 
-        public StopAtPointState(AIPathNode node, float eps)
+        public StopAtPointState(AIPathNode node, PatrolAIConfig aIConfig)
         {
-            speedEpsilon = eps;
             pathNode = node;
+            config = aIConfig;
         }
 
         public override void Update()
@@ -243,7 +240,7 @@ namespace AI
             Vector3 position = owner.transform.position;
             Vector3 targetPosition = pathNode.transform.position;
             Debug.DrawLine(position, targetPosition, Color.cyan);
-            if (movement.Velocity.magnitude > speedEpsilon)
+            if (movement.Velocity.magnitude > config.speedEpsilon)
             {
                 movement.MoveInGlobalCoordinates(-movement.Velocity);
             }
@@ -251,24 +248,24 @@ namespace AI
             {
                 Debug.Log(string.Format("Stopped at point {0}. Starting rotation", pathNode));
                 movement.MoveRelativeToCamera(Vector3.zero);
-                owner.ChangeState(new RotateTowardsPointState(pathNode.next, speedEpsilon));
+                owner.ChangeState(new RotateTowardsPointState(pathNode.next, config));
             }
         }
     }
 
     public class RotateTowardsPointState : BaseState
     {
-        private readonly float speedEpsilon;
         private readonly AIPathNode pathNode;
+        private PatrolAIConfig config;
         private Quaternion startDirection;
         private Quaternion targetDirection;
         private float startTime;
         private float duration;
 
-        public RotateTowardsPointState(AIPathNode node, float eps)
+        public RotateTowardsPointState(AIPathNode node, PatrolAIConfig aIConfig)
         {
-            speedEpsilon = eps;
             pathNode = node;
+            config = aIConfig;
         }
 
         public override void Enter()
@@ -279,7 +276,7 @@ namespace AI
             targetDirection = Quaternion.LookRotation(targetPosition - position);
             startDirection = owner.transform.rotation * Quaternion.Euler(-90, 0, 0);
             startTime = Time.time;
-            duration = Vector3.Angle(targetDirection.eulerAngles, startDirection.eulerAngles) / rotationalSpeed;
+            duration = Vector3.Angle(targetDirection.eulerAngles, startDirection.eulerAngles) / config.rotationalSpeed;
         }
 
         public override void Update()
@@ -288,7 +285,7 @@ namespace AI
             if (t >= 1)
             {
                 Debug.Log(string.Format("Finished rotating at point {0}, starting movement", pathNode));
-                owner.ChangeState(new MoveToPointState(pathNode, speedEpsilon));
+                owner.ChangeState(new MoveToPointState(pathNode, config));
             }
             else
             {
