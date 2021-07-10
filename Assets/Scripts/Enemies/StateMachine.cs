@@ -213,7 +213,7 @@ namespace AI
             targetDirection = Quaternion.LookRotation(targetPosition - position);
             startDirection = owner.transform.rotation * Quaternion.Euler(-90, 0, 0);
             startTime = Time.time;
-            duration = Vector3.Angle(targetDirection.eulerAngles, startDirection.eulerAngles) / config.rotationalSpeed;
+            duration = Quaternion.Angle(targetDirection, startDirection) / config.rotationalSpeed;
         }
 
         public override void Update()

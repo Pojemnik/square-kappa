@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedEpsilon: 0.5
   rotationalSpeed: 45
-  maxMovementSpeed: 10
+  maxMovementSpeed: 2
   acceleration: 2
-  actualMovementSpeed: 4.825101
+  actualMovementSpeed: 4.99942
