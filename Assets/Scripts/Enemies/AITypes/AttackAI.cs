@@ -6,7 +6,7 @@ namespace AI
 {
     public class AttackAI : StateMachine
     {
-        private void Awake()
+        private void Start()
         {
             ChangeState(new MoveTowardsTargetState());
         }

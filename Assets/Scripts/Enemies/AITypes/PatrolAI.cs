@@ -12,7 +12,7 @@ namespace AI
         [SerializeField]
         private PatrolAIConfig config;
 
-        private void Awake()
+        private void Start()
         {
             if(config == null)
             {

@@ -274,6 +274,11 @@ namespace AI
                 movement.MoveRelativeToCamera(Vector3.zero);
                 owner.ChangeState(new GlideTowardsPointState(pathNode, config));
             }
+            if (Vector3.Angle(movement.Velocity, towardsTarget) > 5)
+            {
+                //Fix direction
+
+            }
         }
     }
 
@@ -325,9 +330,41 @@ namespace AI
             Vector3 targetPosition = pathNode.transform.position;
             Debug.DrawLine(position, targetPosition, Color.cyan);
             Vector3 towardsTarget = targetPosition - position;
-            //Debug.Log(Vector3.Angle(towardsTarget, movement.Velocity));
             //Stopped or overshot
             if (movement.Velocity.magnitude <= config.speedEpsilon || Vector3.Angle(towardsTarget, movement.Velocity) > 170)
+            {
+                movement.MoveRelativeToCamera(Vector3.zero);
+                movement.MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(-movement.Velocity);
+                Debug.Log(string.Format("Deceleration towards point {0} finished. Starting rotation", pathNode));
+                owner.ChangeState(new RotateTowardsPointState(pathNode.next, config));
+            }
+            else
+            {
+                movement.MoveInGlobalCoordinatesIgnoringSpeed(-movement.Velocity.normalized * config.acceleration);
+            }
+        }
+    }
+
+    //TODO: make it work
+    public class EmergencyStopState : BaseState
+    {
+        private readonly AIPathNode pathNode;
+        private readonly PatrolAIConfig config;
+
+        public EmergencyStopState(AIPathNode node, PatrolAIConfig aIConfig)
+        {
+            pathNode = node;
+            config = aIConfig;
+        }
+
+        public override void PhysicsUpdate()
+        {
+            Vector3 position = owner.transform.position;
+            Vector3 targetPosition = pathNode.transform.position;
+            Debug.DrawLine(position, targetPosition, Color.cyan);
+            Vector3 towardsTarget = targetPosition - position;
+            //Stopped or overshot
+            if (movement.Velocity.magnitude <= config.speedEpsilon)
             {
                 movement.MoveRelativeToCamera(Vector3.zero);
                 movement.MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(-movement.Velocity);
@@ -346,16 +383,62 @@ namespace AI
         public EnemyController enemyController;
 
         private BaseState currentState;
+        private Stack<BaseState> states;
 
         public void ChangeState(BaseState state)
         {
-            if (currentState != null)
+            if (states.Count > 0)
             {
-                currentState.Exit();
+                BaseState lastTop = states.Pop();
+                if (lastTop != null)
+                {
+                    lastTop.Exit();
+                }
             }
+            states.Push(state);
             currentState = state;
             currentState.owner = this;
             currentState.Enter();
+        }
+
+        public void PushState(BaseState state)
+        {
+            if (states.Count > 0)
+            {
+                BaseState lastTop = states.Peek();
+                if (lastTop != null)
+                {
+                    lastTop.Exit();
+                }
+            }
+            states.Push(state);
+            currentState = state;
+            currentState.owner = this;
+            currentState.Enter();
+        }
+
+        public void PopState()
+        {
+            if (states.Count <= 1)
+            {
+                throw new System.Exception(string.Format("Critical error. State stack reached bottom at enemy {0}", name));
+            }
+            BaseState state = states.Pop();
+            if (state != null)
+            {
+                state.Exit();
+            }
+            currentState = states.Peek();
+            if (currentState != null)
+            {
+                currentState.owner = this;
+                currentState.Enter();
+            }
+        }
+
+        private void Awake()
+        {
+            states = new Stack<BaseState>();
         }
 
         private void Update()
