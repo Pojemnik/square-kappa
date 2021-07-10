@@ -277,7 +277,7 @@ namespace AI
             if (Vector3.Angle(movement.Velocity, towardsTarget) > 5)
             {
                 //Fix direction
-
+                owner.ChangeState(new EmergencyStopState(pathNode, config));
             }
         }
     }
@@ -345,7 +345,6 @@ namespace AI
         }
     }
 
-    //TODO: make it work
     public class EmergencyStopState : BaseState
     {
         private readonly AIPathNode pathNode;
@@ -357,12 +356,14 @@ namespace AI
             config = aIConfig;
         }
 
+        public override void Enter()
+        {
+            base.Enter();
+            Debug.Log(string.Format("Emergency stop. Enemy: {0}", owner.gameObject.name));
+        }
+
         public override void PhysicsUpdate()
         {
-            Vector3 position = owner.transform.position;
-            Vector3 targetPosition = pathNode.transform.position;
-            Debug.DrawLine(position, targetPosition, Color.cyan);
-            Vector3 towardsTarget = targetPosition - position;
             //Stopped or overshot
             if (movement.Velocity.magnitude <= config.speedEpsilon)
             {
