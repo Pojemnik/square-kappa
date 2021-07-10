@@ -267,6 +267,11 @@ namespace AI
             if (movement.Velocity.magnitude < config.actualMovementSpeed)
             {
                 movement.MoveInGlobalCoordinatesIgnoringSpeed(towardsTarget.normalized * config.acceleration);
+                //Not moving towards target
+                if (Vector3.Angle(movement.Velocity, towardsTarget) > 5)
+                {
+                    owner.ChangeState(new EmergencyStopState(pathNode, config));
+                }
             }
             else
             {
@@ -274,11 +279,7 @@ namespace AI
                 movement.MoveRelativeToCamera(Vector3.zero);
                 owner.ChangeState(new GlideTowardsPointState(pathNode, config));
             }
-            if (Vector3.Angle(movement.Velocity, towardsTarget) > 5)
-            {
-                //Fix direction
-                owner.ChangeState(new EmergencyStopState(pathNode, config));
-            }
+
         }
     }
 
@@ -309,6 +310,14 @@ namespace AI
                 Debug.Log(string.Format("Gliding towards point {0} finished. Starting deceleration", pathNode));
                 movement.MoveRelativeToCamera(Vector3.zero);
                 owner.ChangeState(new DecelerateTowardsPointState(pathNode, config));
+            }
+            else
+            {
+                //Not moving towards target
+                if (Vector3.Angle(movement.Velocity, towardsTarget) > 5)
+                {
+                    owner.ChangeState(new EmergencyStopState(pathNode, config));
+                }
             }
         }
     }
@@ -341,6 +350,11 @@ namespace AI
             else
             {
                 movement.MoveInGlobalCoordinatesIgnoringSpeed(-movement.Velocity.normalized * config.acceleration);
+                //Not moving towards target
+                if (Vector3.Angle(movement.Velocity, towardsTarget) > 5 && towardsTarget.magnitude > 1)
+                {
+                    owner.ChangeState(new EmergencyStopState(pathNode, config));
+                }
             }
         }
     }
@@ -370,7 +384,7 @@ namespace AI
                 movement.MoveRelativeToCamera(Vector3.zero);
                 movement.MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(-movement.Velocity);
                 Debug.Log(string.Format("Deceleration towards point {0} finished. Starting rotation", pathNode));
-                owner.ChangeState(new RotateTowardsPointState(pathNode.next, config));
+                owner.ChangeState(new RotateTowardsPointState(pathNode, config));
             }
             else
             {
