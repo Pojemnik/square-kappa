@@ -221,6 +221,16 @@ namespace AI
             float t = (Time.time - startTime) / duration;
             if (t >= 1)
             {
+                Vector3 position = owner.transform.position;
+                Vector3 towardsTarget = pathNode.transform.position - position;
+                const int layerMask = ~((1 << 7) | (1 << 9));
+                if (Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, layerMask))
+                {
+                    //Obstacle
+                    Debug.Log(string.Format("Obstacle on course of enemy {0}. Stopping", pathNode));
+                    owner.ChangeState(new WaitState(pathNode, config));
+                    return;
+                }
                 Debug.Log(string.Format("Finished rotating at point {0}. Starting movement", pathNode));
                 owner.ChangeState(new AccelerateTowardsPointState(pathNode, config));
             }
@@ -264,6 +274,14 @@ namespace AI
             Vector3 targetPosition = pathNode.transform.position;
             Debug.DrawLine(position, targetPosition, Color.cyan);
             Vector3 towardsTarget = targetPosition - position;
+            const int layerMask = ~((1 << 7) | (1 << 9));
+            if (Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, layerMask))
+            {
+                //Obstacle
+                Debug.Log(string.Format("Obstacle on course of enemy {0}. Stopping", pathNode));
+                owner.ChangeState(new EmergencyStopState(pathNode, config));
+                return;
+            }
             if (movement.Velocity.magnitude < config.actualMovementSpeed)
             {
                 movement.MoveInGlobalCoordinatesIgnoringSpeed(towardsTarget.normalized * config.acceleration);
@@ -300,6 +318,14 @@ namespace AI
             Vector3 targetPosition = pathNode.transform.position;
             Debug.DrawLine(position, targetPosition, Color.cyan);
             Vector3 towardsTarget = targetPosition - position;
+            const int layerMask = ~((1 << 7) | (1 << 9));
+            if(Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, layerMask))
+            {
+                //Obstacle
+                Debug.Log(string.Format("Obstacle on course of enemy {0}. Stopping", pathNode));
+                owner.ChangeState(new EmergencyStopState(pathNode, config));
+                return;
+            }
             if (movement.Velocity.magnitude < config.actualMovementSpeed)
             {
                 movement.MoveInGlobalCoordinatesIgnoringSpeed(towardsTarget.normalized * (config.actualMovementSpeed - movement.Velocity.magnitude));
@@ -339,6 +365,13 @@ namespace AI
             Vector3 targetPosition = pathNode.transform.position;
             Debug.DrawLine(position, targetPosition, Color.cyan);
             Vector3 towardsTarget = targetPosition - position;
+            const int layerMask = ~((1 << 7) | (1 << 9));
+            if (Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, layerMask))
+            {
+                //Obstacle
+                owner.ChangeState(new EmergencyStopState(pathNode, config));
+                return;
+            }
             //Stopped or overshot
             if (movement.Velocity.magnitude <= config.speedEpsilon || Vector3.Angle(towardsTarget, movement.Velocity) > 170)
             {
@@ -370,12 +403,6 @@ namespace AI
             config = aIConfig;
         }
 
-        public override void Enter()
-        {
-            base.Enter();
-            Debug.Log(string.Format("Emergency stop. Enemy: {0}", owner.gameObject.name));
-        }
-
         public override void PhysicsUpdate()
         {
             //Stopped or overshot
@@ -389,6 +416,33 @@ namespace AI
             else
             {
                 movement.MoveInGlobalCoordinatesIgnoringSpeed(-movement.Velocity.normalized * config.acceleration);
+            }
+        }
+    }
+
+    public class WaitState : BaseState
+    {
+        private readonly AIPathNode pathNode;
+        private PatrolAIConfig config;
+
+        public WaitState(AIPathNode node, PatrolAIConfig aIConfig)
+        {
+            pathNode = node;
+            config = aIConfig;
+        }
+
+        public override void Update()
+        {
+            //Maybe move this stuff to a coroutine and execute less often
+            Vector3 position = owner.transform.position;
+            Vector3 targetPosition = pathNode.transform.position;
+            Vector3 towardsTarget = targetPosition - position;
+            const int layerMask = ~((1 << 7) | (1 << 9));
+            if (!Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, layerMask))
+            {
+                //Obstacle
+                owner.ChangeState(new RotateTowardsPointState(pathNode, config));
+                return;
             }
         }
     }
