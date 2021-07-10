@@ -282,7 +282,6 @@ namespace AI
 
         public override void Update()
         {
-            Debug.Log(string.Format("Speed at rotation enter: {0}", movement.Velocity));
             float t = (Time.time - startTime) / duration;
             if (t >= 1)
             {
@@ -299,12 +298,28 @@ namespace AI
     public class AccelerateTowardsPointState : BaseState
     {
         private readonly AIPathNode pathNode;
-        private readonly PatrolAIConfig config;
+        private PatrolAIConfig config;
 
         public AccelerateTowardsPointState(AIPathNode node, PatrolAIConfig aIConfig)
         {
             pathNode = node;
             config = aIConfig;
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            Vector3 towardsTarget = pathNode.transform.position - owner.transform.position;
+            if (config.maxMovementSpeed * config.maxMovementSpeed / config.acceleration > towardsTarget.magnitude)
+            {
+                //actual speed != max speed
+                config.actualMovementSpeed = Mathf.Sqrt(1.5F * towardsTarget.magnitude * config.acceleration);
+            }
+            else
+            {
+                config.actualMovementSpeed = config.maxMovementSpeed;
+            }
+            Debug.Log(string.Format("Actual speed set to {0}", config.actualMovementSpeed));
         }
 
         public override void PhysicsUpdate()
@@ -313,7 +328,7 @@ namespace AI
             Vector3 targetPosition = pathNode.transform.position;
             Debug.DrawLine(position, targetPosition, Color.cyan);
             Vector3 towardsTarget = targetPosition - position;
-            if (movement.Velocity.magnitude < config.movementSpeed)
+            if (movement.Velocity.magnitude < config.actualMovementSpeed)
             {
                 movement.MoveInGlobalCoordinatesIgnoringSpeed(towardsTarget.normalized * config.acceleration);
             }
@@ -343,12 +358,12 @@ namespace AI
             Vector3 targetPosition = pathNode.transform.position;
             Debug.DrawLine(position, targetPosition, Color.cyan);
             Vector3 towardsTarget = targetPosition - position;
-            if (movement.Velocity.magnitude < config.movementSpeed)
+            if (movement.Velocity.magnitude < config.actualMovementSpeed)
             {
-                movement.MoveInGlobalCoordinatesIgnoringSpeed(towardsTarget.normalized * (config.movementSpeed - config.movementSpeed));
+                movement.MoveInGlobalCoordinatesIgnoringSpeed(towardsTarget.normalized * (config.actualMovementSpeed - movement.Velocity.magnitude));
             }
             //s = v0^2/a - 1/2*v0^2/a - point at which enemy has to start deceleration
-            if (towardsTarget.magnitude <= config.movementSpeed * config.movementSpeed / config.acceleration - config.movementSpeed * config.movementSpeed / config.acceleration * 0.5F)
+            if (towardsTarget.magnitude <= config.actualMovementSpeed * config.actualMovementSpeed / config.acceleration - config.actualMovementSpeed * config.actualMovementSpeed / config.acceleration * 0.5F)
             {
                 Debug.Log(string.Format("Gliding towards point {0} finished. Starting deceleration", pathNode));
                 movement.MoveRelativeToCamera(Vector3.zero);
@@ -379,7 +394,6 @@ namespace AI
             if (movement.Velocity.magnitude <= config.speedEpsilon || Vector3.Angle(towardsTarget, movement.Velocity) > 170)
             {
                 movement.MoveRelativeToCamera(Vector3.zero);
-                Debug.Log(string.Format("Veloctiy at deceleration end {0}", movement.Velocity));
                 movement.MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(-movement.Velocity);
                 Debug.Log(string.Format("Deceleration towards point {0} finished. Starting rotation", pathNode));
                 owner.ChangeState(new RotateTowardsPointState(pathNode.next, config));

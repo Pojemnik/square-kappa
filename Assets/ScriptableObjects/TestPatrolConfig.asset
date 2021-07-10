@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e88b5b8d827ea40af1aa625f73a08c, type: 3}
   m_Name: TestPatrolConfig
   m_EditorClassIdentifier: 
-  speedEpsilon: 1
+  speedEpsilon: 0.5
   rotationalSpeed: 45
-  movementSpeed: 2
+  maxMovementSpeed: 10
   acceleration: 2
+  actualMovementSpeed: 4.825101
