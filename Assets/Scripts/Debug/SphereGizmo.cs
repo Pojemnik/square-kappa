@@ -6,12 +6,14 @@ using System.Linq;
 public class SphereGizmo : MonoBehaviour
 {
     [Header("Gizmo properities")]
-    [SerializeField]
     public float gizmoRadius;
     [SerializeField]
-    private bool drawWhenSelectedOnly;
-    [SerializeField]
     private int points;
+
+    [SerializeField]
+    private bool drawWhenSelectedOnly;
+
+    [Header("Colors")]
     [SerializeField]
     private Color selectedColor;
     [SerializeField]
