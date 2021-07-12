@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class VisionGizmoCore
 {
-    public bool drawWhenSelectedOnly;
-    public Color selectedColor;
-    public Color notSelectedColor;
-
     public int Points
     {
         get => points;
@@ -53,6 +49,54 @@ public class VisionGizmoCore
     }
     private float coneAngle;
 
+    public int ConeLines
+    {
+        get => coneLines;
+        set
+        {
+            coneLines = value;
+            cone.coneLines = coneLines;
+        }
+    }
+
+    public bool DrawWhenSelectedOnly
+    {
+        get => drawWhenSelectedOnly; 
+        set
+        {
+            drawWhenSelectedOnly = value;
+            cone.drawWhenSelectedOnly = drawWhenSelectedOnly;
+            sphere.drawWhenSelectedOnly = drawWhenSelectedOnly;
+        }
+    }
+    private bool drawWhenSelectedOnly;
+    public Color SelectedColor
+    {
+        get => selectedColor; 
+        set
+        {
+            selectedColor = value;
+            cone.selectedColor = selectedColor;
+            sphere.selectedColor = selectedColor;
+        }
+    }
+    private Color selectedColor;
+
+    public Color NotSelectedColor
+    {
+        get => notSelectedColor; 
+        set
+        {
+            notSelectedColor = value;
+            cone.notSelectedColor = notSelectedColor;
+            sphere.notSelectedColor = notSelectedColor;
+        }
+    }
+    private Color notSelectedColor;
+
+
+    private int coneLines;
+
     private SphereGizmoCore sphere;
     private ConeGizmoCore cone;
 
@@ -64,7 +108,7 @@ public class VisionGizmoCore
 
     public void Draw(bool selected, Vector3 position, Vector3 forward)
     {
-        if (!selected && drawWhenSelectedOnly)
+        if (!selected && DrawWhenSelectedOnly)
         {
             return;
         }

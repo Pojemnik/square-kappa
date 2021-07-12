@@ -28,7 +28,20 @@ public class EnemyController : MonoBehaviour
     public float visibilitySphereRadius;
     public float visibilityConeAngle;
     public float visibilityConeHeight;
-    public VisionGizmoCore gizmo;
+
+    [Header("Gizmo properties")]
+    [SerializeField]
+    [Min(1)]
+    private int points;
+    [SerializeField]
+    [Min(1)]
+    private int coneLines;
+    [SerializeField]
+    private bool drawWhenSelectedOnly;
+    [SerializeField]
+    private Color selectedColor;
+    [SerializeField]
+    private Color notSelectedColor;
 
     [Header("Ragdoll properities")]
     [SerializeField]
@@ -38,6 +51,7 @@ public class EnemyController : MonoBehaviour
     private float maxForce;
 
     private EnemyManager manager;
+    private VisionGizmoCore gizmo;
 
     public void OnDeath()
     {
@@ -81,7 +95,7 @@ public class EnemyController : MonoBehaviour
 
     private void DrawGizmo(bool selected)
     {
-        //VisionGizmo.DrawGizmo(selected);
+        gizmo.Draw(selected, transform.position, transform.forward);
     }
 
     private void Start()
@@ -98,10 +112,34 @@ public class EnemyController : MonoBehaviour
         unitController.movement.cameraAiming = false;
         layerMask = (1 << 7) | (1 << 8) | (1 << 9);
         layerMask = ~layerMask;
+#if UNITY_EDITOR
+        gizmo = new VisionGizmoCore();
+        UpdateGizmoProperties();
+#endif
     }
 
 #if UNITY_EDITOR
-    void OnDrawGizmosSelected()
+    private void UpdateGizmoProperties()
+    {
+        gizmo.ConeAngle = visibilityConeAngle;
+        gizmo.ConeHeight = visibilityConeHeight;
+        gizmo.SphereRadius = visibilitySphereRadius;
+        gizmo.Points = points;
+        gizmo.NotSelectedColor = notSelectedColor;
+        gizmo.SelectedColor = selectedColor;
+        gizmo.ConeLines = coneLines;
+    }
+
+    private void OnValidate()
+    {
+        if (gizmo == null)
+        {
+            gizmo = new VisionGizmoCore();
+        }
+        UpdateGizmoProperties();
+    }
+
+    private void OnDrawGizmosSelected()
     {
         DrawGizmo(true);
     }

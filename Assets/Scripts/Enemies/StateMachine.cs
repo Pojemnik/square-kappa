@@ -37,6 +37,32 @@ namespace AI
             }
         }
 
+        protected bool TargetVisible(int targetLayer)
+        {
+            Vector3 position = owner.transform.position;
+            Vector3 targetPosition = owner.enemyController.target.transform.position;
+            Vector3 towardsTarget = targetPosition - position;
+            RaycastHit raycastHit;
+            if (Physics.Raycast(position, targetPosition - position, out raycastHit, owner.enemyController.visibilitySphereRadius, owner.enemyController.layerMask))
+            {
+                if (raycastHit.collider.gameObject.layer == targetLayer)
+                {
+                    return true;
+                }
+            }
+            if (Vector3.Angle(towardsTarget, owner.transform.up) <= owner.enemyController.visibilityConeAngle)
+            {
+                if (Physics.Raycast(position, targetPosition - position, out raycastHit, owner.enemyController.visibilityConeHeight, owner.enemyController.layerMask))
+                {
+                    if (raycastHit.collider.gameObject.layer == targetLayer)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public virtual void Enter()
         {
             movement = owner.enemyController.unitController.movement;
@@ -319,7 +345,7 @@ namespace AI
             Debug.DrawLine(position, targetPosition, Color.cyan);
             Vector3 towardsTarget = targetPosition - position;
             const int layerMask = ~((1 << 7) | (1 << 9));
-            if(Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, layerMask))
+            if (Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, layerMask))
             {
                 //Obstacle
                 Debug.Log(string.Format("Obstacle on course of enemy {0}. Stopping", pathNode));
