@@ -2892,6 +2892,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693617, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: cone
+      value: 
+      objectReference: {fileID: 729718495}
+    - target: {fileID: 8307458533412693617, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 1527445185}
@@ -3002,6 +3006,32 @@ MonoBehaviour:
   enemyController: {fileID: 729718492}
   firstNode: {fileID: 1075159654}
   config: {fileID: 11400000, guid: 368774ad42437b54e95fe7dd87163de5, type: 2}
+--- !u!114 &729718495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729718491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e0074a2d2f27054690db3853a1e250f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: 10
+  angle: 45
+  eyes: {fileID: 729718496}
+  baseRadius: 0
+  basePoints: 50
+  coneLines: 6
+  drawWhenSelectedOnly: 0
+  selectedColor: {r: 0.9911915, g: 1, b: 0, a: 1}
+  notSelectedColor: {r: 0.020190358, g: 1, b: 0, a: 1}
+--- !u!1 &729718496 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4998033257216051909, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+  m_PrefabInstance: {fileID: 729718489}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &730203787 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8307458533412693619, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}

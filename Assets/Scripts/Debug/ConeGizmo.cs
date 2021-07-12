@@ -16,8 +16,10 @@ public class ConeGizmo : MonoBehaviour
 
     [Header("Drawing")]
     [SerializeField]
+    [Min(1)]
     private int basePoints;
     [SerializeField]
+    [Min(1)]
     private int coneLines;
     [SerializeField]
     private bool drawWhenSelectedOnly;
@@ -28,22 +30,102 @@ public class ConeGizmo : MonoBehaviour
     [SerializeField]
     private Color notSelectedColor;
 
-    private List<Vector3> circle;
-    private float lastHeight = 0;
-    private float lastAngle = 0;
+    private ConeGizmoCore gizmo;
 
-    public void DrawGizmo(bool selected)
+    private void UpdateCoreValues()
+    {
+        gizmo.Height = height;
+        gizmo.Angle = angle;
+        gizmo.eyes = eyes;
+        gizmo.BasePoints = basePoints;
+        gizmo.coneLines = coneLines;
+        gizmo.drawWhenSelectedOnly = drawWhenSelectedOnly;
+        gizmo.selectedColor = selectedColor;
+        gizmo.notSelectedColor = notSelectedColor;
+        baseRadius = gizmo.baseRadius;
+    }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        UpdateCoreValues();
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if(gizmo == null)
+        {
+            gizmo = new ConeGizmoCore();
+            UpdateCoreValues();
+        }
+        gizmo.Draw(true);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (gizmo == null)
+        {
+            gizmo = new ConeGizmoCore();
+            UpdateCoreValues();
+        }
+        gizmo.Draw(false);
+    }
+#endif
+}
+
+public class ConeGizmoCore
+{
+    public GameObject eyes;
+    public float baseRadius;
+    public int coneLines;
+    public bool drawWhenSelectedOnly;
+    public Color selectedColor;
+    public Color notSelectedColor;
+
+    private List<Vector3> circle;
+
+    public float Height
+    {
+        get => height; 
+        set
+        {
+            height = value;
+            RecalculateRadiusAndGenerateCircle();
+        }
+    }
+    public float Angle
+    {
+        get => angle;
+        set
+        {
+            angle = value;
+            RecalculateRadiusAndGenerateCircle();
+        }
+    }
+
+    public int BasePoints
+    {
+        get => basePoints;
+        set
+        {
+            basePoints = value;
+            RecalculateRadiusAndGenerateCircle();
+        }
+    }
+
+    private float height;
+    private float angle;
+    private int basePoints;
+
+    public void Draw(bool selected)
     {
         if (!selected && drawWhenSelectedOnly)
         {
             return;
         }
-        if (circle == null || lastHeight != height || lastAngle != angle)
+        if (circle == null)
         {
-            baseRadius = 2 * height * Mathf.Tan(angle * Mathf.Deg2Rad / 2);
-            circle = GenerateCircle(baseRadius, basePoints);
-            lastHeight = height;
-            lastAngle = angle;
+            RecalculateRadiusAndGenerateCircle();
         }
         Color lastGizmoColor = Gizmos.color;
         if (selected)
@@ -57,6 +139,12 @@ public class ConeGizmo : MonoBehaviour
         DrawBase(circle);
         DrawLines();
         Gizmos.color = lastGizmoColor;
+    }
+
+    private void RecalculateRadiusAndGenerateCircle()
+    {
+        baseRadius = 2 * Height * Mathf.Tan(Angle * Mathf.Deg2Rad / 2);
+        circle = GenerateCircle(baseRadius, BasePoints);
     }
 
     private List<Vector3> GenerateCircle(float radius, int points)
@@ -74,26 +162,25 @@ public class ConeGizmo : MonoBehaviour
         int i = 0;
         for (int j = 1; j < circle.Count; j++, i++)
         {
-            Vector3 PointI = circle[i] + eyes.transform.position + transform.forward * height;
-            Vector3 PointJ = circle[j] + eyes.transform.position + transform.forward * height;
+            Vector3 PointI = circle[i] + eyes.transform.position + eyes.transform.forward * Height;
+            Vector3 PointJ = circle[j] + eyes.transform.position + eyes.transform.forward * Height;
             Gizmos.DrawLine(PointI, PointJ);
         }
-        Vector3 FistPoint = circle[0] + eyes.transform.position + transform.forward * height;
-        Vector3 LastPoint = circle[circle.Count - 1] + eyes.transform.position + transform.forward * height;
+        Vector3 FistPoint = circle[0] + eyes.transform.position + eyes.transform.forward * Height;
+        Vector3 LastPoint = circle[circle.Count - 1] + eyes.transform.position + eyes.transform.forward * Height;
         Gizmos.DrawLine(FistPoint, LastPoint);
     }
 
     private void DrawLines()
     {
-        if(coneLines > circle.Count)
+        if (coneLines > circle.Count)
         {
-            throw new System.Exception(string.Format("Number of cone lines to draw bigger" +
-                " than the number of base's points. Gizmo {0}", name));
+            throw new System.Exception("Number of cone lines to draw bigger than the number of base's points");
         }
         int verticesToSkip = circle.Count / coneLines;
         for (int i = verticesToSkip / 2; i < circle.Count; i += verticesToSkip)
         {
-            Gizmos.DrawLine(eyes.transform.position, circle[i] + eyes.transform.position + transform.forward * height);
+            Gizmos.DrawLine(eyes.transform.position, circle[i] + eyes.transform.position + eyes.transform.forward * Height);
         }
     }
 }
