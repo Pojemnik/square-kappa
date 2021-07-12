@@ -92,6 +92,11 @@ public class SphereGizmoCore
     private int points;
     private List<Vector3>[] circles;
 
+    public SphereGizmoCore()
+    {
+        GenerateCircles();
+    }
+
     public void Draw(bool selected, Vector3 position)
     {
         if (!selected && drawWhenSelectedOnly)

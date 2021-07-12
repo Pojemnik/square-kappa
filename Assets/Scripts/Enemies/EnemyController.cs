@@ -25,6 +25,10 @@ public class EnemyController : MonoBehaviour
     public int layerMask;
     public AIShootingRules ShootingRules;
     public AIShootingRulesInterpretation ShootingRulesInterpretation;
+    public float visibilitySphereRadius;
+    public float visibilityConeAngle;
+    public float visibilityConeHeight;
+    public VisionGizmoCore gizmo;
 
     [Header("Ragdoll properities")]
     [SerializeField]
@@ -50,18 +54,6 @@ public class EnemyController : MonoBehaviour
 
     private void StartRagdoll()
     {
-        //foreach (Collider collider in childrenColliders)
-        //{
-        //    rigidbodies.Add(collider.gameObject.AddComponent<Rigidbody>());
-        //}
-        //foreach(Rigidbody rb in rigidbodies)
-        //{
-        //    if (rb != null)
-        //    {
-        //        rb.AddForce(new Vector3(Random.Range(0, maxForce), Random.Range(0, maxForce), Random.Range(0, maxForce)));
-        //        rb.isKinematic = false;
-        //    }
-        //}
         DropWeapon();
         DeactivateComponents();
         manager.RemoveEnemy(gameObject);
@@ -87,6 +79,11 @@ public class EnemyController : MonoBehaviour
         unitController.CurrentWeapon = null;
     }
 
+    private void DrawGizmo(bool selected)
+    {
+        //VisionGizmo.DrawGizmo(selected);
+    }
+
     private void Start()
     {
         manager = FindObjectOfType<EnemyManager>();
@@ -102,4 +99,16 @@ public class EnemyController : MonoBehaviour
         layerMask = (1 << 7) | (1 << 8) | (1 << 9);
         layerMask = ~layerMask;
     }
+
+#if UNITY_EDITOR
+    void OnDrawGizmosSelected()
+    {
+        DrawGizmo(true);
+    }
+
+    private void OnDrawGizmos()
+    {
+        DrawGizmo(false);
+    }
+#endif
 }
