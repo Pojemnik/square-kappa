@@ -8,13 +8,10 @@ public class AIPathNode : MonoBehaviour
     public AIPathNode next;
 
     [SerializeField]
-    private SphereGizmo sphere;
-    [SerializeField]
     private Color pathColor;
 
-    private void DrawGizmo(bool selected)
+    private void DrawGizmo()
     {
-        sphere.DrawSphere(selected);
         Gizmos.color = pathColor;
         if (next != null)
         {
@@ -26,12 +23,12 @@ public class AIPathNode : MonoBehaviour
 #if UNITY_EDITOR
     void OnDrawGizmosSelected()
     {
-        DrawGizmo(true);
+        DrawGizmo();
     }
 
     private void OnDrawGizmos()
     {
-        DrawGizmo(false);
+        DrawGizmo();
     }
 #endif
 }

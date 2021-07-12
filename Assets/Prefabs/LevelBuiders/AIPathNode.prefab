@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 0}
-  sphere: {fileID: 2284282993698006712}
   pathColor: {r: 0.049554825, g: 0, b: 1, a: 1}
 --- !u!114 &2284282993698006712
 MonoBehaviour:
@@ -59,8 +58,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82f0c2917040c5841a1ad528696e2839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gizmoRadius: 1
-  drawWhenSelectedOnly: 0
+  radius: 1
   points: 50
+  drawWhenSelectedOnly: 0
   selectedColor: {r: 1, g: 0.9925817, b: 0, a: 1}
   notSelectedColor: {r: 0.05789113, g: 1, b: 0, a: 1}

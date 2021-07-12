@@ -6,8 +6,9 @@ using System.Linq;
 public class SphereGizmo : MonoBehaviour
 {
     [Header("Gizmo properities")]
-    public float gizmoRadius;
+    public float radius;
     [SerializeField]
+    [Min(1)]
     private int points;
 
     [SerializeField]
@@ -19,19 +20,87 @@ public class SphereGizmo : MonoBehaviour
     [SerializeField]
     private Color notSelectedColor;
 
-    private List<Vector3>[] circles;
-    private float lastRadius = 0;
+    private SphereGizmoCore gizmo;
 
-    public void DrawSphere(bool selected)
+    private void UpdateCoreValues()
     {
-        if(!selected && drawWhenSelectedOnly)
+        gizmo.Radius = radius;
+        gizmo.Points = points;
+        gizmo.drawWhenSelectedOnly = drawWhenSelectedOnly;
+        gizmo.selectedColor = selectedColor;
+        gizmo.notSelectedColor = notSelectedColor;
+    }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (gizmo == null)
+        {
+            gizmo = new SphereGizmoCore();
+        }
+        UpdateCoreValues();
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (gizmo == null)
+        {
+            gizmo = new SphereGizmoCore();
+            UpdateCoreValues();
+        }
+        gizmo.Draw(true, transform.position);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (gizmo == null)
+        {
+            gizmo = new SphereGizmoCore();
+            UpdateCoreValues();
+        }
+        gizmo.Draw(false, transform.position);
+    }
+#endif
+}
+
+public class SphereGizmoCore
+{
+    public bool drawWhenSelectedOnly;
+    public Color selectedColor;
+    public Color notSelectedColor;
+
+    public int Points
+    {
+        get => points;
+        set
+        {
+            points = value;
+            GenerateCircles();
+        }
+    }
+    public float Radius
+    {
+        get => radius;
+        set
+        {
+            radius = value;
+            GenerateCircles();
+        }
+    }
+
+    private float radius;
+    private int points;
+    private List<Vector3>[] circles;
+
+    public void Draw(bool selected, Vector3 position)
+    {
+        if (!selected && drawWhenSelectedOnly)
         {
             return;
         }
-        if (circles == null || lastRadius != gizmoRadius)
+        if (circles == null)
         {
             GenerateCircles();
-            lastRadius = gizmoRadius;
         }
         Color lastGizmoColor = Gizmos.color;
         if (selected)
@@ -44,7 +113,7 @@ public class SphereGizmo : MonoBehaviour
         }
         foreach (List<Vector3> circle in circles)
         {
-            DrawCircle(circle);
+            DrawCircle(circle, position);
         }
         Gizmos.color = lastGizmoColor;
     }
@@ -59,17 +128,17 @@ public class SphereGizmo : MonoBehaviour
         return circle;
     }
 
-    private void DrawCircle(List<Vector3> circle)
+    private void DrawCircle(List<Vector3> circle, Vector3 position)
     {
         int i = 0;
         for (int j = 1; j < circle.Count; j++, i++)
         {
-            Vector3 PointI = circle[i] + transform.position;
-            Vector3 PointJ = circle[j] + transform.position;
+            Vector3 PointI = circle[i] + position;
+            Vector3 PointJ = circle[j] + position;
             Gizmos.DrawLine(PointI, PointJ);
         }
-        Vector3 FistPoint = circle[0] + transform.position;
-        Vector3 LastPoint = circle[circle.Count - 1] + transform.position;
+        Vector3 FistPoint = circle[0] + position;
+        Vector3 LastPoint = circle[circle.Count - 1] + position;
         Gizmos.DrawLine(FistPoint, LastPoint);
     }
 
@@ -90,13 +159,13 @@ public class SphereGizmo : MonoBehaviour
                 return circle.Select(e => new Vector3(0, e.x, e.y)).ToList();
         }
         //This should never happen
-        return new List<Vector3>();
+        throw new System.Exception(string.Format("Incorrect CircleAxis enum value: {0}", axis));
     }
 
     private void GenerateCircles()
     {
         circles = new List<Vector3>[3];
-        List<Vector2> circle = GenerateCircle(gizmoRadius, points);
+        List<Vector2> circle = GenerateCircle(Radius, Points);
         circles[0] = RotateCircle(circle, CircleAxis.xy);
         circles[1] = RotateCircle(circle, CircleAxis.xz);
         circles[2] = RotateCircle(circle, CircleAxis.yz);

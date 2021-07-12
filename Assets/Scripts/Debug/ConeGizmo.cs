@@ -48,7 +48,11 @@ public class ConeGizmo : MonoBehaviour
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        UpdateCoreValues();
+        if (gizmo == null)
+        {
+            gizmo = new ConeGizmoCore();
+            UpdateCoreValues();
+        }
     }
 
     void OnDrawGizmosSelected()

@@ -3021,11 +3021,11 @@ MonoBehaviour:
   height: 10
   angle: 45
   eyes: {fileID: 729718496}
-  baseRadius: 0
+  baseRadius: 8.284271
   basePoints: 50
   coneLines: 6
   drawWhenSelectedOnly: 0
-  selectedColor: {r: 0.9911915, g: 1, b: 0, a: 1}
+  selectedColor: {r: 0.99215686, g: 1, b: 0, a: 1}
   notSelectedColor: {r: 0.020190358, g: 1, b: 0, a: 1}
 --- !u!1 &729718496 stripped
 GameObject:
@@ -8178,10 +8178,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2107739453}
     m_Modifications:
-    - target: {fileID: 2284282993698006712, guid: a4f7ccd963dcda040aaf85ec36388313, type: 3}
-      propertyPath: drawWhenSelectedOnly
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3063092443403450289, guid: a4f7ccd963dcda040aaf85ec36388313, type: 3}
       propertyPath: m_Name
       value: Path1
