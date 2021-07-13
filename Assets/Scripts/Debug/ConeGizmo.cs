@@ -44,7 +44,6 @@ public class ConeGizmo : MonoBehaviour
         baseRadius = gizmo.baseRadius;
     }
 
-#if UNITY_EDITOR
     private void OnValidate()
     {
         if (gizmo == null)
@@ -54,6 +53,7 @@ public class ConeGizmo : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     void OnDrawGizmosSelected()
     {
         if (gizmo == null)
@@ -61,7 +61,7 @@ public class ConeGizmo : MonoBehaviour
             gizmo = new ConeGizmoCore();
             UpdateCoreValues();
         }
-        gizmo.Draw(true, eyes.transform.position, eyes.transform.forward);
+        gizmo.Draw(true, eyes.transform);
     }
 
     private void OnDrawGizmos()
@@ -71,7 +71,7 @@ public class ConeGizmo : MonoBehaviour
             gizmo = new ConeGizmoCore();
             UpdateCoreValues();
         }
-        gizmo.Draw(false, eyes.transform.position, eyes.transform.forward);
+        gizmo.Draw(false, eyes.transform);
     }
 #endif
 }
@@ -124,7 +124,7 @@ public class ConeGizmoCore
         RecalculateRadiusAndGenerateCircle();
     }
 
-    public void Draw(bool selected, Vector3 position, Vector3 forward)
+    public void Draw(bool selected, Transform transform)
     {
         if (!selected && drawWhenSelectedOnly)
         {
@@ -143,8 +143,8 @@ public class ConeGizmoCore
         {
             Gizmos.color = notSelectedColor;
         }
-        DrawBase(circle, position, forward);
-        DrawLines(position, forward);
+        DrawBase(circle, transform);
+        DrawLines(transform);
         Gizmos.color = lastGizmoColor;
     }
 
@@ -164,21 +164,27 @@ public class ConeGizmoCore
         return circle.Select(e => (Vector3)e).ToList();
     }
 
-    private void DrawBase(List<Vector3> circle, Vector3 position, Vector3 forward)
+    private Vector3 TransformCirclePointIgnoringScale(Vector3 point, Transform transform)
+    {
+        Vector3 inverseScale = new Vector3(1 / transform.localScale.x, 1 / transform.localScale.y, 1 / transform.localScale.z);
+        return Vector3.Scale(transform.TransformPoint(point), inverseScale);
+    }
+
+    private void DrawBase(List<Vector3> circle, Transform transform)
     {
         int i = 0;
         for (int j = 1; j < circle.Count; j++, i++)
         {
-            Vector3 PointI = circle[i] + position + forward * Height;
-            Vector3 PointJ = circle[j] + position + forward * Height;
+            Vector3 PointI = TransformCirclePointIgnoringScale(circle[i], transform) + transform.forward * Height;
+            Vector3 PointJ = TransformCirclePointIgnoringScale(circle[j], transform) + transform.forward * Height;
             Gizmos.DrawLine(PointI, PointJ);
         }
-        Vector3 FistPoint = circle[0] + position + forward * Height;
-        Vector3 LastPoint = circle[circle.Count - 1] + position + forward * Height;
+        Vector3 FistPoint = TransformCirclePointIgnoringScale(circle[0], transform) + transform.forward * Height;
+        Vector3 LastPoint = TransformCirclePointIgnoringScale(circle[circle.Count - 1], transform) + transform.forward * Height;
         Gizmos.DrawLine(FistPoint, LastPoint);
     }
 
-    private void DrawLines(Vector3 position, Vector3 forward)
+    private void DrawLines(Transform transform)
     {
         if (coneLines > circle.Count)
         {
@@ -187,7 +193,7 @@ public class ConeGizmoCore
         int verticesToSkip = circle.Count / coneLines;
         for (int i = verticesToSkip / 2; i < circle.Count; i += verticesToSkip)
         {
-            Gizmos.DrawLine(position, circle[i] + position + forward * Height);
+            Gizmos.DrawLine(transform.position, TransformCirclePointIgnoringScale(circle[i], transform) + transform.forward * Height);
         }
     }
 }

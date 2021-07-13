@@ -95,7 +95,7 @@ public class EnemyController : MonoBehaviour
 
     private void DrawGizmo(bool selected)
     {
-        gizmo.Draw(selected, transform.position, transform.forward);
+        gizmo.Draw(selected, transform);
     }
 
     private void Start()

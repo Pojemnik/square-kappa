@@ -106,7 +106,7 @@ public class VisionGizmoCore
         cone = new ConeGizmoCore();
     }
 
-    public void Draw(bool selected, Vector3 position, Vector3 forward)
+    public void Draw(bool selected, Transform transform)
     {
         if (!selected && DrawWhenSelectedOnly)
         {
@@ -120,7 +120,7 @@ public class VisionGizmoCore
         {
             cone = new ConeGizmoCore();
         }
-        cone.Draw(selected, position, forward);
-        sphere.Draw(selected, position);
+        cone.Draw(selected, transform);
+        sphere.Draw(selected, transform.position);
     }
 }
