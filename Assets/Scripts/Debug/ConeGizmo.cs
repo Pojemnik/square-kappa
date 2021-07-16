@@ -48,7 +48,7 @@ public class ConeGizmo : MonoBehaviour
     {
         if (gizmo == null)
         {
-            gizmo = new ConeGizmoCore();
+            gizmo = new ConeGizmoCore(ConeGizmoCore.LookingDirection.Forward);
             UpdateCoreValues();
         }
     }
@@ -58,7 +58,7 @@ public class ConeGizmo : MonoBehaviour
     {
         if (gizmo == null)
         {
-            gizmo = new ConeGizmoCore();
+            gizmo = new ConeGizmoCore(ConeGizmoCore.LookingDirection.Forward);
             UpdateCoreValues();
         }
         gizmo.Draw(true, eyes.transform);
@@ -68,7 +68,7 @@ public class ConeGizmo : MonoBehaviour
     {
         if (gizmo == null)
         {
-            gizmo = new ConeGizmoCore();
+            gizmo = new ConeGizmoCore(ConeGizmoCore.LookingDirection.Forward);
             UpdateCoreValues();
         }
         gizmo.Draw(false, eyes.transform);
@@ -85,6 +85,7 @@ public class ConeGizmoCore
     public Color notSelectedColor;
 
     private List<Vector3> circle;
+    private LookingDirection lookingDirection;
 
     public float Height
     {
@@ -119,8 +120,9 @@ public class ConeGizmoCore
     private float angle;
     private int basePoints;
 
-    public ConeGizmoCore()
+    public ConeGizmoCore(LookingDirection direction)
     {
+        lookingDirection = direction;
         RecalculateRadiusAndGenerateCircle();
     }
 
@@ -148,6 +150,12 @@ public class ConeGizmoCore
         Gizmos.color = lastGizmoColor;
     }
 
+    public enum LookingDirection
+    {
+        Up,
+        Forward
+    }
+
     private void RecalculateRadiusAndGenerateCircle()
     {
         baseRadius = 2 * Height * Mathf.Tan(Angle * Mathf.Deg2Rad / 2);
@@ -156,12 +164,19 @@ public class ConeGizmoCore
 
     private List<Vector3> GenerateCircle(float radius, int points)
     {
-        List<Vector2> circle = new List<Vector2>();
+        List<Vector3> circle = new List<Vector3>();
         for (float i = 0; i < Mathf.PI * 2; i += Mathf.PI * 2 / points)
         {
-            circle.Add(new Vector2(radius * Mathf.Sin(i), radius * Mathf.Cos(i)));
+            if(lookingDirection == LookingDirection.Up)
+            {
+                circle.Add(new Vector3(radius * Mathf.Sin(i), 0, radius * Mathf.Cos(i)));
+            }
+            else
+            {
+                circle.Add(new Vector3(radius * Mathf.Sin(i), radius * Mathf.Cos(i), 0));
+            }
         }
-        return circle.Select(e => (Vector3)e).ToList();
+        return circle;
     }
 
     private Vector3 TransformCirclePointIgnoringScale(Vector3 point, Transform transform)
@@ -173,14 +188,19 @@ public class ConeGizmoCore
     private void DrawBase(List<Vector3> circle, Transform transform)
     {
         int i = 0;
-        for (int j = 1; j < circle.Count; j++, i++)
+        Vector3 direction = transform.forward;
+        if (lookingDirection == LookingDirection.Up)
         {
-            Vector3 PointI = TransformCirclePointIgnoringScale(circle[i], transform) + transform.forward * Height;
-            Vector3 PointJ = TransformCirclePointIgnoringScale(circle[j], transform) + transform.forward * Height;
+            direction = transform.up;
+        }
+            for (int j = 1; j < circle.Count; j++, i++)
+        {
+            Vector3 PointI = TransformCirclePointIgnoringScale(circle[i], transform) + direction * Height;
+            Vector3 PointJ = TransformCirclePointIgnoringScale(circle[j], transform) + direction * Height;
             Gizmos.DrawLine(PointI, PointJ);
         }
-        Vector3 FistPoint = TransformCirclePointIgnoringScale(circle[0], transform) + transform.forward * Height;
-        Vector3 LastPoint = TransformCirclePointIgnoringScale(circle[circle.Count - 1], transform) + transform.forward * Height;
+        Vector3 FistPoint = TransformCirclePointIgnoringScale(circle[0], transform) + direction * Height;
+        Vector3 LastPoint = TransformCirclePointIgnoringScale(circle[circle.Count - 1], transform) + direction * Height;
         Gizmos.DrawLine(FistPoint, LastPoint);
     }
 
@@ -191,9 +211,14 @@ public class ConeGizmoCore
             throw new System.Exception("Number of cone lines to draw bigger than the number of base's points");
         }
         int verticesToSkip = circle.Count / coneLines;
+        Vector3 direction = transform.forward;
+        if (lookingDirection == LookingDirection.Up)
+        {
+            direction = transform.up;
+        }
         for (int i = verticesToSkip / 2; i < circle.Count; i += verticesToSkip)
         {
-            Gizmos.DrawLine(transform.position, TransformCirclePointIgnoringScale(circle[i], transform) + transform.forward * Height);
+            Gizmos.DrawLine(transform.position, TransformCirclePointIgnoringScale(circle[i], transform) + direction * Height);
         }
     }
 }
