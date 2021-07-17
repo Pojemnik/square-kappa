@@ -8,7 +8,7 @@ namespace AI
     {
         private void Start()
         {
-            ChangeState(new ShootState());
+            throw new System.Exception("Unimplemented");
         }
     }
 }

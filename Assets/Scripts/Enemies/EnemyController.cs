@@ -13,10 +13,6 @@ public class EnemyController : MonoBehaviour
     public GameObject weapon;
     [SerializeField]
     private UnitShooting shooting;
-    [SerializeField]
-    private AI.StateMachine MovementStateMachine;
-    [SerializeField]
-    private AI.StateMachine ShootingStateMachine;
 
     [Header("Enemy properites")]
     public float VisionRange;
@@ -76,8 +72,6 @@ public class EnemyController : MonoBehaviour
 
     private void DeactivateComponents()
     {
-        MovementStateMachine.enabled = false;
-        ShootingStateMachine.enabled = false;
         unitController.AnimationController.Deactivate();
         unitController.enabled = false;
         shooting.StopFire();

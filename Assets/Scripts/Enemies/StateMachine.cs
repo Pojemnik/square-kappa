@@ -106,7 +106,7 @@ namespace AI
         }
     }
 
-    public class ShootState : BaseState
+    public class StaticShootState : BaseState
     {
         private UnitShooting shooting;
         private AIShootingRules shootingRules;
@@ -114,8 +114,15 @@ namespace AI
         private AIShootingMode lastShootingMode;
         private bool lastShoot;
         private float phaseTime;
+        private readonly AIPathNode pathNode;
+        private PatrolAIConfig config;
 
-        //TODO: Move constants to some scriptable object
+        public StaticShootState(AIPathNode node, PatrolAIConfig aIConfig)
+        {
+            pathNode = node;
+            config = aIConfig;
+        }
+
         private void UpdateShooting()
         {
             AIShootingRulesInterpretation interpretation = owner.enemyController.ShootingRulesInterpretation;
@@ -188,30 +195,27 @@ namespace AI
             Vector3 targetPosition = owner.enemyController.target.transform.position;
             Vector3 positionDelta = targetPosition - position;
             movement.SetLookTarget(positionDelta);
-            switch (TargetInSightCheck(6))
+            if (TargetVisible(owner.enemyController.target.layer))
             {
-                case TargetStatus.InSight:
-                    lastShootingMode = shootingMode;
-                    shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules);
-                    switch (shootingMode)
-                    {
-                        case AIShootingMode.NoShooting:
-                            shooting.StopFire();
-                            break;
-                        case AIShootingMode.Error:
-                            Debug.LogError("AI shooting mode error!");
-                            break;
-                        default:
-                            UpdateShooting();
-                            break;
-                    }
-                    break;
-                case TargetStatus.Covered:
-                    shooting.StopFire();
-                    break;
-                case TargetStatus.Unavailable:
-                    shooting.StopFire();
-                    break;
+                lastShootingMode = shootingMode;
+                shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules);
+                switch (shootingMode)
+                {
+                    case AIShootingMode.NoShooting:
+                        shooting.StopFire();
+                        break;
+                    case AIShootingMode.Error:
+                        Debug.LogError("AI shooting mode error!");
+                        break;
+                    default:
+                        UpdateShooting();
+                        break;
+                }
+            }
+            else
+            {
+                shooting.StopFire();
+                owner.ChangeState(new RotateTowardsPointState(pathNode, config));
             }
         }
     }
@@ -528,7 +532,7 @@ namespace AI
             base.Enter();
             targetIndex = 0;
             lookTargets = new Quaternion[config.lookAroundRotations.Count];
-            for(int i = 0; i < lookTargets.Length; i++)
+            for (int i = 0; i < lookTargets.Length; i++)
             {
                 lookTargets[i] = owner.transform.rotation * Quaternion.Euler(config.lookAroundRotations[i]);
             }
@@ -559,6 +563,7 @@ namespace AI
             if (TargetVisible(owner.enemyController.target.layer))
             {
                 Debug.DrawLine(position, owner.enemyController.target.transform.position, Color.red);
+                owner.ChangeState(new StaticShootState(pathNode, config));
             }
         }
 
