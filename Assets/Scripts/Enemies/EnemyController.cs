@@ -128,6 +128,7 @@ public class EnemyController : MonoBehaviour
         gizmo.NotSelectedColor = notSelectedColor;
         gizmo.SelectedColor = selectedColor;
         gizmo.ConeLines = coneLines;
+        gizmo.DrawWhenSelectedOnly = drawWhenSelectedOnly;
     }
 
     private void OnValidate()
