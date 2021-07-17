@@ -17,3 +17,10 @@ MonoBehaviour:
   maxMovementSpeed: 2
   acceleration: 2
   actualMovementSpeed: 4.99942
+  lookAroundRotations:
+  - {x: -90, y: 0, z: 0}
+  - {x: 180, y: 0, z: 0}
+  - {x: -90, y: 0, z: 0}
+  - {x: 0, y: 90, z: 0}
+  - {x: 0, y: -180, z: 0}
+  - {x: 0, y: 90, z: 0}

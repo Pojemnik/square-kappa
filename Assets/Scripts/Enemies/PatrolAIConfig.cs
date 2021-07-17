@@ -12,4 +12,5 @@ public class PatrolAIConfig : ScriptableObject
     public float acceleration;
     [HideInInspector]
     public float actualMovementSpeed;
+    public List<Vector3> lookAroundRotations;
 }

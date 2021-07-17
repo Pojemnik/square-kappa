@@ -245,9 +245,9 @@ namespace AI
         public override void Update()
         {
             float t = (Time.time - startTime) / duration;
+            Vector3 position = owner.transform.position;
             if (t >= 1)
             {
-                Vector3 position = owner.transform.position;
                 Vector3 towardsTarget = pathNode.transform.position - position;
                 const int layerMask = ~((1 << 7) | (1 << 9));
                 if (Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, layerMask))
@@ -263,6 +263,10 @@ namespace AI
             else
             {
                 movement.SetLookTarget(Quaternion.Slerp(startDirection, targetDirection, t));
+            }
+            if (TargetVisible(owner.enemyController.target.layer))
+            {
+                Debug.DrawLine(position, owner.enemyController.target.transform.position, Color.red);
             }
         }
     }
@@ -323,7 +327,15 @@ namespace AI
                 movement.MoveRelativeToCamera(Vector3.zero);
                 owner.ChangeState(new GlideTowardsPointState(pathNode, config));
             }
+        }
 
+        public override void Update()
+        {
+            base.Update();
+            if (TargetVisible(owner.enemyController.target.layer))
+            {
+                Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
+            }
         }
     }
 
@@ -372,6 +384,15 @@ namespace AI
                 }
             }
         }
+
+        public override void Update()
+        {
+            base.Update();
+            if (TargetVisible(owner.enemyController.target.layer))
+            {
+                Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
+            }
+        }
     }
 
     public class DecelerateTowardsPointState : BaseState
@@ -403,8 +424,8 @@ namespace AI
             {
                 movement.MoveRelativeToCamera(Vector3.zero);
                 movement.MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(-movement.Velocity);
-                Debug.Log(string.Format("Deceleration towards point {0} finished. Starting rotation", pathNode));
-                owner.ChangeState(new RotateTowardsPointState(pathNode.next, config));
+                Debug.Log(string.Format("Deceleration towards point {0} finished. Starting looking around", pathNode));
+                owner.ChangeState(new LookAroundState(pathNode, config));
             }
             else
             {
@@ -414,6 +435,15 @@ namespace AI
                 {
                     owner.ChangeState(new EmergencyStopState(pathNode, config));
                 }
+            }
+        }
+
+        public override void Update()
+        {
+            base.Update();
+            if (TargetVisible(owner.enemyController.target.layer))
+            {
+                Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
             }
         }
     }
@@ -470,6 +500,73 @@ namespace AI
                 owner.ChangeState(new RotateTowardsPointState(pathNode, config));
                 return;
             }
+            if (TargetVisible(owner.enemyController.target.layer))
+            {
+                Debug.DrawLine(position, owner.enemyController.target.transform.position, Color.red);
+            }
+        }
+    }
+
+    public class LookAroundState : BaseState
+    {
+        private readonly AIPathNode pathNode;
+        private PatrolAIConfig config;
+        private Quaternion[] lookTargets;
+        private Quaternion startDirection;
+        private float startTime;
+        private float duration;
+        private int targetIndex;
+
+        public LookAroundState(AIPathNode node, PatrolAIConfig aIConfig)
+        {
+            pathNode = node;
+            config = aIConfig;
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            targetIndex = 0;
+            lookTargets = new Quaternion[config.lookAroundRotations.Count];
+            for(int i = 0; i < lookTargets.Length; i++)
+            {
+                lookTargets[i] = owner.transform.rotation * Quaternion.Euler(config.lookAroundRotations[i]);
+            }
+            ChangeLookTarget(targetIndex);
+        }
+
+        public override void Update()
+        {
+            float t = (Time.time - startTime) / duration;
+            Vector3 position = owner.transform.position;
+            if (t >= 1)
+            {
+                if (++targetIndex == lookTargets.Length)
+                {
+                    owner.ChangeState(new RotateTowardsPointState(pathNode.next, config));
+                    Debug.Log(string.Format("Finished looking around at point {0}. Starting roatation", pathNode));
+                    return;
+                }
+                else
+                {
+                    ChangeLookTarget(targetIndex);
+                }
+            }
+            else
+            {
+                movement.SetLookTarget(Quaternion.Slerp(startDirection, lookTargets[targetIndex], t));
+            }
+            if (TargetVisible(owner.enemyController.target.layer))
+            {
+                Debug.DrawLine(position, owner.enemyController.target.transform.position, Color.red);
+            }
+        }
+
+        private void ChangeLookTarget(int index)
+        {
+            startDirection = owner.transform.rotation * Quaternion.Euler(-90, 0, 0);
+            startTime = Time.time;
+            duration = Quaternion.Angle(lookTargets[index], startDirection) / config.rotationalSpeed;
         }
     }
 
