@@ -215,7 +215,7 @@ namespace AI
             else
             {
                 shooting.StopFire();
-                owner.ChangeState(new RotateTowardsPointState(pathNode, config));
+                owner.ChangeState(new RotateTowardsPointState(pathNode.next, config));
             }
         }
     }
@@ -248,6 +248,11 @@ namespace AI
 
         public override void Update()
         {
+            if (movement.Velocity.magnitude > 0.1F)
+            {
+                owner.ChangeState(new EmergencyStopState(pathNode, config));
+                return;
+            }
             float t = (Time.time - startTime) / duration;
             Vector3 position = owner.transform.position;
             if (t >= 1)
@@ -461,6 +466,7 @@ namespace AI
         {
             pathNode = node;
             config = aIConfig;
+            Debug.Log("Emergency stop");
         }
 
         public override void PhysicsUpdate()
@@ -470,8 +476,11 @@ namespace AI
             {
                 movement.MoveRelativeToCamera(Vector3.zero);
                 movement.MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(-movement.Velocity);
-                Debug.Log(string.Format("Deceleration towards point {0} finished. Starting rotation", pathNode));
-                owner.ChangeState(new RotateTowardsPointState(pathNode, config));
+                if (!movement.IsRotating())
+                {
+                    Debug.Log(string.Format("Deceleration towards point {0} finished. Starting rotation", pathNode));
+                    owner.ChangeState(new RotateTowardsPointState(pathNode, config));
+                }
             }
             else
             {
@@ -500,7 +509,7 @@ namespace AI
             const int layerMask = ~((1 << 7) | (1 << 9));
             if (!Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, layerMask))
             {
-                //Obstacle
+                //No obstacle
                 owner.ChangeState(new RotateTowardsPointState(pathNode, config));
                 return;
             }

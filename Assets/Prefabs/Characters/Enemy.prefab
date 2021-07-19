@@ -694,7 +694,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 70
   m_Drag: 1
-  m_AngularDrag: 0
+  m_AngularDrag: 5
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -736,13 +736,19 @@ MonoBehaviour:
   unitController: {fileID: 8307458533412693616}
   weapon: {fileID: 781317423780084828}
   shooting: {fileID: 5611851873559394222}
-  AIMovementStateMachine: {fileID: 7893936083875599471}
-  AIShootingStateMachine: {fileID: 2482806774234195252}
   VisionRange: 100
   targetDistance: 5
   layerMask: 0
   ShootingRules: {fileID: 11400000, guid: bdf46c5fdb1218643b596cafe7c586b2, type: 2}
   ShootingRulesInterpretation: {fileID: 11400000, guid: 1b8f2961fc3e0de40a99b548c0215a91, type: 2}
+  visibilitySphereRadius: 0
+  visibilityConeAngle: 0
+  visibilityConeHeight: 0
+  points: 0
+  coneLines: 0
+  drawWhenSelectedOnly: 0
+  selectedColor: {r: 0, g: 0, b: 0, a: 0}
+  notSelectedColor: {r: 0, g: 0, b: 0, a: 0}
   enableRagdoll: 1
   maxForce: 0
 --- !u!114 &4104375640541538898
@@ -823,6 +829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f88d323a52ea04fadd7dd69680c8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ignoreRecoil: 1
   owner: {fileID: 8307458533412693616}
 --- !u!114 &2482806774234195252
 MonoBehaviour:

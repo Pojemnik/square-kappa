@@ -2963,6 +2963,10 @@ PrefabInstance:
       propertyPath: visibilitySphereRadius
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8307458533412693618, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: m_AngularDrag
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693619, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -8352,7 +8356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 404466205000365646, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 35.1
+      value: 35.85
       objectReference: {fileID: 0}
     - target: {fileID: 404466205000365646, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: m_LocalPosition.y

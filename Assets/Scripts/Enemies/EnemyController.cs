@@ -103,6 +103,7 @@ public class EnemyController : MonoBehaviour
         unitController.CurrentWeapon = weapon;
         unitController.AnimationController.UpdateWeaponAnimation(unitController.CurrentWeaponController);
         shooting.ChangeWeaponController(weapon.GetComponent<WeaponController>());
+        shooting.ignoreRecoil = true;
         unitController.movement.cameraAiming = false;
         layerMask = (1 << 7) | (1 << 8) | (1 << 9);
         layerMask = ~layerMask;

@@ -151,6 +151,11 @@ public class UnitMovement : MonoBehaviour
         rigidbody.AddForce(direction, ForceMode.VelocityChange);
     }
 
+    public bool IsRotating()
+    {
+        return rigidbody.angularVelocity.magnitude > 0.1F;
+    }
+
     private void MoveUnit()
     {
         Vector3 speedWithTime = speed * Time.fixedDeltaTime;
