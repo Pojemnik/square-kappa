@@ -2963,10 +2963,6 @@ PrefabInstance:
       propertyPath: visibilitySphereRadius
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 8307458533412693618, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
-      propertyPath: m_AngularDrag
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693619, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -7676,7 +7672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bceb2f52c708dbb4792c34eff4668af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useSceneView: 1
+  useSceneView: 0
 --- !u!4 &2054169792
 Transform:
   m_ObjectHideFlags: 0

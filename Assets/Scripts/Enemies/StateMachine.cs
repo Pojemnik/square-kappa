@@ -276,6 +276,7 @@ namespace AI
             if (TargetVisible(owner.enemyController.target.layer))
             {
                 Debug.DrawLine(position, owner.enemyController.target.transform.position, Color.red);
+                owner.ChangeState(new ChaseState(pathNode, config));
             }
         }
     }
@@ -344,6 +345,7 @@ namespace AI
             if (TargetVisible(owner.enemyController.target.layer))
             {
                 Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
+                owner.ChangeState(new ChaseState(pathNode, config));
             }
         }
     }
@@ -400,6 +402,7 @@ namespace AI
             if (TargetVisible(owner.enemyController.target.layer))
             {
                 Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
+                owner.ChangeState(new ChaseState(pathNode, config));
             }
         }
     }
@@ -516,6 +519,7 @@ namespace AI
             if (TargetVisible(owner.enemyController.target.layer))
             {
                 Debug.DrawLine(position, owner.enemyController.target.transform.position, Color.red);
+                owner.ChangeState(new ChaseState(pathNode, config));
             }
         }
     }
@@ -572,7 +576,7 @@ namespace AI
             if (TargetVisible(owner.enemyController.target.layer))
             {
                 Debug.DrawLine(position, owner.enemyController.target.transform.position, Color.red);
-                owner.ChangeState(new StaticShootState(pathNode, config));
+                owner.ChangeState(new ChaseState(pathNode, config));
             }
         }
 
@@ -581,6 +585,138 @@ namespace AI
             startDirection = owner.transform.rotation * Quaternion.Euler(-90, 0, 0);
             startTime = Time.time;
             duration = Quaternion.Angle(lookTargets[index], startDirection) / config.rotationalSpeed;
+        }
+    }
+
+    public class ChaseState : BaseState
+    {
+        private UnitShooting shooting;
+        private AIShootingRules shootingRules;
+        private AIShootingMode shootingMode;
+        private AIShootingMode lastShootingMode;
+        private bool lastShoot;
+        private float phaseTime;
+        private readonly AIPathNode pathNode;
+        private PatrolAIConfig config;
+
+        public ChaseState(AIPathNode node, PatrolAIConfig aIConfig)
+        {
+            pathNode = node;
+            config = aIConfig;
+        }
+
+        private void UpdateShooting()
+        {
+            AIShootingRulesInterpretation interpretation = owner.enemyController.ShootingRulesInterpretation;
+            if (lastShootingMode != shootingMode)
+            {
+                lastShoot = false;
+                phaseTime = 0;
+            }
+            phaseTime += Time.deltaTime;
+            switch (shootingMode)
+            {
+                case AIShootingMode.Continous:
+                    shooting.StartFire();
+                    break;
+                case AIShootingMode.Burst:
+                    if (lastShoot)
+                    {
+                        if (phaseTime >= interpretation.BurstDuration)
+                        {
+                            shooting.StopFire();
+                            phaseTime = 0;
+                            lastShoot = false;
+                        }
+                    }
+                    else
+                    {
+                        if (phaseTime >= interpretation.TimeBetweenBursts)
+                        {
+                            shooting.StartFire();
+                            phaseTime = 0;
+                            lastShoot = true;
+                        }
+                    }
+                    break;
+                case AIShootingMode.OneShot:
+                    if (lastShoot)
+                    {
+                        lastShoot = false;
+                        phaseTime = 0;
+                        shooting.StopFire();
+                    }
+                    else
+                    {
+                        if (phaseTime >= interpretation.TimeBetweenShoots)
+                        {
+                            shooting.StartFire();
+                            phaseTime = 0;
+                            lastShoot = true;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            Debug.Log(string.Format("Enemy {0} starting chase", owner.name));
+            shooting = owner.enemyController.unitController.shooting;
+            shootingRules = owner.enemyController.ShootingRules;
+            lastShootingMode = AIShootingMode.NoShooting;
+            phaseTime = 0;
+            lastShoot = false;
+        }
+
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+            Vector3 position = owner.enemyController.transform.position;
+            Vector3 targetPosition = owner.enemyController.target.transform.position;
+            Vector3 positionDelta = targetPosition - position;
+            if (TargetVisible(owner.enemyController.target.layer))
+            {
+                movement.MoveInGlobalCoordinates(positionDelta);
+            }
+            else
+            {
+                owner.ChangeState(new EmergencyStopState(pathNode, config));
+                return;
+            }
+        }
+
+        public override void Update()
+        {
+            Vector3 position = owner.enemyController.transform.position;
+            Vector3 targetPosition = owner.enemyController.target.transform.position;
+            Vector3 positionDelta = targetPosition - position;
+            movement.SetLookTarget(positionDelta);
+            if (TargetVisible(owner.enemyController.target.layer))
+            {
+                lastShootingMode = shootingMode;
+                shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules);
+                switch (shootingMode)
+                {
+                    case AIShootingMode.NoShooting:
+                        shooting.StopFire();
+                        break;
+                    case AIShootingMode.Error:
+                        Debug.LogError("AI shooting mode error!");
+                        break;
+                    default:
+                        UpdateShooting();
+                        break;
+                }
+            }
+            else
+            {
+                shooting.StopFire();
+                owner.ChangeState(new RotateTowardsPointState(pathNode.next, config));
+            }
         }
     }
 
