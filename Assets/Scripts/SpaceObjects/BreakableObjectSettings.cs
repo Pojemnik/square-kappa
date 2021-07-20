@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BreakableObjectSettings", menuName = "ScriptableObjects/BreakableObjectSettings")]
 public class BreakableObjectSettings : ScriptableObject
 {
-    public FragmentsSet fragmentsSet;
     [Tooltip("Maximum distance from object's center in which fragments can spawn")]
     public float fragmentsSpawnRange;
     public MinMax<int> fragmentsNumber;
