@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fce12a0b1f63fc4a9904e2fee264e1b, type: 3}
   m_Name: GeneratedData2
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6961237039126682592, guid: a88ab8a6781bd834ebfebccf4bf464d8, type: 3}
+  prefab: {fileID: 352428958641465504, guid: 93c8f06a4b151dc4f94dba0612424365, type: 3}
   spawnData:
   - initalPosition: {x: -5.20668, y: 4.409519, z: 7.5912075}
     initalSpeed: {x: 0, y: 3.602137, z: 3.4676516}
