@@ -94,6 +94,11 @@ public class VisionGizmoCore
     }
     private Color notSelectedColor;
 
+    public float ConeBaseRadius
+    {
+        get => cone.baseRadius;
+    }
+
 
     private int coneLines;
 

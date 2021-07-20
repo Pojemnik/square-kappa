@@ -15,8 +15,6 @@ public class EnemyController : MonoBehaviour
     private UnitShooting shooting;
 
     [Header("Enemy properites")]
-    public float VisionRange;
-    public float targetDistance;
     [HideInInspector]
     public int layerMask;
     public AIShootingRules ShootingRules;
@@ -24,6 +22,9 @@ public class EnemyController : MonoBehaviour
     public float visibilitySphereRadius;
     public float visibilityConeAngle;
     public float visibilityConeHeight;
+    [ReadOnly]
+    [SerializeField]
+    private float visibilityConeRadius;
 
     [Header("Gizmo properties")]
     [SerializeField]
@@ -124,6 +125,7 @@ public class EnemyController : MonoBehaviour
         gizmo.SelectedColor = selectedColor;
         gizmo.ConeLines = coneLines;
         gizmo.DrawWhenSelectedOnly = drawWhenSelectedOnly;
+        visibilityConeRadius = gizmo.ConeBaseRadius;
     }
 
     private void OnValidate()

@@ -16,27 +16,6 @@ namespace AI
             Unavailable
         }
 
-        protected TargetStatus TargetInSightCheck(int targetLayer)
-        {
-            Vector3 position = owner.enemyController.transform.position;
-            Vector3 targetPosition = owner.enemyController.target.transform.position;
-            RaycastHit raycastHit;
-            Debug.DrawRay(position, targetPosition - position, Color.red);
-            bool hit = Physics.Raycast(position, targetPosition - position, out raycastHit, owner.enemyController.VisionRange, owner.enemyController.layerMask);
-            if (hit)
-            {
-                if (raycastHit.collider.gameObject.layer == targetLayer)
-                {
-                    return TargetStatus.InSight;
-                }
-                return TargetStatus.Covered;
-            }
-            else
-            {
-                return TargetStatus.Unavailable;
-            }
-        }
-
         protected bool TargetVisible(int targetLayer)
         {
             Vector3 position = owner.transform.position;
@@ -70,40 +49,6 @@ namespace AI
         public virtual void Update() { }
         public virtual void PhysicsUpdate() { }
         public virtual void Exit() { }
-    }
-
-    public class MoveTowardsTargetState : BaseState
-    {
-        public override void Update()
-        {
-            Vector3 position = owner.enemyController.transform.position;
-            Vector3 targetPosition = owner.enemyController.target.transform.position;
-            Vector3 positionDelta = targetPosition - position;
-            movement.SetLookTarget(positionDelta);
-            switch (TargetInSightCheck(6))
-            {
-                case TargetStatus.InSight:
-                    if (positionDelta.magnitude <= owner.enemyController.targetDistance)
-                    {
-                        movement.MoveRelativeToCamera(Vector3.zero);
-                    }
-                    else if (positionDelta.magnitude <= owner.enemyController.VisionRange)
-                    {
-                        movement.MoveRelativeToCamera(Vector3.forward);
-                    }
-                    else
-                    {
-                        movement.MoveRelativeToCamera(Vector3.zero);
-                    }
-                    break;
-                case TargetStatus.Covered:
-                    //Avoid obstacle
-                    break;
-                case TargetStatus.Unavailable:
-                    //Do nothing
-                    break;
-            }
-        }
     }
 
     public class StaticShootState : BaseState

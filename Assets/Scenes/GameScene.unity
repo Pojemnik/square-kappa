@@ -2883,14 +2883,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 32854502}
     m_Modifications:
-    - target: {fileID: 2482806774234195252, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7893936083875599471, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693617, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: cone
       value: 
@@ -2949,7 +2941,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693617, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: visibilityConeHeight
-      value: 30
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8307458533412693617, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
+      propertyPath: visibilityConeRadius
+      value: 16.568542
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693617, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: AIMovementStateMachine
@@ -2958,7 +2954,7 @@ PrefabInstance:
     - target: {fileID: 8307458533412693617, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: AIShootingStateMachine
       value: 
-      objectReference: {fileID: 729718493}
+      objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693617, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: visibilitySphereRadius
       value: 5
@@ -2969,7 +2965,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693619, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 29.44
+      value: -19.8
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693619, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3034,19 +3030,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d1542e5f5b081446a631ccc6a330d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &729718493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 729718491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de4ab437d44a1b4428bbe74af6fd705d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyController: {fileID: 729718492}
 --- !u!114 &729718494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7672,7 +7655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bceb2f52c708dbb4792c34eff4668af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useSceneView: 0
+  useSceneView: 1
 --- !u!4 &2054169792
 Transform:
   m_ObjectHideFlags: 0
