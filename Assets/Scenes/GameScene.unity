@@ -526,6 +526,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2107739453}
     m_Modifications:
+    - target: {fileID: 2284282993698006712, guid: a4f7ccd963dcda040aaf85ec36388313, type: 3}
+      propertyPath: drawWhenSelectedOnly
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3063092443403450289, guid: a4f7ccd963dcda040aaf85ec36388313, type: 3}
       propertyPath: m_Name
       value: Path3
@@ -2064,6 +2068,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2107739453}
     m_Modifications:
+    - target: {fileID: 2284282993698006712, guid: a4f7ccd963dcda040aaf85ec36388313, type: 3}
+      propertyPath: drawWhenSelectedOnly
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3063092443403450289, guid: a4f7ccd963dcda040aaf85ec36388313, type: 3}
       propertyPath: m_Name
       value: Path4
@@ -2950,7 +2958,7 @@ PrefabInstance:
     - target: {fileID: 8307458533412693617, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: AIMovementStateMachine
       value: 
-      objectReference: {fileID: 729718494}
+      objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693617, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: AIShootingStateMachine
       value: 
@@ -2965,15 +2973,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693619, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.8
+      value: 26.375
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693619, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.38
+      value: 1.672
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693619, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.76
+      value: 9.284
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693619, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3030,7 +3038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d1542e5f5b081446a631ccc6a330d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &729718494
+--- !u!114 &729718493
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3039,11 +3047,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 729718491}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95b2fa9899cd2c4438ccaba5542fa4a9, type: 3}
+  m_Script: {fileID: 11500000, guid: 321942abc49839448a63e4faaaecc087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyController: {fileID: 729718492}
-  firstNode: {fileID: 1075159654}
+  firstNode: {fileID: 1862802037}
   config: {fileID: 11400000, guid: 368774ad42437b54e95fe7dd87163de5, type: 2}
 --- !u!4 &730203787 stripped
 Transform:
@@ -8191,6 +8199,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2107739453}
     m_Modifications:
+    - target: {fileID: 2284282993698006712, guid: a4f7ccd963dcda040aaf85ec36388313, type: 3}
+      propertyPath: drawWhenSelectedOnly
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3063092443403450289, guid: a4f7ccd963dcda040aaf85ec36388313, type: 3}
       propertyPath: m_Name
       value: Path1
@@ -8335,7 +8347,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 404466205000365646, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 35.85
+      value: 48.62
       objectReference: {fileID: 0}
     - target: {fileID: 404466205000365646, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: m_LocalPosition.y
