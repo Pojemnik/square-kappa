@@ -10,7 +10,7 @@ namespace AI
         [SerializeField]
         private AIPathNode firstNode;
         [SerializeField]
-        private PatrolAIConfig config;
+        private StaticAIConfig config;
 
         private void Start()
         {

@@ -60,9 +60,9 @@ namespace AI
         private bool lastShoot;
         private float phaseTime;
         private readonly AIPathNode pathNode;
-        private PatrolAIConfig config;
+        private StaticAIConfig config;
 
-        public StaticShootState(AIPathNode node, PatrolAIConfig aIConfig)
+        public StaticShootState(AIPathNode node, StaticAIConfig aIConfig)
         {
             pathNode = node;
             config = aIConfig;
@@ -536,14 +536,14 @@ namespace AI
     public class StaticLookAroundState : BaseState
     {
         private readonly AIPathNode pathNode;
-        private PatrolAIConfig config;
+        private StaticAIConfig config;
         private Quaternion[] lookTargets;
         private Quaternion startDirection;
         private float startTime;
         private float duration;
         private int targetIndex;
 
-        public StaticLookAroundState(AIPathNode node, PatrolAIConfig aIConfig)
+        public StaticLookAroundState(AIPathNode node, StaticAIConfig aIConfig)
         {
             pathNode = node;
             config = aIConfig;

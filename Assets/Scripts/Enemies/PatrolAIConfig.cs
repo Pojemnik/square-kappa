@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PatrolAIConfig", menuName = "ScriptableObjects/PatrolAIConfig")]
+[CreateAssetMenu(fileName = "PatrolAIConfig", menuName = "ScriptableObjects/AI/PatrolConfig")]
 
 public class PatrolAIConfig : ScriptableObject
 {
