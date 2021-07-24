@@ -37,8 +37,11 @@ public class UnitShooting : MonoBehaviour
     {
         if (weaponController != null)
         {
-            weaponController.StartAttack();
-            owner.AnimationController.SetStaticState("Fire");
+            if (weaponController.AttackAvailable())
+            {
+                weaponController.StartAttack();
+                owner.AnimationController.SetStaticState("Fire");
+            }
         }
     }
 
@@ -56,6 +59,10 @@ public class UnitShooting : MonoBehaviour
         if (!ignoreRecoil)
         {
             rigidbody.AddForce(-transform.up * weaponController.Config.backwardsForce);
+        }
+        if(!weaponController.AttackAvailable())
+        {
+            StopFire();
         }
     }
 }

@@ -18,6 +18,11 @@ public class RangedWeaponController : WeaponController
     }
 
     [SerializeField]
+    private DisplayController totalAmmoDisplay;
+    [SerializeField]
+    private DisplayController currentAmmoDisplay;
+
+    [SerializeField]
     private RangedWeaponConfig rangedConfig;
     private bool triggerHold = false;
     private float shootCooldown;
@@ -25,6 +30,7 @@ public class RangedWeaponController : WeaponController
     private float spreadReductionCooldown;
     private UnityEvent shootEvent;
     private Quaternion projectileDirection;
+    private int ammo;
 
     private void Awake()
     {
@@ -34,20 +40,20 @@ public class RangedWeaponController : WeaponController
 
     public override void StartAttack()
     {
-        startShoot();
+        StartShoot();
     }
 
     public override void StopAttack()
     {
-        stopShoot();
+        StopShoot();
     }
 
-    private void startShoot()
+    private void StartShoot()
     {
         triggerHold = true;
     }
 
-    private void stopShoot()
+    private void StopShoot()
     {
         triggerHold = false;
         spreadReductionCooldown = rangedConfig.spreadReductionDelay;
@@ -55,6 +61,12 @@ public class RangedWeaponController : WeaponController
 
     private void Shoot()
     {
+        if(ammo <= 0)
+        {
+            return;
+        }
+        ammo--;
+        currentAmmoDisplay.SetValue(ammo);
         Vector3 projectleSpread = Random.insideUnitSphere * spreadRadius;
         Vector3 relativeOffset = rangedConfig.projectileOffset.x * transform.right + rangedConfig.projectileOffset.y * transform.up + rangedConfig.projectileOffset.z * transform.forward;
         Quaternion relativeRotation = Quaternion.Euler(transform.TransformDirection(projectleSpread + rangedConfig.projectileAngularOffset));
@@ -123,5 +135,15 @@ public class RangedWeaponController : WeaponController
     private float GetCooldownReductionValue(float time)
     {
         return time * rangedConfig.spreadReductionParameter;
-    }    
+    }
+
+    public override bool AttackAvailable()
+    {
+        return ammo > 0;
+    }
+
+    public void Start()
+    {
+        ammo = rangedConfig.maxAmmo;
+    }
 }

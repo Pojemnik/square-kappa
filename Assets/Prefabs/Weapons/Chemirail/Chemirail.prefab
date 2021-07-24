@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e049d236fcb84b43a2fd790e87bf72f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startValue: 0
   digitTextures:
   - {fileID: 21300000, guid: 78e8888f6310e0e4d9477c8935a9a81f, type: 3}
   - {fileID: 21300000, guid: 3f53e061696b21b499c920132880f4ca, type: 3}
@@ -345,6 +346,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0feac5d23a1814b8f274de0660c439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalAmmoDisplay: {fileID: 7202495773682677725}
+  currentAmmoDisplay: {fileID: 5890443677279872120}
   rangedConfig: {fileID: 11400000, guid: 2dfb529c6dd3d3345bb803310666bd17, type: 2}
 --- !u!65 &1925241979556542
 BoxCollider:
@@ -409,6 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e049d236fcb84b43a2fd790e87bf72f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startValue: 0
   digitTextures:
   - {fileID: 21300000, guid: 78e8888f6310e0e4d9477c8935a9a81f, type: 3}
   - {fileID: 21300000, guid: 3f53e061696b21b499c920132880f4ca, type: 3}
