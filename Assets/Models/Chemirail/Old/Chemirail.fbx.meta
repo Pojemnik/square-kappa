@@ -1,9 +1,37 @@
 fileFormatVersion: 2
-guid: 232d70759948e1c408c82c2e1059a7f4
+guid: 94a9bdcec7d460e4fbbc21975d250f6f
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable: []
-  externalObjects: {}
+  internalIDToNameTable:
+  - first:
+      74: 4781951162920444690
+    second: Armature|ArmatureAction
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gunsight
+    second: {fileID: 2100000, guid: 085c5d60206e1ba4aa14a6719d8b285c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Handles
+    second: {fileID: 2100000, guid: a1beb3e040958ed4aa33738efc5333ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Inner
+    second: {fileID: 2100000, guid: 7dfd19b9fad5c6f48bfe04538dc65f0d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: 7f7dc812f25080b45bce05be646a4e0e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stock
+    second: {fileID: 2100000, guid: b11d4c95b910013478fed0322e799a7e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -92,7 +120,7 @@ ModelImporter:
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
