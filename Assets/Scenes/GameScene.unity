@@ -6506,6 +6506,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 019584d59eb86a340b060fcdf9f2fa3a, type: 2}
+    - target: {fileID: -1668908271420757394, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
       propertyPath: m_Name
       value: Man01
@@ -6514,6 +6518,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c645d05f55ab1294385249019d014dfb, type: 2}
+    - target: {fileID: 3068130873093750872, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9021048485301309552, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
