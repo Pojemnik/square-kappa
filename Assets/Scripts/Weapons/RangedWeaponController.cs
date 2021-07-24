@@ -149,6 +149,13 @@ public class RangedWeaponController : WeaponController
 
     public override int Reload(int amount)
     {
+        if(amount == -1)
+        {
+            int ammoLeft = ammo;
+            ammo = 0;
+            currentAmmoDisplay.SetValue(ammo);
+            return ammoLeft;
+        }
         int total = amount + ammo;
         if (total <= Config.maxAmmo)
         {
