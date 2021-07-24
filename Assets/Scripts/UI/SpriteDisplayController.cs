@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpriteDisplayController : MonoBehaviour
+public class SpriteDisplayController : DisplayController
 {
     public List<Sprite> digitTextures;
     public int defaultValue;
@@ -10,7 +10,7 @@ public class SpriteDisplayController : MonoBehaviour
 
     private int maxValue;
 
-    private void Awake()
+    public void Awake()
     {
         if(digitTextures.Capacity != 10)
         {
@@ -20,7 +20,7 @@ public class SpriteDisplayController : MonoBehaviour
         SetValue(defaultValue);
     }
 
-    public void SetValue(int value)
+    public override void SetValue(int value)
     {
         if(value > maxValue)
         {
