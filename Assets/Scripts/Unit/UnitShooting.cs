@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class UnitShooting : MonoBehaviour
 {
+    [HideInInspector]
+    public bool ignoreRecoil;
+
     [Header("Refernces")]
     [SerializeField]
     private Unit owner;
@@ -50,6 +53,9 @@ public class UnitShooting : MonoBehaviour
 
     private void OnWeaponShoot()
     {
-        rigidbody.AddForce(-transform.up * weaponController.Config.backwardsForce);
+        if (!ignoreRecoil)
+        {
+            rigidbody.AddForce(-transform.up * weaponController.Config.backwardsForce);
+        }
     }
 }
