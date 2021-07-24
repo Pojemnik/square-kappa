@@ -7,11 +7,33 @@ using UnityEngine;
 public class RegularProjectileController : ProjectileController
 {
     private new Rigidbody rigidbody;
+    private int[] notPushedLayers;
 
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
         rigidbody.AddRelativeForce(0, 0, speed, ForceMode.VelocityChange);
+    }
+
+    private void Awake()
+    {
+        notPushedLayers = new int[4];
+        notPushedLayers[0] = LayerMask.NameToLayer("Player");
+        notPushedLayers[1] = LayerMask.NameToLayer("Enemy");
+        notPushedLayers[2] = LayerMask.NameToLayer("PlayerProjectile");
+        notPushedLayers[3] = LayerMask.NameToLayer("EnemyProjectile");
+    }
+
+    private bool IsPushable(GameObject target)
+    {
+        foreach (int i in notPushedLayers)
+        {
+            if (target.layer == i)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     private GameObject GetParentWithHealth(Transform transform)
@@ -34,6 +56,16 @@ public class RegularProjectileController : ProjectileController
             }
         }
         GameObject topParent = GetParentWithHealth(other.transform);
+        if (IsPushable(other))
+        {
+            Rigidbody othersRb = other.GetComponent<Rigidbody>();
+            if (othersRb == null)
+            {
+                return;
+            }
+            float forceValue = mass * collision.relativeVelocity.magnitude / othersRb.mass;
+            othersRb.AddForceAtPosition(forceValue * direction.normalized, collision.GetContact(0).point, ForceMode.VelocityChange);
+        }
         Health othersHealth = topParent.gameObject.GetComponent<Health>();
         if (othersHealth != null)
         {

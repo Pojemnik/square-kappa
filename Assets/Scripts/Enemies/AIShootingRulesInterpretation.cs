@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AIRulesInterpretation", menuName = "ScriptableObjects/AIShootingRulesInterpretation")]
+[CreateAssetMenu(fileName = "AIRulesInterpretation", menuName = "ScriptableObjects/AI/ShootingRulesInterpretation")]
 public class AIShootingRulesInterpretation : ScriptableObject
 {
     [Header("One shoot mode")]

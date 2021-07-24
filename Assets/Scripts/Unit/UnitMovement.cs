@@ -11,6 +11,8 @@ public class UnitMovement : MonoBehaviour
     private Vector3 speed;
     [SerializeField]
     private float rollSpeed;
+    [SerializeField]
+    private float defaultDrag;
 
     [Header("Camera")]
     public bool cameraAiming;
@@ -21,6 +23,23 @@ public class UnitMovement : MonoBehaviour
     private GameObject jetpack = null;
     [SerializeField]
     private GameObject firstPresonCamera;
+
+    public Vector3 Velocity { get => rigidbody.velocity; }
+    public bool UseDrag
+    {
+        get => rigidbody.drag == 0;
+        set
+        {
+            if (value)
+            {
+                rigidbody.drag = defaultDrag;
+            }
+            else
+            {
+                rigidbody.drag = 0;
+            }
+        }
+    }
 
     //input
     private Vector3 rawInput;
@@ -113,15 +132,19 @@ public class UnitMovement : MonoBehaviour
         shootDirection = direction;
     }
 
-    public void MoveTowards(Vector3 direction)
+    public void SetLookTarget(Vector3 direction, Vector3 up)
     {
-        direction = direction.normalized;
-        direction = transform.right * direction.x + transform.up * direction.y + transform.forward * direction.z;
-        rawInput = direction;
-        rawInput.z = -rawInput.z;
+        lookTarget = Quaternion.LookRotation(direction, up) * Quaternion.Euler(90, 0, 0);
+        shootDirection = direction;
     }
 
-    public void MoveRelative(Vector3 direction)
+    public void SetLookTarget(Quaternion target)
+    {
+        lookTarget = target * Quaternion.Euler(90, 0, 0);
+        shootDirection = target * Vector3.forward;
+    }
+
+    public void MoveRelativeToCamera(Vector3 direction)
     {
         if (direction != Vector3.zero)
         {
@@ -130,10 +153,30 @@ public class UnitMovement : MonoBehaviour
         rawInput = direction;
     }
 
+    public void MoveInGlobalCoordinates(Vector3 direction)
+    {
+        rigidbody.AddForce(Vector3.Scale(direction.normalized, speed) * Time.fixedDeltaTime);
+    }
+
+    public void MoveInGlobalCoordinatesIgnoringSpeed(Vector3 direction)
+    {
+        rigidbody.AddForce(direction * Time.fixedDeltaTime, ForceMode.VelocityChange);
+    }
+
+    public void MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(Vector3 direction)
+    {
+        rigidbody.AddForce(direction, ForceMode.VelocityChange);
+    }
+
+    public bool IsRotating()
+    {
+        return rigidbody.angularVelocity.magnitude > 0.1F;
+    }
+
     private void MoveUnit()
     {
         Vector3 speedWithTime = speed * Time.fixedDeltaTime;
-        Vector3 moveDelta = new Vector3(rawInput.x * speedWithTime.x, rawInput.y * speedWithTime.y, rawInput.z * speedWithTime.z);
+        Vector3 moveDelta = Vector3.Scale(rawInput, speedWithTime);
         Vector3[] cameraCooridinates = cameraController.orientation;
         if (moveDelta == Vector3.zero)
         {
@@ -172,7 +215,7 @@ public class UnitMovement : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
         if (jetpack != null)

@@ -7,24 +7,38 @@ using UnityEngine;
 [RequireComponent(typeof(Health))]
 public class EnemyController : MonoBehaviour
 {
-    [Header("Refernces")]
+    [Header("References")]
     public GameObject target;
     public UnitController unitController;
     public GameObject weapon;
     [SerializeField]
     private UnitShooting shooting;
-    [SerializeField]
-    private AIStateMachine AIMovementStateMachine;
-    [SerializeField]
-    private AIStateMachine AIShootingStateMachine;
 
     [Header("Enemy properites")]
-    public float VisionRange;
-    public float targetDistance;
     [HideInInspector]
     public int layerMask;
     public AIShootingRules ShootingRules;
     public AIShootingRulesInterpretation ShootingRulesInterpretation;
+    public float visibilitySphereRadius;
+    public float visibilityConeAngle;
+    public float visibilityConeHeight;
+    [ReadOnly]
+    [SerializeField]
+    private float visibilityConeRadius;
+
+    [Header("Gizmo properties")]
+    [SerializeField]
+    [Min(1)]
+    private int points;
+    [SerializeField]
+    [Min(1)]
+    private int coneLines;
+    [SerializeField]
+    private bool drawWhenSelectedOnly;
+    [SerializeField]
+    private Color selectedColor;
+    [SerializeField]
+    private Color notSelectedColor;
 
     [Header("Ragdoll properities")]
     [SerializeField]
@@ -34,8 +48,7 @@ public class EnemyController : MonoBehaviour
     private float maxForce;
 
     private EnemyManager manager;
-    private Collider[] childrenColliders;
-    private List<Rigidbody> rigidbodies;
+    private VisionGizmoCore gizmo;
 
     public void OnDeath()
     {
@@ -52,18 +65,6 @@ public class EnemyController : MonoBehaviour
 
     private void StartRagdoll()
     {
-        //foreach (Collider collider in childrenColliders)
-        //{
-        //    rigidbodies.Add(collider.gameObject.AddComponent<Rigidbody>());
-        //}
-        //foreach(Rigidbody rb in rigidbodies)
-        //{
-        //    if (rb != null)
-        //    {
-        //        rb.AddForce(new Vector3(Random.Range(0, maxForce), Random.Range(0, maxForce), Random.Range(0, maxForce)));
-        //        rb.isKinematic = false;
-        //    }
-        //}
         DropWeapon();
         DeactivateComponents();
         manager.RemoveEnemy(gameObject);
@@ -72,13 +73,12 @@ public class EnemyController : MonoBehaviour
 
     private void DeactivateComponents()
     {
-        AIMovementStateMachine.enabled = false;
-        AIShootingStateMachine.enabled = false;
         unitController.AnimationController.Deactivate();
         unitController.enabled = false;
         shooting.StopFire();
         shooting.enabled = false;
         GetComponent<Health>().enabled = false;
+        GetComponent<AI.StateMachine>().enabled = false;
     }
 
     private void DropWeapon()
@@ -87,6 +87,11 @@ public class EnemyController : MonoBehaviour
         unitController.CurrentWeapon.tag = "Item";
         unitController.CurrentWeapon.layer = 0;
         unitController.CurrentWeapon = null;
+    }
+
+    private void DrawGizmo(bool selected)
+    {
+        gizmo.Draw(selected, transform);
     }
 
     private void Start()
@@ -100,12 +105,47 @@ public class EnemyController : MonoBehaviour
         unitController.CurrentWeapon = weapon;
         unitController.AnimationController.UpdateWeaponAnimation(unitController.CurrentWeaponController);
         shooting.ChangeWeaponController(weapon.GetComponent<WeaponController>());
+        shooting.ignoreRecoil = true;
         unitController.movement.cameraAiming = false;
-        AIMovementStateMachine.ChangeState(new AIMoveTowardsTargetState());
-        AIShootingStateMachine.ChangeState(new AIShootState());
         layerMask = (1 << 7) | (1 << 8) | (1 << 9);
         layerMask = ~layerMask;
-        childrenColliders = GetComponentsInChildren<Collider>();
-        rigidbodies = new List<Rigidbody>(GetComponentsInChildren<Rigidbody>());
+#if UNITY_EDITOR
+        gizmo = new VisionGizmoCore();
+        UpdateGizmoProperties();
+#endif
     }
+
+#if UNITY_EDITOR
+    private void UpdateGizmoProperties()
+    {
+        gizmo.ConeAngle = visibilityConeAngle;
+        gizmo.ConeHeight = visibilityConeHeight;
+        gizmo.SphereRadius = visibilitySphereRadius;
+        gizmo.Points = points;
+        gizmo.NotSelectedColor = notSelectedColor;
+        gizmo.SelectedColor = selectedColor;
+        gizmo.ConeLines = coneLines;
+        gizmo.DrawWhenSelectedOnly = drawWhenSelectedOnly;
+        visibilityConeRadius = gizmo.ConeBaseRadius;
+    }
+
+    private void OnValidate()
+    {
+        if (gizmo == null)
+        {
+            gizmo = new VisionGizmoCore();
+        }
+        UpdateGizmoProperties();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        DrawGizmo(true);
+    }
+
+    private void OnDrawGizmos()
+    {
+        DrawGizmo(false);
+    }
+#endif
 }

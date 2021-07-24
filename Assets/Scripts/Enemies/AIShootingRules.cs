@@ -12,7 +12,7 @@ public enum AIShootingMode
     Error
 }
 
-[CreateAssetMenu(fileName = "AIRules", menuName = "ScriptableObjects/AIShootingRules")]
+[CreateAssetMenu(fileName = "AIRules", menuName = "ScriptableObjects/AI/ShootingRules")]
 public class AIShootingRules : ScriptableObject
 {
     [System.Serializable]
