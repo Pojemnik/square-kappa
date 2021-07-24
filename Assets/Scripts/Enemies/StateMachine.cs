@@ -685,7 +685,14 @@ namespace AI
             Vector3 positionDelta = targetPosition - position;
             if (TargetVisible(owner.enemyController.target.layer))
             {
-                movement.MoveInGlobalCoordinates(positionDelta);
+                if (positionDelta.magnitude > config.minDistance)
+                {
+                    movement.MoveInGlobalCoordinates(positionDelta);
+                }
+                else
+                {
+                    movement.MoveRelativeToCamera(Vector3.zero);
+                }
             }
             else
             {

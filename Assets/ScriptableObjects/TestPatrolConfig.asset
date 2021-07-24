@@ -16,7 +16,8 @@ MonoBehaviour:
   rotationalSpeed: 45
   maxMovementSpeed: 2
   acceleration: 2
-  actualMovementSpeed: 4.99942
+  minDistance: 10
+  actualMovementSpeed: 2
   lookAroundRotations:
   - {x: -90, y: 0, z: 0}
   - {x: 180, y: 0, z: 0}
