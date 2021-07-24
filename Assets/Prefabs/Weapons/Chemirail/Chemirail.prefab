@@ -143,6 +143,7 @@ MonoBehaviour:
   - {fileID: 5888704637621268055}
   - {fileID: 2588036689768251120}
   - {fileID: 6692600870308364902}
+  displayLeadingZeros: 0
 --- !u!1 &1288528007056036881
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,6 +429,7 @@ MonoBehaviour:
   digits:
   - {fileID: 8819838008970093660}
   - {fileID: 5753919848880797766}
+  displayLeadingZeros: 1
 --- !u!1 &4460504533702540360
 GameObject:
   m_ObjectHideFlags: 0

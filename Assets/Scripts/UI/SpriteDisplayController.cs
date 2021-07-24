@@ -4,49 +4,62 @@ using UnityEngine;
 
 public class SpriteDisplayController : DisplayController
 {
-    public List<Sprite> digitTextures;
-    public int defaultValue;
-    public List<UnityEngine.UI.Image> digits;
+    [SerializeField]
+    private List<Sprite> digitTextures;
+    [SerializeField]
+    private int defaultValue;
+    [SerializeField]
+    private List<UnityEngine.UI.Image> digits;
+    [SerializeField]
+    private bool displayLeadingZeros;
 
     private int maxValue;
+    private int[] digitValues;
 
     public void Awake()
     {
-        if(digitTextures.Capacity != 10)
+        if (digitTextures.Count != 10)
         {
             Debug.LogError("Incorrect digits in display!");
         }
-        maxValue = (int)Mathf.Pow(10, digits.Capacity);
+        maxValue = (int)Mathf.Pow(10, digits.Count);
+        digitValues = new int[digits.Count];
         SetValue(defaultValue);
     }
 
     public override void SetValue(int value)
     {
-        if(value > maxValue)
+        if (value > maxValue)
         {
             Debug.LogError("Too high value in display!");
             return;
         }
-        if(value < 0)
+        if (value < 0)
         {
             value = 0;
         }
-        int i = 0;
-        while(value > 0)
+        for (int i = 0; i < digits.Count; i++)
         {
-            int d = value % 10;
-            digits[i++].sprite = digitTextures[d];
+            digitValues[i] = value % 10;
+            digits[i].enabled = true;
+            digits[i].sprite = digitTextures[digitValues[i]];
             value /= 10;
         }
-        //display zero if value = 0
-        if(i == 0)
+        if (!displayLeadingZeros)
         {
-            digits[i++].sprite = digitTextures[0];
-        }
-        //do not display leading zeros
-        while (i < digits.Capacity)
-        {
-            digits[i++].enabled = false;
+            int i = digits.Count - 1;
+            while (i > 0)
+            {
+                if (digitValues[i] == 0)
+                {
+                    digits[i].enabled = false;
+                    i--;
+                }
+                else
+                {
+                    break;
+                }
+            }
         }
     }
 }
