@@ -6,7 +6,22 @@ using UnityEngine.InputSystem;
 public class UnitShooting : MonoBehaviour
 {
     [HideInInspector]
-    public bool ignoreRecoil;
+    public bool IgnoreRecoil;
+    [HideInInspector]
+    public bool NeedsReload
+    {
+        get
+        {
+            if(weaponController != null)
+            {
+                if(!weaponController.AttackAvailable())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 
     [Header("Refernces")]
     [SerializeField]
@@ -54,9 +69,14 @@ public class UnitShooting : MonoBehaviour
         }
     }
 
+    public void Reload()
+    {
+        weaponController.Reload();
+    }    
+
     private void OnWeaponShoot()
     {
-        if (!ignoreRecoil)
+        if (!IgnoreRecoil)
         {
             rigidbody.AddForce(-transform.up * weaponController.Config.backwardsForce);
         }
