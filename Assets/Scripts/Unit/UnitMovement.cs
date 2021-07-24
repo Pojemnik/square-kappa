@@ -11,6 +11,8 @@ public class UnitMovement : MonoBehaviour
     private Vector3 speed;
     [SerializeField]
     private float rollSpeed;
+    [SerializeField]
+    private float defaultDrag;
 
     [Header("Camera")]
     public bool cameraAiming;
@@ -23,6 +25,21 @@ public class UnitMovement : MonoBehaviour
     private GameObject firstPresonCamera;
 
     public Vector3 Velocity { get => rigidbody.velocity; }
+    public bool UseDrag
+    {
+        get => rigidbody.drag == 0;
+        set
+        {
+            if (value)
+            {
+                rigidbody.drag = defaultDrag;
+            }
+            else
+            {
+                rigidbody.drag = 0;
+            }
+        }
+    }
 
     //input
     private Vector3 rawInput;
@@ -198,7 +215,7 @@ public class UnitMovement : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
         if (jetpack != null)

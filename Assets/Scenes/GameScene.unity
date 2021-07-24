@@ -3047,12 +3047,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 729718491}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 321942abc49839448a63e4faaaecc087, type: 3}
+  m_Script: {fileID: 11500000, guid: 95b2fa9899cd2c4438ccaba5542fa4a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyController: {fileID: 729718492}
-  firstNode: {fileID: 1862802037}
-  config: {fileID: 11400000, guid: 12767a6803f462f4ab66935edd21ef9f, type: 2}
+  firstNode: {fileID: 1075159654}
+  config: {fileID: 11400000, guid: 368774ad42437b54e95fe7dd87163de5, type: 2}
 --- !u!4 &730203787 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8307458533412693619, guid: 6abbaabb93f40ab4fb476fcac894d73d, type: 3}

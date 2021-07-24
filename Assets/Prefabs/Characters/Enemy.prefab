@@ -734,14 +734,13 @@ MonoBehaviour:
   unitController: {fileID: 8307458533412693616}
   weapon: {fileID: 781317423780084828}
   shooting: {fileID: 5611851873559394222}
-  VisionRange: 100
-  targetDistance: 5
   layerMask: 0
   ShootingRules: {fileID: 11400000, guid: bdf46c5fdb1218643b596cafe7c586b2, type: 2}
   ShootingRulesInterpretation: {fileID: 11400000, guid: 1b8f2961fc3e0de40a99b548c0215a91, type: 2}
   visibilitySphereRadius: 0
   visibilityConeAngle: 0
   visibilityConeHeight: 0
+  visibilityConeRadius: 0
   points: 0
   coneLines: 0
   drawWhenSelectedOnly: 0
@@ -797,6 +796,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: {x: 20000, y: 20000, z: 20000}
   rollSpeed: 120
+  defaultDrag: 1
   cameraAiming: 0
   owner: {fileID: 8307458533412693616}
   jetpack: {fileID: 9190558576262164462}

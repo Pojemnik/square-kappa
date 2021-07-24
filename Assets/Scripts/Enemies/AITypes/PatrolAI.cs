@@ -18,7 +18,7 @@ namespace AI
             {
                 throw new System.Exception(string.Format("No PatrolAIConfig in object {0}", name));
             }
-            GetComponent<Rigidbody>().drag = 0;
+            GetComponent<UnitMovement>().UseDrag = false;
             ChangeState(new RotateTowardsPointState(firstNode, config));
         }
     }

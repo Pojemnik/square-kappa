@@ -78,6 +78,7 @@ public class EnemyController : MonoBehaviour
         shooting.StopFire();
         shooting.enabled = false;
         GetComponent<Health>().enabled = false;
+        GetComponent<AI.StateMachine>().enabled = false;
     }
 
     private void DropWeapon()

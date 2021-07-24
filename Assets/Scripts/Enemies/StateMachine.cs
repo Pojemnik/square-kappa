@@ -674,6 +674,7 @@ namespace AI
             lastShootingMode = AIShootingMode.NoShooting;
             phaseTime = 0;
             lastShoot = false;
+            movement.UseDrag = true;
         }
 
         public override void PhysicsUpdate()
@@ -721,6 +722,12 @@ namespace AI
                 shooting.StopFire();
                 owner.ChangeState(new RotateTowardsPointState(pathNode.next, config));
             }
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            movement.UseDrag = false;
         }
     }
 
