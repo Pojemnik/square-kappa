@@ -61,7 +61,7 @@ public class RangedWeaponController : WeaponController
 
     private void Shoot()
     {
-        if(ammo <= 0)
+        if (ammo <= 0)
         {
             return;
         }
@@ -125,7 +125,7 @@ public class RangedWeaponController : WeaponController
         {
             spreadReductionCooldown += Time.fixedDeltaTime;
             spreadRadius -= GetCooldownReductionValue(spreadReductionCooldown);
-            if(spreadRadius < rangedConfig.baseSpread)
+            if (spreadRadius < rangedConfig.baseSpread)
             {
                 spreadRadius = rangedConfig.baseSpread;
             }
@@ -147,9 +147,25 @@ public class RangedWeaponController : WeaponController
         ammo = rangedConfig.maxAmmo;
     }
 
-    public override void Reload()
+    public override int Reload(int amount)
     {
-        ammo = rangedConfig.maxAmmo;
+        int total = amount + ammo;
+        if (total <= Config.maxAmmo)
+        {
+            ammo = total;
+            total = 0;
+        }
+        else
+        {
+            ammo = Config.maxAmmo;
+            total -= Config.maxAmmo;
+        }
         currentAmmoDisplay.SetValue(ammo);
+        return total;
+    }
+
+    public override void SetTotalAmmo(int amount)
+    {
+        totalAmmoDisplay.SetValue(amount);
     }
 }

@@ -20,7 +20,6 @@ public class RangedWeaponConfig : WeaponConfig
     public float spreadReductionParameter;
     [Tooltip("When weapon is not shooting and <spreadReductionDelay> passes, spread is being reduced every frame by: <time since last shot>*SpreadReductionParameter")]
     public float spreadReductionDelay;
-    public int maxAmmo;
 
     [Header("Projectile")]
     public GameObject projectilePrefab;

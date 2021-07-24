@@ -661,7 +661,7 @@ GameObject:
   - component: {fileID: 2112491927123205907}
   - component: {fileID: 5611851873559394222}
   m_Layer: 7
-  m_Name: Enemy_new
+  m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -827,8 +827,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f88d323a52ea04fadd7dd69680c8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreRecoil: 1
+  IgnoreRecoil: 0
   owner: {fileID: 8307458533412693616}
+  infiniteAmmo: 1
+  startChemirailAmmo: 999
 --- !u!136 &8307458531846045008
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -105,5 +105,7 @@ public class MeleWeaponController : WeaponController
         return true;
     }
 
-    public override void Reload() { }
+    public override int Reload(int _) { return 1; }
+
+    public override void SetTotalAmmo(int _) { }
 }

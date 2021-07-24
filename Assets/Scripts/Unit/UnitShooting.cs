@@ -27,12 +27,28 @@ public class UnitShooting : MonoBehaviour
     [SerializeField]
     private Unit owner;
 
+    [Header("Properties")]
+    [SerializeField]
+    private bool infiniteAmmo;
+
+    [Header("Start ammo")]
+    [SerializeField]
+    [Min(0)]
+    private int startChemirailAmmo;
+
     private new Rigidbody rigidbody;
     private WeaponController weaponController = null;
+    private Dictionary<WeaponConfig.WeaponType, int> allAmmo;
 
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        allAmmo = new Dictionary<WeaponConfig.WeaponType, int>();
+        foreach(WeaponConfig.WeaponType type in System.Enum.GetValues(typeof(WeaponConfig.WeaponType)))
+        {
+            allAmmo.Add(type, 0);
+        }
+        allAmmo[WeaponConfig.WeaponType.Rifle] = startChemirailAmmo;
     }
 
     public void ChangeWeaponController(WeaponController newController)
@@ -46,6 +62,7 @@ public class UnitShooting : MonoBehaviour
         {
             weaponController.AttackEvent.AddListener(OnWeaponShoot);
         }
+        weaponController.SetTotalAmmo(allAmmo[weaponController.Config.type]);
     }
 
     public void StartFire()
@@ -71,7 +88,23 @@ public class UnitShooting : MonoBehaviour
 
     public void Reload()
     {
-        weaponController.Reload();
+        if (infiniteAmmo || allAmmo[weaponController.Config.type] >= weaponController.Config.maxAmmo)
+        {
+            int ammoLeft = weaponController.Reload(weaponController.Config.maxAmmo);
+            allAmmo[weaponController.Config.type] -= weaponController.Config.maxAmmo;
+            allAmmo[weaponController.Config.type] += ammoLeft;
+        }
+        else
+        {
+            if(allAmmo[weaponController.Config.type] == 0)
+            {
+                //No ammo to add
+                return;
+            }
+            int ammoLeft = weaponController.Reload(allAmmo[weaponController.Config.type]);
+            allAmmo[weaponController.Config.type] = ammoLeft;
+        }
+        weaponController.SetTotalAmmo(allAmmo[weaponController.Config.type]);
     }    
 
     private void OnWeaponShoot()

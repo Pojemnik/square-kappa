@@ -14051,6 +14051,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8307458533412693629, guid: 39631cf7e7a39e44abf9f08879fae01e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39631cf7e7a39e44abf9f08879fae01e, type: 3}
 --- !u!1 &303155349
@@ -14540,6 +14544,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IgnoreRecoil: 0
   owner: {fileID: 340589866}
+  infiniteAmmo: 0
+  startChemirailAmmo: 0
 --- !u!114 &340589862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25763,6 +25769,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IgnoreRecoil: 0
   owner: {fileID: 437473015}
+  infiniteAmmo: 0
+  startChemirailAmmo: 0
 --- !u!114 &437473011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33683,6 +33691,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IgnoreRecoil: 0
   owner: {fileID: 590027306}
+  infiniteAmmo: 0
+  startChemirailAmmo: 0
 --- !u!114 &590027302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37329,6 +37339,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IgnoreRecoil: 0
   owner: {fileID: 798736639}
+  infiniteAmmo: 0
+  startChemirailAmmo: 0
 --- !u!114 &798736635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56568,6 +56580,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IgnoreRecoil: 0
   owner: {fileID: 1091933926}
+  infiniteAmmo: 0
+  startChemirailAmmo: 0
 --- !u!114 &1091933922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75989,7 +76003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bceb2f52c708dbb4792c34eff4668af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useSceneView: 1
+  useSceneView: 0
 --- !u!4 &2054169792
 Transform:
   m_ObjectHideFlags: 0
@@ -82361,6 +82375,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1280456608684126228, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
+      propertyPath: startChemirailAmmo
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 2033507179630016006, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -82655,7 +82673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6165911240001322639, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Reolad
+      value: Reload
       objectReference: {fileID: 0}
     - target: {fileID: 6165911240001322639, guid: 49a7a2b6067083b42ac93dac038084dc, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

@@ -96,13 +96,13 @@ public class PlayerInputAdapter : MonoBehaviour
         }
     }
 
-    public void Reolad(InputAction.CallbackContext context)
+    public void Reload(InputAction.CallbackContext context)
     {
         if (context.started)
         {
             if (owner.CurrentWeaponController != null)
             {
-                owner.CurrentWeaponController.Reload();
+                owner.shooting.Reload();
             }
         }
     }
