@@ -13,4 +13,5 @@ abstract public class WeaponController : MonoBehaviour
     abstract public void StartAttack();
     abstract public void StopAttack();
     abstract public bool AttackAvailable();
+    abstract public void Reload();
 }

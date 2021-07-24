@@ -104,4 +104,6 @@ public class MeleWeaponController : WeaponController
     {
         return true;
     }
+
+    public override void Reload() { }
 }

@@ -95,4 +95,15 @@ public class PlayerInputAdapter : MonoBehaviour
             owner.PickWeaponFromInventory(2);
         }
     }
+
+    public void Reolad(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (owner.CurrentWeaponController != null)
+            {
+                owner.CurrentWeaponController.Reload();
+            }
+        }
+    }
 }

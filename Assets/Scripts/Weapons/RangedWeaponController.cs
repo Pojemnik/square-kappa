@@ -146,4 +146,10 @@ public class RangedWeaponController : WeaponController
     {
         ammo = rangedConfig.maxAmmo;
     }
+
+    public override void Reload()
+    {
+        ammo = rangedConfig.maxAmmo;
+        currentAmmoDisplay.SetValue(ammo);
+    }
 }
