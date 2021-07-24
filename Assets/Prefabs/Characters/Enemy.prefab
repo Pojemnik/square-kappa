@@ -737,15 +737,15 @@ MonoBehaviour:
   layerMask: 0
   ShootingRules: {fileID: 11400000, guid: bdf46c5fdb1218643b596cafe7c586b2, type: 2}
   ShootingRulesInterpretation: {fileID: 11400000, guid: 1b8f2961fc3e0de40a99b548c0215a91, type: 2}
-  visibilitySphereRadius: 0
-  visibilityConeAngle: 0
-  visibilityConeHeight: 0
-  visibilityConeRadius: 0
-  points: 0
-  coneLines: 0
-  drawWhenSelectedOnly: 0
-  selectedColor: {r: 0, g: 0, b: 0, a: 0}
-  notSelectedColor: {r: 0, g: 0, b: 0, a: 0}
+  visibilitySphereRadius: 10
+  visibilityConeAngle: 45
+  visibilityConeHeight: 30
+  visibilityConeRadius: 24.852814
+  points: 50
+  coneLines: 6
+  drawWhenSelectedOnly: 1
+  selectedColor: {r: 0.9925777, g: 1, b: 0, a: 1}
+  notSelectedColor: {r: 0, g: 1, b: 0.03775406, a: 1}
   enableRagdoll: 1
   maxForce: 0
 --- !u!114 &4104375640541538898

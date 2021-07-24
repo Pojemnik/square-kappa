@@ -7,9 +7,10 @@ public class UIInputAdapter : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]
-    private GameObject enemyMarkersControllerObject;
-
     private EnemyMarkersController enemyMarkersController;
+    [SerializeField]
+    private ZoomController zoomController;
+
     public void ChangeEnemyMarkersDisplayMode(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -18,8 +19,15 @@ public class UIInputAdapter : MonoBehaviour
         }
     }
 
-    private void Awake()
+    public void ChangeZoomState(InputAction.CallbackContext context)
     {
-        enemyMarkersController = enemyMarkersControllerObject.GetComponent<EnemyMarkersController>();
+        if(context.started)
+        {
+            zoomController.EnableZoom();
+        }
+        if(context.canceled)
+        {
+            zoomController.DisableZoom();
+        }
     }
 }

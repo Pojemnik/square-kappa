@@ -55,7 +55,7 @@ public class EnemyMarkersController : MonoBehaviour
         if (displayMode == MarkersDisplayMode.ChangeSize)
         {
             displayMode = MarkersDisplayMode.ShowDistance;
-            foreach(VectorDisplayController display in distanceDisplays.Values)
+            foreach (VectorDisplayController display in distanceDisplays.Values)
             {
                 display.transform.parent.gameObject.SetActive(true);
             }
@@ -101,7 +101,7 @@ public class EnemyMarkersController : MonoBehaviour
             {
                 GameObject display = Instantiate(distanceDisplayPrefab, markers[id].transform);
                 display.transform.localPosition = distanceDisplayOffset;
-                distanceDisplays.Add(id, display.transform.GetChild(0).gameObject.GetComponent< VectorDisplayController>());
+                distanceDisplays.Add(id, display.transform.GetChild(0).gameObject.GetComponent<VectorDisplayController>());
             }
         }
     }
@@ -201,7 +201,7 @@ public class EnemyMarkersController : MonoBehaviour
                 {
                     marker.transform.localScale = new Vector3(scale, scale, 1);
                 }
-                else if(displayMode == MarkersDisplayMode.ShowDistance)
+                else if (displayMode == MarkersDisplayMode.ShowDistance)
                 {
                     //Display distance
                     VectorDisplayController distanceDisplay = distanceDisplays[enemyId];
