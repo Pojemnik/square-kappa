@@ -18,7 +18,7 @@ namespace AI
 
         protected bool TargetVisible(int targetLayer)
         {
-            Vector3 position = owner.transform.position + owner.transform.forward * 2;
+            Vector3 position = owner.transform.position;
             Vector3 targetPosition = owner.enemyController.target.transform.position;
             Vector3 towardsTarget = targetPosition - position;
             Debug.DrawRay(position, towardsTarget, Color.magenta);
@@ -164,7 +164,7 @@ namespace AI
             else
             {
                 shooting.StopFire();
-                owner.ChangeState(new StaticLookAroundState(pathNode.next, config));
+                owner.ChangeState(new StaticLookAroundState(pathNode, config));
             }
         }
     }

@@ -1836,8 +1836,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f88d323a52ea04fadd7dd69680c8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreRecoil: 0
+  IgnoreRecoil: 0
   owner: {fileID: 9028151093970926094}
+  infiniteAmmo: 1
+  startChemirailAmmo: 0
 --- !u!114 &7690006316975347338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4742,19 +4744,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6961935415792237442, guid: ceb24ab272efbf342a845e1867d1da1d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5936369
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6961935415792237442, guid: ceb24ab272efbf342a845e1867d1da1d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.46574685
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6961935415792237442, guid: ceb24ab272efbf342a845e1867d1da1d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.42342532
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6961935415792237442, guid: ceb24ab272efbf342a845e1867d1da1d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.5013842
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6961935415792237442, guid: ceb24ab272efbf342a845e1867d1da1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
