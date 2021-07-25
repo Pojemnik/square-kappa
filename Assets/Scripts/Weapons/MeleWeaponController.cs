@@ -99,4 +99,13 @@ public class MeleWeaponController : WeaponController
         yield return new WaitForSeconds(1F / meleConfig.attacksPerSecond);
         nextCollisionIsAttack = false;
     }
+
+    public override bool AttackAvailable()
+    {
+        return true;
+    }
+
+    public override int Reload(int _) { return 1; }
+
+    public override void SetTotalAmmo(int _) { }
 }

@@ -432,9 +432,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58809af716df9834092ee4f68708b242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitEvent:
-    m_PersistentCalls:
-      m_Calls: []
   inventoryChange:
     m_PersistentCalls:
       m_Calls:
@@ -502,6 +499,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  damageEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6165911240001322639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,6 +762,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: {x: 28000, y: 28000, z: 28000}
   rollSpeed: 120
+  defaultDrag: 0
   cameraAiming: 1
   owner: {fileID: 9028151093970926094}
   jetpack: {fileID: 2552100881092469564}
@@ -783,8 +784,9 @@ MonoBehaviour:
   defaultWeapon: {fileID: 7949570221139043065}
   firstPresonCamera: {fileID: 7226788360657399152}
   weaponPickupRange: 1
-  weaponThrowForce: 33
   weaponMountingPoint: {fileID: 7089718064159878052}
+  weaponThrowForce: 33
+  weaponDropCollisionTimeout: 0
   weaponChangeEvent:
     m_PersistentCalls:
       m_Calls:
@@ -812,7 +814,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f88d323a52ea04fadd7dd69680c8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IgnoreRecoil: 0
   owner: {fileID: 9028151093970926094}
+  infiniteAmmo: 0
+  startChemirailAmmo: 100
 --- !u!114 &5720152685819367687
 MonoBehaviour:
   m_ObjectHideFlags: 0

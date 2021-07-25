@@ -38,6 +38,7 @@ public class ItemChanger : MonoBehaviour
     private PlayerCameraController cameraController;
     private GameObject selectedItem;
     private new Rigidbody rigidbody;
+    private UnitShooting shooting;
 
     private void SelectWorldItem(GameObject item)
     {
@@ -98,6 +99,8 @@ public class ItemChanger : MonoBehaviour
         owner.CurrentWeapon.transform.parent = null;
         weaponRB.AddForce(rigidbody.velocity, ForceMode.VelocityChange);
         owner.CurrentWeaponController.StopAttack();
+        int ammoLeft = owner.CurrentWeaponController.Reload(-1);
+        shooting.PickUpAmmo(owner.CurrentWeaponController.Config.type, ammoLeft);
         StartCoroutine(owner.CurrentWeapon.GetComponent<PickableItem>().SetLayerAfterDelay(weaponDropCollisionTimeout, 0));
         if (useDefaultWeapon)
         {
@@ -143,6 +146,7 @@ public class ItemChanger : MonoBehaviour
     {
         cameraController = firstPresonCamera.GetComponent<PlayerCameraController>();
         rigidbody = GetComponent<Rigidbody>();
+        shooting = GetComponent<UnitShooting>();
     }
 
     private void Start()

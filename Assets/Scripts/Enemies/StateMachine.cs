@@ -142,6 +142,10 @@ namespace AI
             movement.SetLookTarget(positionDelta);
             if (TargetVisible(owner.enemyController.target.layer))
             {
+                if(shooting.NeedsReload)
+                {
+                    shooting.Reload();
+                }
                 lastShootingMode = shootingMode;
                 shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules);
                 switch (shootingMode)
@@ -685,6 +689,10 @@ namespace AI
             Vector3 positionDelta = targetPosition - position;
             if (TargetVisible(owner.enemyController.target.layer))
             {
+                if (shooting.NeedsReload)
+                {
+                    shooting.Reload();
+                }
                 if (positionDelta.magnitude > config.minDistance)
                 {
                     movement.MoveInGlobalCoordinates(positionDelta);

@@ -12,4 +12,7 @@ abstract public class WeaponController : MonoBehaviour
     abstract public float Spread { get; }
     abstract public void StartAttack();
     abstract public void StopAttack();
+    abstract public bool AttackAvailable();
+    abstract public int Reload(int amount);
+    abstract public void SetTotalAmmo(int amount);
 }

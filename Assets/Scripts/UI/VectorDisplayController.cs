@@ -2,21 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VectorDisplayController : MonoBehaviour
+public class VectorDisplayController : DisplayController
 {
-    [SerializeField]
-    private int startValue;
-
     private TMPro.TextMeshProUGUI text;
 
-    public void UpdateValue(int newValue)
+    public override void SetValue(int newValue)
     {
         text.text = string.Format("{0}m", newValue);
     }
 
-    private void Awake()
+    public void Awake()
     {
         text = GetComponent<TMPro.TextMeshProUGUI>();
-        UpdateValue(startValue);
+        SetValue(startValue);
     }
 }

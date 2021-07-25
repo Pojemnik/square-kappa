@@ -205,7 +205,7 @@ public class EnemyMarkersController : MonoBehaviour
                 {
                     //Display distance
                     VectorDisplayController distanceDisplay = distanceDisplays[enemyId];
-                    distanceDisplay.UpdateValue((int)distanceToEnemy);
+                    distanceDisplay.SetValue((int)distanceToEnemy);
                 }
             }
             else
