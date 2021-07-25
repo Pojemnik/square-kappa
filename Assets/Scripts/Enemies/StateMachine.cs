@@ -18,11 +18,11 @@ namespace AI
 
         protected bool TargetVisible(int targetLayer)
         {
-            Vector3 position = owner.transform.position;
+            Vector3 position = owner.transform.position + owner.transform.forward * 2;
             Vector3 targetPosition = owner.enemyController.target.transform.position;
             Vector3 towardsTarget = targetPosition - position;
-            RaycastHit raycastHit;
-            if (Physics.Raycast(position, targetPosition - position, out raycastHit, owner.enemyController.visibilitySphereRadius, owner.enemyController.layerMask))
+            Debug.DrawRay(position, towardsTarget, Color.magenta);
+            if (Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, owner.enemyController.visibilitySphereRadius, owner.enemyController.layerMask))
             {
                 if (raycastHit.collider.gameObject.layer == targetLayer)
                 {
@@ -593,6 +593,10 @@ namespace AI
             startDirection = owner.transform.rotation * Quaternion.Euler(-90, 0, 0);
             startTime = Time.time;
             duration = Quaternion.Angle(lookTargets[index], startDirection) / config.rotationalSpeed;
+            if(duration == 0)
+            {
+                duration = 1;
+            }
         }
     }
 
@@ -704,6 +708,7 @@ namespace AI
             }
             else
             {
+                shooting.StopFire();
                 owner.ChangeState(new EmergencyStopState(pathNode, config));
                 return;
             }
@@ -715,6 +720,7 @@ namespace AI
             Vector3 targetPosition = owner.enemyController.target.transform.position;
             Vector3 positionDelta = targetPosition - position;
             movement.SetLookTarget(positionDelta);
+            Debug.DrawLine(position, targetPosition, Color.red);
             if (TargetVisible(owner.enemyController.target.layer))
             {
                 lastShootingMode = shootingMode;
