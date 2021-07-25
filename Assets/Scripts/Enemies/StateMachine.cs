@@ -18,12 +18,11 @@ namespace AI
 
         protected bool TargetVisible(int targetLayer)
         {
-            Vector3 position = owner.transform.position;
+            Vector3 position = owner.transform.position + owner.transform.forward * 2;
             Vector3 targetPosition = owner.enemyController.target.transform.position;
             Vector3 towardsTarget = targetPosition - position;
-            RaycastHit raycastHit;
-            Debug.DrawLine(position, targetPosition, Color.magenta);
-            if (Physics.Raycast(position, targetPosition - position, out raycastHit, owner.enemyController.visibilitySphereRadius, owner.enemyController.layerMask))
+            Debug.DrawRay(position, towardsTarget, Color.magenta);
+            if (Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, owner.enemyController.visibilitySphereRadius, owner.enemyController.layerMask))
             {
                 if (raycastHit.collider.gameObject.layer == targetLayer)
                 {
@@ -590,6 +589,10 @@ namespace AI
             startDirection = owner.transform.rotation * Quaternion.Euler(-90, 0, 0);
             startTime = Time.time;
             duration = Quaternion.Angle(lookTargets[index], startDirection) / config.rotationalSpeed;
+            if(duration == 0)
+            {
+                duration = 1;
+            }
         }
     }
 

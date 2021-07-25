@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 5720152685819367687}
   - component: {fileID: 5752946300653547729}
   - component: {fileID: 7690006316975347338}
+  - component: {fileID: 8856888390450905230}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -593,6 +594,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 9028151093970926094}
   animator: {fileID: 8633829347163807104}
+--- !u!136 &8856888390450905230
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3442874551779767494}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.75, z: 0}
 --- !u!1 &4569545083906094422
 GameObject:
   m_ObjectHideFlags: 0
@@ -1630,6 +1645,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
+--- !u!4 &2953321191689308262 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2418655783845562901, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
+  m_PrefabInstance: {fileID: 679066520617828979}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &409245610643062562 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
@@ -1638,11 +1658,6 @@ GameObject:
 --- !u!4 &1073613844358899096 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
-  m_PrefabInstance: {fileID: 679066520617828979}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2953321191689308262 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2418655783845562901, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
   m_PrefabInstance: {fileID: 679066520617828979}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &7111205189482256159 stripped
@@ -1701,9 +1716,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3020070945852370719, guid: 22def0036e3e3074598b4caa73986100, type: 3}
+      propertyPath: relativePosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020070945852370719, guid: 22def0036e3e3074598b4caa73986100, type: 3}
+      propertyPath: relativePosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7210287037371379759, guid: 22def0036e3e3074598b4caa73986100, type: 3}
       propertyPath: m_Name
       value: Fists
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210287037371379759, guid: 22def0036e3e3074598b4caa73986100, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7210287037371379759, guid: 22def0036e3e3074598b4caa73986100, type: 3}
       propertyPath: m_TagString
