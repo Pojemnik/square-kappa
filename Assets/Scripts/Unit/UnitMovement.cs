@@ -19,8 +19,8 @@ public class UnitMovement : MonoBehaviour
 
     [Header("References")]
     public Unit owner;
-    [SerializeField]
-    private GameObject jetpack = null;
+    //[SerializeField]
+    //private GameObject jetpack = null;
     [SerializeField]
     private GameObject firstPresonCamera;
 
@@ -49,7 +49,7 @@ public class UnitMovement : MonoBehaviour
     private new Rigidbody rigidbody;
 
     //controllers
-    private JetpackController jetpackController;
+    //private JetpackController jetpackController;
     private PlayerCameraController cameraController;
 
     private Quaternion lookTarget;
@@ -63,20 +63,20 @@ public class UnitMovement : MonoBehaviour
         if (rawInput.z > 0)
         {
             owner.AnimationController.SetState("MoveForward");
-            jetpackController.OnMoveForward();
+            //jetpackController.OnMoveForward();
         }
         else if (rawInput.z < 0)
         {
             owner.AnimationController.SetState("MoveBackward");
-            jetpackController.OnMoveBackward();
+            //jetpackController.OnMoveBackward();
         }
         if (rawInput.x > 0)
         {
-            jetpackController.OnMoveRight();
+            //jetpackController.OnMoveRight();
         }
         else if (rawInput.x < 0)
         {
-            jetpackController.OnMoveLeft();
+            //jetpackController.OnMoveLeft();
         }
     }
 
@@ -86,13 +86,13 @@ public class UnitMovement : MonoBehaviour
         {
             rawInput.y = 1;
             owner.AnimationController.SetState("MoveUpDown");
-            jetpackController.OnMoveUp();
+            //jetpackController.OnMoveUp();
         }
         else if (value == -1)
         {
             rawInput.y = -1;
             owner.AnimationController.SetState("MoveUpDown");
-            jetpackController.OnMoveDown();
+            //jetpackController.OnMoveDown();
         }
         else
         {
@@ -183,7 +183,7 @@ public class UnitMovement : MonoBehaviour
             if (lastMoveDelta != Vector3.zero)
             {
                 owner.AnimationController.SetState("Stop");
-                jetpackController.OnStop();
+                //jetpackController.OnStop();
             }
         }
         else
@@ -218,10 +218,10 @@ public class UnitMovement : MonoBehaviour
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
-        if (jetpack != null)
-        {
-            jetpackController = jetpack.GetComponent<JetpackController>();
-        }
+        //if (jetpack != null)
+        //{
+        //    jetpackController = jetpack.GetComponent<JetpackController>();
+        //}
         cameraController = firstPresonCamera.GetComponent<PlayerCameraController>();
         lastMoveDelta = Vector3.zero;
         lookTarget = rigidbody.rotation;
