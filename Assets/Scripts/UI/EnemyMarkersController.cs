@@ -102,6 +102,10 @@ public class EnemyMarkersController : MonoBehaviour
                 GameObject display = Instantiate(distanceDisplayPrefab, markers[id].transform);
                 display.transform.localPosition = distanceDisplayOffset;
                 distanceDisplays.Add(id, display.transform.GetChild(0).gameObject.GetComponent<VectorDisplayController>());
+                if (displayMode == MarkersDisplayMode.ChangeSize)
+                {
+                    display.SetActive(false);
+                }
             }
         }
     }
