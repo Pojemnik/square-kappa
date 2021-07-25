@@ -22,6 +22,7 @@ namespace AI
             Vector3 targetPosition = owner.enemyController.target.transform.position;
             Vector3 towardsTarget = targetPosition - position;
             RaycastHit raycastHit;
+            Debug.DrawLine(position, targetPosition, Color.magenta);
             if (Physics.Raycast(position, targetPosition - position, out raycastHit, owner.enemyController.visibilitySphereRadius, owner.enemyController.layerMask))
             {
                 if (raycastHit.collider.gameObject.layer == targetLayer)
@@ -696,6 +697,7 @@ namespace AI
             }
             else
             {
+                shooting.StopFire();
                 owner.ChangeState(new EmergencyStopState(pathNode, config));
                 return;
             }
@@ -707,6 +709,7 @@ namespace AI
             Vector3 targetPosition = owner.enemyController.target.transform.position;
             Vector3 positionDelta = targetPosition - position;
             movement.SetLookTarget(positionDelta);
+            Debug.DrawLine(position, targetPosition, Color.red);
             if (TargetVisible(owner.enemyController.target.layer))
             {
                 lastShootingMode = shootingMode;
