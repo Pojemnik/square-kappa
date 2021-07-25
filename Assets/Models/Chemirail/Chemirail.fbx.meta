@@ -3,7 +3,12 @@ guid: 232d70759948e1c408c82c2e1059a7f4
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chemirail_Material
+    second: {fileID: 2100000, guid: 8237e80a5a77e5040b5f2b3333547100, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
