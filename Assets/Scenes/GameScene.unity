@@ -6163,6 +6163,10 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6195133748417262797, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8339985347243032759, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_FocalLength
       value: 14.3010435
@@ -7523,7 +7527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bceb2f52c708dbb4792c34eff4668af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useSceneView: 0
+  useSceneView: 1
 --- !u!4 &2054169792
 Transform:
   m_ObjectHideFlags: 0
