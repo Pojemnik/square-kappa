@@ -6,9 +6,13 @@ using UnityEngine.InputSystem;
 public class PlayerInputAdapter : MonoBehaviour
 {
     [SerializeField]
-    private float cameraSensitivity;
+    private float defaultCameraSensitivity;
+    [SerializeField]
+    private float zoomCameraSensitivity;
     [Header("References")]
     public UnitController owner;
+
+    private bool zoom;
 
     public void MoveXZ(InputAction.CallbackContext context)
     {
@@ -27,7 +31,14 @@ public class PlayerInputAdapter : MonoBehaviour
     public void RelativeLook(InputAction.CallbackContext context)
     {
         Vector2 rawInputLook = context.ReadValue<Vector2>();
-        owner.movement.RelativeLook(rawInputLook * cameraSensitivity);
+        if (zoom)
+        {
+            owner.movement.RelativeLook(rawInputLook * zoomCameraSensitivity);
+        }
+        else
+        {
+            owner.movement.RelativeLook(rawInputLook * defaultCameraSensitivity);
+        }
     }
 
     public void Fire(InputAction.CallbackContext context)
@@ -105,5 +116,22 @@ public class PlayerInputAdapter : MonoBehaviour
                 owner.shooting.Reload();
             }
         }
+    }
+
+    public void OnZoomEnable()
+    {
+        zoom = true;
+    }
+
+    public void OnZoomDisble()
+    {
+        zoom = false;
+    }
+
+    private void Awake()
+    {
+        ZoomController zoomController = FindObjectOfType<ZoomController>();
+        zoomController.zoomEnabled.AddListener(OnZoomEnable);
+        zoomController.zoomDisabled.AddListener(OnZoomDisble);
     }
 }

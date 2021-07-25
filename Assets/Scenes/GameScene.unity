@@ -7640,6 +7640,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultFov: 80
   zoomFov: 40
+  zoomEnabled:
+    m_PersistentCalls:
+      m_Calls: []
+  zoomDisabled:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2099348608
 GameObject:
   m_ObjectHideFlags: 0

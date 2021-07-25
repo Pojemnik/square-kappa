@@ -498,7 +498,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54ce57977372e6141ae3558511283888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraSensitivity: 0.4
+  defaultCameraSensitivity: 0.4
+  zoomCameraSensitivity: 0.2
   owner: {fileID: 9028151093970926094}
 --- !u!114 &7690006316975347338
 MonoBehaviour:
