@@ -403,6 +403,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1073613844358899096}
   - component: {fileID: 8633829347163807104}
+  - component: {fileID: 7012861412752311551}
   m_Layer: 7
   m_Name: Man01
   m_TagString: Enemy
@@ -452,6 +453,33 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7012861412752311551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409245610643062562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c95b3d88e73af7c4ea231817ee0b8783, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reloadEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1280456608684126228}
+        m_TargetAssemblyTypeName: UnitShooting, Assembly-CSharp
+        m_MethodName: OnReloadEnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &424987176464563151
 GameObject:
   m_ObjectHideFlags: 0
@@ -4784,13 +4812,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ceb24ab272efbf342a845e1867d1da1d, type: 3}
---- !u!1 &1927892883638353971 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3012900984055462335, guid: ceb24ab272efbf342a845e1867d1da1d, type: 3}
-  m_PrefabInstance: {fileID: 3679081525385132428}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6022291784481735182 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6961935415792237442, guid: ceb24ab272efbf342a845e1867d1da1d, type: 3}
+  m_PrefabInstance: {fileID: 3679081525385132428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1927892883638353971 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3012900984055462335, guid: ceb24ab272efbf342a845e1867d1da1d, type: 3}
   m_PrefabInstance: {fileID: 3679081525385132428}
   m_PrefabAsset: {fileID: 0}

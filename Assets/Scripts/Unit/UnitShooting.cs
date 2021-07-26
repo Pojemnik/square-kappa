@@ -12,9 +12,9 @@ public class UnitShooting : MonoBehaviour
     {
         get
         {
-            if(weaponController != null)
+            if (weaponController != null)
             {
-                if(!weaponController.AttackAvailable())
+                if (!weaponController.AttackAvailable())
                 {
                     return true;
                 }
@@ -39,16 +39,18 @@ public class UnitShooting : MonoBehaviour
     private new Rigidbody rigidbody;
     private WeaponController weaponController = null;
     private Dictionary<WeaponConfig.WeaponType, int> allAmmo;
+    private bool reloading;
 
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
         allAmmo = new Dictionary<WeaponConfig.WeaponType, int>();
-        foreach(WeaponConfig.WeaponType type in System.Enum.GetValues(typeof(WeaponConfig.WeaponType)))
+        foreach (WeaponConfig.WeaponType type in System.Enum.GetValues(typeof(WeaponConfig.WeaponType)))
         {
             allAmmo.Add(type, 0);
         }
         allAmmo[WeaponConfig.WeaponType.Rifle] = startChemirailAmmo;
+        reloading = false;
     }
 
     public void ChangeWeaponController(WeaponController newController)
@@ -69,7 +71,7 @@ public class UnitShooting : MonoBehaviour
     {
         if (weaponController != null)
         {
-            if (weaponController.AttackAvailable())
+            if (weaponController.AttackAvailable() && !reloading)
             {
                 weaponController.StartAttack();
                 owner.AnimationController.SetStaticState("Fire");
@@ -88,28 +90,43 @@ public class UnitShooting : MonoBehaviour
 
     public void Reload()
     {
+        if (reloading)
+        {
+            return;
+        }
+        if (!infiniteAmmo && allAmmo[weaponController.Config.type] == 0)
+        {
+            //No ammo to add
+            return;
+        }
+        reloading = true;
+        owner.AnimationController.SetState("Reload");
+    }
+
+    public void PickUpAmmo(WeaponConfig.WeaponType type, int amount)
+    {
+        allAmmo[type] += amount;
+    }
+
+    public void OnReloadEnd()
+    {
         if (infiniteAmmo || allAmmo[weaponController.Config.type] >= weaponController.Config.maxAmmo)
         {
+
             int ammoLeft = weaponController.Reload(weaponController.Config.maxAmmo);
             allAmmo[weaponController.Config.type] -= weaponController.Config.maxAmmo;
             allAmmo[weaponController.Config.type] += ammoLeft;
         }
         else
         {
-            if(allAmmo[weaponController.Config.type] == 0)
-            {
-                //No ammo to add
-                return;
-            }
             int ammoLeft = weaponController.Reload(allAmmo[weaponController.Config.type]);
             allAmmo[weaponController.Config.type] = ammoLeft;
         }
-        weaponController.SetTotalAmmo(allAmmo[weaponController.Config.type]);
-    }
-
-    public void PickUpAmmo(WeaponConfig.WeaponType type, int amount)
-    {
-        allAmmo[type] += amount;
+        if (!infiniteAmmo)
+        {
+            weaponController.SetTotalAmmo(allAmmo[weaponController.Config.type]);
+        }
+        reloading = false;
     }
 
     private void OnWeaponShoot()
@@ -118,7 +135,7 @@ public class UnitShooting : MonoBehaviour
         {
             rigidbody.AddForce(-transform.up * weaponController.Config.backwardsForce);
         }
-        if(!weaponController.AttackAvailable())
+        if (!weaponController.AttackAvailable())
         {
             StopFire();
         }
