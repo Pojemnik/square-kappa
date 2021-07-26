@@ -44,8 +44,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private bool enableRagdoll;
     [SerializeField]
-    [Tooltip("Maximum force applied to every rigidbody in a ragdoll on its start")]
-    private float maxForce;
+    private GameObject ragdollPrefab;
 
     private EnemyManager manager;
     private VisionGizmoCore gizmo;
@@ -66,9 +65,10 @@ public class EnemyController : MonoBehaviour
     private void StartRagdoll()
     {
         DropWeapon();
+        Instantiate(ragdollPrefab, transform.position, transform.rotation);
         DeactivateComponents();
         manager.RemoveEnemy(gameObject);
-        enabled = false;
+        Destroy(gameObject);
     }
 
     private void DeactivateComponents()
@@ -107,7 +107,7 @@ public class EnemyController : MonoBehaviour
         shooting.ChangeWeaponController(weapon.GetComponent<WeaponController>());
         shooting.IgnoreRecoil = true;
         unitController.movement.cameraAiming = false;
-        layerMask = (1 << 7) | (1 << 8) | (1 << 9);
+        layerMask = (1 << 7) | (1 << 8) | (1 << 9) | (1 << 10);
         layerMask = ~layerMask;
 #if UNITY_EDITOR
         gizmo = new VisionGizmoCore();
