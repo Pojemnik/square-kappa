@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: AsteroidFragmentsSet
   m_EditorClassIdentifier: 
   framgents:
-  - {fileID: 6961237039126682592, guid: a88ab8a6781bd834ebfebccf4bf464d8, type: 3}
-  - {fileID: 6571330703851716118, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
+  - {fileID: 7923396389867140182, guid: fcc44363573831d4ab01bc259252f828, type: 3}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c96c76d1754e18409991964d0712519, type: 3}
+  m_Name: WindowFragmentsSet
+  m_EditorClassIdentifier: 
+  framgents:
+  - {fileID: 378804978160642091, guid: 53b3c1146bdc87b409ae426fe49f541d, type: 3}
+  - {fileID: 5931455630563852103, guid: d4154e6c16e1f5d4385b6a2c70d6389f, type: 3}
+  - {fileID: 477505737366566817, guid: 2582414cf43f60149be009b5edb81dbf, type: 3}
+  - {fileID: 9009250387588069402, guid: 48fb37ca01465784891499481f258425, type: 3}
+  - {fileID: 2352188048986181694, guid: bcca7145a5599ea4087ab4ea0e22bcae, type: 3}
+  - {fileID: 2515173964105324275, guid: 4a7ded9dd65276a41a320c6fb4534005, type: 3}

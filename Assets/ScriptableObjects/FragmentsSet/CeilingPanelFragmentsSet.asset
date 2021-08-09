@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c96c76d1754e18409991964d0712519, type: 3}
+  m_Name: CeilingPanelFragmentsSet
+  m_EditorClassIdentifier: 
+  framgents:
+  - {fileID: 331040171870479361, guid: f3f010de038e9344d817c25ec2d34c72, type: 3}
+  - {fileID: 6512694079023401133, guid: b16732b0f92a230408e2d2a4b0efbf1e, type: 3}
+  - {fileID: 7773835171982243779, guid: 7eca38c10f0515046bfface8fd03c482, type: 3}
+  - {fileID: 8894540114706886179, guid: 76d97f567cf9d9e4aa0e80b6b7bdae1b, type: 3}
