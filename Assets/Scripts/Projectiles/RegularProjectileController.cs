@@ -69,7 +69,8 @@ public class RegularProjectileController : ProjectileController
         Health othersHealth = topParent.gameObject.GetComponent<Health>();
         if (othersHealth != null)
         {
-            othersHealth.Damaged(new DamageInfo(damage, direction));
+            ContactPoint contact = collision.GetContact(0);
+            othersHealth.Damaged(new DamageInfo(damage, direction, contact.point, contact.normal));
         }
         Destroy(Instantiate(hitEffectPrefab, collision.GetContact(0).point, Quaternion.Euler(collision.GetContact(0).normal)), 5);
         Destroy(gameObject);

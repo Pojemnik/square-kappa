@@ -18,6 +18,10 @@ public class Health : MonoBehaviour
     [Tooltip("Amount of damage subrtacted from every hit")]
     [Min(0)]
     private int armor;
+    [SerializeField]
+    private GameObject hitProjectilePrefab;
+    [SerializeField]
+    private GameObject destructionProjectilePrefab;
 
     [Header("Events")]
     public UnityEvent deathEvent;
@@ -41,13 +45,21 @@ public class Health : MonoBehaviour
         if(info.amount < 0)
         {
             info.amount = 0;
-        }    
+        }
+        if (hitProjectilePrefab != null)
+        {
+            Instantiate(hitProjectilePrefab, info.position, Quaternion.LookRotation(info.normal));
+        }
         currentHealth -= info.amount;
         healthChangeEvent.Invoke(currentHealth);
         damageEvent.Invoke(info);
         if(currentHealth <= 0)
         {
             currentHealth = 0;
+            if (destructionProjectilePrefab != null)
+            {
+                Instantiate(destructionProjectilePrefab, transform.position, transform.rotation);
+            }
             deathEvent.Invoke();
         }
     }
@@ -58,10 +70,14 @@ public struct DamageInfo
 {
     public int amount;
     public Vector3 direction;
+    public Vector3 position;
+    public Vector3 normal;
 
-    public DamageInfo(int _amount, Vector3 _direction)
+    public DamageInfo(int _amount, Vector3 _direction, Vector3 _position, Vector3 _normal)
     {
         amount = _amount;
         direction = _direction;
+        position = _position;
+        normal = _normal;
     }
 }

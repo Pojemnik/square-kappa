@@ -14,6 +14,19 @@ public class MeleWeaponController : WeaponController
 
     public override float Spread { get => 0; }
 
+    [SerializeField]
+    private MeleWeaponConfig meleConfig;
+
+    private UnityEvent attackEvent;
+    private Quaternion attackDirection;
+    private bool attacking;
+    private float attackCooldown;
+    private bool nextCollisionIsAttack;
+    private Coroutine stopCoroutine;
+    private GameObject currentCollision;
+    private Vector3 contactPoint;
+    private int mask;
+
     public override void StartAttack()
     {
         attacking = true;
@@ -28,16 +41,6 @@ public class MeleWeaponController : WeaponController
         attacking = false;
         stopCoroutine = StartCoroutine(StopAttackCoroutine());
     }
-
-    [SerializeField]
-    private MeleWeaponConfig meleConfig;
-    private UnityEvent attackEvent;
-    private Quaternion attackDirection;
-    private bool attacking;
-    private float attackCooldown;
-    private bool nextCollisionIsAttack;
-    private Coroutine stopCoroutine;
-    private GameObject currentCollision;
 
     private void Attack()
     {
@@ -54,10 +57,20 @@ public class MeleWeaponController : WeaponController
         }
         return transform.gameObject;
     }
+    private Vector3 GetPointOfContact(Vector3 target)
+    {
+        if (Physics.Raycast(transform.position, target - transform.position, out RaycastHit hit, float.PositiveInfinity, mask))
+        {
+            return hit.point;
+        }
+        Debug.LogError("Mele weapon hit error");
+        return Vector3.zero;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         currentCollision = other.gameObject;
+        contactPoint = GetPointOfContact(currentCollision.transform.position);
     }
 
     private void OnTriggerExit(Collider other)
@@ -68,6 +81,7 @@ public class MeleWeaponController : WeaponController
     private void Awake()
     {
         attackEvent = new UnityEvent();
+        mask = ~(1 << gameObject.layer);
     }
 
     private void FixedUpdate()
@@ -87,8 +101,9 @@ public class MeleWeaponController : WeaponController
             Health targetsHealth = topParent.GetComponent<Health>();
             if (targetsHealth != null)
             {
-                //Change direction, when mele ememies are added
-                targetsHealth.Damaged(new DamageInfo(meleConfig.damage, transform.forward));
+                //Change direction when mele ememies are added
+                Vector3 normal = (transform.position - currentCollision.transform.position).normalized;
+                targetsHealth.Damaged(new DamageInfo(meleConfig.damage, transform.forward, contactPoint, normal));
             }
             nextCollisionIsAttack = false;
         }
