@@ -11,7 +11,15 @@ public class DamageEvent : UnityEvent<DamageInfo> {}
 
 public class Health : MonoBehaviour
 {
-    public int maxHealth;
+    [Header("Parameters")]
+    [SerializeField]
+    private int maxHealth;
+    [SerializeField]
+    [Tooltip("Amount of damage subrtacted from every hit")]
+    [Min(0)]
+    private int armor;
+
+    [Header("Events")]
     public UnityEvent deathEvent;
     public IntEvent healthChangeEvent;
     public DamageEvent damageEvent;
@@ -29,6 +37,11 @@ public class Health : MonoBehaviour
         {
             return;
         }
+        info.amount -= armor;
+        if(info.amount < 0)
+        {
+            info.amount = 0;
+        }    
         currentHealth -= info.amount;
         healthChangeEvent.Invoke(currentHealth);
         damageEvent.Invoke(info);
