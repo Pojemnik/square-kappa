@@ -4,19 +4,64 @@ using UnityEngine;
 
 namespace AI
 {
-    public class BasePatrolState : BaseState
+    public class PatrolBaseState : BaseState
     {
         protected readonly AIPathNode pathNode;
         protected PatrolAIConfig config;
 
-        public BasePatrolState(AIPathNode node, PatrolAIConfig aiConfig) : base()
+        public PatrolBaseState(AIPathNode node, PatrolAIConfig aiConfig) : base()
         {
             pathNode = node;
             config = aiConfig;
         }
+
+        public override void Damaged(DamageInfo info)
+        {
+            base.Damaged(info);
+            owner.ChangeState(new PatrolDamageCheckState(pathNode, config, info.direction));
+            Debug.Log("Look for damage source");
+        }
+
+        public override void Update()
+        {
+            base.Update();
+            if (TargetVisible(owner.enemyController.target.layer))
+            {
+                Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
+                owner.ChangeState(new ChaseState(pathNode, config));
+            }
+        }
+
+        protected bool CheckForObstacle()
+        {
+            Vector3 position = owner.transform.position;
+            Vector3 towardsTarget = pathNode.transform.position - position;
+            const int layerMask = ~((1 << 7) | (1 << 9));
+            return Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, layerMask);
+        }
+
+        protected void CheckForObstacleAndWaitIfNeeded()
+        {
+            if (CheckForObstacle())
+            {
+                Debug.Log(string.Format("Obstacle on course of enemy {0}. Waiting", pathNode));
+                owner.ChangeState(new WaitState(pathNode, config));
+                return;
+            }
+        }
+
+        protected void CheckForObstacleAndStopIfNeeded()
+        {
+            if (CheckForObstacle())
+            {
+                Debug.Log(string.Format("Obstacle on course of enemy {0}. Stopping", pathNode));
+                owner.ChangeState(new EmergencyStopState(pathNode, config));
+                return;
+            }
+        }
     }
 
-    public class RotateTowardsPointState : BasePatrolState
+    public class RotateTowardsPointState : PatrolBaseState
     {
         private Quaternion startDirection;
         private Quaternion targetDirection;
@@ -30,9 +75,7 @@ namespace AI
         public override void Enter()
         {
             base.Enter();
-            Vector3 position = owner.transform.position;
-            Vector3 targetPosition = pathNode.transform.position;
-            targetDirection = Quaternion.LookRotation(targetPosition - position);
+            targetDirection = Quaternion.LookRotation(pathNode.transform.position - owner.transform.position);
             startDirection = owner.transform.rotation * Quaternion.Euler(-90, 0, 0);
             startTime = Time.time;
             duration = Quaternion.Angle(targetDirection, startDirection) / config.rotationalSpeed;
@@ -46,34 +89,21 @@ namespace AI
                 return;
             }
             float t = (Time.time - startTime) / duration;
-            Vector3 position = owner.transform.position;
             if (t >= 1)
             {
-                Vector3 towardsTarget = pathNode.transform.position - position;
-                const int layerMask = ~((1 << 7) | (1 << 9));
-                if (Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, layerMask))
-                {
-                    //Obstacle
-                    Debug.Log(string.Format("Obstacle on course of enemy {0}. Stopping", pathNode));
-                    owner.ChangeState(new WaitState(pathNode, config));
-                    return;
-                }
-                Debug.Log(string.Format("Finished rotating at point {0}. Starting movement", pathNode));
+                CheckForObstacleAndWaitIfNeeded();
+                //Debug.Log(string.Format("Finished rotating at point {0}. Starting movement", pathNode));
                 owner.ChangeState(new AccelerateTowardsPointState(pathNode, config));
             }
             else
             {
                 movement.SetLookTarget(Quaternion.Slerp(startDirection, targetDirection, t));
             }
-            if (TargetVisible(owner.enemyController.target.layer))
-            {
-                Debug.DrawLine(position, owner.enemyController.target.transform.position, Color.red);
-                owner.ChangeState(new ChaseState(pathNode, config));
-            }
+            base.Update();
         }
     }
 
-    public class AccelerateTowardsPointState : BasePatrolState
+    public class AccelerateTowardsPointState : PatrolBaseState
     {
 
         public AccelerateTowardsPointState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
@@ -101,15 +131,8 @@ namespace AI
             Vector3 position = owner.transform.position;
             Vector3 targetPosition = pathNode.transform.position;
             Debug.DrawLine(position, targetPosition, Color.cyan);
-            Vector3 towardsTarget = targetPosition - position;
-            const int layerMask = ~((1 << 7) | (1 << 9));
-            if (Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, layerMask))
-            {
-                //Obstacle
-                Debug.Log(string.Format("Obstacle on course of enemy {0}. Stopping", pathNode));
-                owner.ChangeState(new EmergencyStopState(pathNode, config));
-                return;
-            }
+            Vector3 towardsTarget = pathNode.transform.position - position;
+            CheckForObstacleAndStopIfNeeded();
             if (movement.Velocity.magnitude < config.actualMovementSpeed)
             {
                 movement.MoveInGlobalCoordinatesIgnoringSpeed(towardsTarget.normalized * config.acceleration);
@@ -126,19 +149,9 @@ namespace AI
                 owner.ChangeState(new GlideTowardsPointState(pathNode, config));
             }
         }
-
-        public override void Update()
-        {
-            base.Update();
-            if (TargetVisible(owner.enemyController.target.layer))
-            {
-                Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
-                owner.ChangeState(new ChaseState(pathNode, config));
-            }
-        }
     }
 
-    public class GlideTowardsPointState : BasePatrolState
+    public class GlideTowardsPointState : PatrolBaseState
     {
         public GlideTowardsPointState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
@@ -150,14 +163,7 @@ namespace AI
             Vector3 targetPosition = pathNode.transform.position;
             Debug.DrawLine(position, targetPosition, Color.cyan);
             Vector3 towardsTarget = targetPosition - position;
-            const int layerMask = ~((1 << 7) | (1 << 9));
-            if (Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, layerMask))
-            {
-                //Obstacle
-                Debug.Log(string.Format("Obstacle on course of enemy {0}. Stopping", pathNode));
-                owner.ChangeState(new EmergencyStopState(pathNode, config));
-                return;
-            }
+            CheckForObstacleAndStopIfNeeded();
             if (movement.Velocity.magnitude < config.actualMovementSpeed)
             {
                 movement.MoveInGlobalCoordinatesIgnoringSpeed(towardsTarget.normalized * (config.actualMovementSpeed - movement.Velocity.magnitude));
@@ -178,19 +184,9 @@ namespace AI
                 }
             }
         }
-
-        public override void Update()
-        {
-            base.Update();
-            if (TargetVisible(owner.enemyController.target.layer))
-            {
-                Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
-                owner.ChangeState(new ChaseState(pathNode, config));
-            }
-        }
     }
 
-    public class DecelerateTowardsPointState : BasePatrolState
+    public class DecelerateTowardsPointState : PatrolBaseState
     {
         public DecelerateTowardsPointState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
@@ -202,13 +198,7 @@ namespace AI
             Vector3 targetPosition = pathNode.transform.position;
             Debug.DrawLine(position, targetPosition, Color.cyan);
             Vector3 towardsTarget = targetPosition - position;
-            const int layerMask = ~((1 << 7) | (1 << 9));
-            if (Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, layerMask))
-            {
-                //Obstacle
-                owner.ChangeState(new EmergencyStopState(pathNode, config));
-                return;
-            }
+            CheckForObstacleAndStopIfNeeded();
             //Stopped or overshot
             if (movement.Velocity.magnitude <= config.speedEpsilon || Vector3.Angle(towardsTarget, movement.Velocity) > 170)
             {
@@ -227,18 +217,9 @@ namespace AI
                 }
             }
         }
-
-        public override void Update()
-        {
-            base.Update();
-            if (TargetVisible(owner.enemyController.target.layer))
-            {
-                Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
-            }
-        }
     }
 
-    public class EmergencyStopState : BasePatrolState
+    public class EmergencyStopState : PatrolBaseState
     {
         public EmergencyStopState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
@@ -263,9 +244,14 @@ namespace AI
                 movement.MoveInGlobalCoordinatesIgnoringSpeed(-movement.Velocity.normalized * config.acceleration);
             }
         }
+
+        public override void Update()
+        {
+            //Not calling base, ignore player in sight
+        }
     }
 
-    public class WaitState : BasePatrolState
+    public class WaitState : PatrolBaseState
     {
         public WaitState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
@@ -284,15 +270,11 @@ namespace AI
                 owner.ChangeState(new RotateTowardsPointState(pathNode, config));
                 return;
             }
-            if (TargetVisible(owner.enemyController.target.layer))
-            {
-                Debug.DrawLine(position, owner.enemyController.target.transform.position, Color.red);
-                owner.ChangeState(new ChaseState(pathNode, config));
-            }
+            base.Update();
         }
     }
 
-    public class LookAroundPatrolState : BasePatrolState
+    public class LookAroundPatrolState : PatrolBaseState
     {
         private Quaternion[] lookTargets;
         private Quaternion startDirection;
@@ -319,7 +301,6 @@ namespace AI
         public override void Update()
         {
             float t = (Time.time - startTime) / duration;
-            Vector3 position = owner.transform.position;
             if (t >= 1)
             {
                 if (++targetIndex == lookTargets.Length)
@@ -337,11 +318,7 @@ namespace AI
             {
                 movement.SetLookTarget(Quaternion.Slerp(startDirection, lookTargets[targetIndex], t));
             }
-            if (TargetVisible(owner.enemyController.target.layer))
-            {
-                Debug.DrawLine(position, owner.enemyController.target.transform.position, Color.red);
-                owner.ChangeState(new ChaseState(pathNode, config));
-            }
+            base.Update();
         }
 
         private void ChangeLookTarget(int index)
@@ -352,7 +329,7 @@ namespace AI
         }
     }
 
-    public class ChaseState : BasePatrolState
+    public class ChaseState : PatrolBaseState
     {
         private UnitShooting shooting;
         private AIShootingRules shootingRules;
@@ -489,7 +466,7 @@ namespace AI
             else
             {
                 shooting.StopFire();
-                owner.ChangeState(new RotateTowardsPointState(pathNode.next, config));
+                owner.ChangeState(new EmergencyStopState(pathNode, config));
             }
         }
 
@@ -497,6 +474,78 @@ namespace AI
         {
             base.Exit();
             movement.UseDrag = false;
+        }
+
+        public override void Damaged(DamageInfo info)
+        {
+            //Do not call base, ignore damage
+        }
+    }
+
+    public class PatrolDamageCheckState : PatrolBaseState
+    {
+        private Quaternion startDirection;
+        private Quaternion targetDirection;
+        private float startTime;
+        private float duration;
+        private Vector3 hitDirection;
+        private bool stopped;
+
+        public PatrolDamageCheckState(AIPathNode node, PatrolAIConfig aiConfig, Vector3 _hitDirection) : base(node, aiConfig)
+        {
+            hitDirection = _hitDirection;
+            stopped = false;
+        }
+
+        private void ChangeLookTarget(Quaternion target)
+        {
+            startDirection = owner.transform.rotation * Quaternion.Euler(-90, 0, 0);
+            startTime = Time.time;
+            duration = Quaternion.Angle(target, startDirection) / config.rotationalSpeed;
+            if (duration == 0)
+            {
+                duration = 1;
+            }
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            targetDirection = Quaternion.LookRotation(-hitDirection);
+            ChangeLookTarget(targetDirection);
+        }
+
+        public override void Update()
+        {
+            float t = (Time.time - startTime) / duration;
+            if (t >= 1)
+            {
+                Debug.Log("Damage source not found, back to looking around");
+                if (stopped)
+                {
+                    owner.ChangeState(new RotateTowardsPointState(pathNode, config));
+                }
+            }
+            else
+            {
+                movement.SetLookTarget(Quaternion.Slerp(startDirection, targetDirection, t));
+            }
+            base.Update();
+        }
+
+        public override void PhysicsUpdate()
+        {
+            //Stopped or overshot
+            if (movement.Velocity.magnitude <= config.speedEpsilon)
+            {
+                movement.MoveRelativeToCamera(Vector3.zero);
+                movement.MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(-movement.Velocity);
+                stopped = true;
+            }
+            else
+            {
+                movement.MoveInGlobalCoordinatesIgnoringSpeed(-movement.Velocity.normalized * config.acceleration);
+            }
         }
     }
 }
