@@ -49,9 +49,34 @@ namespace AI
         public virtual void Update() { }
         public virtual void PhysicsUpdate() { }
         public virtual void Exit() { }
+        public virtual void Damaged(DamageInfo info) { }
     }
 
-    public class StaticShootState : BaseState
+    public class BaseStaticState : BaseState
+    {
+        protected readonly AIPathNode pathNode;
+        protected StaticAIConfig config;
+
+        public BaseStaticState(AIPathNode node, StaticAIConfig aiConfig)
+        {
+            pathNode = node;
+            config = aiConfig;
+        }
+    }
+
+    public class BasePatrolState : BaseState
+    {
+        protected readonly AIPathNode pathNode;
+        protected PatrolAIConfig config;
+
+        public BasePatrolState(AIPathNode node, PatrolAIConfig aiConfig)
+        {
+            pathNode = node;
+            config = aiConfig;
+        }
+    }
+
+    public class StaticShootState : BaseStaticState
     {
         private UnitShooting shooting;
         private AIShootingRules shootingRules;
@@ -59,13 +84,9 @@ namespace AI
         private AIShootingMode lastShootingMode;
         private bool lastShoot;
         private float phaseTime;
-        private readonly AIPathNode pathNode;
-        private StaticAIConfig config;
 
-        public StaticShootState(AIPathNode node, StaticAIConfig aIConfig)
+        public StaticShootState(AIPathNode node, StaticAIConfig aiConfig) : base(node, aiConfig)
         {
-            pathNode = node;
-            config = aIConfig;
         }
 
         private void UpdateShooting()
@@ -169,19 +190,15 @@ namespace AI
         }
     }
 
-    public class RotateTowardsPointState : BaseState
+    public class RotateTowardsPointState : BasePatrolState
     {
-        private readonly AIPathNode pathNode;
-        private readonly PatrolAIConfig config;
         private Quaternion startDirection;
         private Quaternion targetDirection;
         private float startTime;
         private float duration;
 
-        public RotateTowardsPointState(AIPathNode node, PatrolAIConfig aIConfig)
+        public RotateTowardsPointState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
-            pathNode = node;
-            config = aIConfig;
         }
 
         public override void Enter()
@@ -230,15 +247,11 @@ namespace AI
         }
     }
 
-    public class AccelerateTowardsPointState : BaseState
+    public class AccelerateTowardsPointState : BasePatrolState
     {
-        private readonly AIPathNode pathNode;
-        private PatrolAIConfig config;
 
-        public AccelerateTowardsPointState(AIPathNode node, PatrolAIConfig aIConfig)
+        public AccelerateTowardsPointState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
-            pathNode = node;
-            config = aIConfig;
         }
 
         public override void Enter()
@@ -299,15 +312,10 @@ namespace AI
         }
     }
 
-    public class GlideTowardsPointState : BaseState
+    public class GlideTowardsPointState : BasePatrolState
     {
-        private readonly AIPathNode pathNode;
-        private readonly PatrolAIConfig config;
-
-        public GlideTowardsPointState(AIPathNode node, PatrolAIConfig aIConfig)
+        public GlideTowardsPointState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
-            pathNode = node;
-            config = aIConfig;
         }
 
         public override void PhysicsUpdate()
@@ -356,15 +364,10 @@ namespace AI
         }
     }
 
-    public class DecelerateTowardsPointState : BaseState
+    public class DecelerateTowardsPointState : BasePatrolState
     {
-        private readonly AIPathNode pathNode;
-        private readonly PatrolAIConfig config;
-
-        public DecelerateTowardsPointState(AIPathNode node, PatrolAIConfig aIConfig)
+        public DecelerateTowardsPointState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
-            pathNode = node;
-            config = aIConfig;
         }
 
         public override void PhysicsUpdate()
@@ -409,15 +412,10 @@ namespace AI
         }
     }
 
-    public class EmergencyStopState : BaseState
+    public class EmergencyStopState : BasePatrolState
     {
-        private readonly AIPathNode pathNode;
-        private readonly PatrolAIConfig config;
-
-        public EmergencyStopState(AIPathNode node, PatrolAIConfig aIConfig)
+        public EmergencyStopState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
-            pathNode = node;
-            config = aIConfig;
             Debug.Log("Emergency stop");
         }
 
@@ -441,15 +439,10 @@ namespace AI
         }
     }
 
-    public class WaitState : BaseState
+    public class WaitState : BasePatrolState
     {
-        private readonly AIPathNode pathNode;
-        private PatrolAIConfig config;
-
-        public WaitState(AIPathNode node, PatrolAIConfig aIConfig)
+        public WaitState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
-            pathNode = node;
-            config = aIConfig;
         }
 
         public override void Update()
@@ -473,20 +466,16 @@ namespace AI
         }
     }
 
-    public class LookAroundPatrolState : BaseState
+    public class LookAroundPatrolState : BasePatrolState
     {
-        private readonly AIPathNode pathNode;
-        private PatrolAIConfig config;
         private Quaternion[] lookTargets;
         private Quaternion startDirection;
         private float startTime;
         private float duration;
         private int targetIndex;
 
-        public LookAroundPatrolState(AIPathNode node, PatrolAIConfig aIConfig)
+        public LookAroundPatrolState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
-            pathNode = node;
-            config = aIConfig;
         }
 
         public override void Enter()
@@ -537,20 +526,16 @@ namespace AI
         }
     }
 
-    public class StaticLookAroundState : BaseState
+    public class StaticLookAroundState : BaseStaticState
     {
-        private readonly AIPathNode pathNode;
-        private StaticAIConfig config;
         private Quaternion[] lookTargets;
         private Quaternion startDirection;
         private float startTime;
         private float duration;
         private int targetIndex;
 
-        public StaticLookAroundState(AIPathNode node, StaticAIConfig aIConfig)
+        public StaticLookAroundState(AIPathNode node, StaticAIConfig aiConfig) : base(node, aiConfig)
         {
-            pathNode = node;
-            config = aIConfig;
         }
 
         public override void Enter()
@@ -600,7 +585,7 @@ namespace AI
         }
     }
 
-    public class ChaseState : BaseState
+    public class ChaseState : BasePatrolState
     {
         private UnitShooting shooting;
         private AIShootingRules shootingRules;
@@ -608,13 +593,9 @@ namespace AI
         private AIShootingMode lastShootingMode;
         private bool lastShoot;
         private float phaseTime;
-        private readonly AIPathNode pathNode;
-        private PatrolAIConfig config;
 
-        public ChaseState(AIPathNode node, PatrolAIConfig aIConfig)
+        public ChaseState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
-            pathNode = node;
-            config = aIConfig;
         }
 
         private void UpdateShooting()
