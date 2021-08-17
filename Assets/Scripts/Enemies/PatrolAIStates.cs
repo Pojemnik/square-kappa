@@ -89,15 +89,15 @@ namespace AI
                 return;
             }
             float t = (Time.time - startTime) / duration;
-            if (t >= 1)
+            if (t < 1)
             {
-                CheckForObstacleAndWaitIfNeeded();
-                //Debug.Log(string.Format("Finished rotating at point {0}. Starting movement", pathNode));
-                owner.ChangeState(new AccelerateTowardsPointState(pathNode, config));
+                movement.SetLookTarget(Quaternion.Slerp(startDirection, targetDirection, t));
             }
             else
             {
-                movement.SetLookTarget(Quaternion.Slerp(startDirection, targetDirection, t));
+                //Rotation finished, accelerate
+                CheckForObstacleAndWaitIfNeeded();
+                owner.ChangeState(new AccelerateTowardsPointState(pathNode, config));
             }
             base.Update();
         }
@@ -113,15 +113,15 @@ namespace AI
         public override void Enter()
         {
             base.Enter();
-            Vector3 towardsTarget = pathNode.transform.position - owner.transform.position;
-            if (config.maxMovementSpeed * config.maxMovementSpeed / config.acceleration > towardsTarget.magnitude)
+            float distanceToTarget = (pathNode.transform.position - owner.transform.position).magnitude;
+            if (config.maxMovementSpeed * config.maxMovementSpeed / config.acceleration <= distanceToTarget)
             {
-                //actual speed != max speed
-                config.actualMovementSpeed = Mathf.Sqrt(1.5F * towardsTarget.magnitude * config.acceleration);
+                config.actualMovementSpeed = config.maxMovementSpeed;
             }
             else
             {
-                config.actualMovementSpeed = config.maxMovementSpeed;
+                //actualMovementSpeed should be less than maxMovementSpeed
+                config.actualMovementSpeed = Mathf.Sqrt(1.5F * distanceToTarget * config.acceleration);
             }
             Debug.Log(string.Format("Actual speed set to {0}", config.actualMovementSpeed));
         }
@@ -130,24 +130,31 @@ namespace AI
         {
             Vector3 position = owner.transform.position;
             Vector3 targetPosition = pathNode.transform.position;
-            Debug.DrawLine(position, targetPosition, Color.cyan);
             Vector3 towardsTarget = pathNode.transform.position - position;
             CheckForObstacleAndStopIfNeeded();
             if (movement.Velocity.magnitude < config.actualMovementSpeed)
             {
-                movement.MoveInGlobalCoordinatesIgnoringSpeed(towardsTarget.normalized * config.acceleration);
-                //Not moving towards target
                 if (Vector3.Angle(movement.Velocity, towardsTarget) > 5)
                 {
+                    //Not moving towards target
                     owner.ChangeState(new EmergencyStopState(pathNode, config));
+                    return;
                 }
+                movement.MoveInGlobalCoordinatesIgnoringSpeed(towardsTarget.normalized * config.acceleration);
             }
             else
             {
-                Debug.Log(string.Format("Accelaration towards point {0} finished. Starting glide", pathNode));
-                movement.MoveRelativeToCamera(Vector3.zero);
-                owner.ChangeState(new GlideTowardsPointState(pathNode, config));
+                //Target speed reached
+                StartGlide();
             }
+            Debug.DrawLine(position, targetPosition, Color.cyan);
+        }
+
+        private void StartGlide()
+        {
+            Debug.Log(string.Format("Accelaration towards point {0} finished. Starting glide", pathNode));
+            movement.MoveRelativeToCamera(Vector3.zero);
+            owner.ChangeState(new GlideTowardsPointState(pathNode, config));
         }
     }
 
@@ -161,19 +168,19 @@ namespace AI
         {
             Vector3 position = owner.transform.position;
             Vector3 targetPosition = pathNode.transform.position;
-            Debug.DrawLine(position, targetPosition, Color.cyan);
             Vector3 towardsTarget = targetPosition - position;
             CheckForObstacleAndStopIfNeeded();
             if (movement.Velocity.magnitude < config.actualMovementSpeed)
             {
-                movement.MoveInGlobalCoordinatesIgnoringSpeed(towardsTarget.normalized * (config.actualMovementSpeed - movement.Velocity.magnitude));
+                //Too slow - speed up
+                float speedDelta = config.actualMovementSpeed - movement.Velocity.magnitude;
+                movement.MoveInGlobalCoordinatesIgnoringSpeed(towardsTarget.normalized * speedDelta);
             }
             //s = v0^2/a - 1/2*v0^2/a - point at which enemy has to start deceleration
-            if (towardsTarget.magnitude <= config.actualMovementSpeed * config.actualMovementSpeed / config.acceleration - config.actualMovementSpeed * config.actualMovementSpeed / config.acceleration * 0.5F)
+            float stopDistance = config.actualMovementSpeed * config.actualMovementSpeed / config.acceleration - config.actualMovementSpeed * config.actualMovementSpeed / config.acceleration * 0.5F;
+            if (towardsTarget.magnitude <= stopDistance)
             {
-                Debug.Log(string.Format("Gliding towards point {0} finished. Starting deceleration", pathNode));
-                movement.MoveRelativeToCamera(Vector3.zero);
-                owner.ChangeState(new DecelerateTowardsPointState(pathNode, config));
+                StartDeceleration();
             }
             else
             {
@@ -183,6 +190,14 @@ namespace AI
                     owner.ChangeState(new EmergencyStopState(pathNode, config));
                 }
             }
+            Debug.DrawLine(position, targetPosition, Color.cyan);
+        }
+
+        private void StartDeceleration()
+        {
+            Debug.Log(string.Format("Gliding towards point {0} finished. Starting deceleration", pathNode));
+            movement.MoveRelativeToCamera(Vector3.zero);
+            owner.ChangeState(new DecelerateTowardsPointState(pathNode, config));
         }
     }
 
@@ -196,26 +211,32 @@ namespace AI
         {
             Vector3 position = owner.transform.position;
             Vector3 targetPosition = pathNode.transform.position;
-            Debug.DrawLine(position, targetPosition, Color.cyan);
             Vector3 towardsTarget = targetPosition - position;
             CheckForObstacleAndStopIfNeeded();
-            //Stopped or overshot
-            if (movement.Velocity.magnitude <= config.speedEpsilon || Vector3.Angle(towardsTarget, movement.Velocity) > 170)
+            if (movement.Velocity.magnitude > config.speedEpsilon && Vector3.Angle(towardsTarget, movement.Velocity) <= 170)
             {
-                movement.MoveRelativeToCamera(Vector3.zero);
-                movement.MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(-movement.Velocity);
-                Debug.Log(string.Format("Deceleration towards point {0} finished. Starting looking around", pathNode));
-                owner.ChangeState(new LookAroundPatrolState(pathNode, config));
+                if (Vector3.Angle(movement.Velocity, towardsTarget) > 5 && towardsTarget.magnitude > 1)
+                {
+                    //Not moving towards target
+                    owner.ChangeState(new EmergencyStopState(pathNode, config));
+                    return;
+                }
+                movement.MoveInGlobalCoordinatesIgnoringSpeed(-movement.Velocity.normalized * config.acceleration);
             }
             else
             {
-                movement.MoveInGlobalCoordinatesIgnoringSpeed(-movement.Velocity.normalized * config.acceleration);
-                //Not moving towards target
-                if (Vector3.Angle(movement.Velocity, towardsTarget) > 5 && towardsTarget.magnitude > 1)
-                {
-                    owner.ChangeState(new EmergencyStopState(pathNode, config));
-                }
+                //Stopped or overshot
+                StartLookingAround();
             }
+            Debug.DrawLine(position, targetPosition, Color.cyan);
+        }
+
+        private void StartLookingAround()
+        {
+            movement.MoveRelativeToCamera(Vector3.zero);
+            movement.MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(-movement.Velocity);
+            Debug.Log(string.Format("Deceleration towards point {0} finished. Starting looking around", pathNode));
+            owner.ChangeState(new LookAroundPatrolState(pathNode, config));
         }
     }
 
@@ -228,21 +249,26 @@ namespace AI
 
         public override void PhysicsUpdate()
         {
-            //Stopped or overshot
-            if (movement.Velocity.magnitude <= config.speedEpsilon)
+            if (movement.Velocity.magnitude > config.speedEpsilon)
             {
+                movement.MoveInGlobalCoordinatesIgnoringSpeed(-movement.Velocity.normalized * config.acceleration);
+            }
+            else
+            {
+                //Stopped or overshot
                 movement.MoveRelativeToCamera(Vector3.zero);
                 movement.MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(-movement.Velocity);
                 if (!movement.IsRotating())
                 {
-                    Debug.Log(string.Format("Deceleration towards point {0} finished. Starting rotation", pathNode));
-                    owner.ChangeState(new RotateTowardsPointState(pathNode, config));
+                    StartRotation();
                 }
             }
-            else
-            {
-                movement.MoveInGlobalCoordinatesIgnoringSpeed(-movement.Velocity.normalized * config.acceleration);
-            }
+        }
+
+        private void StartRotation()
+        {
+            Debug.Log(string.Format("Deceleration towards point {0} finished. Starting rotation", pathNode));
+            owner.ChangeState(new RotateTowardsPointState(pathNode, config));
         }
 
         public override void Update()
@@ -260,13 +286,8 @@ namespace AI
         public override void Update()
         {
             //Maybe move this stuff to a coroutine and execute less often
-            Vector3 position = owner.transform.position;
-            Vector3 targetPosition = pathNode.transform.position;
-            Vector3 towardsTarget = targetPosition - position;
-            const int layerMask = ~((1 << 7) | (1 << 9));
-            if (!Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, layerMask))
+            if (!CheckForObstacle())
             {
-                //No obstacle
                 owner.ChangeState(new RotateTowardsPointState(pathNode, config));
                 return;
             }
@@ -301,12 +322,16 @@ namespace AI
         public override void Update()
         {
             float t = (Time.time - startTime) / duration;
-            if (t >= 1)
+            if (t < 1)
             {
-                if (++targetIndex == lookTargets.Length)
+                movement.SetLookTarget(Quaternion.Slerp(startDirection, lookTargets[targetIndex], t));
+            }
+            else
+            {
+                targetIndex++;
+                if (targetIndex == lookTargets.Length)
                 {
-                    owner.ChangeState(new RotateTowardsPointState(pathNode.next, config));
-                    Debug.Log(string.Format("Finished looking around at point {0}. Starting roatation", pathNode));
+                    StartRotation();
                     return;
                 }
                 else
@@ -314,11 +339,13 @@ namespace AI
                     ChangeLookTarget(targetIndex);
                 }
             }
-            else
-            {
-                movement.SetLookTarget(Quaternion.Slerp(startDirection, lookTargets[targetIndex], t));
-            }
             base.Update();
+        }
+
+        private void StartRotation()
+        {
+            Debug.Log(string.Format("Finished looking around at point {0}. Starting roatation", pathNode));
+            owner.ChangeState(new RotateTowardsPointState(pathNode.next, config));
         }
 
         private void ChangeLookTarget(int index)
@@ -445,7 +472,6 @@ namespace AI
             Vector3 targetPosition = owner.enemyController.target.transform.position;
             Vector3 positionDelta = targetPosition - position;
             movement.SetLookTarget(positionDelta);
-            Debug.DrawLine(position, targetPosition, Color.red);
             if (TargetVisible(owner.enemyController.target.layer))
             {
                 lastShootingMode = shootingMode;
@@ -468,6 +494,7 @@ namespace AI
                 shooting.StopFire();
                 owner.ChangeState(new EmergencyStopState(pathNode, config));
             }
+            Debug.DrawLine(position, targetPosition, Color.red);
         }
 
         public override void Exit()
