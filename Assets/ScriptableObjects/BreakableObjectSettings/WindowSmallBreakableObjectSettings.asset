@@ -19,9 +19,9 @@ MonoBehaviour:
   fragmentsInitialForce:
     min: 40
     max: 70
-  fragmentsScale:
-    min: 0.7
-    max: 1
+  fragmentsScaleMultipler:
+    min: 0.9
+    max: 1.1
   fragmentsAngularForce:
     min: 1
     max: 10

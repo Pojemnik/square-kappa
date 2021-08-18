@@ -10,7 +10,7 @@ public class BreakableObjectSettings : ScriptableObject
     public MinMax<int> fragmentsNumber;
     [Tooltip("Force applied to created fragment")]
     public MinMax<float> fragmentsInitialForce;
-    public MinMax<float> fragmentsScale;
+    public MinMax<float> fragmentsScaleMultipler;
     public MinMax<float> fragmentsAngularForce;
 }
 
