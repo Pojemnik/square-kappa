@@ -460,9 +460,7 @@ namespace AI
             }
             else
             {
-                shooting.StopFire();
-                owner.ChangeState(new EmergencyStopState(pathNode, config));
-                return;
+                movement.MoveRelativeToCamera(Vector3.zero);
             }
         }
 
@@ -492,7 +490,7 @@ namespace AI
             else
             {
                 shooting.StopFire();
-                owner.ChangeState(new EmergencyStopState(pathNode, config));
+                owner.ChangeState(new PatrolStopAndLookAroundState(pathNode, config));
             }
             Debug.DrawLine(position, targetPosition, Color.red);
         }
@@ -573,6 +571,92 @@ namespace AI
             {
                 movement.MoveInGlobalCoordinatesIgnoringSpeed(-movement.Velocity.normalized * config.acceleration);
             }
+        }
+    }
+
+    public class PatrolStopAndLookAroundState : PatrolBaseState
+    {
+        private bool stopped;
+        private Quaternion[] lookTargets;
+        private Quaternion startDirection;
+        private float startTime;
+        private float duration;
+        private int targetIndex;
+
+        public PatrolStopAndLookAroundState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
+        {
+            stopped = false;
+        }
+
+        private void ChangeLookTarget(Quaternion target)
+        {
+            startDirection = owner.transform.rotation * Quaternion.Euler(-90, 0, 0);
+            startTime = Time.time;
+            duration = Quaternion.Angle(target, startDirection) / config.rotationalSpeed;
+            if (duration == 0)
+            {
+                duration = 1;
+            }
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            targetIndex = 0;
+            lookTargets = new Quaternion[config.lookAroundRotations.Count];
+            for (int i = 0; i < lookTargets.Length; i++)
+            {
+                lookTargets[i] = owner.transform.rotation * Quaternion.Euler(config.lookAroundRotations[i]);
+            }
+            ChangeLookTarget(lookTargets[targetIndex]);
+        }
+
+        public override void Update()
+        {
+            float t = (Time.time - startTime) / duration;
+            if (t < 1)
+            {
+                movement.SetLookTarget(Quaternion.Slerp(startDirection, lookTargets[targetIndex], t));
+            }
+            else
+            {
+                targetIndex++;
+                if (targetIndex == lookTargets.Length)
+                {
+                    targetIndex--;
+                    if (stopped)
+                    {
+                        StartRotation();
+                        return;
+                    }
+                }
+                else
+                {
+                    ChangeLookTarget(lookTargets[targetIndex]);
+                }
+            }
+            base.Update();
+        }
+
+        public override void PhysicsUpdate()
+        {
+            //Stopped or overshot
+            if (movement.Velocity.magnitude <= config.speedEpsilon)
+            {
+                movement.MoveRelativeToCamera(Vector3.zero);
+                movement.MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(-movement.Velocity);
+                stopped = true;
+            }
+            else
+            {
+                movement.MoveInGlobalCoordinatesIgnoringSpeed(-movement.Velocity.normalized * config.acceleration);
+            }
+        }
+
+        private void StartRotation()
+        {
+            Debug.Log(string.Format("Finished looking around and stopping {0}. Starting roatation", pathNode));
+            owner.ChangeState(new RotateTowardsPointState(pathNode, config));
         }
     }
 }
