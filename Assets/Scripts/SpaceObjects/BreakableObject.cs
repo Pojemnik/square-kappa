@@ -27,7 +27,7 @@ public class BreakableObject : MonoBehaviour
     {
         GameObject prefab = fragments.GetRandomFragment();
         Vector3 positionDelta = Random.insideUnitSphere * settings.fragmentsSpawnRange;
-        Vector3 scale = transform.localScale * Random.Range(settings.fragmentsScaleMultipler.min, settings.fragmentsScaleMultipler.max);
+        Vector3 scale = transform.lossyScale * Random.Range(settings.fragmentsScaleMultipler.min, settings.fragmentsScaleMultipler.max);
         Vector3 startRotation = RandomVector(0, 360);
         GameObject fragment = Instantiate(prefab, transform.position + positionDelta, Quaternion.Euler(startRotation));
         fragment.transform.localScale = scale;
