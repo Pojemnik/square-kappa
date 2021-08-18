@@ -28,7 +28,7 @@ public class SceneManager : MonoBehaviour
         gameOverScreen.SetActive(true);
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(time);
-        UnityEngine.SceneManagement.SceneManager.LoadScene(startSceneName);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
         gameOverScreen.SetActive(false);
         Time.timeScale = 1;
     }
