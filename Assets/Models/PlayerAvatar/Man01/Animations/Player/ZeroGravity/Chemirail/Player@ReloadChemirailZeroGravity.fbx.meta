@@ -6,6 +6,12 @@ ModelImporter:
   - first:
       74: -7251563107848887657
     second: Man01ZeroGravityReload
+  - first:
+      74: -1706416026594812929
+    second: Player@ReloadChemirailZeroGravity
+  - first:
+      74: -7894339109261952263
+    second: Man01ZeroGravityIdle
   externalObjects: {}
   materials:
     materialImportMode: 2
