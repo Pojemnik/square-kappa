@@ -181,7 +181,7 @@ namespace AI
         {
             base.Damaged(info);
             owner.ChangeState(new StaticDamageCheckState(pathNode, config, info.direction));
-            Debug.Log("Look for damage source");
+            //Debug.Log("Look for damage source");
         }
 
         private void ChangeLookTarget(Quaternion target)
@@ -233,7 +233,7 @@ namespace AI
             Vector3 position = owner.transform.position;
             if (t >= 1)
             {
-                Debug.Log("Damage source not found, back to looking around");
+                //Debug.Log("Damage source not found, back to looking around");
                 owner.ChangeState(new StaticLookAroundState(pathNode, config));
             }
             else
