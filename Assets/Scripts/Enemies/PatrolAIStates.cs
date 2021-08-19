@@ -244,7 +244,7 @@ namespace AI
     {
         public EmergencyStopState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
-            Debug.Log("Emergency stop");
+            //Debug.Log("Emergency stop");
         }
 
         public override void PhysicsUpdate()

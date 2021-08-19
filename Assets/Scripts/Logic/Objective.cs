@@ -8,7 +8,9 @@ public class Objective : MonoBehaviour
     private static int idCounter = 0;
     private int id;
 
+    [HideInInspector]
     public IntEvent Completed;
+    [HideInInspector]
     public IntEvent Uncompleted;
     public int Id { get => id; }
 
