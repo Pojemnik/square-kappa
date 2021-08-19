@@ -898,12 +898,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missions:
-  - groups:
-    - objectives:
+  - label: Visit asteroids
+    groups:
+    - label: Visit purple asteroid
+      objectives:
       - {fileID: 1862621481}
-    - objectives:
+    - label: Visit red asteroid
+      objectives:
       - {fileID: 1361876138}
-    - objectives:
+    - label: Visit yellow asteroid
+      objectives:
       - {fileID: 953223956}
 --- !u!1001 &291967773
 PrefabInstance:
@@ -8631,7 +8635,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2128844746
 RectTransform:
   m_ObjectHideFlags: 0

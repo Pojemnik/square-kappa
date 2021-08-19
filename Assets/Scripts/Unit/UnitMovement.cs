@@ -211,7 +211,10 @@ public class UnitMovement : MonoBehaviour
         }
         else
         {
-            owner.TowardsTarget = Quaternion.LookRotation(shootDirection);
+            if (shootDirection != Vector3.zero)
+            {
+                owner.TowardsTarget = Quaternion.LookRotation(shootDirection);
+            }
         }
     }
 
