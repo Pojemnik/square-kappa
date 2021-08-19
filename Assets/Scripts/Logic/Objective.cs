@@ -14,6 +14,8 @@ public class Objective : MonoBehaviour
     public IntEvent Uncompleted;
     public int Id { get => id; }
 
+    public bool defaultState = false;
+
     protected void Complete()
     {
         Completed.Invoke(id);
