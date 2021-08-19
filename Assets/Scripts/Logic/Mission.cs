@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct Mission
+public class Mission
 {
+    public string label;
     public List<ObjectivesGroup> groups;
 }

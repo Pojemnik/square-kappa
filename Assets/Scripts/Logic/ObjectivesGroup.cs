@@ -5,5 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class ObjectivesGroup
 {
+    public string label;
     public List<Objective> objectives;
 }
