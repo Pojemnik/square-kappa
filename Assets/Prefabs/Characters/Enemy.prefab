@@ -444,7 +444,7 @@ Animator:
   m_GameObject: {fileID: 409245610643062562}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
-  m_Controller: {fileID: 9100000, guid: 7283994d364f59b499381a261358d193, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0051fbe2f6a138042860b2e48f720ebf, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1813,6 +1813,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  armor: 0
+  hitProjectilePrefab: {fileID: 0}
+  destructionProjectilePrefab: {fileID: 0}
   deathEvent:
     m_PersistentCalls:
       m_Calls:

@@ -140,7 +140,10 @@ public class UnitMovement : MonoBehaviour
 
     public void SetLookTarget(Quaternion target)
     {
+        Vector3 lastRoatation = transform.rotation.eulerAngles;
         lookTarget = target * Quaternion.Euler(90, 0, 0);
+        Vector3 rotationDelta = lookTarget.eulerAngles - lastRoatation;
+        Debug.LogFormat("Rotation change: {0}", rotationDelta);
         shootDirection = target * Vector3.forward;
     }
 
