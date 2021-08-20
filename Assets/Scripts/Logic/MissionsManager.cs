@@ -20,6 +20,11 @@ public class MissionsManager : MonoBehaviour
 
     private void Start()
     {
+        if(missions.Count == 0)
+        {
+            enabled = false;
+            return;
+        }
         objectiveStates = new Dictionary<int, bool>();
         foreach (Mission mission in missions)
         {
