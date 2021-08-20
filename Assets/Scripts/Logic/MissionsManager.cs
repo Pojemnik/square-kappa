@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class MissionsManager : MonoBehaviour
 {
-    public List<Mission> missions;
+    public UnityEngine.Events.UnityEvent<Mission> missionChangeEvent;
+    public UnityEngine.Events.UnityEvent<ObjectivesGroup> objectiveGroupChangeEvent;
+    [SerializeField]
+    private List<Mission> missions;
 
     private Dictionary<int, bool> objectiveStates;
     private HashSet<int> curentGroupIds;
@@ -28,8 +31,10 @@ public class MissionsManager : MonoBehaviour
         }
         curentGroupIds = new HashSet<int>();
         UpdateCurrentGroupIds();
-        Debug.Log(string.Format("New mission: {0}", missions[missionIndex].label));
-        Debug.Log(string.Format("New objectives group: {0}", missions[missionIndex].groups[groupIndex].label));
+        objectiveGroupChangeEvent.Invoke(missions[missionIndex].groups[groupIndex]);
+        missionChangeEvent.Invoke(missions[missionIndex]);
+        //Debug.Log(string.Format("New mission: {0}", missions[missionIndex].label));
+        //Debug.Log(string.Format("New objectives group: {0}", missions[missionIndex].groups[groupIndex].label));
     }
 
     private void OnObjectiveCompleted(int id)
@@ -56,7 +61,7 @@ public class MissionsManager : MonoBehaviour
 
     private void ProceedToNextObjectivesGroup()
     {
-        Debug.Log(string.Format("Objectives group {0} finished", missions[missionIndex].groups[groupIndex].label));
+        //Debug.Log(string.Format("Objectives group {0} finished", missions[missionIndex].groups[groupIndex].label));
         groupIndex++;
         if (groupIndex == missions[missionIndex].groups.Count)
         {
@@ -65,7 +70,8 @@ public class MissionsManager : MonoBehaviour
         if (enabled)
         {
             UpdateCurrentGroupIds();
-            Debug.Log(string.Format("New objectives group: {0}", missions[missionIndex].groups[groupIndex].label));
+            objectiveGroupChangeEvent.Invoke(missions[missionIndex].groups[groupIndex]);
+            //Debug.Log(string.Format("New objectives group: {0}", missions[missionIndex].groups[groupIndex].label));
         }
     }
 
@@ -80,16 +86,20 @@ public class MissionsManager : MonoBehaviour
 
     private void ProceedToNextMission()
     {
-        Debug.Log(string.Format("Mission {0} finished", missions[missionIndex].label));
+        //Debug.Log(string.Format("Mission {0} finished", missions[missionIndex].label));
         missionIndex++;
+        groupIndex = 0;
         if (missionIndex != missions.Count)
         {
-            Debug.Log(string.Format("New mission: {0}", missions[missionIndex].label));
+            missionChangeEvent.Invoke(missions[missionIndex]);
+            //Debug.Log(string.Format("New mission: {0}", missions[missionIndex].label));
         }
         else
         {
-            Debug.Log("Game finished or something");
+            missionChangeEvent.Invoke(null);
+            objectiveGroupChangeEvent.Invoke(null);
             enabled = false;
+            Debug.Log("Game finished or something");
         }
     }
 
