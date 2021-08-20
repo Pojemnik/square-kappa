@@ -36,7 +36,7 @@ namespace AI
         {
             Vector3 position = owner.transform.position;
             Vector3 towardsTarget = pathNode.transform.position - position;
-            const int layerMask = ~((1 << 7) | (1 << 9));
+            const int layerMask = ~((1 << 7) | (1 << 9) | (1 << 12));
             return Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, layerMask);
         }
 
@@ -91,7 +91,10 @@ namespace AI
             float t = (Time.time - startTime) / duration;
             if (t < 1)
             {
-                movement.SetLookTarget(Quaternion.Slerp(startDirection, targetDirection, t));
+                Quaternion nextRotation = Quaternion.Slerp(startDirection, targetDirection, t);
+                //Vector3 rotationAngles = owner.transform.rotation.eulerAngles - nextRotation.eulerAngles;
+                //Debug.Log(rotationAngles);
+                movement.SetLookTarget(nextRotation);
             }
             else
             {

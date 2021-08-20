@@ -107,7 +107,7 @@ public class EnemyController : MonoBehaviour
         shooting.ChangeWeaponController(weapon.GetComponent<WeaponController>());
         shooting.IgnoreRecoil = true;
         unitController.movement.cameraAiming = false;
-        layerMask = (1 << 7) | (1 << 8) | (1 << 9) | (1 << 10);
+        layerMask = (1 << 7) | (1 << 8) | (1 << 9) | (1 << 10) | (1 << 12);
         layerMask = ~layerMask;
 #if UNITY_EDITOR
         gizmo = new VisionGizmoCore();
