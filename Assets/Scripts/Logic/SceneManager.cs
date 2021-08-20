@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class SceneManager : MonoBehaviour
 {
+    [Header("Vectory screen")]
     [SerializeField]
-    private string startSceneName;
+    private bool enableVictory;
+    [SerializeField]
+    private GameObject victoryScreen;
+    [SerializeField]
+    private float victoryScreenDisplayTime;
 
     [Header("Game over screen")]
     [SerializeField]
@@ -30,6 +35,24 @@ public class SceneManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(time);
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
         gameOverScreen.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void OnVictory()
+    {
+        if (enableVictory)
+        {
+            StartCoroutine(DisplayVictoryScreen(victoryScreenDisplayTime));
+        }
+    }
+
+    private IEnumerator DisplayVictoryScreen(float time)
+    {
+        victoryScreen.SetActive(true);
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(time);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+        victoryScreen.SetActive(false);
         Time.timeScale = 1;
     }
 }

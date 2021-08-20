@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class MissionsManager : MonoBehaviour
 {
+    [HideInInspector]
     public UnityEngine.Events.UnityEvent<Mission> missionChangeEvent;
+    [HideInInspector]
     public UnityEngine.Events.UnityEvent<ObjectivesGroup> objectiveGroupChangeEvent;
+    [HideInInspector]
+    public UnityEngine.Events.UnityEvent victoryEvent;
     [SerializeField]
     private List<Mission> missions;
 
@@ -33,6 +37,7 @@ public class MissionsManager : MonoBehaviour
         UpdateCurrentGroupIds();
         objectiveGroupChangeEvent.Invoke(missions[missionIndex].groups[groupIndex]);
         missionChangeEvent.Invoke(missions[missionIndex]);
+        victoryEvent.AddListener(FindObjectOfType<SceneManager>().OnVictory);
         //Debug.Log(string.Format("New mission: {0}", missions[missionIndex].label));
         //Debug.Log(string.Format("New objectives group: {0}", missions[missionIndex].groups[groupIndex].label));
     }
@@ -98,8 +103,8 @@ public class MissionsManager : MonoBehaviour
         {
             missionChangeEvent.Invoke(null);
             objectiveGroupChangeEvent.Invoke(null);
+            victoryEvent.Invoke();
             enabled = false;
-            Debug.Log("Game finished or something");
         }
     }
 
