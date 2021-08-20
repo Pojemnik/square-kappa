@@ -336,9 +336,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1306978383}
-  - {fileID: 837925608}
-  - {fileID: 1181169524}
   - {fileID: 224559509}
   - {fileID: 816360256}
   - {fileID: 1167840807}
@@ -348,6 +345,7 @@ Transform:
   - {fileID: 1742057391}
   - {fileID: 398749048}
   - {fileID: 1683756079}
+  - {fileID: 473194877}
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -464,6 +462,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   defaultState: 0
+  completedWhenLeft: 0
 --- !u!135 &82566532
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -523,7 +522,7 @@ Transform:
   - {fileID: 832411733}
   - {fileID: 459984892}
   m_Father: {fileID: 32854502}
-  m_RootOrder: 7
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &141151378 stripped
 Transform:
@@ -968,6 +967,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   missions:
+  - label: Shorter mission
+    groups:
+    - label: Visit purple asteroid
+      objectives:
+      - {fileID: 82566531}
+    - label: Visit red asteroid
+      objectives:
+      - {fileID: 1151961372}
+    - label: Visit yellow asteroid
+      objectives:
+      - {fileID: 939459463}
+    - label: Leave asteroids zone
+      objectives:
+      - {fileID: 473194878}
   - label: Very very long mission title
     groups:
     - label: Visit purple asteroid
@@ -980,18 +993,6 @@ MonoBehaviour:
     - label: Visit yellow asteroid
       objectives:
       - {fileID: 953223956}
-  - label: Shorter mission
-    groups:
-    - label: Visit purple asteroid
-      objectives:
-      - {fileID: 82566531}
-    - label: Also extremally long objective group label which shuld not fit on panel
-        (red one)
-      objectives:
-      - {fileID: 1151961372}
-    - label: Visit yellow asteroid
-      objectives:
-      - {fileID: 939459463}
 --- !u!1001 &291967773
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1722,6 +1723,74 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3212350181123816406, guid: 73006b74822c133498caa2ccbd9aab92, type: 3}
   m_PrefabInstance: {fileID: 468495187}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &473194876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 473194877}
+  - component: {fileID: 473194879}
+  - component: {fileID: 473194878}
+  m_Layer: 0
+  m_Name: AsteroidsZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &473194877
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473194876}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 36.21, y: 18.95, z: 27.21}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1306978383}
+  - {fileID: 837925608}
+  - {fileID: 1181169524}
+  m_Father: {fileID: 32854502}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &473194878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473194876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b59bfee867741b4098f8501a38522c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Completed:
+    m_PersistentCalls:
+      m_Calls: []
+  Uncompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  defaultState: 0
+  completedWhenLeft: 1
+--- !u!65 &473194879
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473194876}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 30.856796, y: 27.105545, z: 16.23768}
+  m_Center: {x: -0.40245628, y: 0.48661423, z: -0.30668736}
 --- !u!1001 &480342699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3576,7 +3645,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 32854502}
+    m_TransformParent: {fileID: 473194877}
     m_Modifications:
     - target: {fileID: 4626025871728009155, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -3588,23 +3657,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalScale.y
-      value: 300.00003
+      value: 300.00006
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 300.00003
+      value: 300.00006
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 45.03
+      value: 8.82
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.78
+      value: -7.170001
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 27.08
+      value: -0.12999916
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4098,6 +4167,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   defaultState: 0
+  completedWhenLeft: 0
 --- !u!135 &939459464
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4253,6 +4323,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   defaultState: 0
+  completedWhenLeft: 0
 --- !u!135 &953223957
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4377,7 +4448,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 32854502}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &966993125
 SphereCollider:
@@ -5261,6 +5332,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   defaultState: 0
+  completedWhenLeft: 0
 --- !u!135 &1151961373
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5461,7 +5533,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 32854502}
+    m_TransformParent: {fileID: 473194877}
     m_Modifications:
     - target: {fileID: 4626025871728009155, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5473,23 +5545,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalScale.y
-      value: 300.00003
+      value: 300.00006
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 300.00003
+      value: 300.00006
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 27.03
+      value: -9.179998
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.78
+      value: -7.170001
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 27.08
+      value: -0.12999916
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5837,7 +5909,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 32854502}
+    m_TransformParent: {fileID: 473194877}
     m_Modifications:
     - target: {fileID: 4626025871728009155, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5849,23 +5921,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalScale.y
-      value: 300.00003
+      value: 300.00006
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 300.00003
+      value: 300.00006
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 27.03
+      value: -9.179998
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 26.29
+      value: 7.34
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 27.08
+      value: -0.12999916
       objectReference: {fileID: 0}
     - target: {fileID: 5798911022731535532, guid: a3326e81dc110f14488ecb87339d71b8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6441,6 +6513,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   defaultState: 0
+  completedWhenLeft: 0
 --- !u!135 &1361876139
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8291,7 +8364,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 32854502}
-  m_RootOrder: 9
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1742057392
 MonoBehaviour:
@@ -8712,6 +8785,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   defaultState: 0
+  completedWhenLeft: 0
 --- !u!4 &1876240797 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 625839433032859007, guid: a7b0a6241c8c67b4e8f3925d2fe1236e, type: 3}

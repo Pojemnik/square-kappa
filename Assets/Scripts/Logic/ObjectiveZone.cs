@@ -5,12 +5,22 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class ObjectiveZone : Objective
 {
+    [SerializeField]
+    private bool completedWhenLeft;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
         {
             print(string.Format("Objective zone {0} entered", gameObject.name));
-            Complete();
+            if (completedWhenLeft)
+            {
+                Uncomplete();
+            }
+            else
+            {
+                Complete();
+            }
         }
     }
 
@@ -19,7 +29,14 @@ public class ObjectiveZone : Objective
         if (other.CompareTag("Player"))
         {
             print(string.Format("Objective zone {0} left", gameObject.name));
-            Uncomplete();
+            if (completedWhenLeft)
+            {
+                Complete();
+            }
+            else
+            {
+                Uncomplete();
+            }
         }
     }
 }
