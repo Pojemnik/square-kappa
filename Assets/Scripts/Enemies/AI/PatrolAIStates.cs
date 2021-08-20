@@ -229,6 +229,7 @@ namespace AI
             else
             {
                 //Stopped or overshot
+                movement.EnableStopMode();
                 StartLookingAround();
             }
             Debug.DrawLine(position, targetPosition, Color.cyan);
@@ -261,6 +262,7 @@ namespace AI
                 //Stopped or overshot
                 movement.MoveRelativeToCamera(Vector3.zero);
                 movement.MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(-movement.Velocity);
+                movement.EnableStopMode();
                 if (!movement.IsRotating())
                 {
                     StartRotation();

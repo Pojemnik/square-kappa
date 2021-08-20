@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class UnitAnimationController : MonoBehaviour
 {
@@ -9,18 +10,32 @@ public class UnitAnimationController : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
+    private HashSet<string> paramaterNames;
+
     public void SetState(string state)
     {
+        if(!paramaterNames.Contains(state))
+        {
+            return;
+        }
         animator.SetTrigger(state);
     }
 
     public void SetStaticState(string state)
     {
+        if (!paramaterNames.Contains(state))
+        {
+            return;
+        }
         animator.SetBool(state, true);
     }
 
     public void ResetStaticState(string state)
     {
+        if (!paramaterNames.Contains(state))
+        {
+            return;
+        }
         animator.SetBool(state, false);
     }
 
@@ -70,5 +85,11 @@ public class UnitAnimationController : MonoBehaviour
                 animator.SetLayerWeight(i, 0);
             }
         }
+    }
+
+    private void Start()
+    {
+        AnimatorControllerParameter[] parameters = animator.parameters;
+        paramaterNames = new HashSet<string>(parameters.Select(e => e.name));
     }
 }

@@ -62,21 +62,19 @@ public class UnitMovement : MonoBehaviour
         rawInput.z = vector.y;
         if (rawInput.z > 0)
         {
-            //owner.AnimationController.SetState("MoveForward");
-            //jetpackController.OnMoveForward();
+            owner.AnimationController.SetState("Move");
         }
         else if (rawInput.z < 0)
         {
-            //owner.AnimationController.SetState("MoveBackward");
-            //jetpackController.OnMoveBackward();
+            owner.AnimationController.SetState("Move");
         }
         if (rawInput.x > 0)
         {
-            //jetpackController.OnMoveRight();
+            owner.AnimationController.SetState("Move");
         }
         else if (rawInput.x < 0)
         {
-            //jetpackController.OnMoveLeft();
+            owner.AnimationController.SetState("Move");
         }
     }
 
@@ -85,14 +83,12 @@ public class UnitMovement : MonoBehaviour
         if (value == 1)
         {
             rawInput.y = 1;
-            //owner.AnimationController.SetState("MoveUpDown");
-            //jetpackController.OnMoveUp();
+            owner.AnimationController.SetState("Move");
         }
         else if (value == -1)
         {
             rawInput.y = -1;
-            //owner.AnimationController.SetState("MoveUpDown");
-            //jetpackController.OnMoveDown();
+            owner.AnimationController.SetState("Move");
         }
         else
         {
@@ -152,6 +148,7 @@ public class UnitMovement : MonoBehaviour
         if (direction != Vector3.zero)
         {
             direction = direction.normalized;
+            owner.AnimationController.SetState("Move");
         }
         rawInput = direction;
     }
@@ -159,21 +156,29 @@ public class UnitMovement : MonoBehaviour
     public void MoveInGlobalCoordinates(Vector3 direction)
     {
         rigidbody.AddForce(Vector3.Scale(direction.normalized, speed) * Time.fixedDeltaTime);
+        owner.AnimationController.SetState("Move");
     }
 
     public void MoveInGlobalCoordinatesIgnoringSpeed(Vector3 direction)
     {
         rigidbody.AddForce(direction * Time.fixedDeltaTime, ForceMode.VelocityChange);
+        owner.AnimationController.SetState("Move");
     }
 
     public void MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(Vector3 direction)
     {
         rigidbody.AddForce(direction, ForceMode.VelocityChange);
+        owner.AnimationController.SetState("Move");
     }
 
     public bool IsRotating()
     {
         return rigidbody.angularVelocity.magnitude > 0.1F;
+    }
+
+    public void EnableStopMode()
+    {
+        owner.AnimationController.SetState("Stop");
     }
 
     private void MoveUnit()
@@ -185,8 +190,7 @@ public class UnitMovement : MonoBehaviour
         {
             if (lastMoveDelta != Vector3.zero)
             {
-                //owner.AnimationController.SetState("Stop");
-                //jetpackController.OnStop();
+                owner.AnimationController.SetState("Stop");
             }
         }
         else
@@ -224,10 +228,6 @@ public class UnitMovement : MonoBehaviour
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
-        //if (jetpack != null)
-        //{
-        //    jetpackController = jetpack.GetComponent<JetpackController>();
-        //}
         cameraController = firstPresonCamera.GetComponent<PlayerCameraController>();
         lastMoveDelta = Vector3.zero;
         lookTarget = rigidbody.rotation;
