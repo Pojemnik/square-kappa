@@ -24,6 +24,8 @@ public class UnitMovement : MonoBehaviour
     [SerializeField]
     private GameObject firstPresonCamera;
 
+    private Vector2 lastRotationValue;
+
     public Vector3 Velocity { get => rigidbody.velocity; }
     public bool UseDrag
     {
@@ -119,18 +121,17 @@ public class UnitMovement : MonoBehaviour
             Quaternion xRotation = Quaternion.AngleAxis(-deltaLook.x, Vector3.forward);
             Quaternion yRotation = Quaternion.AngleAxis(-deltaLook.y, Vector3.right);
             lookTarget = rigidbody.rotation * xRotation * yRotation;
+            //owner.AnimationController.SetStaticState("Rotation");
         }
     }
 
     public void SetLookTarget(Vector3 direction)
     {
+        Vector3 lastRoatation = transform.rotation.eulerAngles;
         lookTarget = Quaternion.LookRotation(direction) * Quaternion.Euler(90, 0, 0);
-        shootDirection = direction;
-    }
-
-    public void SetLookTarget(Vector3 direction, Vector3 up)
-    {
-        lookTarget = Quaternion.LookRotation(direction, up) * Quaternion.Euler(90, 0, 0);
+        Vector2 rotationValue = CalculateRoatationValue(lastRoatation);
+        owner.AnimationController.SetRotationVector(rotationValue);
+        owner.AnimationController.SetStaticState("Rotation");
         shootDirection = direction;
     }
 
@@ -138,9 +139,36 @@ public class UnitMovement : MonoBehaviour
     {
         Vector3 lastRoatation = transform.rotation.eulerAngles;
         lookTarget = target * Quaternion.Euler(90, 0, 0);
-        Vector3 rotationDelta = lookTarget.eulerAngles - lastRoatation;
-        Debug.LogFormat("Rotation change: {0}", rotationDelta);
+        Vector2 rotationValue = CalculateRoatationValue(lastRoatation);
+        Debug.LogFormat("Change of rotation value: {0}", rotationValue - lastRotationValue);
+        lastRotationValue = rotationValue;
+        owner.AnimationController.SetRotationVector(rotationValue);
+        owner.AnimationController.SetStaticState("Rotation");
         shootDirection = target * Vector3.forward;
+    }
+
+    private Vector2 CalculateRoatationValue(Vector3 lastRoatation)
+    {
+        Vector3 rotationDelta = lookTarget.eulerAngles - lastRoatation;
+        if (rotationDelta.x > 180)
+            rotationDelta.x -= 360;
+        if (rotationDelta.x < -180)
+            rotationDelta.x += 360;
+        if (rotationDelta.z > 180)
+            rotationDelta.z -= 360;
+        if (rotationDelta.z < -180)
+            rotationDelta.z += 360;
+        Vector2 rotationValue = new Vector2(rotationDelta.z, rotationDelta.x);
+        rotationValue.x = Mathf.Clamp(rotationValue.x / 5, -1, 1);
+        rotationValue.y = Mathf.Clamp(rotationValue.y / 5, -1, 1);
+        if (Mathf.Abs(rotationValue.x) > 0.5 || Mathf.Abs(rotationValue.y) > 0.5)
+        {
+            //Debug.LogFormat("Big rotation change: {0}", rotationValue);
+            return Vector2.zero;
+        }
+        //Debug.LogFormat("Rotation change: {0}", rotationDelta);
+        //Debug.LogFormat("Rotation value: {0}", rotationValue);
+        return rotationValue;
     }
 
     public void MoveRelativeToCamera(Vector3 direction)
@@ -209,8 +237,14 @@ public class UnitMovement : MonoBehaviour
 
     private void RotateUnit()
     {
+        Quaternion currentRotation = transform.rotation;
         float deltaRoll = rollSpeed * Time.fixedDeltaTime * rawInputRoll;
         rigidbody.MoveRotation(lookTarget * Quaternion.Euler(0, deltaRoll, 0));
+        if (transform.rotation == currentRotation)
+        {
+            //owner.AnimationController.ResetStaticState("Rotation");
+            //Debug.Log("Rotation stopped");
+        }
         lookTarget = rigidbody.rotation;
         if (cameraAiming)
         {

@@ -39,6 +39,12 @@ public class UnitAnimationController : MonoBehaviour
         animator.SetBool(state, false);
     }
 
+    public void SetRotationVector(Vector2 rotation)
+    {
+        animator.SetFloat("Xrotation", rotation.x);
+        animator.SetFloat("Yrotation", rotation.y);
+    }
+
     public void UpdateWeaponAnimation(WeaponController newWeapon)
     {
         if (newWeapon)
