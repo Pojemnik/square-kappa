@@ -43,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7923396389867140182}
-  m_Mesh: {fileID: 1309955779208792809, guid: 6a814fdc3b73ac24781ec96b24f7e8f9, type: 3}
+  m_Mesh: {fileID: -4798015825170409182, guid: 6a814fdc3b73ac24781ec96b24f7e8f9, type: 3}
 --- !u!23 &8571884430741411203
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -99,7 +99,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1309955779208792809, guid: 6a814fdc3b73ac24781ec96b24f7e8f9, type: 3}
+  m_Mesh: {fileID: -4798015825170409182, guid: 6a814fdc3b73ac24781ec96b24f7e8f9, type: 3}
 --- !u!54 &3205165250680046443
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -128,7 +128,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf107986cf22d7f41abfdb52f0ea5083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 40
+  armor: 5
+  hitProjectilePrefab: {fileID: 5799961575119348041, guid: 3c595ebbe95336f4cb0ad973a83658c7, type: 3}
+  destructionProjectilePrefab: {fileID: 5799961575119348041, guid: 5b07da2c69937ad4f8ca9ac6897b09fa, type: 3}
   deathEvent:
     m_PersistentCalls:
       m_Calls: []

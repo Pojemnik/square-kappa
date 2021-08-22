@@ -128,6 +128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
+  armor: 0
+  hitProjectilePrefab: {fileID: 0}
+  destructionProjectilePrefab: {fileID: 0}
   deathEvent:
     m_PersistentCalls:
       m_Calls: []
