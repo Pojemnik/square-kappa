@@ -163,7 +163,7 @@ public class EnemyMarkersController : MonoBehaviour
         distanceDisplays = new Dictionary<int, VectorDisplayController>();
         scaleFactor = (markerScaleBounds.min - markerScaleBounds.max) / detectionRange;
         //Ignore layers: player, player projectile, enemy projectile
-        raycastLayerMask = ~((1 << 6) | (1 << 8) | (1 << 9));
+        raycastLayerMask = ~((1 << 6) | (1 << 8) | (1 << 9) | (1 << 12));
         displayMode = MarkersDisplayMode.ChangeSize;
     }
 
