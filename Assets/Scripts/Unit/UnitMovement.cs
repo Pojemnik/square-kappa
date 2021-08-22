@@ -58,6 +58,15 @@ public class UnitMovement : MonoBehaviour
     private Vector3 lastMoveDelta;
     private Vector3 shootDirection;
 
+    private Quaternion targetRotation;
+    private Quaternion startRotation;
+    private float rotationStartTime;
+    private float rotationDuration;
+    private bool isRotating;
+    public bool IsRotating { get => isRotating; }
+    [SerializeField]
+    private float rotationSpeed;
+
     public void MoveXZ(Vector2 vector)
     {
         rawInput.x = vector.x;
@@ -121,30 +130,7 @@ public class UnitMovement : MonoBehaviour
             Quaternion xRotation = Quaternion.AngleAxis(-deltaLook.x, Vector3.forward);
             Quaternion yRotation = Quaternion.AngleAxis(-deltaLook.y, Vector3.right);
             lookTarget = rigidbody.rotation * xRotation * yRotation;
-            //owner.AnimationController.SetStaticState("Rotation");
         }
-    }
-
-    public void SetLookTarget(Vector3 direction)
-    {
-        Vector3 lastRoatation = transform.rotation.eulerAngles;
-        lookTarget = Quaternion.LookRotation(direction) * Quaternion.Euler(90, 0, 0);
-        Vector2 rotationValue = CalculateRoatationValue(lastRoatation);
-        owner.AnimationController.SetRotationVector(rotationValue);
-        owner.AnimationController.SetStaticState("Rotation");
-        shootDirection = direction;
-    }
-
-    public void SetLookTarget(Quaternion target)
-    {
-        Vector3 lastRoatation = transform.rotation.eulerAngles;
-        lookTarget = target * Quaternion.Euler(90, 0, 0);
-        Vector2 rotationValue = CalculateRoatationValue(lastRoatation);
-        Debug.LogFormat("Change of rotation value: {0}", rotationValue - lastRotationValue);
-        lastRotationValue = rotationValue;
-        owner.AnimationController.SetRotationVector(rotationValue);
-        owner.AnimationController.SetStaticState("Rotation");
-        shootDirection = target * Vector3.forward;
     }
 
     private Vector2 CalculateRoatationValue(Vector3 lastRoatation)
@@ -181,6 +167,33 @@ public class UnitMovement : MonoBehaviour
         rawInput = direction;
     }
 
+    public void SetRotationImmediately(Vector3 direction)
+    {
+        lookTarget = Quaternion.LookRotation(direction) * Quaternion.Euler(90, 0, 0);
+        shootDirection = direction;
+    }
+
+    public void SetTargetRotation(Vector3 direction)
+    {
+        SetTargetRotation(Quaternion.LookRotation(direction));
+    }
+
+    public void SetTargetRotation(Quaternion direction)
+    {
+        targetRotation = direction;
+        startRotation = transform.rotation * Quaternion.Euler(-90, 0, 0);
+        rotationStartTime = Time.time;
+        rotationDuration = Quaternion.Angle(startRotation, targetRotation) / rotationSpeed;
+        if (rotationDuration == 0)
+        {
+            isRotating = false;
+        }
+        else
+        {
+            isRotating = true;
+        }
+    }
+
     public void MoveInGlobalCoordinates(Vector3 direction)
     {
         rigidbody.AddForce(Vector3.Scale(direction.normalized, speed) * Time.fixedDeltaTime);
@@ -197,11 +210,6 @@ public class UnitMovement : MonoBehaviour
     {
         rigidbody.AddForce(direction, ForceMode.VelocityChange);
         owner.AnimationController.SetState("Move");
-    }
-
-    public bool IsRotating()
-    {
-        return rigidbody.angularVelocity.magnitude > 0.1F;
     }
 
     public void EnableStopMode()
@@ -237,15 +245,33 @@ public class UnitMovement : MonoBehaviour
 
     private void RotateUnit()
     {
-        Quaternion currentRotation = transform.rotation;
         float deltaRoll = rollSpeed * Time.fixedDeltaTime * rawInputRoll;
         rigidbody.MoveRotation(lookTarget * Quaternion.Euler(0, deltaRoll, 0));
-        if (transform.rotation == currentRotation)
-        {
-            //owner.AnimationController.ResetStaticState("Rotation");
-            //Debug.Log("Rotation stopped");
-        }
+        CalculateSmoothRotation();
         lookTarget = rigidbody.rotation;
+        SetAim();
+    }
+
+    private void CalculateSmoothRotation()
+    {
+        if (isRotating == true)
+        {
+            float t = (Time.time - rotationStartTime) / rotationDuration;
+            if (t < 1)
+            {
+                Quaternion direction = Quaternion.Slerp(startRotation, targetRotation, t) * Quaternion.Euler(90, 0, 0);
+                rigidbody.MoveRotation(direction);
+                shootDirection = direction * Vector3.forward;
+            }
+            else
+            {
+                isRotating = false;
+            }
+        }
+    }
+
+    private void SetAim()
+    {
         if (cameraAiming)
         {
             owner.TowardsTarget = Quaternion.LookRotation(cameraController.orientation[2], cameraController.orientation[1]);

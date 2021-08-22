@@ -962,21 +962,6 @@ MonoBehaviour:
     - label: Visit yellow asteroid
       objectives:
       - {fileID: 939459463}
-    - label: Leave asteroids zone
-      objectives:
-      - {fileID: 473194878}
-  - label: Very very long mission title
-    groups:
-    - label: Visit purple asteroid
-      objectives:
-      - {fileID: 1862621481}
-    - label: Also extremally long objective group label which shuld not fit on panel
-        (red one)
-      objectives:
-      - {fileID: 1361876138}
-    - label: Visit yellow asteroid
-      objectives:
-      - {fileID: 953223956}
 --- !u!1001 &291967773
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3845,7 +3830,7 @@ MonoBehaviour:
   enableVictory: 1
   victoryScreen: {fileID: 1477909889}
   victoryScreenDisplayTime: 5
-  enableGameOver: 1
+  enableGameOver: 0
   gameOverScreen: {fileID: 1134212152}
   gameOverScreenDisplayTime: 5
 --- !u!1001 &917786305
@@ -8986,7 +8971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bceb2f52c708dbb4792c34eff4668af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useSceneView: 1
+  useSceneView: 0
 --- !u!4 &2054169792
 Transform:
   m_ObjectHideFlags: 0

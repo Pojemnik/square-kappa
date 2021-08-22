@@ -28,6 +28,7 @@ public class PlayerInputAdapter : MonoBehaviour
     {
         owner.movement.Roll(context.ReadValue<float>());
     }
+
     public void RelativeLook(InputAction.CallbackContext context)
     {
         Vector2 rawInputLook = context.ReadValue<Vector2>();

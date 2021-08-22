@@ -63,11 +63,6 @@ namespace AI
 
     public class RotateTowardsPointState : PatrolBaseState
     {
-        private Quaternion startDirection;
-        private Quaternion targetDirection;
-        private float startTime;
-        private float duration;
-
         public RotateTowardsPointState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
         }
@@ -75,10 +70,7 @@ namespace AI
         public override void Enter()
         {
             base.Enter();
-            targetDirection = Quaternion.LookRotation(pathNode.transform.position - owner.transform.position);
-            startDirection = owner.transform.rotation * Quaternion.Euler(-90, 0, 0);
-            startTime = Time.time;
-            duration = Quaternion.Angle(targetDirection, startDirection) / config.rotationalSpeed;
+            movement.SetTargetRotation(Quaternion.LookRotation(pathNode.transform.position - owner.transform.position));
         }
 
         public override void Update()
@@ -88,17 +80,8 @@ namespace AI
                 owner.ChangeState(new EmergencyStopState(pathNode, config));
                 return;
             }
-            float t = (Time.time - startTime) / duration;
-            if (t < 1)
+            if (!movement.IsRotating)
             {
-                Quaternion nextRotation = Quaternion.Slerp(startDirection, targetDirection, t);
-                //Vector3 rotationAngles = owner.transform.rotation.eulerAngles - nextRotation.eulerAngles;
-                //Debug.Log(rotationAngles);
-                movement.SetLookTarget(nextRotation);
-            }
-            else
-            {
-                //Rotation finished, accelerate
                 CheckForObstacleAndWaitIfNeeded();
                 owner.ChangeState(new AccelerateTowardsPointState(pathNode, config));
             }
@@ -263,7 +246,7 @@ namespace AI
                 movement.MoveRelativeToCamera(Vector3.zero);
                 movement.MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(-movement.Velocity);
                 movement.EnableStopMode();
-                if (!movement.IsRotating())
+                if (!movement.IsRotating)
                 {
                     StartRotation();
                 }
@@ -303,9 +286,6 @@ namespace AI
     public class LookAroundPatrolState : PatrolBaseState
     {
         private Quaternion[] lookTargets;
-        private Quaternion startDirection;
-        private float startTime;
-        private float duration;
         private int targetIndex;
 
         public LookAroundPatrolState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
@@ -321,17 +301,12 @@ namespace AI
             {
                 lookTargets[i] = owner.transform.rotation * Quaternion.Euler(config.lookAroundRotations[i]);
             }
-            ChangeLookTarget(targetIndex);
+            movement.SetTargetRotation(lookTargets[targetIndex]);
         }
 
         public override void Update()
         {
-            float t = (Time.time - startTime) / duration;
-            if (t < 1)
-            {
-                movement.SetLookTarget(Quaternion.Slerp(startDirection, lookTargets[targetIndex], t));
-            }
-            else
+            if (!movement.IsRotating)
             {
                 targetIndex++;
                 if (targetIndex == lookTargets.Length)
@@ -341,7 +316,7 @@ namespace AI
                 }
                 else
                 {
-                    ChangeLookTarget(targetIndex);
+                    movement.SetTargetRotation(lookTargets[targetIndex]);
                 }
             }
             base.Update();
@@ -351,13 +326,6 @@ namespace AI
         {
             //Debug.Log(string.Format("Finished looking around at point {0}. Starting roatation", pathNode));
             owner.ChangeState(new RotateTowardsPointState(pathNode.next, config));
-        }
-
-        private void ChangeLookTarget(int index)
-        {
-            startDirection = owner.transform.rotation * Quaternion.Euler(-90, 0, 0);
-            startTime = Time.time;
-            duration = Quaternion.Angle(lookTargets[index], startDirection) / config.rotationalSpeed;
         }
     }
 
@@ -433,7 +401,7 @@ namespace AI
         public override void Enter()
         {
             base.Enter();
-            //Debug.Log(string.Format("Enemy {0} starting chase", owner.name));
+            Debug.Log(string.Format("Enemy {0} starting chase", owner.name));
             shooting = owner.enemyController.unitController.shooting;
             shootingRules = owner.enemyController.ShootingRules;
             lastShootingMode = AIShootingMode.NoShooting;
@@ -474,7 +442,7 @@ namespace AI
             Vector3 position = owner.enemyController.transform.position;
             Vector3 targetPosition = owner.enemyController.target.transform.position;
             Vector3 positionDelta = targetPosition - position;
-            movement.SetLookTarget(positionDelta);
+            movement.SetRotationImmediately(positionDelta);
             if (TargetVisible(owner.enemyController.target.layer))
             {
                 lastShootingMode = shootingMode;
@@ -514,10 +482,6 @@ namespace AI
 
     public class PatrolDamageCheckState : PatrolBaseState
     {
-        private Quaternion startDirection;
-        private Quaternion targetDirection;
-        private float startTime;
-        private float duration;
         private Vector3 hitDirection;
         private bool stopped;
 
@@ -527,38 +491,21 @@ namespace AI
             stopped = false;
         }
 
-        private void ChangeLookTarget(Quaternion target)
-        {
-            startDirection = owner.transform.rotation * Quaternion.Euler(-90, 0, 0);
-            startTime = Time.time;
-            duration = Quaternion.Angle(target, startDirection) / config.rotationalSpeed;
-            if (duration == 0)
-            {
-                duration = 1;
-            }
-        }
-
         public override void Enter()
         {
             base.Enter();
-            targetDirection = Quaternion.LookRotation(-hitDirection);
-            ChangeLookTarget(targetDirection);
+            movement.SetTargetRotation(-hitDirection);
         }
 
         public override void Update()
         {
-            float t = (Time.time - startTime) / duration;
-            if (t >= 1)
+            if (!movement.IsRotating)
             {
                 //Debug.Log("Damage source not found, back to looking around");
                 if (stopped)
                 {
                     owner.ChangeState(new RotateTowardsPointState(pathNode, config));
                 }
-            }
-            else
-            {
-                movement.SetLookTarget(Quaternion.Slerp(startDirection, targetDirection, t));
             }
             base.Update();
         }
@@ -583,25 +530,11 @@ namespace AI
     {
         private bool stopped;
         private Quaternion[] lookTargets;
-        private Quaternion startDirection;
-        private float startTime;
-        private float duration;
         private int targetIndex;
 
         public PatrolStopAndLookAroundState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
             stopped = false;
-        }
-
-        private void ChangeLookTarget(Quaternion target)
-        {
-            startDirection = owner.transform.rotation * Quaternion.Euler(-90, 0, 0);
-            startTime = Time.time;
-            duration = Quaternion.Angle(target, startDirection) / config.rotationalSpeed;
-            if (duration == 0)
-            {
-                duration = 1;
-            }
         }
 
         public override void Enter()
@@ -613,17 +546,12 @@ namespace AI
             {
                 lookTargets[i] = owner.transform.rotation * Quaternion.Euler(config.lookAroundRotations[i]);
             }
-            ChangeLookTarget(lookTargets[targetIndex]);
+            movement.SetTargetRotation(lookTargets[targetIndex]);
         }
 
         public override void Update()
         {
-            float t = (Time.time - startTime) / duration;
-            if (t < 1)
-            {
-                movement.SetLookTarget(Quaternion.Slerp(startDirection, lookTargets[targetIndex], t));
-            }
-            else
+            if (!movement.IsRotating)
             {
                 targetIndex++;
                 if (targetIndex == lookTargets.Length)
@@ -637,7 +565,7 @@ namespace AI
                 }
                 else
                 {
-                    ChangeLookTarget(lookTargets[targetIndex]);
+                    movement.SetTargetRotation(lookTargets[targetIndex]);
                 }
             }
             base.Update();
@@ -660,7 +588,7 @@ namespace AI
 
         private void StartRotation()
         {
-            //Debug.Log(string.Format("Finished looking around and stopping {0}. Starting roatation", pathNode));
+            Debug.Log(string.Format("Finished looking around and stopping {0}. Starting roatation", pathNode));
             owner.ChangeState(new RotateTowardsPointState(pathNode, config));
         }
     }
