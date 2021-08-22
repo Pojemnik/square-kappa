@@ -13,7 +13,7 @@ public class MissionPanelController : MonoBehaviour
     private float missionTextDefaultHeight;
     private float objectiveTextDefaultHeight;
 
-    private void Start()
+    private void Awake()
     {
         missionText.text = "";
         objectiveText.text = "";
