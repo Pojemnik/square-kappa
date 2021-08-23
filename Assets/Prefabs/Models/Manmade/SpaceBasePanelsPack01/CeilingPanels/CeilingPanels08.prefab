@@ -260,10 +260,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf107986cf22d7f41abfdb52f0ea5083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 500
-  armor: 0
-  hitProjectilePrefab: {fileID: 0}
-  destructionProjectilePrefab: {fileID: 5799961575119348041, guid: 3319cff2fcdc0e346aa985c4fbc8eb43, type: 3}
+  maxHealth: 400
+  armor: 60
+  hitParticlePrefab: {fileID: 0}
+  destructionParticlePrefab: {fileID: 5799961575119348041, guid: 3319cff2fcdc0e346aa985c4fbc8eb43, type: 3}
   deathEvent:
     m_PersistentCalls:
       m_Calls: []

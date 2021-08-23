@@ -127,7 +127,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf107986cf22d7f41abfdb52f0ea5083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 40
+  armor: 4
+  hitParticlePrefab: {fileID: 0}
+  destructionParticlePrefab: {fileID: 0}
   deathEvent:
     m_PersistentCalls:
       m_Calls: []
