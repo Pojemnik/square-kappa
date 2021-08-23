@@ -414,7 +414,7 @@ namespace AI
                     }
                     if (positionDelta.magnitude > config.minDistance)
                     {
-                        movement.MoveInGlobalCoordinates(positionDelta);
+                        movement.MoveInGlobalCoordinates(positionDelta, false);
                     }
                     else
                     {
@@ -425,7 +425,7 @@ namespace AI
                     movement.MoveRelativeToCamera(Vector3.zero);
                     break;
                 case TargetStatus.TooFar:
-                    movement.MoveInGlobalCoordinates(positionDelta);
+                    movement.MoveInGlobalCoordinates(positionDelta, false);
                     break;
                 default:
                     movement.MoveRelativeToCamera(Vector3.zero);

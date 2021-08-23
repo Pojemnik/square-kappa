@@ -148,7 +148,11 @@ public class UnitMovement : MonoBehaviour
 
     public void MoveRelativeToCamera(Vector3 direction)
     {
-        if (direction != Vector3.zero)
+        if (direction == Vector3.zero)
+        {
+            //owner.AnimationController.SetState("Stop");
+        }
+        else
         {
             direction = direction.normalized;
             owner.AnimationController.SetState("Move");
@@ -184,22 +188,22 @@ public class UnitMovement : MonoBehaviour
         }
     }
 
-    public void MoveInGlobalCoordinates(Vector3 direction)
+    public void MoveInGlobalCoordinates(Vector3 direction, bool patrolMode = true)
     {
         rigidbody.AddForce(Vector3.Scale(direction.normalized, speed) * Time.fixedDeltaTime);
-        owner.AnimationController.SetState("Move");
+        owner.AnimationController.SetState(patrolMode ? "PatrolMove" : "Move");
     }
 
-    public void MoveInGlobalCoordinatesIgnoringSpeed(Vector3 direction)
+    public void MoveInGlobalCoordinatesIgnoringSpeed(Vector3 direction, bool patrolMode = true)
     {
         rigidbody.AddForce(direction * Time.fixedDeltaTime, ForceMode.VelocityChange);
-        owner.AnimationController.SetState("Move");
+        owner.AnimationController.SetState(patrolMode ? "PatrolMove" : "Move");
     }
 
-    public void MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(Vector3 direction)
+    public void MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(Vector3 direction, bool patrolMode = true)
     {
         rigidbody.AddForce(direction, ForceMode.VelocityChange);
-        owner.AnimationController.SetState("Move");
+        owner.AnimationController.SetState(patrolMode ? "PatrolMove" : "Move");
     }
 
     public void EnableStopMode()
@@ -216,7 +220,7 @@ public class UnitMovement : MonoBehaviour
         {
             if (lastMoveDelta != Vector3.zero)
             {
-                owner.AnimationController.SetState("Stop");
+                //owner.AnimationController.SetState("Stop");
             }
         }
         else
