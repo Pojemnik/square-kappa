@@ -503,8 +503,8 @@ namespace AI
         {
             base.Enter();
             movement.SetTargetRotation(-hitDirection);
-            owner.enemyController.unitController.AnimationController.ResetTriggers();
-            owner.enemyController.unitController.AnimationController.SetState("LookAround");
+            //owner.enemyController.unitController.AnimationController.ResetTriggers();
+            //owner.enemyController.unitController.AnimationController.SetState("LookAround");
         }
 
         public override void Update()
