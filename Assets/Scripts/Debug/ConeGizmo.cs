@@ -181,8 +181,9 @@ public class ConeGizmoCore
 
     private Vector3 TransformCirclePointIgnoringScale(Vector3 point, Transform transform)
     {
-        Vector3 inverseScale = new Vector3(1 / transform.localScale.x, 1 / transform.localScale.y, 1 / transform.localScale.z);
-        return Vector3.Scale(transform.TransformPoint(point), inverseScale);
+        //Vector3 inverseScale = new Vector3(1 / transform.localScale.x, 1 / transform.localScale.y, 1 / transform.localScale.z);
+        //return Vector3.Scale(transform.TransformPoint(point), inverseScale);
+        return transform.position + transform.up * point.x + transform.right * point.y;
     }
 
     private void DrawBase(List<Vector3> circle, Transform transform)
@@ -195,7 +196,7 @@ public class ConeGizmoCore
         }
         for (int j = 1; j < circle.Count; j++, i++)
         {
-            Vector3 PointI = TransformCirclePointIgnoringScale(circle[i], transform) + direction * Height;
+            Vector3 PointI = TransformCirclePointIgnoringScale(circle[i], transform)+ direction * Height;
             Vector3 PointJ = TransformCirclePointIgnoringScale(circle[j], transform) + direction * Height;
             Gizmos.DrawLine(PointI, PointJ);
         }

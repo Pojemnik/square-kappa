@@ -4375,32 +4375,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3063092443403450291, guid: a4f7ccd963dcda040aaf85ec36388313, type: 3}
   m_PrefabInstance: {fileID: 976630383}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &981606373 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1477541206015138504, guid: d056d62c0571963429439f628f147d89, type: 3}
-  m_PrefabInstance: {fileID: 1639136431}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &981606374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 981606373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e0074a2d2f27054690db3853a1e250f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  height: 10
-  angle: 45
-  eyes: {fileID: 981606373}
-  baseRadius: 8.284271
-  basePoints: 50
-  coneLines: 6
-  drawWhenSelectedOnly: 0
-  selectedColor: {r: 0.15714097, g: 1, b: 0, a: 1}
-  notSelectedColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1001 &991327912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7507,16 +7481,8 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
-      propertyPath: visibilityConeAngle
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
       propertyPath: drawWhenSelectedOnly
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
-      propertyPath: visibilityConeHeight
-      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
       propertyPath: visibilityConeRadius
