@@ -13,12 +13,12 @@ namespace AI
         {
             InSight,
             Covered,
-            Unavailable
+            TooFar
         }
 
-        protected bool TargetVisible(int targetLayer)
+        protected TargetStatus TargetVisible(int targetLayer)
         {
-            Vector3 position = owner.transform.position;
+            Vector3 position = owner.enemyController.head.transform.position;
             Vector3 targetPosition = owner.enemyController.target.transform.position;
             Vector3 towardsTarget = targetPosition - position;
             Debug.DrawRay(position, towardsTarget, Color.magenta);
@@ -26,20 +26,28 @@ namespace AI
             {
                 if (raycastHit.collider.gameObject.layer == targetLayer)
                 {
-                    return true;
+                    return TargetStatus.InSight;
+                }
+                else
+                {
+                    return TargetStatus.Covered;
                 }
             }
-            if (Vector3.Angle(towardsTarget, owner.transform.up) <= owner.enemyController.visibilityConeAngle)
+            if (Vector3.Angle(towardsTarget, owner.enemyController.head.transform.up) <= owner.enemyController.visibilityConeAngle)
             {
                 if (Physics.Raycast(position, targetPosition - position, out raycastHit, owner.enemyController.visibilityConeHeight, owner.enemyController.layerMask))
                 {
                     if (raycastHit.collider.gameObject.layer == targetLayer)
                     {
-                        return true;
+                        return TargetStatus.InSight;
+                    }
+                    else
+                    {
+                        return TargetStatus.Covered;
                     }
                 }
             }
-            return false;
+            return TargetStatus.TooFar;
         }
 
         public virtual void Enter()

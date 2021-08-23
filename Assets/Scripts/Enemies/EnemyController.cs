@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour
     public GameObject weapon;
     [SerializeField]
     private UnitShooting shooting;
+    public GameObject head;
 
     [Header("Enemy properites")]
     [HideInInspector]
@@ -91,7 +92,7 @@ public class EnemyController : MonoBehaviour
 
     private void DrawGizmo(bool selected)
     {
-        gizmo.Draw(selected, transform);
+        gizmo.Draw(selected, head.transform);
     }
 
     private void Start()

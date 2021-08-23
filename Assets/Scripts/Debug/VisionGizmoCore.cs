@@ -108,7 +108,7 @@ public class VisionGizmoCore
     public VisionGizmoCore()
     {
         sphere = new SphereGizmoCore();
-        cone = new ConeGizmoCore(ConeGizmoCore.LookingDirection.Up);
+        cone = new ConeGizmoCore(ConeGizmoCore.LookingDirection.Forward);
     }
 
     public void Draw(bool selected, Transform transform)

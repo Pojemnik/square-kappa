@@ -10,17 +10,23 @@ public class UnitMovement : MonoBehaviour
     [SerializeField]
     private Vector3 speed;
     [SerializeField]
+    private float defaultDrag;
+
+    [Header("Rotation parameters")]
+    [SerializeField]
     private float rollSpeed;
     [SerializeField]
-    private float defaultDrag;
+    private float rotationSpeed;
+    [SerializeField]
+    private float rotationAnimationSmoothness;
+    [SerializeField]
+    private float rotationAnimationMaxValue;
 
     [Header("Camera")]
     public bool cameraAiming;
 
     [Header("References")]
     public Unit owner;
-    //[SerializeField]
-    //private GameObject jetpack = null;
     [SerializeField]
     private GameObject firstPresonCamera;
 
@@ -41,6 +47,9 @@ public class UnitMovement : MonoBehaviour
         }
     }
 
+    public bool IsRotating { get => isRotating; }
+    private bool isRotating;
+
     //input
     private Vector3 rawInput;
     private float rawInputRoll;
@@ -49,12 +58,19 @@ public class UnitMovement : MonoBehaviour
     private new Rigidbody rigidbody;
 
     //controllers
-    //private JetpackController jetpackController;
     private PlayerCameraController cameraController;
 
-    private Quaternion lookTarget;
+    //movement
     private Vector3 lastMoveDelta;
+
+    //rotations
     private Vector3 shootDirection;
+    private Quaternion lookTarget;
+    private Quaternion targetRotation;
+    private Quaternion startRotation;
+    private float rotationStartTime;
+    private float rotationDuration;
+    private Vector2 rotationValue;
 
     public void MoveXZ(Vector2 vector)
     {
@@ -62,21 +78,19 @@ public class UnitMovement : MonoBehaviour
         rawInput.z = vector.y;
         if (rawInput.z > 0)
         {
-            //owner.AnimationController.SetState("MoveForward");
-            //jetpackController.OnMoveForward();
+            owner.AnimationController.SetState("Move");
         }
         else if (rawInput.z < 0)
         {
-            //owner.AnimationController.SetState("MoveBackward");
-            //jetpackController.OnMoveBackward();
+            owner.AnimationController.SetState("Move");
         }
         if (rawInput.x > 0)
         {
-            //jetpackController.OnMoveRight();
+            owner.AnimationController.SetState("Move");
         }
         else if (rawInput.x < 0)
         {
-            //jetpackController.OnMoveLeft();
+            owner.AnimationController.SetState("Move");
         }
     }
 
@@ -85,14 +99,12 @@ public class UnitMovement : MonoBehaviour
         if (value == 1)
         {
             rawInput.y = 1;
-            //owner.AnimationController.SetState("MoveUpDown");
-            //jetpackController.OnMoveUp();
+            owner.AnimationController.SetState("Move");
         }
         else if (value == -1)
         {
             rawInput.y = -1;
-            //owner.AnimationController.SetState("MoveUpDown");
-            //jetpackController.OnMoveDown();
+            owner.AnimationController.SetState("Move");
         }
         else
         {
@@ -126,51 +138,77 @@ public class UnitMovement : MonoBehaviour
         }
     }
 
-    public void SetLookTarget(Vector3 direction)
+    private Vector2 CalculateRoatationValue(Vector3 start, Vector3 target)
+    {
+        Vector3 rotationDelta = start - target;
+        //Debug.LogFormat("Rotation delta: {0}", rotationDelta);
+        Vector2 rotationValue = new Vector2(rotationDelta.y, rotationDelta.z) / 2;
+        return rotationValue;
+    }
+
+    public void MoveRelativeToCamera(Vector3 direction)
+    {
+        if (direction == Vector3.zero)
+        {
+            //owner.AnimationController.SetState("Stop");
+        }
+        else
+        {
+            direction = direction.normalized;
+            owner.AnimationController.SetState("Move");
+        }
+        rawInput = direction;
+    }
+
+    public void SetRotationImmediately(Vector3 direction)
     {
         lookTarget = Quaternion.LookRotation(direction) * Quaternion.Euler(90, 0, 0);
         shootDirection = direction;
     }
 
-    public void SetLookTarget(Vector3 direction, Vector3 up)
+    public void SetTargetRotation(Vector3 direction)
     {
-        lookTarget = Quaternion.LookRotation(direction, up) * Quaternion.Euler(90, 0, 0);
-        shootDirection = direction;
+        SetTargetRotation(Quaternion.LookRotation(direction));
     }
 
-    public void SetLookTarget(Quaternion target)
+    public void SetTargetRotation(Quaternion direction)
     {
-        lookTarget = target * Quaternion.Euler(90, 0, 0);
-        shootDirection = target * Vector3.forward;
-    }
-
-    public void MoveRelativeToCamera(Vector3 direction)
-    {
-        if (direction != Vector3.zero)
+        targetRotation = direction;
+        startRotation = transform.rotation * Quaternion.Euler(-90, 0, 0);
+        rotationStartTime = Time.time;
+        rotationDuration = Quaternion.Angle(startRotation, targetRotation) / rotationSpeed;
+        rotationValue = CalculateRoatationValue(startRotation * Vector3.forward, targetRotation * Vector3.forward);
+        if (rotationDuration == 0)
         {
-            direction = direction.normalized;
+            isRotating = false;
         }
-        rawInput = direction;
+        else
+        {
+            isRotating = true;
+        }
     }
 
-    public void MoveInGlobalCoordinates(Vector3 direction)
+    public void MoveInGlobalCoordinates(Vector3 direction, bool patrolMode = true)
     {
         rigidbody.AddForce(Vector3.Scale(direction.normalized, speed) * Time.fixedDeltaTime);
+        owner.AnimationController.SetState(patrolMode ? "PatrolMove" : "Move");
     }
 
-    public void MoveInGlobalCoordinatesIgnoringSpeed(Vector3 direction)
+    public void MoveInGlobalCoordinatesIgnoringSpeed(Vector3 direction, bool patrolMode = true)
     {
         rigidbody.AddForce(direction * Time.fixedDeltaTime, ForceMode.VelocityChange);
+        owner.AnimationController.SetState(patrolMode ? "PatrolMove" : "Move");
     }
 
-    public void MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(Vector3 direction)
+    public void MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(Vector3 direction, bool patrolMode = true)
     {
         rigidbody.AddForce(direction, ForceMode.VelocityChange);
+        owner.AnimationController.SetState(patrolMode ? "PatrolMove" : "Move");
     }
 
-    public bool IsRotating()
+    public void EnableStopMode()
     {
-        return rigidbody.angularVelocity.magnitude > 0.1F;
+        owner.AnimationController.SetState("Stop");
     }
 
     private void MoveUnit()
@@ -183,7 +221,6 @@ public class UnitMovement : MonoBehaviour
             if (lastMoveDelta != Vector3.zero)
             {
                 //owner.AnimationController.SetState("Stop");
-                //jetpackController.OnStop();
             }
         }
         else
@@ -204,7 +241,55 @@ public class UnitMovement : MonoBehaviour
     {
         float deltaRoll = rollSpeed * Time.fixedDeltaTime * rawInputRoll;
         rigidbody.MoveRotation(lookTarget * Quaternion.Euler(0, deltaRoll, 0));
+        CalculateSmoothRotation();
         lookTarget = rigidbody.rotation;
+        SetAim();
+    }
+
+    private void CalculateSmoothRotation()
+    {
+        if (isRotating == true)
+        {
+            float t = (Time.time - rotationStartTime) / rotationDuration;
+            if (t < 1)
+            {
+                Quaternion direction = Quaternion.Slerp(startRotation, targetRotation, t) * Quaternion.Euler(90, 0, 0);
+                rigidbody.MoveRotation(direction);
+                SetRotationAnimation(t);
+                shootDirection = direction * Vector3.forward;
+            }
+            else
+            {
+                isRotating = false;
+                owner.AnimationController.ResetStaticState("Rotation");
+                owner.AnimationController.SetRotationVector(Vector2.zero);
+            }
+        }
+    }
+
+    private void SetRotationAnimation(float t)
+    {
+        owner.AnimationController.SetStaticState("Rotation");
+        float normalisationParamaeter = 1 / rotationAnimationSmoothness;
+        if (t < rotationAnimationSmoothness)
+        {
+            owner.AnimationController.SetRotationVector(rotationValue * normalisationParamaeter * t * rotationAnimationMaxValue);
+        }
+        else
+        {
+            if (t < 1 - rotationAnimationSmoothness)
+            {
+                owner.AnimationController.SetRotationVector(rotationValue * rotationAnimationMaxValue);
+            }
+            else
+            {
+                owner.AnimationController.SetRotationVector(rotationValue * normalisationParamaeter * (1 - t) * rotationAnimationMaxValue);
+            }
+        }
+    }
+
+    private void SetAim()
+    {
         if (cameraAiming)
         {
             owner.TowardsTarget = Quaternion.LookRotation(cameraController.orientation[2], cameraController.orientation[1]);
@@ -221,10 +306,6 @@ public class UnitMovement : MonoBehaviour
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
-        //if (jetpack != null)
-        //{
-        //    jetpackController = jetpack.GetComponent<JetpackController>();
-        //}
         cameraController = firstPresonCamera.GetComponent<PlayerCameraController>();
         lastMoveDelta = Vector3.zero;
         lookTarget = rigidbody.rotation;

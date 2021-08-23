@@ -962,21 +962,6 @@ MonoBehaviour:
     - label: Visit yellow asteroid
       objectives:
       - {fileID: 939459463}
-    - label: Leave asteroids zone
-      objectives:
-      - {fileID: 473194878}
-  - label: Very very long mission title
-    groups:
-    - label: Visit purple asteroid
-      objectives:
-      - {fileID: 1862621481}
-    - label: Also extremally long objective group label which shuld not fit on panel
-        (red one)
-      objectives:
-      - {fileID: 1361876138}
-    - label: Visit yellow asteroid
-      objectives:
-      - {fileID: 953223956}
 --- !u!1001 &291967773
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1075,7 +1060,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693619, guid: 39631cf7e7a39e44abf9f08879fae01e, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8307458533412693619, guid: 39631cf7e7a39e44abf9f08879fae01e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1475,7 +1460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7768877139721470298, guid: a88ab8a6781bd834ebfebccf4bf464d8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 22.98
+      value: 16.51
       objectReference: {fileID: 0}
     - target: {fileID: 7768877139721470298, guid: a88ab8a6781bd834ebfebccf4bf464d8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1483,7 +1468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7768877139721470298, guid: a88ab8a6781bd834ebfebccf4bf464d8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.68
+      value: 18.57
       objectReference: {fileID: 0}
     - target: {fileID: 7768877139721470298, guid: a88ab8a6781bd834ebfebccf4bf464d8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3406,7 +3391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7768877139721470298, guid: 597932236b6fd8e47bc468eb386e780e, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7768877139721470298, guid: 597932236b6fd8e47bc468eb386e780e, type: 3}
       propertyPath: m_LocalScale.y
@@ -3845,7 +3830,7 @@ MonoBehaviour:
   enableVictory: 1
   victoryScreen: {fileID: 1477909889}
   victoryScreenDisplayTime: 5
-  enableGameOver: 1
+  enableGameOver: 0
   gameOverScreen: {fileID: 1134212152}
   gameOverScreenDisplayTime: 5
 --- !u!1001 &917786305
@@ -7491,6 +7476,26 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 665049317}
+    - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
+      propertyPath: enableRagdoll
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
+      propertyPath: drawWhenSelectedOnly
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
+      propertyPath: visibilityConeHeight
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
+      propertyPath: visibilityConeRadius
+      value: 24.852814
+      objectReference: {fileID: 0}
+    - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
+      propertyPath: visibilitySphereRadius
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d056d62c0571963429439f628f147d89, type: 3}
 --- !u!4 &1639136432 stripped
@@ -7528,7 +7533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyController: {fileID: 1639136434}
   firstNode: {fileID: 1595644466}
-  config: {fileID: 11400000, guid: 368774ad42437b54e95fe7dd87163de5, type: 2}
+  config: {fileID: 11400000, guid: 54c565b196e47024a984a1371fde5f4d, type: 2}
 --- !u!1 &1639842041 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6961237039126682592, guid: 3eabbc12c117d274082af55c13c567e3, type: 3}
@@ -7701,7 +7706,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8613682248610588125, guid: a26a95ee705cede408a894e802243d9c, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8613682248610588125, guid: a26a95ee705cede408a894e802243d9c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8986,7 +8991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bceb2f52c708dbb4792c34eff4668af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useSceneView: 0
+  useSceneView: 1
 --- !u!4 &2054169792
 Transform:
   m_ObjectHideFlags: 0
