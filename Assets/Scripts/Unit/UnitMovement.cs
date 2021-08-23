@@ -10,21 +10,25 @@ public class UnitMovement : MonoBehaviour
     [SerializeField]
     private Vector3 speed;
     [SerializeField]
+    private float defaultDrag;
+
+    [Header("Rotation parameters")]
+    [SerializeField]
     private float rollSpeed;
     [SerializeField]
-    private float defaultDrag;
+    private float rotationSpeed;
+    [SerializeField]
+    private float rotationAnimationSmoothness;
+    [SerializeField]
+    private float rotationAnimationMaxValue;
 
     [Header("Camera")]
     public bool cameraAiming;
 
     [Header("References")]
     public Unit owner;
-    //[SerializeField]
-    //private GameObject jetpack = null;
     [SerializeField]
     private GameObject firstPresonCamera;
-
-    private Vector2 lastRotationValue;
 
     public Vector3 Velocity { get => rigidbody.velocity; }
     public bool UseDrag
@@ -43,6 +47,9 @@ public class UnitMovement : MonoBehaviour
         }
     }
 
+    public bool IsRotating { get => isRotating; }
+    private bool isRotating;
+
     //input
     private Vector3 rawInput;
     private float rawInputRoll;
@@ -51,21 +58,19 @@ public class UnitMovement : MonoBehaviour
     private new Rigidbody rigidbody;
 
     //controllers
-    //private JetpackController jetpackController;
     private PlayerCameraController cameraController;
 
-    private Quaternion lookTarget;
+    //movement
     private Vector3 lastMoveDelta;
-    private Vector3 shootDirection;
 
+    //rotations
+    private Vector3 shootDirection;
+    private Quaternion lookTarget;
     private Quaternion targetRotation;
     private Quaternion startRotation;
     private float rotationStartTime;
     private float rotationDuration;
-    private bool isRotating;
-    public bool IsRotating { get => isRotating; }
-    [SerializeField]
-    private float rotationSpeed;
+    private Vector2 rotationValue;
 
     public void MoveXZ(Vector2 vector)
     {
@@ -133,27 +138,11 @@ public class UnitMovement : MonoBehaviour
         }
     }
 
-    private Vector2 CalculateRoatationValue(Vector3 lastRoatation)
+    private Vector2 CalculateRoatationValue(Vector3 start, Vector3 target)
     {
-        Vector3 rotationDelta = lookTarget.eulerAngles - lastRoatation;
-        if (rotationDelta.x > 180)
-            rotationDelta.x -= 360;
-        if (rotationDelta.x < -180)
-            rotationDelta.x += 360;
-        if (rotationDelta.z > 180)
-            rotationDelta.z -= 360;
-        if (rotationDelta.z < -180)
-            rotationDelta.z += 360;
-        Vector2 rotationValue = new Vector2(rotationDelta.z, rotationDelta.x);
-        rotationValue.x = Mathf.Clamp(rotationValue.x / 5, -1, 1);
-        rotationValue.y = Mathf.Clamp(rotationValue.y / 5, -1, 1);
-        if (Mathf.Abs(rotationValue.x) > 0.5 || Mathf.Abs(rotationValue.y) > 0.5)
-        {
-            //Debug.LogFormat("Big rotation change: {0}", rotationValue);
-            return Vector2.zero;
-        }
-        //Debug.LogFormat("Rotation change: {0}", rotationDelta);
-        //Debug.LogFormat("Rotation value: {0}", rotationValue);
+        Vector3 rotationDelta = start - target;
+        //Debug.LogFormat("Rotation delta: {0}", rotationDelta);
+        Vector2 rotationValue = new Vector2(rotationDelta.y, rotationDelta.z) / 2;
         return rotationValue;
     }
 
@@ -184,6 +173,7 @@ public class UnitMovement : MonoBehaviour
         startRotation = transform.rotation * Quaternion.Euler(-90, 0, 0);
         rotationStartTime = Time.time;
         rotationDuration = Quaternion.Angle(startRotation, targetRotation) / rotationSpeed;
+        rotationValue = CalculateRoatationValue(startRotation * Vector3.forward, targetRotation * Vector3.forward);
         if (rotationDuration == 0)
         {
             isRotating = false;
@@ -261,11 +251,35 @@ public class UnitMovement : MonoBehaviour
             {
                 Quaternion direction = Quaternion.Slerp(startRotation, targetRotation, t) * Quaternion.Euler(90, 0, 0);
                 rigidbody.MoveRotation(direction);
+                SetRotationAnimation(t);
                 shootDirection = direction * Vector3.forward;
             }
             else
             {
                 isRotating = false;
+                owner.AnimationController.ResetStaticState("Rotation");
+                owner.AnimationController.SetRotationVector(Vector2.zero);
+            }
+        }
+    }
+
+    private void SetRotationAnimation(float t)
+    {
+        owner.AnimationController.SetStaticState("Rotation");
+        float normalisationParamaeter = 1 / rotationAnimationSmoothness;
+        if (t < rotationAnimationSmoothness)
+        {
+            owner.AnimationController.SetRotationVector(rotationValue * normalisationParamaeter * t * rotationAnimationMaxValue);
+        }
+        else
+        {
+            if (t < 1 - rotationAnimationSmoothness)
+            {
+                owner.AnimationController.SetRotationVector(rotationValue * rotationAnimationMaxValue);
+            }
+            else
+            {
+                owner.AnimationController.SetRotationVector(rotationValue * normalisationParamaeter * (1 - t) * rotationAnimationMaxValue);
             }
         }
     }

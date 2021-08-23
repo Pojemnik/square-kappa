@@ -1850,12 +1850,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: {x: 20000, y: 20000, z: 20000}
-  rollSpeed: 120
   defaultDrag: 1
+  rollSpeed: 120
+  rotationSpeed: 45
+  rotationAnimationSmoothness: 0.3
+  rotationAnimationMaxValue: 0.7
   cameraAiming: 0
   owner: {fileID: 9028151093970926094}
   firstPresonCamera: {fileID: 6014078750031605804}
-  rotationSpeed: 45
 --- !u!114 &1280456608684126228
 MonoBehaviour:
   m_ObjectHideFlags: 0
