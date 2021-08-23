@@ -285,9 +285,6 @@ namespace AI
 
     public class LookAroundPatrolState : PatrolBaseState
     {
-        private Quaternion[] lookTargets;
-        private int targetIndex;
-
         public LookAroundPatrolState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
         }
@@ -295,31 +292,20 @@ namespace AI
         public override void Enter()
         {
             base.Enter();
-            targetIndex = 0;
-            lookTargets = new Quaternion[config.lookAroundRotations.Count];
-            for (int i = 0; i < lookTargets.Length; i++)
-            {
-                lookTargets[i] = owner.transform.rotation * Quaternion.Euler(config.lookAroundRotations[i]);
-            }
-            movement.SetTargetRotation(lookTargets[targetIndex]);
+            owner.enemyController.unitController.AnimationController.eventsAdapter.lookaroundEnd.AddListener(OnLookAroundEnd);
+            owner.enemyController.unitController.AnimationController.ResetTriggers();
+            owner.enemyController.unitController.AnimationController.SetState("LookAround");
         }
 
-        public override void Update()
+        private void OnLookAroundEnd()
         {
-            if (!movement.IsRotating)
-            {
-                targetIndex++;
-                if (targetIndex == lookTargets.Length)
-                {
-                    StartRotation();
-                    return;
-                }
-                else
-                {
-                    movement.SetTargetRotation(lookTargets[targetIndex]);
-                }
-            }
-            base.Update();
+            StartRotation();
+        }
+
+        public override void Exit()
+        {
+            owner.enemyController.unitController.AnimationController.eventsAdapter.lookaroundEnd.RemoveListener(OnLookAroundEnd);
+            base.Exit();
         }
 
         private void StartRotation()

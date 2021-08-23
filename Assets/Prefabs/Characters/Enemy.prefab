@@ -480,6 +480,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  lookaroundEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &424987176464563151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1887,6 +1890,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 9028151093970926094}
+  eventsAdapter: {fileID: 7012861412752311551}
   animator: {fileID: 8633829347163807104}
 --- !u!114 &5933900374770886342
 MonoBehaviour:

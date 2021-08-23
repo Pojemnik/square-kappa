@@ -7,6 +7,7 @@ public class UnitAnimationController : MonoBehaviour
 {
     [Header("Refernces")]
     public UnitController owner;
+    public AnimationEventsAdapter eventsAdapter;
     [SerializeField]
     private Animator animator;
 
@@ -37,6 +38,12 @@ public class UnitAnimationController : MonoBehaviour
             return;
         }
         animator.SetBool(state, false);
+    }
+
+    public void ResetTriggers()
+    {
+        animator.ResetTrigger("Move");
+        animator.ResetTrigger("Stop");
     }
 
     public void SetRotationVector(Vector2 rotation)
