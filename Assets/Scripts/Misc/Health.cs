@@ -19,9 +19,9 @@ public class Health : MonoBehaviour
     [Min(0)]
     private int armor;
     [SerializeField]
-    private GameObject hitProjectilePrefab;
+    private GameObject hitParticlePrefab;
     [SerializeField]
-    private GameObject destructionProjectilePrefab;
+    private GameObject destructionParticlePrefab;
 
     [Header("Events")]
     public UnityEvent deathEvent;
@@ -46,9 +46,11 @@ public class Health : MonoBehaviour
         {
             info.amount = 0;
         }
-        if (hitProjectilePrefab != null)
+        if (hitParticlePrefab != null)
         {
-            Instantiate(hitProjectilePrefab, info.position, Quaternion.LookRotation(info.normal));
+            GameObject particle = Instantiate(hitParticlePrefab, info.position, Quaternion.LookRotation(info.normal));
+            particle.transform.localScale = transform.localScale;
+
         }
         currentHealth -= info.amount;
         healthChangeEvent.Invoke(currentHealth);
@@ -56,9 +58,10 @@ public class Health : MonoBehaviour
         if(currentHealth <= 0)
         {
             currentHealth = 0;
-            if (destructionProjectilePrefab != null)
+            if (destructionParticlePrefab != null)
             {
-                Instantiate(destructionProjectilePrefab, transform.position, transform.rotation);
+                GameObject particle = Instantiate(destructionParticlePrefab, transform.position, transform.rotation);
+                particle.transform.localScale = transform.localScale;
             }
             deathEvent.Invoke();
         }
