@@ -18,7 +18,7 @@ namespace AI
 
         protected bool TargetVisible(int targetLayer)
         {
-            Vector3 position = owner.transform.position;
+            Vector3 position = owner.enemyController.head.transform.position;
             Vector3 targetPosition = owner.enemyController.target.transform.position;
             Vector3 towardsTarget = targetPosition - position;
             Debug.DrawRay(position, towardsTarget, Color.magenta);
@@ -29,7 +29,7 @@ namespace AI
                     return true;
                 }
             }
-            if (Vector3.Angle(towardsTarget, owner.transform.up) <= owner.enemyController.visibilityConeAngle)
+            if (Vector3.Angle(towardsTarget, owner.enemyController.head.transform.up) <= owner.enemyController.visibilityConeAngle)
             {
                 if (Physics.Raycast(position, targetPosition - position, out raycastHit, owner.enemyController.visibilityConeHeight, owner.enemyController.layerMask))
                 {

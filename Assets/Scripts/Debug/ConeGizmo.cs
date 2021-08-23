@@ -49,8 +49,8 @@ public class ConeGizmo : MonoBehaviour
         if (gizmo == null)
         {
             gizmo = new ConeGizmoCore(ConeGizmoCore.LookingDirection.Forward);
-            UpdateCoreValues();
         }
+        UpdateCoreValues();
     }
 
 #if UNITY_EDITOR
@@ -167,7 +167,7 @@ public class ConeGizmoCore
         List<Vector3> circle = new List<Vector3>();
         for (float i = 0; i < Mathf.PI * 2; i += Mathf.PI * 2 / points)
         {
-            if(lookingDirection == LookingDirection.Up)
+            if (lookingDirection == LookingDirection.Up)
             {
                 circle.Add(new Vector3(radius * Mathf.Sin(i), 0, radius * Mathf.Cos(i)));
             }
@@ -193,7 +193,7 @@ public class ConeGizmoCore
         {
             direction = transform.up;
         }
-            for (int j = 1; j < circle.Count; j++, i++)
+        for (int j = 1; j < circle.Count; j++, i++)
         {
             Vector3 PointI = TransformCirclePointIgnoringScale(circle[i], transform) + direction * Height;
             Vector3 PointJ = TransformCirclePointIgnoringScale(circle[j], transform) + direction * Height;
