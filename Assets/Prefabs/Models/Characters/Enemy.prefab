@@ -1250,7 +1250,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: -7614859460564466556, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
   m_Bones:
@@ -1813,6 +1813,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  armor: 0
+  hitParticlePrefab: {fileID: 0}
+  destructionParticlePrefab: {fileID: 0}
   deathEvent:
     m_PersistentCalls:
       m_Calls:
@@ -2061,7 +2064,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 5496995059708767844, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
   m_Bones:
@@ -2844,7 +2847,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: -189142664885020832, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
   m_Bones:
@@ -3398,7 +3401,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 1895324689723679491, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
   m_Bones:
@@ -3698,7 +3701,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: -5875553271485661921, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
   m_Bones:
@@ -4704,31 +4707,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2487158901783175941, guid: ceb24ab272efbf342a845e1867d1da1d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00089
+      value: -0.075
       objectReference: {fileID: 0}
     - target: {fileID: 2487158901783175941, guid: ceb24ab272efbf342a845e1867d1da1d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00339
+      value: 0.351
       objectReference: {fileID: 0}
     - target: {fileID: 2487158901783175941, guid: ceb24ab272efbf342a845e1867d1da1d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0006
+      value: 0.061
       objectReference: {fileID: 0}
     - target: {fileID: 2487158901783175941, guid: ceb24ab272efbf342a845e1867d1da1d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.79151064
+      value: -0.40706697
       objectReference: {fileID: 0}
     - target: {fileID: 2487158901783175941, guid: ceb24ab272efbf342a845e1867d1da1d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.000000059604638
+      value: 0.40706697
       objectReference: {fileID: 0}
     - target: {fileID: 2487158901783175941, guid: ceb24ab272efbf342a845e1867d1da1d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.6111554
+      value: -0.57818377
       objectReference: {fileID: 0}
     - target: {fileID: 2487158901783175941, guid: ceb24ab272efbf342a845e1867d1da1d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000059604613
+      value: -0.57818377
       objectReference: {fileID: 0}
     - target: {fileID: 3012900984055462335, guid: ceb24ab272efbf342a845e1867d1da1d, type: 3}
       propertyPath: m_Layer
