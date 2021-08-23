@@ -25,7 +25,7 @@ namespace AI
         public override void Update()
         {
             base.Update();
-            if (TargetVisible(owner.enemyController.target.layer))
+            if (TargetVisible(owner.enemyController.target.layer) == TargetStatus.InSight)
             {
                 Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
                 owner.ChangeState(new ChaseState(pathNode, config));
@@ -91,7 +91,6 @@ namespace AI
 
     public class AccelerateTowardsPointState : PatrolBaseState
     {
-
         public AccelerateTowardsPointState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
         }
@@ -323,6 +322,7 @@ namespace AI
         private AIShootingMode lastShootingMode;
         private bool lastShoot;
         private float phaseTime;
+        private float lastSeenTime;
 
         public ChaseState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
@@ -387,13 +387,16 @@ namespace AI
         public override void Enter()
         {
             base.Enter();
-            Debug.Log(string.Format("Enemy {0} starting chase", owner.name));
+            //Debug.Log(string.Format("Enemy {0} starting chase", owner.name));
             shooting = owner.enemyController.unitController.shooting;
             shootingRules = owner.enemyController.ShootingRules;
             lastShootingMode = AIShootingMode.NoShooting;
             phaseTime = 0;
             lastShoot = false;
             movement.UseDrag = true;
+            owner.enemyController.unitController.AnimationController.ResetTriggers();
+            owner.enemyController.unitController.AnimationController.SetState("Spotted");
+            lastSeenTime = Time.time;
         }
 
         public override void PhysicsUpdate()
@@ -402,24 +405,31 @@ namespace AI
             Vector3 position = owner.enemyController.transform.position;
             Vector3 targetPosition = owner.enemyController.target.transform.position;
             Vector3 positionDelta = targetPosition - position;
-            if (TargetVisible(owner.enemyController.target.layer))
+            switch (TargetVisible(owner.enemyController.target.layer))
             {
-                if (shooting.NeedsReload)
-                {
-                    shooting.Reload();
-                }
-                if (positionDelta.magnitude > config.minDistance)
-                {
-                    movement.MoveInGlobalCoordinates(positionDelta);
-                }
-                else
-                {
+                case TargetStatus.InSight:
+                    if (shooting.NeedsReload)
+                    {
+                        shooting.Reload();
+                    }
+                    if (positionDelta.magnitude > config.minDistance)
+                    {
+                        movement.MoveInGlobalCoordinates(positionDelta);
+                    }
+                    else
+                    {
+                        movement.MoveRelativeToCamera(Vector3.zero);
+                    }
+                    break;
+                case TargetStatus.Covered:
                     movement.MoveRelativeToCamera(Vector3.zero);
-                }
-            }
-            else
-            {
-                movement.MoveRelativeToCamera(Vector3.zero);
+                    break;
+                case TargetStatus.TooFar:
+                    movement.MoveInGlobalCoordinates(positionDelta);
+                    break;
+                default:
+                    movement.MoveRelativeToCamera(Vector3.zero);
+                    break;
             }
         }
 
@@ -429,27 +439,39 @@ namespace AI
             Vector3 targetPosition = owner.enemyController.target.transform.position;
             Vector3 positionDelta = targetPosition - position;
             movement.SetRotationImmediately(positionDelta);
-            if (TargetVisible(owner.enemyController.target.layer))
+            switch (TargetVisible(owner.enemyController.target.layer))
             {
-                lastShootingMode = shootingMode;
-                shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules);
-                switch (shootingMode)
-                {
-                    case AIShootingMode.NoShooting:
-                        shooting.StopFire();
-                        break;
-                    case AIShootingMode.Error:
-                        Debug.LogError("AI shooting mode error!");
-                        break;
-                    default:
-                        UpdateShooting();
-                        break;
-                }
-            }
-            else
-            {
-                shooting.StopFire();
-                owner.ChangeState(new PatrolStopAndLookAroundState(pathNode, config));
+                case TargetStatus.InSight:
+                    lastShootingMode = shootingMode;
+                    shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules);
+                    switch (shootingMode)
+                    {
+                        case AIShootingMode.NoShooting:
+                            shooting.StopFire();
+                            break;
+                        case AIShootingMode.Error:
+                            Debug.LogError("AI shooting mode error!");
+                            break;
+                        default:
+                            UpdateShooting();
+                            break;
+                    }
+                    lastSeenTime = Time.time;
+                    break;
+                case TargetStatus.Covered:
+                    shooting.StopFire();
+                    if (Time.time - lastSeenTime > config.chaseTimeout)
+                    {
+                        owner.ChangeState(new PatrolStopAndLookAroundState(pathNode, config));
+                    }
+                    break;
+                case TargetStatus.TooFar:
+                    shooting.StopFire();
+                    if (Time.time - lastSeenTime > config.chaseTimeout)
+                    {
+                        owner.ChangeState(new PatrolStopAndLookAroundState(pathNode, config));
+                    }
+                    break;
             }
             Debug.DrawLine(position, targetPosition, Color.red);
         }
@@ -481,6 +503,8 @@ namespace AI
         {
             base.Enter();
             movement.SetTargetRotation(-hitDirection);
+            owner.enemyController.unitController.AnimationController.ResetTriggers();
+            owner.enemyController.unitController.AnimationController.SetState("LookAround");
         }
 
         public override void Update()
@@ -515,8 +539,7 @@ namespace AI
     public class PatrolStopAndLookAroundState : PatrolBaseState
     {
         private bool stopped;
-        private Quaternion[] lookTargets;
-        private int targetIndex;
+        private bool animationFinished;
 
         public PatrolStopAndLookAroundState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
@@ -526,35 +549,24 @@ namespace AI
         public override void Enter()
         {
             base.Enter();
-            targetIndex = 0;
-            lookTargets = new Quaternion[config.lookAroundRotations.Count];
-            for (int i = 0; i < lookTargets.Length; i++)
-            {
-                lookTargets[i] = owner.transform.rotation * Quaternion.Euler(config.lookAroundRotations[i]);
-            }
-            movement.SetTargetRotation(lookTargets[targetIndex]);
+            owner.enemyController.unitController.AnimationController.eventsAdapter.lookaroundEnd.AddListener(OnLookAroundEnd);
+            owner.enemyController.unitController.AnimationController.ResetTriggers();
+            owner.enemyController.unitController.AnimationController.SetState("LookAround");
         }
 
-        public override void Update()
+        private void OnLookAroundEnd()
         {
-            if (!movement.IsRotating)
+            animationFinished = true;
+            if (stopped)
             {
-                targetIndex++;
-                if (targetIndex == lookTargets.Length)
-                {
-                    targetIndex--;
-                    if (stopped)
-                    {
-                        StartRotation();
-                        return;
-                    }
-                }
-                else
-                {
-                    movement.SetTargetRotation(lookTargets[targetIndex]);
-                }
+                StartRotation();
             }
-            base.Update();
+        }
+
+        public override void Exit()
+        {
+            owner.enemyController.unitController.AnimationController.eventsAdapter.lookaroundEnd.RemoveListener(OnLookAroundEnd);
+            base.Exit();
         }
 
         public override void PhysicsUpdate()
@@ -565,6 +577,10 @@ namespace AI
                 movement.MoveRelativeToCamera(Vector3.zero);
                 movement.MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(-movement.Velocity);
                 stopped = true;
+                if (animationFinished)
+                {
+                    StartRotation();
+                }
             }
             else
             {
@@ -574,7 +590,7 @@ namespace AI
 
         private void StartRotation()
         {
-            Debug.Log(string.Format("Finished looking around and stopping {0}. Starting roatation", pathNode));
+            //Debug.Log(string.Format("Finished looking around and stopping {0}. Starting roatation", pathNode));
             owner.ChangeState(new RotateTowardsPointState(pathNode, config));
         }
     }

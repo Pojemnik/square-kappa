@@ -7485,8 +7485,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
+      propertyPath: visibilityConeHeight
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
       propertyPath: visibilityConeRadius
-      value: 24.852814
+      value: 4.1421356
+      objectReference: {fileID: 0}
+    - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
+      propertyPath: visibilitySphereRadius
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d056d62c0571963429439f628f147d89, type: 3}
@@ -8983,7 +8991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bceb2f52c708dbb4792c34eff4668af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useSceneView: 1
+  useSceneView: 0
 --- !u!4 &2054169792
 Transform:
   m_ObjectHideFlags: 0

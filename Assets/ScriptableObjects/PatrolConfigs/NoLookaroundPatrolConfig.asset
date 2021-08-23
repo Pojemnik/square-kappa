@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: NoLookaroundPatrolConfig
   m_EditorClassIdentifier: 
   speedEpsilon: 0.5
-  rotationalSpeed: 45
   maxMovementSpeed: 2
   acceleration: 2
   minDistance: 1
   actualMovementSpeed: 2
   lookAroundRotations:
   - {x: -90, y: 0, z: 0}
+  chaseTimeout: 3

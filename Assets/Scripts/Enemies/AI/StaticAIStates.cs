@@ -24,6 +24,7 @@ namespace AI
         private AIShootingMode lastShootingMode;
         private bool lastShoot;
         private float phaseTime;
+        private float lastSeenTime;
 
         public StaticShootState(AIPathNode node, StaticAIConfig aiConfig) : base(node, aiConfig)
         {
@@ -101,32 +102,41 @@ namespace AI
             Vector3 targetPosition = owner.enemyController.target.transform.position;
             Vector3 positionDelta = targetPosition - position;
             movement.SetRotationImmediately(positionDelta);
-            if (TargetVisible(owner.enemyController.target.layer))
+            switch (TargetVisible(owner.enemyController.target.layer))
             {
-                if (shooting.NeedsReload)
-                {
-                    shooting.Reload();
-                }
-                lastShootingMode = shootingMode;
-                shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules);
-                switch (shootingMode)
-                {
-                    case AIShootingMode.NoShooting:
-                        shooting.StopFire();
-                        break;
-                    case AIShootingMode.Error:
-                        Debug.LogError("AI shooting mode error!");
-                        break;
-                    default:
-                        UpdateShooting();
-                        break;
-                }
+                case TargetStatus.InSight:
+                    lastShootingMode = shootingMode;
+                    shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules);
+                    switch (shootingMode)
+                    {
+                        case AIShootingMode.NoShooting:
+                            shooting.StopFire();
+                            break;
+                        case AIShootingMode.Error:
+                            Debug.LogError("AI shooting mode error!");
+                            break;
+                        default:
+                            UpdateShooting();
+                            break;
+                    }
+                    lastSeenTime = Time.time;
+                    break;
+                case TargetStatus.Covered:
+                    shooting.StopFire();
+                    if (Time.time - lastSeenTime > config.chaseTimeout)
+                    {
+                        owner.ChangeState(new StaticLookAroundState(pathNode, config));
+                    }
+                    break;
+                case TargetStatus.TooFar:
+                    shooting.StopFire();
+                    if (Time.time - lastSeenTime > config.chaseTimeout)
+                    {
+                        owner.ChangeState(new StaticLookAroundState(pathNode, config));
+                    }
+                    break;
             }
-            else
-            {
-                shooting.StopFire();
-                owner.ChangeState(new StaticLookAroundState(pathNode, config));
-            }
+            Debug.DrawLine(position, targetPosition, Color.red);
         }
     }
 
@@ -165,7 +175,7 @@ namespace AI
                     movement.SetTargetRotation(lookTargets[targetIndex]);
                 }
             }
-            if (TargetVisible(owner.enemyController.target.layer))
+            if (TargetVisible(owner.enemyController.target.layer) == TargetStatus.InSight)
             {
                 Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
                 owner.ChangeState(new StaticShootState(pathNode, config));
@@ -202,7 +212,7 @@ namespace AI
                 //Debug.Log("Damage source not found, back to looking around");
                 owner.ChangeState(new StaticLookAroundState(pathNode, config));
             }
-            if (TargetVisible(owner.enemyController.target.layer))
+            if (TargetVisible(owner.enemyController.target.layer) == TargetStatus.InSight)
             {
                 Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
                 owner.ChangeState(new StaticShootState(pathNode, config));

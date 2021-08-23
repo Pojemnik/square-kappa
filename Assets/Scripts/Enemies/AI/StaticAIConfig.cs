@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StaticAIConfig", menuName = "ScriptableObjects/AI/StaticConfig")]
 public class StaticAIConfig : ScriptableObject
 {
-    public float rotationalSpeed;
+    public float chaseTimeout;
     public List<Vector3> lookAroundRotations;
 }
