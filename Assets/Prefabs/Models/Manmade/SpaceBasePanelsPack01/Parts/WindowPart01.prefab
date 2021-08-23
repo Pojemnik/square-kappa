@@ -130,7 +130,7 @@ MonoBehaviour:
   maxHealth: 1
   armor: 0
   hitProjectilePrefab: {fileID: 0}
-  destructionProjectilePrefab: {fileID: 0}
+  destructionProjectilePrefab: {fileID: 5799961575119348041, guid: 036083857737d204e898f1641a354fd4, type: 3}
   deathEvent:
     m_PersistentCalls:
       m_Calls: []
