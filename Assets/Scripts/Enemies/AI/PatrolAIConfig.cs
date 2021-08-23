@@ -12,6 +12,5 @@ public class PatrolAIConfig : ScriptableObject
     public float minDistance;
     [HideInInspector]
     public float actualMovementSpeed;
-    public List<Vector3> lookAroundRotations;
     public float chaseTimeout;
 }

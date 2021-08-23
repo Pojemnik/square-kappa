@@ -7486,15 +7486,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
       propertyPath: visibilityConeHeight
-      value: 5
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
       propertyPath: visibilityConeRadius
-      value: 4.1421356
+      value: 24.852814
       objectReference: {fileID: 0}
     - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
       propertyPath: visibilitySphereRadius
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d056d62c0571963429439f628f147d89, type: 3}

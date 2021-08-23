@@ -6,5 +6,4 @@ using UnityEngine;
 public class StaticAIConfig : ScriptableObject
 {
     public float chaseTimeout;
-    public List<Vector3> lookAroundRotations;
 }

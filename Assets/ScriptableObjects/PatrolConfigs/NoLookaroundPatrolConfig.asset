@@ -15,8 +15,6 @@ MonoBehaviour:
   speedEpsilon: 0.5
   maxMovementSpeed: 2
   acceleration: 2
-  minDistance: 1
+  minDistance: 5
   actualMovementSpeed: 2
-  lookAroundRotations:
-  - {x: -90, y: 0, z: 0}
   chaseTimeout: 3
