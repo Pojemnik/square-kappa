@@ -9,11 +9,16 @@ public class IntEvent : UnityEvent<int> {}
 [System.Serializable]
 public class DamageEvent : UnityEvent<DamageInfo> {}
 
+[RequireComponent(typeof(Collider))]
 public class Health : MonoBehaviour
 {
     [Header("Parameters")]
     [SerializeField]
     private int maxHealth;
+    [SerializeField]
+    private float collisionDamageForceTreshold;
+    [SerializeField]
+    private float collisionDamageForceMultipler;
     [SerializeField]
     [Tooltip("Amount of damage subrtacted from every hit")]
     [Min(0)]
@@ -64,6 +69,18 @@ public class Health : MonoBehaviour
                 particle.transform.localScale = transform.localScale;
             }
             deathEvent.Invoke();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.impulse.magnitude > collisionDamageForceTreshold)
+        {
+            int damage = (int)((collision.impulse.magnitude - collisionDamageForceTreshold) * collisionDamageForceMultipler);
+            Vector3 direction = transform.position - collision.gameObject.transform.position;
+            ContactPoint contactPoint = collision.GetContact(0);
+            DamageInfo info = new DamageInfo(damage, direction, contactPoint.point, contactPoint.normal);
+            Damaged(info);
         }
     }
 }

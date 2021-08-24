@@ -1406,6 +1406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95b2fa9899cd2c4438ccaba5542fa4a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  status: 
   enemyController: {fileID: 398749054}
   firstNode: {fileID: 1595644466}
   config: {fileID: 11400000, guid: 368774ad42437b54e95fe7dd87163de5, type: 2}
@@ -3583,9 +3584,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  collisionDamageForceTreshold: 0
+  collisionDamageForceMultipler: 0
   armor: 5
-  hitProjectilePrefab: {fileID: 8433527343003555134, guid: 07e829d2b090da2488620b6a2c3a9e4c, type: 3}
-  destructionProjectilePrefab: {fileID: 3937397948779744800, guid: 675ed1bde7bc94a4c98857dc1d2f609a, type: 3}
+  hitParticlePrefab: {fileID: 0}
+  destructionParticlePrefab: {fileID: 0}
   deathEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -5849,9 +5852,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  collisionDamageForceTreshold: 0
+  collisionDamageForceMultipler: 0
   armor: 5
-  hitProjectilePrefab: {fileID: 8433527343003555134, guid: 07e829d2b090da2488620b6a2c3a9e4c, type: 3}
-  destructionProjectilePrefab: {fileID: 3937397948779744800, guid: 675ed1bde7bc94a4c98857dc1d2f609a, type: 3}
+  hitParticlePrefab: {fileID: 0}
+  destructionParticlePrefab: {fileID: 0}
   deathEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -5924,9 +5929,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  collisionDamageForceTreshold: 0
+  collisionDamageForceMultipler: 0
   armor: 5
-  hitProjectilePrefab: {fileID: 8433527343003555134, guid: 07e829d2b090da2488620b6a2c3a9e4c, type: 3}
-  destructionProjectilePrefab: {fileID: 3937397948779744800, guid: 675ed1bde7bc94a4c98857dc1d2f609a, type: 3}
+  hitParticlePrefab: {fileID: 0}
+  destructionParticlePrefab: {fileID: 0}
   deathEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -7531,6 +7538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95b2fa9899cd2c4438ccaba5542fa4a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  status: 
   enemyController: {fileID: 1639136434}
   firstNode: {fileID: 1595644466}
   config: {fileID: 11400000, guid: 54c565b196e47024a984a1371fde5f4d, type: 2}

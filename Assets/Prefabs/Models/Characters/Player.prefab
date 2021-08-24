@@ -46,6 +46,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  lookaroundEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  spottedEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2501314318224543512
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,6 +201,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  collisionDamageForceTreshold: 500
+  collisionDamageForceMultipler: 0.1
   armor: 0
   hitParticlePrefab: {fileID: 0}
   destructionParticlePrefab: {fileID: 0}
@@ -490,8 +498,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: {x: 28000, y: 28000, z: 28000}
-  rollSpeed: 120
   defaultDrag: 0
+  rollSpeed: 120
+  rotationSpeed: 0
+  rotationAnimationSmoothness: 0
+  rotationAnimationMaxValue: 0
   cameraAiming: 1
   owner: {fileID: 9028151093970926094}
   firstPresonCamera: {fileID: 6014078750031605804}
@@ -589,6 +600,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 9028151093970926094}
+  eventsAdapter: {fileID: 0}
   animator: {fileID: 8633829347163807104}
 --- !u!136 &8856888390450905230
 CapsuleCollider:
