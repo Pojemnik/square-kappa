@@ -96,6 +96,7 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         manager = FindObjectOfType<EnemyManager>();
+        target = manager.target;
         manager.AddEnemy(gameObject);
         CrosshairController crosshair = FindObjectOfType<CrosshairController>();
         Health health = GetComponent<Health>();

@@ -10,6 +10,7 @@ public class EnemyManager : MonoBehaviour
 
     public List<GameObject> EnemiesList { get => enemies.Values.ToList(); }
     public UnityEvent enemiesListChangedEvent;
+    public GameObject target;
 
     public void AddEnemy(GameObject enemy)
     {
