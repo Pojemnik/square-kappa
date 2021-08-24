@@ -8,6 +8,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [Header("References")]
+    [HideInInspector]
     public GameObject target;
     public UnitController unitController;
     public GameObject weapon;
@@ -54,11 +55,8 @@ public class EnemyController : MonoBehaviour
         {
             StartRagdoll();
         }
-        else
-        {
-            manager.RemoveEnemy(gameObject);
-            Destroy(gameObject);
-        }
+        manager.RemoveEnemy(gameObject);
+        Destroy(gameObject);
     }
 
     private void StartRagdoll()
@@ -66,8 +64,6 @@ public class EnemyController : MonoBehaviour
         DropWeapon();
         Instantiate(ragdollPrefab, transform.position, transform.rotation);
         DeactivateComponents();
-        manager.RemoveEnemy(gameObject);
-        Destroy(gameObject);
     }
 
     private void DeactivateComponents()
@@ -84,7 +80,7 @@ public class EnemyController : MonoBehaviour
     {
         unitController.CurrentWeapon.transform.parent = null;
         unitController.CurrentWeapon.tag = "Item";
-        unitController.CurrentWeapon.layer = 0;
+        unitController.CurrentWeapon.layer = 14;
         unitController.CurrentWeapon = null;
     }
 
