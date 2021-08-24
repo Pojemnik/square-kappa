@@ -62,6 +62,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8413313372528127497}
   - component: {fileID: 6204555866884392294}
+  - component: {fileID: 1530856387235438182}
   m_Layer: 10
   m_Name: EnvironmentCollider
   m_TagString: Player
@@ -94,8 +95,22 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &1530856387235438182
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2501314318224543512}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 1.1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!1 &3442874551779767494
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,7 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targettingRange: 0
-  ignoredLayers: 0600000007000000
+  ignoredLayers: 06000000070000000c0000000a000000
 --- !u!1001 &679066520617828979
 PrefabInstance:
   m_ObjectHideFlags: 0
