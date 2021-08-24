@@ -16,8 +16,6 @@ public class EnemyController : MonoBehaviour
     public GameObject head;
 
     [Header("Enemy properites")]
-    [HideInInspector]
-    public int layerMask;
     public AIShootingRules ShootingRules;
     public AIShootingRulesInterpretation ShootingRulesInterpretation;
     public float visibilitySphereRadius;
@@ -108,8 +106,6 @@ public class EnemyController : MonoBehaviour
         shooting.ChangeWeaponController(weapon.GetComponent<WeaponController>());
         shooting.IgnoreRecoil = true;
         unitController.movement.cameraAiming = false;
-        layerMask = (1 << 7) | (1 << 8) | (1 << 9) | (1 << 10) | (1 << 12);
-        layerMask = ~layerMask;
 #if UNITY_EDITOR
         gizmo = new VisionGizmoCore();
         UpdateGizmoProperties();

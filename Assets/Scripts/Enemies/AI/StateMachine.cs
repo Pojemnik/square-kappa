@@ -22,7 +22,7 @@ namespace AI
             Vector3 targetPosition = owner.enemyController.target.transform.position;
             Vector3 towardsTarget = targetPosition - position;
             Debug.DrawRay(position, towardsTarget, Color.magenta);
-            if (Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, owner.enemyController.visibilitySphereRadius, owner.enemyController.layerMask))
+            if (Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, owner.enemyController.visibilitySphereRadius, KappaLayerMask.EnemyVisionMask))
             {
                 if (raycastHit.collider.gameObject.layer == targetLayer)
                 {
@@ -35,7 +35,7 @@ namespace AI
             }
             if (Vector3.Angle(towardsTarget, owner.enemyController.head.transform.up) <= owner.enemyController.visibilityConeAngle)
             {
-                if (Physics.Raycast(position, targetPosition - position, out raycastHit, owner.enemyController.visibilityConeHeight, owner.enemyController.layerMask))
+                if (Physics.Raycast(position, targetPosition - position, out raycastHit, owner.enemyController.visibilityConeHeight, KappaLayerMask.EnemyVisionMask))
                 {
                     if (raycastHit.collider.gameObject.layer == targetLayer)
                     {
@@ -64,6 +64,8 @@ namespace AI
     [RequireComponent(typeof(Health))]
     public class StateMachine : MonoBehaviour
     {
+        [ReadOnly]
+        public string status;
         public EnemyController enemyController;
 
         private BaseState currentState;

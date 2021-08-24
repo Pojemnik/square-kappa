@@ -19,7 +19,6 @@ namespace AI
         {
             base.Damaged(info);
             owner.ChangeState(new PatrolDamageCheckState(pathNode, config, info.direction));
-            //Debug.Log("Look for damage source");
         }
 
         public override void Update()
@@ -36,15 +35,14 @@ namespace AI
         {
             Vector3 position = owner.transform.position;
             Vector3 towardsTarget = pathNode.transform.position - position;
-            const int layerMask = ~((1 << 7) | (1 << 9) | (1 << 12));
-            return Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, layerMask);
+            bool obstacle = Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, KappaLayerMask.EnemyMovementMask);
+            return obstacle;
         }
 
         protected void CheckForObstacleAndWaitIfNeeded()
         {
             if (CheckForObstacle())
             {
-                //Debug.Log(string.Format("Obstacle on course of enemy {0}. Waiting", pathNode));
                 owner.ChangeState(new WaitState(pathNode, config));
                 return;
             }
@@ -54,7 +52,6 @@ namespace AI
         {
             if (CheckForObstacle())
             {
-                //Debug.Log(string.Format("Obstacle on course of enemy {0}. Stopping", pathNode));
                 owner.ChangeState(new EmergencyStopState(pathNode, config));
                 return;
             }
@@ -70,6 +67,7 @@ namespace AI
         public override void Enter()
         {
             base.Enter();
+            owner.status = "Rotating towards point";
             movement.SetTargetRotation(Quaternion.LookRotation(pathNode.transform.position - owner.transform.position));
         }
 
@@ -98,6 +96,7 @@ namespace AI
         public override void Enter()
         {
             base.Enter();
+            owner.status = "Accelerating towards point";
             float distanceToTarget = (pathNode.transform.position - owner.transform.position).magnitude;
             if (config.maxMovementSpeed * config.maxMovementSpeed / config.acceleration <= distanceToTarget)
             {
@@ -108,7 +107,6 @@ namespace AI
                 //actualMovementSpeed should be less than maxMovementSpeed
                 config.actualMovementSpeed = Mathf.Sqrt(1.5F * distanceToTarget * config.acceleration);
             }
-            //Debug.Log(string.Format("Actual speed set to {0}", config.actualMovementSpeed));
         }
 
         public override void PhysicsUpdate()
@@ -137,7 +135,6 @@ namespace AI
 
         private void StartGlide()
         {
-            //Debug.Log(string.Format("Accelaration towards point {0} finished. Starting glide", pathNode));
             movement.MoveRelativeToCamera(Vector3.zero);
             owner.ChangeState(new GlideTowardsPointState(pathNode, config));
         }
@@ -147,6 +144,12 @@ namespace AI
     {
         public GlideTowardsPointState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            owner.status = "Gliding towards point";
         }
 
         public override void PhysicsUpdate()
@@ -192,6 +195,12 @@ namespace AI
         {
         }
 
+        public override void Enter()
+        {
+            base.Enter();
+            owner.status = "Decelerating towards point";
+        }
+
         public override void PhysicsUpdate()
         {
             Vector3 position = owner.transform.position;
@@ -230,7 +239,12 @@ namespace AI
     {
         public EmergencyStopState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
-            //Debug.Log("Emergency stop");
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            owner.status = "Emergency stop";
         }
 
         public override void PhysicsUpdate()
@@ -270,6 +284,12 @@ namespace AI
         {
         }
 
+        public override void Enter()
+        {
+            base.Enter();
+            owner.status = "Waiting";
+        }
+
         public override void Update()
         {
             //Maybe move this stuff to a coroutine and execute less often
@@ -294,6 +314,7 @@ namespace AI
             owner.enemyController.unitController.AnimationController.eventsAdapter.lookaroundEnd.AddListener(OnLookAroundEnd);
             owner.enemyController.unitController.AnimationController.ResetTriggers();
             owner.enemyController.unitController.AnimationController.SetState("LookAround");
+            owner.status = "Looking around";
         }
 
         private void OnLookAroundEnd()
@@ -397,6 +418,7 @@ namespace AI
             owner.enemyController.unitController.AnimationController.ResetTriggers();
             owner.enemyController.unitController.AnimationController.SetState("Spotted");
             lastSeenTime = Time.time;
+            owner.status = "Chasing player";
         }
 
         public override void PhysicsUpdate()
@@ -503,6 +525,7 @@ namespace AI
         {
             base.Enter();
             movement.SetTargetRotation(-hitDirection);
+            owner.status = "Checking for damage source";
             //owner.enemyController.unitController.AnimationController.ResetTriggers();
             //owner.enemyController.unitController.AnimationController.SetState("LookAround");
         }
@@ -511,7 +534,6 @@ namespace AI
         {
             if (!movement.IsRotating)
             {
-                //Debug.Log("Damage source not found, back to looking around");
                 if (stopped)
                 {
                     owner.ChangeState(new RotateTowardsPointState(pathNode, config));
@@ -552,6 +574,7 @@ namespace AI
             owner.enemyController.unitController.AnimationController.eventsAdapter.lookaroundEnd.AddListener(OnLookAroundEnd);
             owner.enemyController.unitController.AnimationController.ResetTriggers();
             owner.enemyController.unitController.AnimationController.SetState("LookAround");
+            owner.status = "Looking for lost target";
         }
 
         private void OnLookAroundEnd()
@@ -590,7 +613,6 @@ namespace AI
 
         private void StartRotation()
         {
-            //Debug.Log(string.Format("Finished looking around and stopping {0}. Starting roatation", pathNode));
             owner.ChangeState(new RotateTowardsPointState(pathNode, config));
         }
     }

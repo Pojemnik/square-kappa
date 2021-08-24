@@ -41,7 +41,6 @@ public class EnemyMarkersController : MonoBehaviour
     private Dictionary<int, GameObject> markers;
     private Dictionary<int, VectorDisplayController> distanceDisplays;
     private float scaleFactor;
-    private int raycastLayerMask;
     private MarkersDisplayMode displayMode;
 
     private enum MarkersDisplayMode
@@ -141,7 +140,7 @@ public class EnemyMarkersController : MonoBehaviour
     private bool EnemyHiddenOrTooFar(Vector3 enemyArmaturePosition, Vector3 cameraPos)
     {
         Debug.DrawRay(cameraPos, enemyArmaturePosition - cameraPos);
-        if (Physics.Raycast(cameraPos, enemyArmaturePosition - cameraPos, out RaycastHit hit, detectionRange, raycastLayerMask))
+        if (Physics.Raycast(cameraPos, enemyArmaturePosition - cameraPos, out RaycastHit hit, detectionRange, KappaLayerMask.PlayerVisionMask))
         {
             if (!hit.collider.gameObject.CompareTag("Enemy") && !showHiddenEnemies)
             {
@@ -162,8 +161,6 @@ public class EnemyMarkersController : MonoBehaviour
         markers = new Dictionary<int, GameObject>();
         distanceDisplays = new Dictionary<int, VectorDisplayController>();
         scaleFactor = (markerScaleBounds.min - markerScaleBounds.max) / detectionRange;
-        //Ignore layers: player, player projectile, enemy projectile
-        raycastLayerMask = ~((1 << 6) | (1 << 8) | (1 << 9) | (1 << 12));
         displayMode = MarkersDisplayMode.ChangeSize;
     }
 
