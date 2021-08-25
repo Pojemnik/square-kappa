@@ -4039,6 +4039,34 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 47.674
       objectReference: {fileID: 0}
+    - target: {fileID: 7352976439672316598, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.027
+      objectReference: {fileID: 0}
+    - target: {fileID: 7352976439672316598, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.092
+      objectReference: {fileID: 0}
+    - target: {fileID: 7352976439672316598, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.078
+      objectReference: {fileID: 0}
+    - target: {fileID: 7352976439672316598, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.16341868
+      objectReference: {fileID: 0}
+    - target: {fileID: 7352976439672316598, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.037800234
+      objectReference: {fileID: 0}
+    - target: {fileID: 7352976439672316598, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9604726
+      objectReference: {fileID: 0}
+    - target: {fileID: 7352976439672316598, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.2221664
+      objectReference: {fileID: 0}
     - target: {fileID: 8300263605207084044, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: m_Name
       value: LevelBase
@@ -5626,14 +5654,6 @@ PrefabInstance:
     - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
-      propertyPath: enableRagdoll
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
-      propertyPath: drawWhenSelectedOnly
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5933900374770886342, guid: d056d62c0571963429439f628f147d89, type: 3}
       propertyPath: visibilityConeHeight
