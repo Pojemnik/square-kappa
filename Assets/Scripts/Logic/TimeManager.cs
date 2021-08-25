@@ -6,6 +6,8 @@ public class TimeManager : MonoBehaviour
 {
     [SerializeField]
     private float slowTime;
+    [SerializeField]
+    private float uiStopTimeDuration;
 
     void Start()
     {
@@ -16,6 +18,21 @@ public class TimeManager : MonoBehaviour
         EventManager eventManager = FindObjectOfType<EventManager>();
         eventManager.AddListener("SlowDownTime", SlowDownTime);
         eventManager.AddListener("ResetTimescale", ResetTimescale);
+        eventManager.AddListener("StopTime", StopTime);
+        eventManager.AddListener("PlayerDeath", delegate { TemporaryTimeStop(uiStopTimeDuration); });
+        eventManager.AddListener("Victory", delegate { TemporaryTimeStop(uiStopTimeDuration); });
+    }
+
+    private void TemporaryTimeStop(float time)
+    {
+        StartCoroutine(TimeStopCoroutine(time));
+    }
+
+    private IEnumerator TimeStopCoroutine(float time)
+    {
+        StopTime();
+        yield return new WaitForSecondsRealtime(time);
+        ResetTimescale();
     }
 
     private void SlowDownTime()
@@ -26,5 +43,10 @@ public class TimeManager : MonoBehaviour
     private void ResetTimescale()
     {
         Time.timeScale = 1F;
+    }
+
+    private void StopTime()
+    {
+        Time.timeScale = 0;
     }
 }

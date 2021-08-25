@@ -8,11 +8,10 @@ public class MissionsManager : MonoBehaviour
     public UnityEngine.Events.UnityEvent<Mission> missionChangeEvent;
     [HideInInspector]
     public UnityEngine.Events.UnityEvent<ObjectivesGroup> objectiveGroupChangeEvent;
-    [HideInInspector]
-    public UnityEngine.Events.UnityEvent victoryEvent;
     [SerializeField]
     private List<Mission> missions;
 
+    private EventManager eventManager;
     private Dictionary<int, bool> objectiveStates;
     private HashSet<int> curentGroupIds;
     private int missionIndex = 0;
@@ -42,7 +41,7 @@ public class MissionsManager : MonoBehaviour
         UpdateCurrentGroupIds();
         objectiveGroupChangeEvent.Invoke(missions[missionIndex].groups[groupIndex]);
         missionChangeEvent.Invoke(missions[missionIndex]);
-        victoryEvent.AddListener(FindObjectOfType<SceneManager>().OnVictory);
+        eventManager = FindObjectOfType<EventManager>();
         //Debug.Log(string.Format("New mission: {0}", missions[missionIndex].label));
         //Debug.Log(string.Format("New objectives group: {0}", missions[missionIndex].groups[groupIndex].label));
     }
@@ -108,7 +107,7 @@ public class MissionsManager : MonoBehaviour
         {
             missionChangeEvent.Invoke(null);
             objectiveGroupChangeEvent.Invoke(null);
-            victoryEvent.Invoke();
+            eventManager.TriggerEvent("Victory");
             enabled = false;
         }
     }

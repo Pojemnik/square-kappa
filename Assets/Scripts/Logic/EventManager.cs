@@ -13,7 +13,7 @@ public class EventManager : MonoBehaviour
         EventManager[] others = FindObjectsOfType<EventManager>().Where(e => e != this).ToArray<EventManager>();
         if(others.Length > 0)
         {
-            throw new System.Exception("More than one evwnt manager in scene");
+            throw new System.Exception("More than one event manager in scene");
         }
         eventDictionary = new Dictionary<string, UnityEvent>();
     }

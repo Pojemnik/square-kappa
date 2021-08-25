@@ -4,55 +4,30 @@ using UnityEngine;
 
 public class SceneManager : MonoBehaviour
 {
-    [Header("Vectory screen")]
     [SerializeField]
-    private bool enableVictory;
-    [SerializeField]
-    private GameObject victoryScreen;
-    [SerializeField]
-    private float victoryScreenDisplayTime;
+    private float uiReloadDelay;
 
-    [Header("Game over screen")]
-    [SerializeField]
-    private bool enableGameOver;
-    [SerializeField]
-    private GameObject gameOverScreen;
-    [SerializeField]
-    private float gameOverScreenDisplayTime;
-
-    public void OnPlayerDeath()
+    private void Start()
     {
-        if (enableGameOver)
-        {
-            StartCoroutine(DisplayGameOverScreen(gameOverScreenDisplayTime));
-        }
+        EventManager eventManager = FindObjectOfType<EventManager>();
+        eventManager.AddListener("ReloadScene", ReloadScene);
+        eventManager.AddListener("PlayerDeath", delegate { ReloadAfterDelay(uiReloadDelay); });
+        eventManager.AddListener("Victory", delegate { ReloadAfterDelay(uiReloadDelay); });
     }
 
-    private IEnumerator DisplayGameOverScreen(float time)
+    private void ReloadAfterDelay(float time)
     {
-        gameOverScreen.SetActive(true);
-        Time.timeScale = 0;
+        StartCoroutine(WaitForReload(time));
+    }
+
+    private IEnumerator WaitForReload(float time)
+    {
         yield return new WaitForSecondsRealtime(time);
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
-        gameOverScreen.SetActive(false);
-        Time.timeScale = 1;
+        ReloadScene();
     }
 
-    public void OnVictory()
+    private void ReloadScene()
     {
-        if (enableVictory)
-        {
-            StartCoroutine(DisplayVictoryScreen(victoryScreenDisplayTime));
-        }
-    }
-
-    private IEnumerator DisplayVictoryScreen(float time)
-    {
-        victoryScreen.SetActive(true);
-        Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(time);
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
-        victoryScreen.SetActive(false);
-        Time.timeScale = 1;
     }
 }
