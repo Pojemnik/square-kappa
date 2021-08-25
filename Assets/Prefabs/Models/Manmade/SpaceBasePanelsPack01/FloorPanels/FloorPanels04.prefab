@@ -131,6 +131,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 400
+  collisionDamageForceTreshold: 750
+  collisionDamageForceMultipler: 0.05
   armor: 60
   hitParticlePrefab: {fileID: 0}
   destructionParticlePrefab: {fileID: 5799961575119348041, guid: 3319cff2fcdc0e346aa985c4fbc8eb43, type: 3}
