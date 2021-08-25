@@ -2679,18 +2679,6 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3397410977179552443, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397410977179552443, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.0013
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397410977179552443, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.00042
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397410977179552443, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_LocalRotation.w
       value: -0.9909911
       objectReference: {fileID: 0}
