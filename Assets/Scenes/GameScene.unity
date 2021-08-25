@@ -5639,6 +5639,10 @@ PrefabInstance:
       propertyPath: visibilitySphereRadius
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6804943335188952757, guid: d056d62c0571963429439f628f147d89, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d056d62c0571963429439f628f147d89, type: 3}
 --- !u!4 &1639136432 stripped

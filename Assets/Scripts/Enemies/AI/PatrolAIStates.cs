@@ -69,6 +69,7 @@ namespace AI
             base.Enter();
             owner.status = "Rotating towards point";
             movement.SetTargetRotation(Quaternion.LookRotation(pathNode.transform.position - owner.transform.position));
+            //movement.EnableStopMode();
         }
 
         public override void Update()
