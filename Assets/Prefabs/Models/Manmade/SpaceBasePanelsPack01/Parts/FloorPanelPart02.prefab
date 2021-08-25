@@ -129,9 +129,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 30
+  collisionDamageForceTreshold: 50
+  collisionDamageForceMultipler: 0.25
   armor: 0
-  hitProjectilePrefab: {fileID: 0}
-  destructionProjectilePrefab: {fileID: 0}
+  hitParticlePrefab: {fileID: 0}
+  destructionParticlePrefab: {fileID: 0}
   deathEvent:
     m_PersistentCalls:
       m_Calls: []
