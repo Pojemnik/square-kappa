@@ -24,6 +24,19 @@ public class MissionPanelController : MonoBehaviour
         objectiveTextDefaultHeight = objectiveText.rectTransform.rect.height;
     }
 
+    private void Start()
+    {
+        EventManager eventManager = FindObjectOfType<EventManager>();
+        eventManager.AddListener("PlayerDeath", HideMissionsPanel);
+        eventManager.AddListener("Victory", HideMissionsPanel);
+    }
+
+    private void HideMissionsPanel()
+    {
+        missionText.enabled = false;
+        objectiveText.enabled = false;
+    }
+
     private void OnObjectiveGroupChange(ObjectivesGroup group)
     {
         if (group == null)
