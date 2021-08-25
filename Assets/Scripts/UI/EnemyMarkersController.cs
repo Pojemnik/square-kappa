@@ -219,7 +219,8 @@ public class EnemyMarkersController : MonoBehaviour
                 Vector2 screenPosition = new Vector2(Vector3.Dot(towardsEnemy, cameraTransform.right), Vector3.Dot(towardsEnemy, cameraTransform.up));
                 Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(screenPosition.y, screenPosition.x) * Mathf.Rad2Deg);
                 Vector2 cameraScreenCenter = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight) / 2;
-                arrow.transform.position = rotation * Vector3.right * arrowsDistanceFromCenter + (Vector3)cameraScreenCenter;
+                float distanceScaleFactor = arrowsDistanceFromCenter * Camera.main.pixelHeight / 900;
+                arrow.transform.position = rotation * Vector3.right * distanceScaleFactor + (Vector3)cameraScreenCenter;
                 arrow.transform.rotation = rotation;
                 if (displayMode == MarkersDisplayMode.ChangeSize)
                 {

@@ -4027,13 +4027,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3964721151380357729, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 27.913
+      objectReference: {fileID: 0}
+    - target: {fileID: 3964721151380357729, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 15.512
+      objectReference: {fileID: 0}
+    - target: {fileID: 3964721151380357729, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 47.674
+      objectReference: {fileID: 0}
     - target: {fileID: 8300263605207084044, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: m_Name
       value: LevelBase
       objectReference: {fileID: 0}
     - target: {fileID: 8674635327688783088, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: useSceneView
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
