@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(UnitShooting))]
+[RequireComponent(typeof(Collider))]
 public class ItemChanger : MonoBehaviour
 {
     [Header("References")]
@@ -177,6 +178,14 @@ public class ItemChanger : MonoBehaviour
         if (cameraController)
         {
             SelectWorldItem(cameraController.targetItem);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Ammo"))
+        {
+
         }
     }
 

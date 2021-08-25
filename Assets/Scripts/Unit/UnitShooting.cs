@@ -106,6 +106,10 @@ public class UnitShooting : MonoBehaviour
     public void PickUpAmmo(WeaponConfig.WeaponType type, int amount)
     {
         allAmmo[type] += amount;
+        if(weaponController != null && weaponController.Config.type == type)
+        {
+            weaponController.SetTotalAmmo(allAmmo[type]);
+        }
     }
 
     public void OnReloadEnd()
