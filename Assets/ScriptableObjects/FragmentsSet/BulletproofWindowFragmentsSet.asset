@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c96c76d1754e18409991964d0712519, type: 3}
+  m_Name: BulletproofWindowFragmentsSet
+  m_EditorClassIdentifier: 
+  framgents:
+  - {fileID: 1263684604528292363, guid: ece2917917621a34abac2270a6d98efe, type: 3}
+  - {fileID: 6945621257270853631, guid: 47ee5ec07d042ef4eb58a43f222807e7, type: 3}
+  - {fileID: 8847708326960450526, guid: 4b902848b5946aa4687004e2b6075a89, type: 3}
+  - {fileID: 1603165316358864233, guid: e739d94659c1acc4794b2f68152e2a04, type: 3}
+  - {fileID: 3125927146440693424, guid: e01998831194b044a8ba58dee8b4c3e3, type: 3}
+  - {fileID: 4010792611661751338, guid: bbc6d6cbd22b25e48970838b94347b3a, type: 3}

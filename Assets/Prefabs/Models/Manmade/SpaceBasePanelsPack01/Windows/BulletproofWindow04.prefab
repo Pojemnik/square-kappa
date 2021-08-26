@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &495928882226207371
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 471893311265943976, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: m_Name
+      value: BulletproofWindow04
+      objectReference: {fileID: 0}
+    - target: {fileID: 471893311265943976, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 992851148670233362, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 992851148670233362, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 992851148670233362, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 992851148670233362, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 992851148670233362, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 992851148670233362, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 992851148670233362, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 992851148670233362, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 992851148670233362, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 992851148670233362, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 992851148670233362, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2129213094743511165, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: eba7b2669ae6e72498b8c62e6894b058, type: 2}
+    - target: {fileID: 5774123375769439564, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: armor
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5774123375769439564, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: maxHealth
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5774123375769439564, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: destructionParticlePrefab
+      value: 
+      objectReference: {fileID: 7969820607312495527, guid: f961f7a2f65715f44a13880b5a1baedb, type: 3}
+    - target: {fileID: 5774123375769439564, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: collisionDamageForceTreshold
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5774123375769439564, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: collisionDamageForceMultipler
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875630725104461365, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
+      propertyPath: fragments
+      value: 
+      objectReference: {fileID: 11400000, guid: d1854b36b2b9ed04f8e8e08f3e8b6ceb, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b7f003f00d3918e4793129cb2a595ad0, type: 3}
