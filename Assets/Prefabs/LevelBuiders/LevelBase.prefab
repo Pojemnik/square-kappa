@@ -2678,22 +2678,6 @@ PrefabInstance:
       propertyPath: damageEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 3397410977179552443, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.9909911
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397410977179552443, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.13392775
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397410977179552443, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.000000017229471
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397410977179552443, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.00000009080395
-      objectReference: {fileID: 0}
     - target: {fileID: 3442874551779767494, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2941,10 +2925,6 @@ PrefabInstance:
     - target: {fileID: 6195133748417262797, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8339985347243032759, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
-      propertyPath: m_FocalLength
-      value: 14.3010435
       objectReference: {fileID: 0}
     - target: {fileID: 8339985347243032759, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: near clip plane
