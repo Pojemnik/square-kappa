@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8855266123903419164}
   - component: {fileID: 8063412182661590081}
   - component: {fileID: 2926894412413850133}
+  - component: {fileID: 2289084711867446437}
+  - component: {fileID: 4989842708877512108}
   m_Layer: 5
   m_Name: DamageAlertTop
   m_TagString: Untagged
@@ -75,6 +77,31 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2289084711867446437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6458959982350859524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df7a3cc4942b01a44afe650efaa098b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4989842708877512108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6458959982350859524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90d71050c2d7ace44b12bab67b0bfe65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayTime: 1
 --- !u!1 &6755279893555801235
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,6 +113,8 @@ GameObject:
   - component: {fileID: 3890957415585067481}
   - component: {fileID: 6588275793976731563}
   - component: {fileID: 1920178041897544569}
+  - component: {fileID: 544345607974045495}
+  - component: {fileID: 1205281557348704114}
   m_Layer: 5
   m_Name: DamageAlertScreen
   m_TagString: Untagged
@@ -152,6 +181,31 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &544345607974045495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6755279893555801235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90d71050c2d7ace44b12bab67b0bfe65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayTime: 1
+--- !u!114 &1205281557348704114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6755279893555801235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df7a3cc4942b01a44afe650efaa098b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7287786940497576586
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,6 +217,8 @@ GameObject:
   - component: {fileID: 2866540878842104699}
   - component: {fileID: 7309515462715496303}
   - component: {fileID: 1853120611848438706}
+  - component: {fileID: 978790368656003930}
+  - component: {fileID: 865118278336091792}
   m_Layer: 5
   m_Name: DamageAlertSign
   m_TagString: Untagged
@@ -227,3 +283,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &978790368656003930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7287786940497576586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df7a3cc4942b01a44afe650efaa098b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &865118278336091792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7287786940497576586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90d71050c2d7ace44b12bab67b0bfe65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayTime: 1

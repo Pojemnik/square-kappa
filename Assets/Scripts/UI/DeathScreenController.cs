@@ -10,6 +10,6 @@ public class DeathScreenController : MonoBehaviour
     {
         imageController = GetComponent<UIImageController>();
         EventManager eventManager = FindObjectOfType<EventManager>();
-        eventManager.AddListener("PlayerDeath", imageController.DisplayScreen);
+        eventManager.AddListener("PlayerDeath", imageController.ShowScreen);
     }
 }

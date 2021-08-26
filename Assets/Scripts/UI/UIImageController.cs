@@ -18,15 +18,20 @@ public class UIImageController : MonoBehaviour
         eventManager = FindObjectOfType<EventManager>();
     }
 
-    public void DisplayScreen()
+    public void ShowScreen()
     {
         image.enabled = true;
         StartCoroutine(WaitAndHideImage(displayTime));
     }
 
+    public void HideScreen()
+    {
+        image.enabled = false;
+    }
+
     private IEnumerator WaitAndHideImage(float time)
     {
         yield return new WaitForSecondsRealtime(time);
-        image.enabled = false;
+        HideScreen();
     }
 }
