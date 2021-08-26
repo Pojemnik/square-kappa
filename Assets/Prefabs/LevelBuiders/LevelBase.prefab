@@ -2260,14 +2260,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.8
       objectReference: {fileID: 0}
-    - target: {fileID: 1015054085241271214, guid: f79488cc1d6ba91428eb3fd797a68f19, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -37
-      objectReference: {fileID: 0}
-    - target: {fileID: 1015054085241271214, guid: f79488cc1d6ba91428eb3fd797a68f19, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -12
-      objectReference: {fileID: 0}
     - target: {fileID: 2506225417500922917, guid: f79488cc1d6ba91428eb3fd797a68f19, type: 3}
       propertyPath: m_Name
       value: HealthDisplay
@@ -2372,14 +2364,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.8
       objectReference: {fileID: 0}
-    - target: {fileID: 3086022349867070298, guid: f79488cc1d6ba91428eb3fd797a68f19, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -67
-      objectReference: {fileID: 0}
-    - target: {fileID: 3086022349867070298, guid: f79488cc1d6ba91428eb3fd797a68f19, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -12
-      objectReference: {fileID: 0}
     - target: {fileID: 8441411322929151942, guid: f79488cc1d6ba91428eb3fd797a68f19, type: 3}
       propertyPath: m_SizeDelta.x
       value: 45
@@ -2395,14 +2379,6 @@ PrefabInstance:
     - target: {fileID: 8441411322929151942, guid: f79488cc1d6ba91428eb3fd797a68f19, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8441411322929151942, guid: f79488cc1d6ba91428eb3fd797a68f19, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8441411322929151942, guid: f79488cc1d6ba91428eb3fd797a68f19, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f79488cc1d6ba91428eb3fd797a68f19, type: 3}
