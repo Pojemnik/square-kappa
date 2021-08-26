@@ -51,6 +51,7 @@ public class EnemyController : MonoBehaviour
 
     public void OnDeath()
     {
+        DropWeapon();
         if (enableRagdoll)
         {
             StartRagdoll();
@@ -61,7 +62,6 @@ public class EnemyController : MonoBehaviour
 
     private void StartRagdoll()
     {
-        DropWeapon();
         Instantiate(ragdollPrefab, transform.position, transform.rotation);
         DeactivateComponents();
     }
@@ -78,6 +78,7 @@ public class EnemyController : MonoBehaviour
 
     private void DropWeapon()
     {
+        unitController.CurrentWeapon.GetComponent<Rigidbody>().isKinematic = false;
         unitController.CurrentWeapon.transform.parent = null;
         unitController.CurrentWeapon.tag = "Item";
         unitController.CurrentWeapon.layer = 14;
