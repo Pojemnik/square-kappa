@@ -185,7 +185,11 @@ public class ItemChanger : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Ammo"))
         {
-
+            AmmoBoxController ammoBox = other.gameObject.GetComponent<AmmoBoxController>();
+            foreach(SerializableDictionary<WeaponConfig.WeaponType, int>.Pair ammo in ammoBox.ammoCount)
+            {
+                shooting.PickUpAmmo(ammo.Key, ammo.Value);
+            }
         }
     }
 

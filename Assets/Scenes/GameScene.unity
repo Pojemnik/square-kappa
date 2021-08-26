@@ -3983,6 +3983,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 304391405936315603, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: callDeathEvent
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 981666124664837547, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -4045,7 +4049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8674635327688783088, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: useSceneView
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
@@ -4323,6 +4327,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1440668140}
+  - {fileID: 1948910403}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6427,6 +6432,80 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1948910402
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1210994425}
+    m_Modifications:
+    - target: {fileID: 7193190405156245580, guid: 0afad17078a015246942345d7d03e5e4, type: 3}
+      propertyPath: m_Name
+      value: ChemirailAmmo
+      objectReference: {fileID: 0}
+    - target: {fileID: 7536923662182927094, guid: 0afad17078a015246942345d7d03e5e4, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7536923662182927094, guid: 0afad17078a015246942345d7d03e5e4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 27.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 7536923662182927094, guid: 0afad17078a015246942345d7d03e5e4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 16.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7536923662182927094, guid: 0afad17078a015246942345d7d03e5e4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 42.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 7536923662182927094, guid: 0afad17078a015246942345d7d03e5e4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7536923662182927094, guid: 0afad17078a015246942345d7d03e5e4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7536923662182927094, guid: 0afad17078a015246942345d7d03e5e4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7536923662182927094, guid: 0afad17078a015246942345d7d03e5e4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7536923662182927094, guid: 0afad17078a015246942345d7d03e5e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7536923662182927094, guid: 0afad17078a015246942345d7d03e5e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7536923662182927094, guid: 0afad17078a015246942345d7d03e5e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004327343434631361, guid: 0afad17078a015246942345d7d03e5e4, type: 3}
+      propertyPath: ammoCount.array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004327343434631361, guid: 0afad17078a015246942345d7d03e5e4, type: 3}
+      propertyPath: ammoCount.array.Array.data[0].Key
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004327343434631361, guid: 0afad17078a015246942345d7d03e5e4, type: 3}
+      propertyPath: ammoCount.array.Array.data[0].Value
+      value: 50
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0afad17078a015246942345d7d03e5e4, type: 3}
+--- !u!4 &1948910403 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7536923662182927094, guid: 0afad17078a015246942345d7d03e5e4, type: 3}
+  m_PrefabInstance: {fileID: 1948910402}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1984198915
 PrefabInstance:
   m_ObjectHideFlags: 0
