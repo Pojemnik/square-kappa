@@ -383,6 +383,7 @@ GameObject:
   - component: {fileID: 2814428475248044188}
   - component: {fileID: 1093422995739087256}
   - component: {fileID: 3694304688073925622}
+  - component: {fileID: 7722520738935552533}
   m_Layer: 5
   m_Name: Bar
   m_TagString: Untagged
@@ -407,7 +408,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 10.5, y: 15}
-  m_SizeDelta: {x: 136.9, y: 20}
+  m_SizeDelta: {x: 285, y: 20}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &1093422995739087256
 CanvasRenderer:
@@ -447,6 +448,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7722520738935552533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7643092062565329564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 387f37a1e0bd9ec4c8681e9d7b5197dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minWidth: 1
+  maxWidth: 285
 --- !u!1 &8647484212680963839
 GameObject:
   m_ObjectHideFlags: 0
