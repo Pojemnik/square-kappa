@@ -23,8 +23,8 @@ public class ObjectiveZone : Objective
         if (other.CompareTag("PlayerTrigger"))
         {
             currentlyCheckedTriggers++;
-            Debug.LogFormat("Objective zone {0} entered", gameObject.name);
-            Debug.LogFormat("Checked triggers count: {0}", currentlyCheckedTriggers);
+            //Debug.LogFormat("Objective zone {0} entered", gameObject.name);
+            //Debug.LogFormat("Checked triggers count: {0}", currentlyCheckedTriggers);
             if (currentlyCheckedTriggers == 1)
             {
                 if (completedWhenLeft)
@@ -45,8 +45,8 @@ public class ObjectiveZone : Objective
         if (other.CompareTag("PlayerTrigger"))
         {
             currentlyCheckedTriggers--;
-            Debug.LogFormat("Objective zone {0} left", gameObject.name);
-            Debug.LogFormat("Checked triggers count: {0}", currentlyCheckedTriggers);
+            //Debug.LogFormat("Objective zone {0} left", gameObject.name);
+            //Debug.LogFormat("Checked triggers count: {0}", currentlyCheckedTriggers);
             if (currentlyCheckedTriggers == 0)
             {
                 if (completedWhenLeft)
