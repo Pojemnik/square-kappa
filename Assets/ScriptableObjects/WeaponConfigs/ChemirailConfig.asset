@@ -16,6 +16,7 @@ MonoBehaviour:
   type: 1
   backwardsForce: 1000
   maxAmmo: 30
+  length: 1.2
   shootsPerSecond: 10
   continousShooting: 1
   baseSpread: 0.5

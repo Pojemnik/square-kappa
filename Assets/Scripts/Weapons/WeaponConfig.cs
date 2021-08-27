@@ -25,4 +25,5 @@ public class WeaponConfig : ScriptableObject
     [Tooltip("Backwards force applied to shooter while shooting")]
     public float backwardsForce;
     public int maxAmmo;
+    public float length;
 }

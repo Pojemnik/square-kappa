@@ -9,6 +9,8 @@ public class ItemChanger : MonoBehaviour
     [Header("References")]
     [SerializeField]
     private Unit owner;
+    [SerializeField]
+    private CapsuleCollider environmentalCollider;
 
     [Header("Default weapon")]
     [SerializeField]
@@ -132,6 +134,7 @@ public class ItemChanger : MonoBehaviour
         owner.CurrentWeapon.transform.localPosition = pickable.relativePosition;
         owner.CurrentWeapon.transform.localRotation = Quaternion.Euler(pickable.relativeRotation);
         weaponChangeEvent.Invoke(owner.CurrentWeaponController);
+        environmentalCollider.height = owner.CurrentWeaponController.Config.length;
     }
 
     public void PickWeaponUp()
