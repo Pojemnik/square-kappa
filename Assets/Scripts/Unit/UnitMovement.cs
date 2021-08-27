@@ -57,9 +57,6 @@ public class UnitMovement : MonoBehaviour
     //refernces
     private new Rigidbody rigidbody;
 
-    //controllers
-    private PlayerCameraController cameraController;
-
     //movement
     private Vector3 lastMoveDelta;
 
@@ -215,7 +212,7 @@ public class UnitMovement : MonoBehaviour
     {
         Vector3 speedWithTime = speed * Time.fixedDeltaTime;
         Vector3 moveDelta = Vector3.Scale(rawInput, speedWithTime);
-        Vector3[] cameraCooridinates = cameraController.orientation;
+        Vector3[] cameraCooridinates = { firstPresonCamera.transform.right, firstPresonCamera.transform.up, firstPresonCamera.transform.forward };
         if (moveDelta == Vector3.zero)
         {
             if (lastMoveDelta != Vector3.zero)
@@ -292,7 +289,7 @@ public class UnitMovement : MonoBehaviour
     {
         if (cameraAiming)
         {
-            owner.TowardsTarget = Quaternion.LookRotation(cameraController.orientation[2], cameraController.orientation[1]);
+            owner.TowardsTarget = Quaternion.LookRotation(firstPresonCamera.transform.forward, firstPresonCamera.transform.up);
         }
         else
         {
@@ -306,7 +303,6 @@ public class UnitMovement : MonoBehaviour
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
-        cameraController = firstPresonCamera.GetComponent<PlayerCameraController>();
         lastMoveDelta = Vector3.zero;
         lookTarget = rigidbody.rotation;
     }

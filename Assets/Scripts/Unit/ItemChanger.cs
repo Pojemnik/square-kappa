@@ -152,7 +152,6 @@ public class ItemChanger : MonoBehaviour
 
     private void Start()
     {
-        cameraController.ignoredLayers = new int[2] { 6, 7 };
         cameraController.targettingRange = weaponPickupRange;
         if (useDefaultWeapon)
         {
