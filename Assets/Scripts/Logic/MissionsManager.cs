@@ -71,6 +71,7 @@ public class MissionsManager : MonoBehaviour
     private void ProceedToNextObjectivesGroup()
     {
         //Debug.Log(string.Format("Objectives group {0} finished", missions[missionIndex].groups[groupIndex].label));
+        missions[missionIndex].groups[groupIndex].objectivesGroupCompleteEvent.Invoke();
         groupIndex++;
         if (groupIndex == missions[missionIndex].groups.Count)
         {
