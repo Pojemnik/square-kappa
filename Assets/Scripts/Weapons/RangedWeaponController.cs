@@ -17,6 +17,22 @@ public class RangedWeaponController : WeaponController
         }
     }
 
+    public override MagazineStateType MagazineState
+    {
+        get
+        {
+            if (ammo == Config.maxAmmo)
+            {
+                return MagazineStateType.Full;
+            }
+            if (ammo <= 0)
+            {
+                return MagazineStateType.Empty;
+            }
+            return MagazineStateType.NotEmptyNotFull;
+        }
+    }
+
     [SerializeField]
     private DisplayController totalAmmoDisplay;
     [SerializeField]
@@ -137,11 +153,6 @@ public class RangedWeaponController : WeaponController
         return time * rangedConfig.spreadReductionParameter;
     }
 
-    public override bool AttackAvailable()
-    {
-        return ammo > 0;
-    }
-
     public void Start()
     {
         ammo = rangedConfig.maxAmmo;
@@ -149,7 +160,7 @@ public class RangedWeaponController : WeaponController
 
     public override int Reload(int amount)
     {
-        if(amount == -1)
+        if (amount == -1)
         {
             int ammoLeft = ammo;
             ammo = 0;

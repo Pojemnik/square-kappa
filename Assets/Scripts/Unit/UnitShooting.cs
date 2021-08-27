@@ -7,21 +7,6 @@ public class UnitShooting : MonoBehaviour
 {
     [HideInInspector]
     public bool IgnoreRecoil;
-    [HideInInspector]
-    public bool NeedsReload
-    {
-        get
-        {
-            if (weaponController != null)
-            {
-                if (!weaponController.AttackAvailable())
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
 
     [Header("Refernces")]
     [SerializeField]
@@ -30,6 +15,8 @@ public class UnitShooting : MonoBehaviour
     [Header("Properties")]
     [SerializeField]
     private bool infiniteAmmo;
+    [SerializeField]
+    private bool autoReload;
 
     [Header("Start ammo")]
     [SerializeField]
@@ -69,14 +56,31 @@ public class UnitShooting : MonoBehaviour
 
     public void StartFire()
     {
-        if (weaponController != null)
+        if (weaponController == null)
         {
-            if (weaponController.AttackAvailable() && !reloading)
+            return;
+        }
+        if (reloading)
+        {
+            return;
+        }
+        if (AmmoAvailable())
+        {
+            weaponController.StartAttack();
+            owner.AnimationController.SetStaticState("Fire");
+        }
+        else
+        {
+            if (autoReload)
             {
-                weaponController.StartAttack();
-                owner.AnimationController.SetStaticState("Fire");
+                Reload();
             }
         }
+    }
+
+    private bool AmmoAvailable()
+    {
+        return weaponController.MagazineState != WeaponController.MagazineStateType.Empty;
     }
 
     public void StopFire()
@@ -94,7 +98,9 @@ public class UnitShooting : MonoBehaviour
         {
             return;
         }
-        if (!infiniteAmmo && allAmmo[weaponController.Config.type] == 0)
+        bool noAmmoInInventory = !infiniteAmmo && allAmmo[weaponController.Config.type] == 0;
+        bool magazineFull = weaponController.MagazineState == WeaponController.MagazineStateType.Full;
+        if (noAmmoInInventory || magazineFull)
         {
             //No ammo to add
             return;
@@ -106,7 +112,7 @@ public class UnitShooting : MonoBehaviour
     public void PickUpAmmo(WeaponConfig.WeaponType type, int amount)
     {
         allAmmo[type] += amount;
-        if(weaponController != null && weaponController.Config.type == type)
+        if (weaponController != null && weaponController.Config.type == type)
         {
             weaponController.SetTotalAmmo(allAmmo[type]);
         }
@@ -139,7 +145,7 @@ public class UnitShooting : MonoBehaviour
         {
             rigidbody.AddForce(-transform.up * weaponController.Config.backwardsForce);
         }
-        if (!weaponController.AttackAvailable())
+        if (!AmmoAvailable())
         {
             StopFire();
         }

@@ -584,6 +584,7 @@ MonoBehaviour:
   IgnoreRecoil: 0
   owner: {fileID: 9028151093970926094}
   infiniteAmmo: 0
+  autoReload: 1
   startChemirailAmmo: 100
 --- !u!114 &5720152685819367687
 MonoBehaviour:

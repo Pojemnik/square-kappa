@@ -431,10 +431,6 @@ namespace AI
             switch (TargetVisible(owner.enemyController.target.layer))
             {
                 case TargetStatus.InSight:
-                    if (shooting.NeedsReload)
-                    {
-                        shooting.Reload();
-                    }
                     if (positionDelta.magnitude > config.minDistance)
                     {
                         movement.MoveInGlobalCoordinates(positionDelta, false);
