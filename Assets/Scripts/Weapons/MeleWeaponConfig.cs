@@ -6,6 +6,5 @@ using UnityEngine;
 public class MeleWeaponConfig : WeaponConfig
 {
     public int damage;
-    public float attacksPerSecond;
     public float range;
 }

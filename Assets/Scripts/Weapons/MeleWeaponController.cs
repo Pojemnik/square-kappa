@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Collider))]
 public class MeleWeaponController : WeaponController
 {
     public override WeaponConfig Config { get => meleConfig; }
@@ -21,103 +20,79 @@ public class MeleWeaponController : WeaponController
 
     private UnityEvent attackEvent;
     private Quaternion attackDirection;
-    private bool attacking;
-    private float attackCooldown;
-    private bool nextCollisionIsAttack;
-    private Coroutine stopCoroutine;
-    private GameObject currentCollision;
-    private Vector3 contactPoint;
-    private int mask;
-
-    public override void StartAttack()
+    /*
+private GameObject GetTopParent(GameObject obj)
+{
+    Transform transform = obj.transform;
+    while (transform.parent != null)
     {
-        attacking = true;
-        if (stopCoroutine != null)
+        transform = transform.parent;
+    }
+    return transform.gameObject;
+}
+private Vector3 GetPointOfContact(Vector3 target)
+{
+    if (Physics.Raycast(transform.position, target - transform.position, out RaycastHit hit, float.PositiveInfinity, mask))
+    {
+        return hit.point;
+    }
+    Debug.LogError("Mele weapon hit error");
+    return Vector3.zero;
+}
+
+
+private void FixedUpdate()
+{
+    if (attackCooldown > 0)
+    {
+        attackCooldown -= Time.fixedDeltaTime;
+    }
+    if (attacking && attackCooldown <= 0)
+    {
+        Attack();
+        attackCooldown = 1F / meleConfig.attacksPerSecond;
+    }
+    if (nextCollisionIsAttack && currentCollision != null)
+    {
+        GameObject topParent = GetTopParent(currentCollision);
+        Health targetsHealth = topParent.GetComponent<Health>();
+        if (targetsHealth != null)
         {
-            StopCoroutine(stopCoroutine);
+            //Change direction when mele ememies are added
+            Vector3 normal = (transform.position - currentCollision.transform.position).normalized;
+            targetsHealth.Damaged(new DamageInfo(meleConfig.damage, transform.forward, contactPoint, normal));
         }
+        nextCollisionIsAttack = false;
     }
+}
+*/
 
-    public override void StopAttack()
+    private void Update()
     {
-        attacking = false;
-        stopCoroutine = StartCoroutine(StopAttackCoroutine());
-    }
-
-    private void Attack()
-    {
-        nextCollisionIsAttack = true;
-        AttackEvent.Invoke();
-    }
-
-    private GameObject GetTopParent(GameObject obj)
-    {
-        Transform transform = obj.transform;
-        while (transform.parent != null)
-        {
-            transform = transform.parent;
-        }
-        return transform.gameObject;
-    }
-    private Vector3 GetPointOfContact(Vector3 target)
-    {
-        if (Physics.Raycast(transform.position, target - transform.position, out RaycastHit hit, float.PositiveInfinity, mask))
-        {
-            return hit.point;
-        }
-        Debug.LogError("Mele weapon hit error");
-        return Vector3.zero;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        currentCollision = other.gameObject;
-        contactPoint = GetPointOfContact(currentCollision.transform.position);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        currentCollision = null;
+        Vector3 startPos = attackDirection * -Vector3.forward + transform.position;
+        Debug.DrawLine(startPos, transform.position + attackDirection * Vector3.forward * meleConfig.range, Color.green);
     }
 
     private void Awake()
     {
         attackEvent = new UnityEvent();
-        mask = ~(1 << gameObject.layer);
     }
 
-    private void FixedUpdate()
+    public void OnAttackEnd()
     {
-        if (attackCooldown > 0)
+        attackEvent.Invoke();
+        Vector3 startPos = attackDirection * -Vector3.forward + transform.position;
+        if (Physics.SphereCast(startPos, 0.5f, attackDirection * Vector3.forward, out RaycastHit hit, meleConfig.range, KappaLayerMask.PlayerMeleAttackMask))
         {
-            attackCooldown -= Time.fixedDeltaTime;
+            Debug.LogFormat("Target hit: {0}", hit.collider.gameObject.name);
         }
-        if (attacking && attackCooldown <= 0)
-        {
-            Attack();
-            attackCooldown = 1F / meleConfig.attacksPerSecond;
-        }
-        if (nextCollisionIsAttack && currentCollision != null)
-        {
-            GameObject topParent = GetTopParent(currentCollision);
-            Health targetsHealth = topParent.GetComponent<Health>();
-            if (targetsHealth != null)
-            {
-                //Change direction when mele ememies are added
-                Vector3 normal = (transform.position - currentCollision.transform.position).normalized;
-                targetsHealth.Damaged(new DamageInfo(meleConfig.damage, transform.forward, contactPoint, normal));
-            }
-            nextCollisionIsAttack = false;
-        }
-    }
-
-    private IEnumerator StopAttackCoroutine()
-    {
-        yield return new WaitForSeconds(1F / meleConfig.attacksPerSecond);
-        nextCollisionIsAttack = false;
     }
 
     public override int Reload(int _) { return 1; }
 
     public override void SetTotalAmmo(int _) { }
+
+    public override void StartAttack() { }
+
+    public override void StopAttack() { }
 }
