@@ -7,4 +7,5 @@ public class Mission
 {
     public string label;
     public List<ObjectivesGroup> groups;
+    public UnityEngine.Events.UnityEvent missionCompleteEvent;
 }

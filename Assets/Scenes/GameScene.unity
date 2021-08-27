@@ -4033,23 +4033,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: missions.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: missions.Array.data[0].label
-      value: Complex colliders test
-      objectReference: {fileID: 0}
-    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: missions.Array.data[0].groups.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[0].label
+      value: Mission
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[1].label
+      value: XD
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[0].groups.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[1].groups.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: missions.Array.data[0].groups.Array.data[0].label
-      value: Purple in
+      value: Get to purple asteroid
       objectReference: {fileID: 0}
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: missions.Array.data[0].groups.Array.data[1].label
-      value: Purple out
+      value: Get to purple asteroid
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[1].groups.Array.data[0].label
+      value: XD
       objectReference: {fileID: 0}
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: missions.Array.data[0].groups.Array.data[0].objectives.Array.size
@@ -4060,13 +4072,77 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[1].groups.Array.data[0].objectives.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: missions.Array.data[0].groups.Array.data[0].objectives.Array.data[0]
       value: 
       objectReference: {fileID: 1862621481}
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: missions.Array.data[0].groups.Array.data[1].objectives.Array.data[0]
       value: 
-      objectReference: {fileID: 82566531}
+      objectReference: {fileID: 1862621481}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[1].groups.Array.data[0].objectives.Array.data[0]
+      value: 
+      objectReference: {fileID: 953223956}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[0].missionCompleteEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[1].missionCompleteEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[0].missionCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[1].missionCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[0].missionCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1317735501}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[1].missionCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1317735501}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[0].missionCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[1].missionCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[0].missionCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[1].missionCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[0].missionCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[1].missionCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[0].missionCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[1].missionCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3964721151380357729, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 27.913

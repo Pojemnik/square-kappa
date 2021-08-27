@@ -96,6 +96,7 @@ public class MissionsManager : MonoBehaviour
     private void ProceedToNextMission()
     {
         //Debug.Log(string.Format("Mission {0} finished", missions[missionIndex].label));
+        missions[missionIndex].missionCompleteEvent.Invoke();
         missionIndex++;
         groupIndex = 0;
         if (missionIndex != missions.Count)
