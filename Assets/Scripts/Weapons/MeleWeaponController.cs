@@ -20,62 +20,14 @@ public class MeleWeaponController : WeaponController
 
     private UnityEvent attackEvent;
     private Quaternion attackDirection;
-    /*
-private GameObject GetTopParent(GameObject obj)
-{
-    Transform transform = obj.transform;
-    while (transform.parent != null)
-    {
-        transform = transform.parent;
-    }
-    return transform.gameObject;
-}
-private Vector3 GetPointOfContact(Vector3 target)
-{
-    if (Physics.Raycast(transform.position, target - transform.position, out RaycastHit hit, float.PositiveInfinity, mask))
-    {
-        return hit.point;
-    }
-    Debug.LogError("Mele weapon hit error");
-    return Vector3.zero;
-}
 
-
-private void FixedUpdate()
-{
-    if (attackCooldown > 0)
+    private GameObject GetParentWithHealth(Transform transform)
     {
-        attackCooldown -= Time.fixedDeltaTime;
-    }
-    if (attacking && attackCooldown <= 0)
-    {
-        Attack();
-        attackCooldown = 1F / meleConfig.attacksPerSecond;
-    }
-    if (nextCollisionIsAttack && currentCollision != null)
-    {
-        GameObject topParent = GetTopParent(currentCollision);
-        Health targetsHealth = topParent.GetComponent<Health>();
-        if (targetsHealth != null)
+        while (transform.parent != null && transform.gameObject.GetComponent<Health>() == null)
         {
-            //Change direction when mele ememies are added
-            Vector3 normal = (transform.position - currentCollision.transform.position).normalized;
-            targetsHealth.Damaged(new DamageInfo(meleConfig.damage, transform.forward, contactPoint, normal));
+            transform = transform.parent;
         }
-        nextCollisionIsAttack = false;
-    }
-}
-*/
-
-    private void Update()
-    {
-        Vector3 startPos = attackDirection * -Vector3.forward + transform.position;
-        Debug.DrawLine(startPos, transform.position + attackDirection * Vector3.forward * meleConfig.range, Color.green);
-    }
-
-    private void Awake()
-    {
-        attackEvent = new UnityEvent();
+        return transform.gameObject;
     }
 
     public void OnAttackEnd()
@@ -85,7 +37,18 @@ private void FixedUpdate()
         if (Physics.SphereCast(startPos, 0.5f, attackDirection * Vector3.forward, out RaycastHit hit, meleConfig.range, KappaLayerMask.PlayerMeleAttackMask))
         {
             Debug.LogFormat("Target hit: {0}", hit.collider.gameObject.name);
+            GameObject target = GetParentWithHealth(hit.transform);
+            Health targetsHealth = target.GetComponent<Health>();
+            if (targetsHealth != null)
+            {
+                targetsHealth.Damaged(new DamageInfo(meleConfig.damage, attackDirection * Vector3.forward, hit.point, hit.normal));
+            }
         }
+    }
+
+    private void Awake()
+    {
+        attackEvent = new UnityEvent();
     }
 
     public override int Reload(int _) { return 1; }
