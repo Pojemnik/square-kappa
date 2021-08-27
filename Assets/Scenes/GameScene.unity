@@ -4671,34 +4671,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2974523544765521, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: meleAttackEnd.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2974523544765521, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: meleAttackEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2974523544765521, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: meleAttackEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1622687403}
-    - target: {fileID: 2974523544765521, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: meleAttackEnd.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2974523544765521, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: meleAttackEnd.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnAttackEnd
-      objectReference: {fileID: 0}
-    - target: {fileID: 2974523544765521, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: meleAttackEnd.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MeleWeaponController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2974523544765521, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: meleAttackEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 304391405936315603, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: callDeathEvent
       value: 0
@@ -6524,17 +6496,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3063092443403450291, guid: a4f7ccd963dcda040aaf85ec36388313, type: 3}
   m_PrefabInstance: {fileID: 1595644465}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1622687403 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 68198004605316595, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-  m_PrefabInstance: {fileID: 1166975182}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 986b196d619fe89448410102ca4f2188, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1639136431
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -19,3 +19,4 @@ MonoBehaviour:
   length: 0.5
   damage: 6
   range: 1
+  damageTimeDelta: 0.2
