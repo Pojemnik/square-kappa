@@ -101,7 +101,7 @@ MonoBehaviour:
   ammoCount:
     array:
     - Key: 1
-      Value: 50
+      Value: 30
 --- !u!65 &7109949317675660566
 BoxCollider:
   m_ObjectHideFlags: 0
