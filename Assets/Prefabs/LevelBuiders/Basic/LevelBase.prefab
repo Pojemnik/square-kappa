@@ -88,8 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4800500e0a0139b4687b9595f2496d86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slowTime: 0.2
-  uiStopTimeDuration: 5
+  config: {fileID: 11400000, guid: 3064aa2897382f942b89abc6a395a3ca, type: 2}
 --- !u!1 &1605561946682870616
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,7 +1316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5fbe30d4ab47543b44806a92e10f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyManager: {fileID: 3749079714370717424}
   detectionRange: 100
   arrowsDistanceFromCenter: 300
   markerScaleBounds:

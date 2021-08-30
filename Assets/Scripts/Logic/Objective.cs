@@ -14,6 +14,7 @@ public class Objective : MonoBehaviour
     public IntEvent Uncompleted;
     public int Id { get => id; }
 
+    public string objectiveName;
     public bool defaultState = false;
 
     protected void Complete()
@@ -29,5 +30,13 @@ public class Objective : MonoBehaviour
     protected virtual void Awake()
     {
         id = idCounter++;
+    }
+
+    protected virtual void OnDisable()
+    {
+        if (MissionsManager.Instance != null)
+        {
+            MissionsManager.Instance.UnregisterObjective(this);
+        }
     }
 }
