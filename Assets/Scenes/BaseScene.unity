@@ -204,7 +204,7 @@ PrefabInstance:
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: missions.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 9c6bc359db2b6cd45a05cedd5acfd9d0, type: 2}
+      objectReference: {fileID: 11400000, guid: 921ea55fdd89c3f40952bc0a8fb176aa, type: 2}
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: missions.Array.data[0].label
       value: Base in out test
@@ -244,6 +244,18 @@ PrefabInstance:
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: missions.Array.data[0].groups.Array.data[1].objectives.Array.data[0]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3964721151380357729, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3964721151380357729, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3964721151380357729, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 24.295
       objectReference: {fileID: 0}
     - target: {fileID: 6130940969614138891, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: damageEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
