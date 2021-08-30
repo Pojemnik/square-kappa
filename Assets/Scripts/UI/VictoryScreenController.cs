@@ -9,7 +9,6 @@ public class VictoryScreenController : MonoBehaviour
     void Start()
     {
         imageController = GetComponent<UIImageController>();
-        EventManager eventManager = FindObjectOfType<EventManager>();
-        eventManager.AddListener("Victory", imageController.ShowScreen);
+        EventManager.Instance.AddListener("Victory", imageController.ShowScreen);
     }
 }

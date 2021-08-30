@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneManager : MonoBehaviour
+public class SceneManager : Singleton<SceneManager>
 {
     [SerializeField]
     private float uiReloadDelay;
 
     private void Start()
     {
-        EventManager eventManager = FindObjectOfType<EventManager>();
-        eventManager.AddListener("ReloadScene", ReloadScene);
-        eventManager.AddListener("PlayerDeath", delegate { ReloadAfterDelay(uiReloadDelay); });
-        eventManager.AddListener("Victory", delegate { ReloadAfterDelay(uiReloadDelay); });
+        EventManager.Instance.AddListener("ReloadScene", ReloadScene);
+        EventManager.Instance.AddListener("PlayerDeath", delegate { ReloadAfterDelay(uiReloadDelay); });
+        EventManager.Instance.AddListener("Victory", delegate { ReloadAfterDelay(uiReloadDelay); });
     }
 
     private void ReloadAfterDelay(float time)

@@ -4,9 +4,11 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : Singleton<EnemyManager>
 {
     private Dictionary<int, GameObject> enemies;
+
+    protected EnemyManager() { }
 
     public List<GameObject> EnemiesList { get => enemies.Values.ToList(); }
     public UnityEvent enemiesListChangedEvent;

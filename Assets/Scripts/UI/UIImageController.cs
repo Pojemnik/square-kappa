@@ -5,7 +5,6 @@ using UnityEngine;
 public class UIImageController : MonoBehaviour
 {
     private UnityEngine.UI.Image image;
-    private EventManager eventManager;
 
     [SerializeField]
     private float displayTime;
@@ -15,7 +14,6 @@ public class UIImageController : MonoBehaviour
     {
         image = GetComponent<UnityEngine.UI.Image>();
         image.enabled = false;
-        eventManager = FindObjectOfType<EventManager>();
     }
 
     public void ShowScreen()

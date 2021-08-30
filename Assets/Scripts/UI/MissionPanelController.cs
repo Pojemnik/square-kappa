@@ -17,18 +17,16 @@ public class MissionPanelController : MonoBehaviour
     {
         missionText.text = "";
         objectiveText.text = "";
-        MissionsManager missionsManager = FindObjectOfType<MissionsManager>();
-        missionsManager.missionChangeEvent.AddListener(OnMissionChange);
-        missionsManager.objectiveGroupChangeEvent.AddListener(OnObjectiveGroupChange);
+        MissionsManager.Instance.missionChangeEvent.AddListener(OnMissionChange);
+        MissionsManager.Instance.objectiveGroupChangeEvent.AddListener(OnObjectiveGroupChange);
         missionTextDefaultHeight = missionText.rectTransform.rect.height;
         objectiveTextDefaultHeight = objectiveText.rectTransform.rect.height;
     }
 
     private void Start()
     {
-        EventManager eventManager = FindObjectOfType<EventManager>();
-        eventManager.AddListener("PlayerDeath", HideMissionsPanel);
-        eventManager.AddListener("Victory", HideMissionsPanel);
+        EventManager.Instance.AddListener("PlayerDeath", HideMissionsPanel);
+        EventManager.Instance.AddListener("Victory", HideMissionsPanel);
     }
 
     private void HideMissionsPanel()

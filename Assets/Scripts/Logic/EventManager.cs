@@ -4,17 +4,14 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
 
-public class EventManager : MonoBehaviour
+public class EventManager : Singleton<EventManager>
 {
     private Dictionary<string, UnityEvent> eventDictionary;
 
+    protected EventManager() { }
+
     private void Awake()
     {
-        EventManager[] others = FindObjectsOfType<EventManager>().Where(e => e != this).ToArray<EventManager>();
-        if(others.Length > 0)
-        {
-            throw new System.Exception("More than one event manager in scene");
-        }
         eventDictionary = new Dictionary<string, UnityEvent>();
     }
 

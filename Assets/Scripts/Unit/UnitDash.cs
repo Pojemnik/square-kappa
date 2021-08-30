@@ -14,26 +14,25 @@ public class UnitDash : MonoBehaviour
     private bool canDash;
     private bool dashMode;
     private new Rigidbody rigidbody;
-    private EventManager eventManager;
 
     public void EnableDashMode()
     {
         if (canDash)
         {
             dashMode = true;
-            eventManager.TriggerEvent("SlowDownTime");
+            EventManager.Instance.TriggerEvent("SlowDownTime");
         }
     }
 
     public void DisableDashMode()
     {
         dashMode = false;
-        eventManager.TriggerEvent("ResetTimescale");
+        EventManager.Instance.TriggerEvent("ResetTimescale");
     }
 
     private IEnumerator DashCoroutine(Vector3 force)
     {
-        eventManager.TriggerEvent("ResetTimescale");
+        EventManager.Instance.TriggerEvent("ResetTimescale");
         rigidbody.AddForce(force, ForceMode.VelocityChange);
         yield return new WaitForSecondsRealtime(1);
         rigidbody.AddForce(-force * dashStopForceMultipler, ForceMode.VelocityChange);
@@ -50,11 +49,6 @@ public class UnitDash : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         canDash = true;
-    }
-
-    private void Start()
-    {
-        eventManager = FindObjectOfType<EventManager>();
     }
 
     private void FixedUpdate()
