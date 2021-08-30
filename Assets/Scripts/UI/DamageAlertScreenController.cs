@@ -9,7 +9,7 @@ public class DamageAlertScreenController : MonoBehaviour
     void Start()
     {
         imageController = GetComponent<UIImageController>();
-        EventManager.Instance.AddListener("PlayerDamage", imageController.ShowScreen);
+        EventManager.Instance.AddListener("PlayerDamage", imageController.ShowScreenForTime);
         EventManager.Instance.AddListener("PlayerDeath", imageController.HideScreen);
     }
 }

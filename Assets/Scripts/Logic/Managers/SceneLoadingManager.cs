@@ -6,31 +6,32 @@ using UnityEngine.SceneManagement;
 public class SceneLoadingManager : Singleton<SceneLoadingManager>
 {
     [SerializeField]
-    private float uiReloadDelay;
-    [SerializeField]
     private string baseScene;
+
+    private int scenesToReloadCount;
+    private int reloadedScenes;
 
     private void Start()
     {
-        EventManager.Instance.AddListener("ReloadScene", ReloadGame);
-        EventManager.Instance.AddListener("PlayerDeath", delegate { ReloadAfterDelay(uiReloadDelay); });
-        EventManager.Instance.AddListener("Victory", delegate { ReloadAfterDelay(uiReloadDelay); });
+        EventManager.Instance.AddListener("PlayerDeath", ReloadGame);
+        EventManager.Instance.AddListener("Victory", ReloadGame);
+        reloadedScenes = 0;
     }
 
-    private void ReloadAfterDelay(float time)
+    private void OnReloadEnd(AsyncOperation operation)
     {
-        StartCoroutine(WaitForReload(time));
-    }
-
-    private IEnumerator WaitForReload(float time)
-    {
-        yield return new WaitForSecondsRealtime(time);
-        ReloadGame();
+        reloadedScenes++;
+        if (reloadedScenes == scenesToReloadCount)
+        {
+            EventManager.Instance.TriggerEvent("GameReloaded");
+            reloadedScenes = 0;
+        }
     }
 
     private void ReloadGame()
     {
-        List<int> scenesToReload = new List<int>(SceneManager.sceneCount - 1);
+        scenesToReloadCount = SceneManager.sceneCount - 1;
+        List<int> scenesToReload = new List<int>(scenesToReloadCount);
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
             Scene scene = SceneManager.GetSceneAt(i);
@@ -42,7 +43,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         }
         foreach (int sceneIndex in scenesToReload)
         {
-            SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive).completed += OnReloadEnd;
         }
     }
 }

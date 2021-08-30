@@ -16,10 +16,15 @@ public class UIImageController : MonoBehaviour
         image.enabled = false;
     }
 
-    public void ShowScreen()
+    public void ShowScreenForTime()
     {
         image.enabled = true;
         StartCoroutine(WaitAndHideImage(displayTime));
+    }
+
+    public void ShowScreen()
+    {
+        image.enabled = true;
     }
 
     public void HideScreen()

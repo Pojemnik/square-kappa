@@ -9,15 +9,16 @@ public class TimeManager : Singleton<TimeManager>
 
     void Start()
     {
-        if(config.slowTime <= 0 || config.slowTime >= 1)
+        if (config.slowTime <= 0 || config.slowTime >= 1)
         {
             throw new System.Exception("Slow time should be between 0 and 1");
         }
         EventManager.Instance.AddListener("SlowDownTime", SlowDownTime);
         EventManager.Instance.AddListener("ResetTimescale", ResetTimescale);
         EventManager.Instance.AddListener("StopTime", StopTime);
-        EventManager.Instance.AddListener("PlayerDeath", delegate { TemporaryTimeStop(config.uiStopTimeDuration); });
-        EventManager.Instance.AddListener("Victory", delegate { TemporaryTimeStop(config.uiStopTimeDuration); });
+        EventManager.Instance.AddListener("PlayerDeath", StopTime);
+        EventManager.Instance.AddListener("Victory", StopTime);
+        EventManager.Instance.AddListener("GameReloaded", ResetTimescale);
     }
 
     private void TemporaryTimeStop(float time)

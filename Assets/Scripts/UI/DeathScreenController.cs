@@ -10,5 +10,6 @@ public class DeathScreenController : MonoBehaviour
     {
         imageController = GetComponent<UIImageController>();
         EventManager.Instance.AddListener("PlayerDeath", imageController.ShowScreen);
+        EventManager.Instance.AddListener("GameReloaded", imageController.HideScreen);
     }
 }

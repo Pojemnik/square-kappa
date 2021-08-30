@@ -59,6 +59,14 @@ public class EnemyController : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void OnDisable()
+    {
+        if (EnemyManager.Instance)
+        {
+            EnemyManager.Instance.RemoveEnemy(gameObject);
+        }
+    }
+
     private void StartRagdoll()
     {
         Instantiate(ragdollPrefab, transform.position, transform.rotation);

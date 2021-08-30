@@ -10,5 +10,6 @@ public class VictoryScreenController : MonoBehaviour
     {
         imageController = GetComponent<UIImageController>();
         EventManager.Instance.AddListener("Victory", imageController.ShowScreen);
+        EventManager.Instance.AddListener("GameReloaded", imageController.HideScreen);
     }
 }
