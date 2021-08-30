@@ -4673,7 +4673,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 304391405936315603, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: callDeathEvent
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 981666124664837547, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: m_RootOrder

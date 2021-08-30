@@ -7,26 +7,45 @@ public class PlayerEventsAdapter : MonoBehaviour
     [SerializeField]
     private bool callDeathEvent;
 
-    private EventManager eventManager;
+    private Health health;
+    private Rigidbody rb;
+    private Vector3 startPosition;
 
     private void Start()
     {
-        Health health = GetComponent<Health>();
+        rb = GetComponent<Rigidbody>();
+        health = GetComponent<Health>();
         health.deathEvent.AddListener(OnPlayerDeath);
         health.damageEvent.AddListener(delegate { OnPlayerDamage(); });
-        eventManager = FindObjectOfType<EventManager>();
+        EventManager.Instance.AddListener("GameReloaded", OnGameReolad);
+        startPosition = rb.position;
+    }
+
+    private void MovePlayerToStartPosition()
+    {
+        rb.isKinematic = true;
+        rb.position = startPosition;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.isKinematic = false;
+    }
+
+    private void OnGameReolad()
+    {
+        health.Heal();
+        MovePlayerToStartPosition();
     }
 
     private void OnPlayerDeath()
     {
         if (callDeathEvent)
         {
-            eventManager.TriggerEvent("PlayerDeath");
+            EventManager.Instance.TriggerEvent("PlayerDeath");
         }
     }
 
     private void OnPlayerDamage()
     {
-        eventManager.TriggerEvent("PlayerDamage");
+        EventManager.Instance.TriggerEvent("PlayerDamage");
     }
 }
