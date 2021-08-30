@@ -94,6 +94,7 @@ namespace AI
             lastShootingMode = AIShootingMode.NoShooting;
             phaseTime = 0;
             lastShoot = false;
+            owner.status = "Shooting to target";
         }
 
         public override void Update()
@@ -123,14 +124,14 @@ namespace AI
                     break;
                 case TargetStatus.Covered:
                     shooting.StopFire();
-                    if (Time.time - lastSeenTime > config.chaseTimeout)
+                    if (Time.time - lastSeenTime > config.targetingTimeout)
                     {
                         owner.ChangeState(new StaticLookAroundState(pathNode, config));
                     }
                     break;
                 case TargetStatus.TooFar:
                     shooting.StopFire();
-                    if (Time.time - lastSeenTime > config.chaseTimeout)
+                    if (Time.time - lastSeenTime > config.targetingTimeout)
                     {
                         owner.ChangeState(new StaticLookAroundState(pathNode, config));
                     }
@@ -155,6 +156,7 @@ namespace AI
             owner.enemyController.unitController.AnimationController.eventsAdapter.lookaroundEnd.AddListener(OnLookAroundEnd);
             owner.enemyController.unitController.AnimationController.ResetTriggers();
             owner.enemyController.unitController.AnimationController.SetState("LookAround");
+            owner.status = "Looking around";
         }
 
         private void OnLookAroundEnd()
@@ -199,6 +201,7 @@ namespace AI
         {
             base.Enter();
             movement.SetTargetRotation(-hitDirection);
+            owner.status = "Looking for damege source";
         }
 
         public override void Update()
