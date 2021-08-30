@@ -7,11 +7,19 @@ public class PlayerEventsAdapter : MonoBehaviour
     [SerializeField]
     private bool callDeathEvent;
 
+    private Health health;
+
     private void Start()
     {
-        Health health = GetComponent<Health>();
+        health = GetComponent<Health>();
         health.deathEvent.AddListener(OnPlayerDeath);
         health.damageEvent.AddListener(delegate { OnPlayerDamage(); });
+        EventManager.Instance.AddListener("ReloadScene", OnGameReolad);
+    }
+
+    private void OnGameReolad()
+    {
+        health.Heal();
     }
 
     private void OnPlayerDeath()
