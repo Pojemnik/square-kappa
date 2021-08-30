@@ -5,15 +5,15 @@ using UnityEngine;
 public static class KappaLayerMask
 {
     private static int enemyVisionMask = ~LayerMask.GetMask("Enemy", "PlayerProjectile", "EnemyProjectile",
-                                                            "PlayerEnvironmentalCollision", "Objectives", "Transparent");
+                                                            "PlayerEnvironmentalCollision", "Objectives", "Transparent", "EnemyEnvironmentalCollision");
     private static int enemyMovementMask = ~LayerMask.GetMask("Enemy", "PlayerProjectile", "EnemyProjectile",
-                                                              "PlayerEnvironmentalCollision", "Objectives", "Transparent");
+                                                              "PlayerEnvironmentalCollision", "Objectives", "Transparent", "EnemyEnvironmentalCollision");
     private static int playerVisionMask = ~LayerMask.GetMask("Player", "PlayerProjectile", "EnemyProjectile",
-                                                             "PlayerEnvironmentalCollision", "Objectives", "Transparent");
+                                                             "PlayerEnvironmentalCollision", "Objectives", "Transparent", "EnemyEnvironmentalCollision");
     private static int playerItemTargetingMask = ~LayerMask.GetMask("Player", "PlayerProjectile", "EnemyProjectile",
-                                                             "PlayerEnvironmentalCollision", "Objectives");
+                                                             "PlayerEnvironmentalCollision", "Objectives", "EnemyEnvironmentalCollision");
     private static int playerMeleAttackMask = ~LayerMask.GetMask("Player", "PlayerProjectile", "EnemyProjectile",
-                                                             "PlayerEnvironmentalCollision", "Objectives");
+                                                             "PlayerEnvironmentalCollision", "Objectives", "EnemyEnvironmentalCollision");
 
     public static int EnemyVisionMask { get => enemyVisionMask; }
     public static int EnemyMovementMask { get => enemyMovementMask; }
