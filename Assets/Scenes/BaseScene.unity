@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.065
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.105590515, g: 0.12154593, b: 0.14664873, a: 0.065}
+  m_IndirectSpecularColor: {r: 0.0069188406, g: 0.072343774, b: 0.05900556, a: 0.065}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -189,10 +189,22 @@ PrefabInstance:
       propertyPath: baseScene
       value: BaseScene
       objectReference: {fileID: 0}
+    - target: {fileID: 1297050027494034849, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: startupScenes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1297050027494034849, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: startupScenes.Array.data[0]
+      value: FirstLevel
+      objectReference: {fileID: 0}
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: missions.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: missions.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9c6bc359db2b6cd45a05cedd5acfd9d0, type: 2}
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: missions.Array.data[0].label
       value: Base in out test

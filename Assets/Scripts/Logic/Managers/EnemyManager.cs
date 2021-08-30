@@ -28,6 +28,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
     private void Awake()
     {
+        RegisterInstance(this);
         enemies = new Dictionary<int, GameObject>();
     }
 }

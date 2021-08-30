@@ -28,5 +28,6 @@ public class ItemsManager : Singleton<ItemsManager>
     private void Awake()
     {
         items = new Dictionary<int, GameObject>();
+        RegisterInstance(this);
     }
 }

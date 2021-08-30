@@ -1,49 +1,163 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using System.Linq;
 
 public class MissionsManager : Singleton<MissionsManager>
 {
-    [HideInInspector]
-    public UnityEngine.Events.UnityEvent<Mission> missionChangeEvent;
-    [HideInInspector]
-    public UnityEngine.Events.UnityEvent<ObjectivesGroup> objectiveGroupChangeEvent;
     [SerializeField]
     private List<Mission> missions;
 
+    private UnityEvent<Mission> missionChangeEvent;
+    private UnityEvent<ObjectivesGroup> objectiveGroupChangeEvent;
+
     protected MissionsManager() { }
 
+    private Dictionary<string, Objective> objectiveNames;
+    private HashSet<string> usedObjectivesTracker;
     private Dictionary<int, bool> objectiveStates;
-    private HashSet<int> curentGroupIds;
+    private HashSet<int> currentGroupIds;
     private int missionIndex = 0;
     private int groupIndex = 0;
 
+    public UnityEvent<Mission> MissionChangeEvent
+    {
+        get
+        {
+            if (missionChangeEvent == null)
+            {
+                missionChangeEvent = new UnityEvent<Mission>();
+            }
+            return missionChangeEvent;
+        }
+    }
+
+    public UnityEvent<ObjectivesGroup> ObjectiveGroupChangeEvent
+    {
+        get
+        {
+            if (objectiveGroupChangeEvent == null)
+            {
+                objectiveGroupChangeEvent = new UnityEvent<ObjectivesGroup>();
+            }
+            return objectiveGroupChangeEvent;
+        }
+    }
+
+    private void Awake()
+    {
+        RegisterInstance(this);
+        objectiveStates = new Dictionary<int, bool>();
+        if (objectiveNames == null)
+        {
+            objectiveNames = new Dictionary<string, Objective>();
+        }
+        usedObjectivesTracker = new HashSet<string>();
+        currentGroupIds = new HashSet<int>();
+    }
+
     private void Start()
     {
-        if(missions.Count == 0)
+        if (missions.Count == 0)
         {
             enabled = false;
             return;
         }
-        objectiveStates = new Dictionary<int, bool>();
+        RegisterObjectives();
+        SetObjectives();
+        CheckForUnusedObjectives();
+        UpdateCurrentGroupIds();
+        ObjectiveGroupChangeEvent.Invoke(missions[missionIndex].groups[groupIndex]);
+        MissionChangeEvent.Invoke(missions[missionIndex]);
+        EventManager.Instance.AddListener("GameReloaded", OnGameReload);
+        //Debug.Log(string.Format("New mission: {0}", missions[missionIndex].label));
+        //Debug.Log(string.Format("New objectives group: {0}", missions[missionIndex].groups[groupIndex].label));
+    }
+
+    private void RegisterObjectives()
+    {
+        Objective[] objectives = (Objective[])FindObjectsOfType(typeof(Objective));
+        foreach (Objective objective in objectives)
+        {
+            objectiveNames.Add(objective.objectiveName, objective);
+        }
+    }
+
+    private void SetObjectives()
+    {
         foreach (Mission mission in missions)
         {
             foreach (ObjectivesGroup group in mission.groups)
             {
-                foreach (Objective objective in group.objectives)
+                foreach (string name in group.objectiveNames)
                 {
-                    objectiveStates.Add(objective.Id, objective.defaultState);
-                    objective.Completed.AddListener(OnObjectiveCompleted);
-                    objective.Uncompleted.AddListener(OnObjectiveUncompleted);
+                    if (objectiveNames.ContainsKey(name))
+                    {
+                        SetObjective(name);
+                    }
+                    else
+                    {
+                        Debug.LogWarningFormat("No objective named {0}", name);
+                    }
                 }
             }
         }
-        curentGroupIds = new HashSet<int>();
+    }
+
+    private void SetObjective(string name)
+    {
+        Objective objective = objectiveNames[name];
+        if (usedObjectivesTracker.Contains(name))
+        {
+            Debug.LogWarningFormat("Objective named {0} used more than once. This can lead to incorrect behaviour", name);
+            return;
+        }
+        objectiveStates.Add(objective.Id, objective.defaultState);
+        objective.Completed.AddListener(OnObjectiveCompleted);
+        objective.Uncompleted.AddListener(OnObjectiveUncompleted);
+        usedObjectivesTracker.Add(name);
+    }
+
+    private void CheckForUnusedObjectives()
+    {
+        foreach (string name in objectiveNames.Keys)
+        {
+            if (!usedObjectivesTracker.Contains(name))
+            {
+                Debug.LogWarningFormat("Objective named {0} unused", name);
+            }
+        }
+    }
+
+    private void OnGameReload()
+    {
+        enabled = true;
+        missionIndex = 0;
+        groupIndex = 0;
+        objectiveNames.Clear();
+        objectiveStates.Clear();
+        usedObjectivesTracker.Clear();
+        currentGroupIds.Clear();
+        if (missions.Count == 0)
+        {
+            enabled = false;
+            return;
+        }
+        RegisterObjectives();
+        SetObjectives();
+        CheckForUnusedObjectives();
         UpdateCurrentGroupIds();
-        objectiveGroupChangeEvent.Invoke(missions[missionIndex].groups[groupIndex]);
-        missionChangeEvent.Invoke(missions[missionIndex]);
-        //Debug.Log(string.Format("New mission: {0}", missions[missionIndex].label));
-        //Debug.Log(string.Format("New objectives group: {0}", missions[missionIndex].groups[groupIndex].label));
+        ObjectiveGroupChangeEvent.Invoke(missions[missionIndex].groups[groupIndex]);
+        MissionChangeEvent.Invoke(missions[missionIndex]);
+    }
+
+    public void UnregisterObjective(Objective objective)
+    {
+        objectiveNames.Remove(objective.objectiveName);
+        usedObjectivesTracker.Remove(objective.objectiveName);
+        objective.Completed.RemoveListener(OnObjectiveCompleted);
+        objective.Uncompleted.RemoveListener(OnObjectiveUncompleted);
     }
 
     private void OnObjectiveCompleted(int id)
@@ -80,17 +194,17 @@ public class MissionsManager : Singleton<MissionsManager>
         if (enabled)
         {
             UpdateCurrentGroupIds();
-            objectiveGroupChangeEvent.Invoke(missions[missionIndex].groups[groupIndex]);
+            ObjectiveGroupChangeEvent.Invoke(missions[missionIndex].groups[groupIndex]);
             //Debug.Log(string.Format("New objectives group: {0}", missions[missionIndex].groups[groupIndex].label));
         }
     }
 
     private void UpdateCurrentGroupIds()
     {
-        curentGroupIds.Clear();
+        currentGroupIds.Clear();
         foreach (Objective objective in missions[missionIndex].groups[groupIndex].objectives)
         {
-            curentGroupIds.Add(objective.Id);
+            currentGroupIds.Add(objective.Id);
         }
     }
 
@@ -102,13 +216,13 @@ public class MissionsManager : Singleton<MissionsManager>
         groupIndex = 0;
         if (missionIndex != missions.Count)
         {
-            missionChangeEvent.Invoke(missions[missionIndex]);
+            MissionChangeEvent.Invoke(missions[missionIndex]);
             //Debug.Log(string.Format("New mission: {0}", missions[missionIndex].label));
         }
         else
         {
-            missionChangeEvent.Invoke(null);
-            objectiveGroupChangeEvent.Invoke(null);
+            MissionChangeEvent.Invoke(null);
+            ObjectiveGroupChangeEvent.Invoke(null);
             EventManager.Instance.TriggerEvent("Victory");
             enabled = false;
         }
@@ -116,7 +230,7 @@ public class MissionsManager : Singleton<MissionsManager>
 
     private bool CheckForObjectiveGroupCompletion()
     {
-        foreach (int id in curentGroupIds)
+        foreach (int id in currentGroupIds)
         {
             if (!objectiveStates[id])
             {

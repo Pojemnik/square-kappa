@@ -7,7 +7,12 @@ public class TimeManager : Singleton<TimeManager>
     [SerializeField]
     private TimeManagerConfig config;
 
-    void Start()
+    private void Awake()
+    {
+        RegisterInstance(this);
+    }
+
+    private void Start()
     {
         if (config.slowTime <= 0 || config.slowTime >= 1)
         {

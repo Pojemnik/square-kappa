@@ -24,30 +24,30 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                     "' already destroyed. Returning null.");
                 return null;
             }
-
             lock (m_Lock)
             {
                 if (m_Instance == null)
                 {
-                    // Search for existing instance.
-                    m_Instance = (T)FindObjectOfType(typeof(T));
-
-                    // Create new instance if one doesn't already exist.
+                    m_Instance = FindObjectOfType<T>();
                     if (m_Instance == null)
                     {
-                        // Need to create a new GameObject to attach the singleton to.
-                        var singletonObject = new GameObject();
-                        m_Instance = singletonObject.AddComponent<T>();
-                        singletonObject.name = typeof(T).ToString() + " (Singleton)";
-
-                        // Make instance persistent.
-                        DontDestroyOnLoad(singletonObject);
+                        Debug.LogErrorFormat("No exisitng sigleton of type {0}", typeof(T));
                     }
                 }
-
                 return m_Instance;
             }
         }
+    }
+
+    protected static void RegisterInstance(T instance)
+    {
+        if (m_Instance != null && m_Instance != instance)
+        {
+            Debug.LogErrorFormat("Instance of singleton {0} registered more than once", typeof(T));
+            return;
+        }
+        m_Instance = instance;
+        m_ShuttingDown = false;
     }
 
 

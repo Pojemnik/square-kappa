@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Mission
+[CreateAssetMenu(fileName = "Mission", menuName = "ScriptableObjects/Mission")]
+public class Mission : ScriptableObject
 {
     public string label;
     public List<ObjectivesGroup> groups;

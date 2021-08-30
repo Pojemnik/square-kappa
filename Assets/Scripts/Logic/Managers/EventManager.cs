@@ -12,6 +12,7 @@ public class EventManager : Singleton<EventManager>
 
     private void Awake()
     {
+        RegisterInstance(this);
         eventDictionary = new Dictionary<string, UnityEvent>();
     }
 

@@ -17,8 +17,8 @@ public class MissionPanelController : MonoBehaviour
     {
         missionText.text = "";
         objectiveText.text = "";
-        MissionsManager.Instance.missionChangeEvent.AddListener(OnMissionChange);
-        MissionsManager.Instance.objectiveGroupChangeEvent.AddListener(OnObjectiveGroupChange);
+        MissionsManager.Instance.MissionChangeEvent.AddListener(OnMissionChange);
+        MissionsManager.Instance.ObjectiveGroupChangeEvent.AddListener(OnObjectiveGroupChange);
         missionTextDefaultHeight = missionText.rectTransform.rect.height;
         objectiveTextDefaultHeight = objectiveText.rectTransform.rect.height;
     }
@@ -27,12 +27,19 @@ public class MissionPanelController : MonoBehaviour
     {
         EventManager.Instance.AddListener("PlayerDeath", HideMissionsPanel);
         EventManager.Instance.AddListener("Victory", HideMissionsPanel);
+        EventManager.Instance.AddListener("GameReloaded", ShowMissionsPanel);
     }
 
     private void HideMissionsPanel()
     {
         missionText.enabled = false;
         objectiveText.enabled = false;
+    }
+
+    private void ShowMissionsPanel()
+    {
+        missionText.enabled = true;
+        objectiveText.enabled = true;
     }
 
     private void OnObjectiveGroupChange(ObjectivesGroup group)

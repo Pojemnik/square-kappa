@@ -11,11 +11,20 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
     private int scenesToReloadCount;
     private int reloadedScenes;
 
+    private void Awake()
+    {
+        RegisterInstance(this);
+    }
+
     private void Start()
     {
         EventManager.Instance.AddListener("PlayerDeath", ReloadGame);
         EventManager.Instance.AddListener("Victory", ReloadGame);
         reloadedScenes = 0;
+        //foreach(string sceneName in startupScenes)
+        //{
+        //    SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive).completed += OnStartupSceneLoaded;
+        //}
     }
 
     private void OnReloadEnd(AsyncOperation operation)
