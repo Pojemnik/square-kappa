@@ -46,7 +46,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private GameObject ragdollPrefab;
 
-    private EnemyManager manager;
     private VisionGizmoCore gizmo;
 
     public void OnDeath()
@@ -56,8 +55,16 @@ public class EnemyController : MonoBehaviour
         {
             StartRagdoll();
         }
-        manager.RemoveEnemy(gameObject);
+        EnemyManager.Instance.RemoveEnemy(gameObject);
         Destroy(gameObject);
+    }
+
+    private void OnDisable()
+    {
+        if (EnemyManager.Instance)
+        {
+            EnemyManager.Instance.RemoveEnemy(gameObject);
+        }
     }
 
     private void StartRagdoll()
@@ -92,9 +99,8 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        manager = FindObjectOfType<EnemyManager>();
-        target = manager.target;
-        manager.AddEnemy(gameObject);
+        target = EnemyManager.Instance.target;
+        EnemyManager.Instance.AddEnemy(gameObject);
         CrosshairController crosshair = FindObjectOfType<CrosshairController>();
         Health health = GetComponent<Health>();
         health.deathEvent.AddListener(crosshair.OnEnemyDeath);

@@ -5,10 +5,6 @@ using System.Linq;
 
 public class EnemyMarkersController : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField]
-    private EnemyManager enemyManager;
-
     [Header("Settings")]
     [SerializeField]
     [Tooltip("Maximum distance in which marker is being displayed")]
@@ -76,7 +72,7 @@ public class EnemyMarkersController : MonoBehaviour
 
     private void OnEnemyListChange()
     {
-        enemies = enemyManager.EnemiesList;
+        enemies = EnemyManager.Instance.EnemiesList;
         var enemiesIds = enemies.Select(e => e.GetInstanceID());
         AddNewKeysOnList(enemiesIds);
         RemoveKeysNotOnList(arrows, enemiesIds);
@@ -166,7 +162,7 @@ public class EnemyMarkersController : MonoBehaviour
 
     private void Start()
     {
-        enemyManager.enemiesListChangedEvent.AddListener(OnEnemyListChange);
+        EnemyManager.Instance.enemiesListChangedEvent.AddListener(OnEnemyListChange);
         OnEnemyListChange();
         foreach (VectorDisplayController display in distanceDisplays.Values)
         {

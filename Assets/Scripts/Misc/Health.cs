@@ -72,6 +72,12 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void Heal()
+    {
+        currentHealth = maxHealth;
+        healthChangeEvent.Invoke(currentHealth);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.impulse.magnitude > collisionDamageForceTreshold)
