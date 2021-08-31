@@ -6,6 +6,9 @@ using System.Linq;
 
 public class EventManager : Singleton<EventManager>
 {
+    [SerializeField]
+    private bool logEvents;
+
     private Dictionary<string, UnityEvent> eventDictionary;
 
     protected EventManager() { }
@@ -19,7 +22,7 @@ public class EventManager : Singleton<EventManager>
     public void AddListener(string name, UnityAction action)
     {
         UnityEvent unityEvent;
-        if(eventDictionary.TryGetValue(name, out unityEvent))
+        if (eventDictionary.TryGetValue(name, out unityEvent))
         {
             unityEvent.AddListener(action);
         }
@@ -33,8 +36,7 @@ public class EventManager : Singleton<EventManager>
 
     public void RemoveListener(string name, UnityAction action)
     {
-        UnityEvent unityEvent;
-        if (eventDictionary.TryGetValue(name, out unityEvent))
+        if (eventDictionary.TryGetValue(name, out UnityEvent unityEvent))
         {
             unityEvent.RemoveListener(action);
         }
@@ -50,6 +52,10 @@ public class EventManager : Singleton<EventManager>
         if (eventDictionary.TryGetValue(name, out unityEvent))
         {
             unityEvent.Invoke();
+            if (logEvents)
+            {
+                Debug.LogFormat("Event {0} called", name);
+            }
         }
         else
         {

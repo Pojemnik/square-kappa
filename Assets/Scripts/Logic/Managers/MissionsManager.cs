@@ -185,7 +185,10 @@ public class MissionsManager : Singleton<MissionsManager>
     private void ProceedToNextObjectivesGroup()
     {
         //Debug.Log(string.Format("Objectives group {0} finished", missions[missionIndex].groups[groupIndex].label));
-        missions[missionIndex].groups[groupIndex].objectivesGroupCompleteEvent.Invoke();
+        if (missions[missionIndex].groups[groupIndex].objectivesGroupCompleteEvent != null)
+        {
+            missions[missionIndex].groups[groupIndex].objectivesGroupCompleteEvent.Raise();
+        }
         groupIndex++;
         if (groupIndex == missions[missionIndex].groups.Count)
         {
@@ -211,7 +214,10 @@ public class MissionsManager : Singleton<MissionsManager>
     private void ProceedToNextMission()
     {
         //Debug.Log(string.Format("Mission {0} finished", missions[missionIndex].label));
-        missions[missionIndex].missionCompleteEvent.Invoke();
+        if (missions[missionIndex].missionCompleteEvent != null)
+        {
+            missions[missionIndex].missionCompleteEvent.Raise();
+        }
         missionIndex++;
         groupIndex = 0;
         if (missionIndex != missions.Count)

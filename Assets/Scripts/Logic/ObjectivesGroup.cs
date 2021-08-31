@@ -9,5 +9,5 @@ public class ObjectivesGroup
     public List<string> objectiveNames;
     [HideInInspector]
     public List<Objective> objectives;
-    public UnityEngine.Events.UnityEvent objectivesGroupCompleteEvent;
+    public MissionEvent objectivesGroupCompleteEvent;
 }
