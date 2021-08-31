@@ -9,7 +9,7 @@ public class EventManager : Singleton<EventManager>
     [SerializeField]
     private bool logEvents;
 
-    private Dictionary<string, UnityEvent> eventDictionary;
+    public Dictionary<string, UnityEvent> eventDictionary;
 
     protected EventManager() { }
 
