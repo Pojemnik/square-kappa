@@ -5,24 +5,38 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MissionEvent", menuName = "ScriptableObjects/MissionEvent")]
 public class MissionEvent : ScriptableObject
 {
+    [SerializeField]
+    private bool displayDebugInfo;
+
     private List<MissionEventListener> listeners = new List<MissionEventListener>();
 
     public void Raise()
     {
-        Debug.LogFormat("Mission event {0} called", name);
-        for(int i = listeners.Count - 1; i >= 0; i--)
+        if (displayDebugInfo)
+        {
+            Debug.LogFormat("Mission event {0} called", name);
+        }
+        for (int i = listeners.Count - 1; i >= 0; i--)
         {
             listeners[i].OnEventRaised();
         }
     }
 
     public void RegisterListener(MissionEventListener listener)
-    { 
-        listeners.Add(listener); 
+    {
+        if (displayDebugInfo)
+        {
+            Debug.LogFormat("Listener {0} for mission event {1} registerd", listener.name, name);
+        }
+        listeners.Add(listener);
     }
 
     public void UnregisterListener(MissionEventListener listener)
-    { 
+    {
+        if (displayDebugInfo)
+        {
+            Debug.LogFormat("Listener {0} for mission event {1} unregistered", listener.name, name);
+        }
         listeners.Remove(listener);
     }
 }

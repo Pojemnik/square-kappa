@@ -40,7 +40,7 @@ public class MeleWeaponController : WeaponController
         Vector3 startPos = attackDirection * -Vector3.forward * 0.3f + transform.position;
         if (Physics.SphereCast(startPos, 0.2f, attackDirection * Vector3.forward, out RaycastHit hit, meleConfig.range, KappaLayerMask.PlayerMeleAttackMask))
         {
-            Debug.LogFormat("Target hit: {0}", hit.collider.gameObject.name);
+            //Debug.LogFormat("Target hit: {0}", hit.collider.gameObject.name);
             GameObject target = GetParentWithHealth(hit.transform);
             Health targetsHealth = target.GetComponent<Health>();
             if (targetsHealth != null)
