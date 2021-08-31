@@ -119,10 +119,6 @@ public class ItemChanger : MonoBehaviour
 
     public void GrabWeapon(GameObject weapon)
     {
-        if(weapon == defaultWeapon)
-        {
-            print("Selected default weapon");
-        }
         owner.CurrentWeapon = weapon;
         owner.CurrentWeapon.SetActive(true);
         Rigidbody weaponRB = owner.CurrentWeapon.GetComponent<Rigidbody>();

@@ -100,7 +100,7 @@ public class UnitAnimationController : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void OnEnable()
     {
         AnimatorControllerParameter[] parameters = animator.parameters;
         paramaterNames = new HashSet<string>(parameters.Select(e => e.name));

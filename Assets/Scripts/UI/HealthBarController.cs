@@ -17,8 +17,8 @@ public class HealthBarController : MonoBehaviour
     {
         if (value < 0)
         {
-            Debug.LogError("Health value less than 0");
-            return;
+            //Debug.LogError("Health value less than 0");
+            value = 0;
         }
         float hpPercent = value / 100f;
         float width = Mathf.Lerp(minWidth, maxWidth, hpPercent);
