@@ -17,7 +17,7 @@ public class ItemChanger : MonoBehaviour
     private bool useDefaultWeapon;
     [SerializeField]
     private GameObject defaultWeapon;
-    
+
     [Header("Camera")]
     [SerializeField]
     private GameObject firstPresonCamera;
@@ -84,27 +84,32 @@ public class ItemChanger : MonoBehaviour
     {
         if (selectedItem)
         {
-            DropWeapon();
+            ThrowWeaponAway();
             PickWeaponUp();
         }
     }
 
-    public void DropWeapon()
+    public void ThrowWeaponAway()
     {
-        if(owner.CurrentWeapon == defaultWeapon)
+        if (owner.CurrentWeapon == defaultWeapon)
         {
             return;
         }
+        StartCoroutine(owner.CurrentWeapon.GetComponent<PickableItem>().SetLayerAfterDelay(weaponDropCollisionTimeout, 0));
         Rigidbody weaponRB = owner.CurrentWeapon.GetComponent<Rigidbody>();
-        weaponRB.isKinematic = false;
+        DropWeapon(weaponRB);
         weaponRB.AddRelativeForce(0, 0, weaponThrowForce);
         weaponRB.AddRelativeTorque(0, -20, 0);
-        owner.CurrentWeapon.transform.parent = null;
         weaponRB.AddForce(rigidbody.velocity, ForceMode.VelocityChange);
+    }
+
+    private void DropWeapon(Rigidbody weaponRB)
+    {
+        weaponRB.isKinematic = false;
+        owner.CurrentWeapon.transform.parent = null;
         owner.CurrentWeaponController.StopAttack();
         int ammoLeft = owner.CurrentWeaponController.Reload(-1);
         shooting.PickUpAmmo(owner.CurrentWeaponController.Config.type, ammoLeft);
-        StartCoroutine(owner.CurrentWeapon.GetComponent<PickableItem>().SetLayerAfterDelay(weaponDropCollisionTimeout, 0));
         if (useDefaultWeapon)
         {
             GrabWeapon(defaultWeapon);
@@ -140,6 +145,13 @@ public class ItemChanger : MonoBehaviour
             GrabWeapon(selectedItem);
             selectedItem = null;
         }
+    }
+
+    public void DropAndDestroyWeapon()
+    {
+        GameObject weapon = owner.CurrentWeapon;
+        DropWeapon(owner.CurrentWeapon.GetComponent<Rigidbody>());
+        Destroy(weapon);
     }
 
     private void Awake()
@@ -181,10 +193,10 @@ public class ItemChanger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Ammo"))
+        if (other.gameObject.CompareTag("Ammo"))
         {
             AmmoBoxController ammoBox = other.gameObject.GetComponent<AmmoBoxController>();
-            foreach(SerializableDictionary<WeaponConfig.WeaponType, int>.Pair ammo in ammoBox.ammoCount)
+            foreach (SerializableDictionary<WeaponConfig.WeaponType, int>.Pair ammo in ammoBox.ammoCount)
             {
                 shooting.PickUpAmmo(ammo.Key, ammo.Value);
             }

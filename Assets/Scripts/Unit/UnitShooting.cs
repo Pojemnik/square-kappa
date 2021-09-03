@@ -31,12 +31,7 @@ public class UnitShooting : MonoBehaviour
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
-        allAmmo = new Dictionary<WeaponConfig.WeaponType, int>();
-        foreach (WeaponConfig.WeaponType type in System.Enum.GetValues(typeof(WeaponConfig.WeaponType)))
-        {
-            allAmmo.Add(type, 0);
-        }
-        allAmmo[WeaponConfig.WeaponType.Rifle] = startChemirailAmmo;
+        ResetAmmoAmount();
         reloading = false;
     }
 
@@ -137,6 +132,16 @@ public class UnitShooting : MonoBehaviour
             weaponController.SetTotalAmmo(allAmmo[weaponController.Config.type]);
         }
         reloading = false;
+    }
+
+    public void ResetAmmoAmount()
+    {
+        allAmmo = new Dictionary<WeaponConfig.WeaponType, int>();
+        foreach (WeaponConfig.WeaponType type in System.Enum.GetValues(typeof(WeaponConfig.WeaponType)))
+        {
+            allAmmo.Add(type, 0);
+        }
+        allAmmo[WeaponConfig.WeaponType.Rifle] = startChemirailAmmo;
     }
 
     private void OnWeaponShoot()

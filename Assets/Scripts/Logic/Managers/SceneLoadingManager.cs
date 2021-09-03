@@ -21,10 +21,6 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         EventManager.Instance.AddListener("PlayerDeath", ReloadGame);
         EventManager.Instance.AddListener("Victory", ReloadGame);
         reloadedScenes = 0;
-        //foreach(string sceneName in startupScenes)
-        //{
-        //    SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive).completed += OnStartupSceneLoaded;
-        //}
     }
 
     private void OnReloadEnd(AsyncOperation operation)
@@ -33,6 +29,17 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         if (reloadedScenes == scenesToReloadCount)
         {
             EventManager.Instance.TriggerEvent("GameReloaded");
+            if(SceneManager.sceneCount > 1)
+            {
+                if(SceneManager.GetSceneAt(0).name == baseScene)
+                {
+                    SceneManager.SetActiveScene(SceneManager.GetSceneAt(1));
+                }
+                else
+                {
+                    SceneManager.SetActiveScene(SceneManager.GetSceneAt(0));
+                }
+            }
             reloadedScenes = 0;
         }
     }

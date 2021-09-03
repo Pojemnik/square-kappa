@@ -71,7 +71,7 @@ public class UnitController : Unit
     {
         if (currentWeapon != null)
         {
-            itemChanger.DropWeapon();
+            itemChanger.ThrowWeaponAway();
         }
     }
 
