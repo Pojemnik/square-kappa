@@ -90,11 +90,13 @@ public class MissionsManager : Singleton<MissionsManager>
         {
             foreach (ObjectivesGroup group in mission.groups)
             {
-                foreach (string name in group.objectiveNames)
+                for (int i = 0; i < group.objectiveNames.Count; i++)
                 {
+                    string name = group.objectiveNames[i];
                     if (objectiveNames.ContainsKey(name))
                     {
                         SetObjective(name);
+                        group.objectives.Add(objectiveNames[name]);
                     }
                     else
                     {
