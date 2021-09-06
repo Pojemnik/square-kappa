@@ -75,6 +75,22 @@ public class MissionsManager : Singleton<MissionsManager>
         //Debug.Log(string.Format("New objectives group: {0}", missions[missionIndex].groups[groupIndex].label));
     }
 
+    private void OnDisable()
+    {
+        ClearObjectiveRefsInMissions();
+    }
+
+    private void ClearObjectiveRefsInMissions()
+    {
+        foreach (Mission mission in missions)
+        {
+            foreach (ObjectivesGroup group in mission.groups)
+            {
+                group.objectives.Clear();
+            }
+        }
+    }
+
     private void RegisterObjectives()
     {
         Objective[] objectives = (Objective[])FindObjectsOfType(typeof(Objective));
@@ -141,6 +157,7 @@ public class MissionsManager : Singleton<MissionsManager>
         objectiveStates.Clear();
         usedObjectivesTracker.Clear();
         currentGroupIds.Clear();
+        ClearObjectiveRefsInMissions();
         if (missions.Count == 0)
         {
             enabled = false;

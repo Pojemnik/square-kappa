@@ -17,11 +17,13 @@ MonoBehaviour:
   - label: Armory
     objectiveNames:
     - ArmoryEnter
-    objectives: []
+    objectives:
+    - {fileID: 0}
     objectivesGroupCompleteEvent: {fileID: 11400000, guid: 126df0d327592ee4bb3431187568921a, type: 2}
   - label: Station
     objectiveNames:
     - StationLeft
-    objectives: []
+    objectives:
+    - {fileID: 0}
     objectivesGroupCompleteEvent: {fileID: 0}
   missionCompleteEvent: {fileID: 0}
