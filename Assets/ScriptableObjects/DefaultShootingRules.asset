@@ -25,3 +25,4 @@ MonoBehaviour:
   - minDistace: 30
     maxDistace: -1
     shootingMode: 3
+  spottedToShootingDelay: 3

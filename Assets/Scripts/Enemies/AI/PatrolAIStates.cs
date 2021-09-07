@@ -348,6 +348,7 @@ namespace AI
         private bool lastShoot;
         private float phaseTime;
         private float lastSeenTime;
+        private float spottedTime;
 
         public ChaseState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
@@ -420,7 +421,7 @@ namespace AI
             movement.UseDrag = true;
             owner.enemyController.unitController.AnimationController.ResetTriggers();
             owner.enemyController.unitController.AnimationController.SetState("Spotted");
-            lastSeenTime = Time.time;
+            lastSeenTime = spottedTime = Time.time;
             owner.status = "Chasing player";
         }
 
@@ -464,7 +465,7 @@ namespace AI
             {
                 case TargetStatus.InSight:
                     lastShootingMode = shootingMode;
-                    shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules);
+                    shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules, Time.time - spottedTime);
                     switch (shootingMode)
                     {
                         case AIShootingMode.NoShooting:

@@ -25,6 +25,7 @@ namespace AI
         private bool lastShoot;
         private float phaseTime;
         private float lastSeenTime;
+        private float spottedTime;
 
         public StaticShootState(AIPathNode node, StaticAIConfig aiConfig) : base(node, aiConfig)
         {
@@ -95,6 +96,9 @@ namespace AI
             phaseTime = 0;
             lastShoot = false;
             owner.status = "Shooting to target";
+            spottedTime = lastSeenTime = Time.time;
+            owner.enemyController.unitController.AnimationController.ResetTriggers();
+            owner.enemyController.unitController.AnimationController.SetState("Spotted");
         }
 
         public override void Update()
@@ -107,7 +111,7 @@ namespace AI
             {
                 case TargetStatus.InSight:
                     lastShootingMode = shootingMode;
-                    shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules);
+                    shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules, Time.time - spottedTime);
                     switch (shootingMode)
                     {
                         case AIShootingMode.NoShooting:
