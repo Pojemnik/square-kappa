@@ -26,9 +26,11 @@ namespace AI
         private float phaseTime;
         private float lastSeenTime;
         private float spottedTime;
+        private bool useTimeDelay;
 
-        public StaticShootState(AIPathNode node, StaticAIConfig aiConfig) : base(node, aiConfig)
+        public StaticShootState(AIPathNode node, StaticAIConfig aiConfig, bool reactImmediately = false) : base(node, aiConfig)
         {
+            useTimeDelay = !reactImmediately;
         }
 
         private void UpdateShooting()
@@ -111,7 +113,8 @@ namespace AI
             {
                 case TargetStatus.InSight:
                     lastShootingMode = shootingMode;
-                    shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules, Time.time - spottedTime);
+                    float timeSinceSpotted = useTimeDelay ? Time.time - spottedTime : float.PositiveInfinity;
+                    shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules, timeSinceSpotted);
                     switch (shootingMode)
                     {
                         case AIShootingMode.NoShooting:
@@ -147,9 +150,6 @@ namespace AI
 
     public class StaticLookAroundState : StaticBaseState
     {
-        private Quaternion[] lookTargets;
-        private int targetIndex;
-
         public StaticLookAroundState(AIPathNode node, StaticAIConfig aiConfig) : base(node, aiConfig)
         {
         }
@@ -188,7 +188,6 @@ namespace AI
         {
             base.Damaged(info);
             owner.ChangeState(new StaticDamageCheckState(pathNode, config, info.direction));
-            //Debug.Log("Look for damage source");
         }
     }
 
@@ -212,13 +211,12 @@ namespace AI
         {
             if (!movement.IsRotating)
             {
-                //Debug.Log("Damage source not found, back to looking around");
                 owner.ChangeState(new StaticLookAroundState(pathNode, config));
             }
             if (TargetVisible(owner.enemyController.target.layer) == TargetStatus.InSight)
             {
                 Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
-                owner.ChangeState(new StaticShootState(pathNode, config));
+                owner.ChangeState(new StaticShootState(pathNode, config, true));
             }
         }
     }

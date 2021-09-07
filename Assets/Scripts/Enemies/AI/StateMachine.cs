@@ -33,7 +33,7 @@ namespace AI
                     return TargetStatus.Covered;
                 }
             }
-            if (Vector3.Angle(towardsTarget, owner.enemyController.head.transform.up) <= owner.enemyController.visibilityConeAngle)
+            if (Vector3.Angle(towardsTarget, owner.enemyController.head.transform.forward) <= owner.enemyController.visibilityConeAngle)
             {
                 if (Physics.Raycast(position, targetPosition - position, out raycastHit, owner.enemyController.visibilityConeHeight, KappaLayerMask.EnemyVisionMask))
                 {

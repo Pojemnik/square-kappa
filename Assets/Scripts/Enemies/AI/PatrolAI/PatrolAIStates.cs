@@ -349,9 +349,11 @@ namespace AI
         private float phaseTime;
         private float lastSeenTime;
         private float spottedTime;
+        private bool useTimeDelay;
 
-        public ChaseState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
+        public ChaseState(AIPathNode node, PatrolAIConfig aiConfig, bool reactImmediately = false) : base(node, aiConfig)
         {
+            useTimeDelay = !reactImmediately;
         }
 
         private void UpdateShooting()
@@ -465,7 +467,8 @@ namespace AI
             {
                 case TargetStatus.InSight:
                     lastShootingMode = shootingMode;
-                    shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules, Time.time - spottedTime);
+                    float timeSinceSpotted = useTimeDelay ? Time.time - spottedTime : float.PositiveInfinity;
+                    shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules, timeSinceSpotted);
                     switch (shootingMode)
                     {
                         case AIShootingMode.NoShooting:
@@ -539,7 +542,11 @@ namespace AI
                     owner.ChangeState(new RotateTowardsPointState(pathNode, config));
                 }
             }
-            base.Update();
+            if (TargetVisible(owner.enemyController.target.layer) == TargetStatus.InSight)
+            {
+                Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
+                owner.ChangeState(new ChaseState(pathNode, config, true));
+            }
         }
 
         public override void PhysicsUpdate()
@@ -555,64 +562,6 @@ namespace AI
             {
                 movement.MoveInGlobalCoordinatesIgnoringSpeed(-movement.Velocity.normalized * config.acceleration);
             }
-        }
-    }
-
-    public class PatrolStopAndLookAroundState : PatrolBaseState
-    {
-        private bool stopped;
-        private bool animationFinished;
-
-        public PatrolStopAndLookAroundState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
-        {
-            stopped = false;
-        }
-
-        public override void Enter()
-        {
-            base.Enter();
-            owner.enemyController.unitController.AnimationController.eventsAdapter.lookaroundEnd.AddListener(OnLookAroundEnd);
-            owner.enemyController.unitController.AnimationController.ResetTriggers();
-            owner.enemyController.unitController.AnimationController.SetState("LookAround");
-            owner.status = "Looking for lost target";
-        }
-
-        private void OnLookAroundEnd()
-        {
-            animationFinished = true;
-            if (stopped)
-            {
-                StartRotation();
-            }
-        }
-
-        public override void Exit()
-        {
-            owner.enemyController.unitController.AnimationController.eventsAdapter.lookaroundEnd.RemoveListener(OnLookAroundEnd);
-            base.Exit();
-        }
-
-        public override void PhysicsUpdate()
-        {
-            if (movement.Velocity.magnitude <= config.speedEpsilon)
-            {
-                movement.MoveRelativeToCamera(Vector3.zero);
-                movement.MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(-movement.Velocity);
-                stopped = true;
-                if (animationFinished)
-                {
-                    StartRotation();
-                }
-            }
-            else
-            {
-                movement.MoveInGlobalCoordinatesIgnoringSpeed(-movement.Velocity.normalized * config.acceleration);
-            }
-        }
-
-        private void StartRotation()
-        {
-            owner.ChangeState(new RotateTowardsPointState(pathNode, config));
         }
     }
 }
