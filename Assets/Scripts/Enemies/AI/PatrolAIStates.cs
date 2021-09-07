@@ -39,13 +39,14 @@ namespace AI
             return obstacle;
         }
 
-        protected void CheckForObstacleAndWaitIfNeeded()
+        protected bool CheckForObstacleAndWaitIfNeeded()
         {
             if (CheckForObstacle())
             {
-                owner.ChangeState(new WaitState(pathNode, config));
-                return;
+                owner.PushState(new WaitState(pathNode, config));
+                return true;
             }
+            return false;
         }
 
         protected void CheckForObstacleAndStopIfNeeded()
@@ -69,7 +70,6 @@ namespace AI
             base.Enter();
             owner.status = "Rotating towards point";
             movement.SetTargetRotation(Quaternion.LookRotation(pathNode.transform.position - owner.transform.position));
-            //movement.EnableStopMode();
         }
 
         public override void Update()
@@ -81,8 +81,10 @@ namespace AI
             }
             if (!movement.IsRotating)
             {
-                CheckForObstacleAndWaitIfNeeded();
-                owner.ChangeState(new AccelerateTowardsPointState(pathNode, config));
+                if (!CheckForObstacleAndWaitIfNeeded())
+                {
+                    owner.ChangeState(new AccelerateTowardsPointState(pathNode, config));
+                }
             }
             base.Update();
         }
@@ -296,7 +298,8 @@ namespace AI
             //Maybe move this stuff to a coroutine and execute less often
             if (!CheckForObstacle())
             {
-                owner.ChangeState(new RotateTowardsPointState(pathNode, config));
+                //owner.ChangeState(new RotateTowardsPointState(pathNode, config));
+                owner.PopState();
                 return;
             }
             base.Update();
@@ -409,7 +412,6 @@ namespace AI
         public override void Enter()
         {
             base.Enter();
-            //Debug.Log(string.Format("Enemy {0} starting chase", owner.name));
             shooting = owner.enemyController.unitController.shooting;
             shootingRules = owner.enemyController.ShootingRules;
             lastShootingMode = AIShootingMode.NoShooting;
@@ -591,7 +593,6 @@ namespace AI
 
         public override void PhysicsUpdate()
         {
-            //Stopped or overshot
             if (movement.Velocity.magnitude <= config.speedEpsilon)
             {
                 movement.MoveRelativeToCamera(Vector3.zero);
