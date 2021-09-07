@@ -131,6 +131,7 @@ namespace AI
                     break;
                 case TargetStatus.Covered:
                     shooting.StopFire();
+                    useTimeDelay = false;
                     if (Time.time - lastSeenTime > config.targetingTimeout)
                     {
                         owner.ChangeState(new StaticLookAroundState(pathNode, config));
@@ -138,6 +139,7 @@ namespace AI
                     break;
                 case TargetStatus.TooFar:
                     shooting.StopFire();
+                    useTimeDelay = false;
                     if (Time.time - lastSeenTime > config.targetingTimeout)
                     {
                         owner.ChangeState(new StaticLookAroundState(pathNode, config));
@@ -203,6 +205,7 @@ namespace AI
         public override void Enter()
         {
             base.Enter();
+            owner.enemyController.unitController.AnimationController.ResetTriggers();
             movement.SetTargetRotation(-hitDirection);
             owner.status = "Looking for damege source";
         }

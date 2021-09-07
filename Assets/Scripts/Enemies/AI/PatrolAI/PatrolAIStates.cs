@@ -485,6 +485,7 @@ namespace AI
                     break;
                 case TargetStatus.Covered:
                     shooting.StopFire();
+                    useTimeDelay = false;
                     if (Time.time - lastSeenTime > config.chaseTimeout)
                     {
                         owner.ChangeState(new PatrolStopAndLookAroundState(pathNode, config));
@@ -492,6 +493,7 @@ namespace AI
                     break;
                 case TargetStatus.TooFar:
                     shooting.StopFire();
+                    useTimeDelay = false;
                     if (Time.time - lastSeenTime > config.chaseTimeout)
                     {
                         owner.ChangeState(new PatrolStopAndLookAroundState(pathNode, config));

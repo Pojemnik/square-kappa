@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7731f846554a5e344828e1d254595bae, type: 3}
   m_Name: BasicStaticAIConfig
   m_EditorClassIdentifier: 
-  chaseTimeout: 10
+  targetingTimeout: 5
