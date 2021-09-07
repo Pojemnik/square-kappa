@@ -15,6 +15,8 @@ public class MeleWeaponController : WeaponController
 
     public override MagazineStateType MagazineState => MagazineStateType.Full;
 
+    public override UnityEvent<(int, int)> AmmoChangeEvent => new UnityEvent<(int, int)>();
+
     [SerializeField]
     private MeleWeaponConfig meleConfig;
 

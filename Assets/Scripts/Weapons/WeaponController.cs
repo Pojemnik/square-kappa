@@ -19,6 +19,8 @@ abstract public class WeaponController : MonoBehaviour
     abstract public UnityEvent AttackEvent { get; }
     abstract public Quaternion AttackDirection { get; set; }
     abstract public float Spread { get; }
+
+    abstract public UnityEvent<(int, int)> AmmoChangeEvent { get; }
     abstract public void StartAttack();
     abstract public void StopAttack();
     abstract public int Reload(int amount);

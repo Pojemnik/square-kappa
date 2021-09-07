@@ -32,6 +32,9 @@ public class RangedWeaponController : WeaponController
             return MagazineStateType.NotEmptyNotFull;
         }
     }
+    public override UnityEvent<(int, int)> AmmoChangeEvent { get => ammoChangeEvent; }
+
+    private UnityEvent<(int, int)> ammoChangeEvent;
 
     [SerializeField]
     private DisplayController totalAmmoDisplay;
@@ -47,11 +50,13 @@ public class RangedWeaponController : WeaponController
     private UnityEvent shootEvent;
     private Quaternion projectileDirection;
     private int ammo;
+    private int totalAmmo;
 
     private void Awake()
     {
         spreadRadius = rangedConfig.baseSpread;
         shootEvent = new UnityEvent();
+        ammoChangeEvent = new UnityEvent<(int, int)>();
     }
 
     public override void StartAttack()
@@ -83,6 +88,7 @@ public class RangedWeaponController : WeaponController
         }
         ammo--;
         currentAmmoDisplay.SetValue(ammo);
+        ammoChangeEvent.Invoke((ammo, totalAmmo));
         Vector3 projectleSpread = Random.insideUnitSphere * spreadRadius;
         Vector3 relativeOffset = rangedConfig.projectileOffset.x * transform.right + rangedConfig.projectileOffset.y * transform.up + rangedConfig.projectileOffset.z * transform.forward;
         Quaternion relativeRotation = Quaternion.Euler(transform.TransformDirection(projectleSpread + rangedConfig.projectileAngularOffset));
@@ -165,6 +171,7 @@ public class RangedWeaponController : WeaponController
             int ammoLeft = ammo;
             ammo = 0;
             currentAmmoDisplay.SetValue(ammo);
+            ammoChangeEvent.Invoke((ammo, totalAmmo));
             return ammoLeft;
         }
         int total = amount + ammo;
@@ -179,11 +186,14 @@ public class RangedWeaponController : WeaponController
             total -= Config.maxAmmo;
         }
         currentAmmoDisplay.SetValue(ammo);
+        ammoChangeEvent.Invoke((ammo, totalAmmo));
         return total;
     }
 
     public override void SetTotalAmmo(int amount)
     {
         totalAmmoDisplay.SetValue(amount);
+        totalAmmo = amount;
+        ammoChangeEvent.Invoke((ammo, totalAmmo));
     }
 }
