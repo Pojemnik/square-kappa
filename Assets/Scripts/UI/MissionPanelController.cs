@@ -42,20 +42,20 @@ public class MissionPanelController : MonoBehaviour
         objectiveText.enabled = true;
     }
 
-    private void OnObjectiveGroupChange(ObjectivesGroup group)
+    private void OnObjectiveGroupChange(string groupLabel)
     {
-        if (group == null)
+        if (groupLabel == null)
         {
             objectiveText.text = "";
         }
         else
         {
-            objectiveText.text = group.label;
+            objectiveText.text = groupLabel;
         }
-        UpdateObjectiveTextHeight(group);
+        UpdateObjectiveTextHeight(groupLabel);
     }
 
-    private void UpdateObjectiveTextHeight(ObjectivesGroup group)
+    private void UpdateObjectiveTextHeight(string groupLabel)
     {
         objectiveText.ForceMeshUpdate();
         if (objectiveText.preferredHeight > objectiveTextDefaultHeight)
@@ -66,7 +66,7 @@ public class MissionPanelController : MonoBehaviour
             }
             else
             {
-                Debug.LogErrorFormat("Objective {0} label is to long - it doesn't fit on panel", group.label);
+                Debug.LogErrorFormat("Objective {0} label is to long - it doesn't fit on panel", groupLabel);
             }
         }
         else
@@ -75,21 +75,21 @@ public class MissionPanelController : MonoBehaviour
         }
     }
 
-    private void OnMissionChange(Mission mission)
+    private void OnMissionChange(string missionLabel)
     {
-        if (mission == null)
+        if (missionLabel == null)
         {
             missionText.text = "";
         }
         else
         {
-            missionText.text = mission.label;
+            missionText.text = missionLabel;
         }
         missionText.ForceMeshUpdate();
-        UpdateMissionTextHeight(mission);
+        UpdateMissionTextHeight(missionLabel);
     }
 
-    private void UpdateMissionTextHeight(Mission mission)
+    private void UpdateMissionTextHeight(string missionLabel)
     {
         missionText.ForceMeshUpdate();
         if (missionText.preferredHeight > missionTextDefaultHeight)
@@ -101,7 +101,7 @@ public class MissionPanelController : MonoBehaviour
             }
             else
             {
-                Debug.LogErrorFormat("Mission {0} label is to long - it doesn't fit on panel", mission.label);
+                Debug.LogErrorFormat("Mission {0} label is to long - it doesn't fit on panel", missionLabel);
             }
         }
         else

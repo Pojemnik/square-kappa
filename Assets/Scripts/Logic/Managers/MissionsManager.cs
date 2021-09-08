@@ -6,40 +6,98 @@ using System.Linq;
 
 public class MissionsManager : Singleton<MissionsManager>
 {
-    [SerializeField]
-    private List<Mission> missions;
+    class MissionData
+    {
+        public MissionData nextMission;
 
-    private UnityEvent<Mission> missionChangeEvent;
-    private UnityEvent<ObjectivesGroup> objectiveGroupChangeEvent;
+        private readonly string label;
+        private readonly MissionEvent completed;
+        private readonly List<ObjectiveGroupData> groups;
+        public List<ObjectiveGroupData> Groups { get => groups; }
+        public MissionEvent Completed { get => completed; }
+        public string Label { get => label; }
+
+        public MissionData(string missionLabel, MissionEvent completedEvent)
+        {
+            groups = new List<ObjectiveGroupData>();
+            label = missionLabel;
+            completed = completedEvent;
+        }
+
+        public void AddObjectivesGroup(ObjectiveGroupData group)
+        {
+            Groups.Add(group);
+        }
+    }
+
+    class ObjectiveGroupData
+    {
+        private readonly string label;
+        private readonly HashSet<int> objectives;
+        private readonly MissionEvent completed;
+        private ObjectiveGroupData nextGroup;
+        private readonly MissionData mission;
+
+        public ObjectiveGroupData NextGroup { get => nextGroup; set => nextGroup = value; }
+        public MissionData Mission { get => mission; }
+        public string Label { get => label; }
+        public HashSet<int> Objectives { get => objectives; }
+        public MissionEvent Completed { get => completed; }
+
+        public ObjectiveGroupData(string objectiveGroupLabel, MissionEvent completedEvent, MissionData ownerMission)
+        {
+            objectives = new HashSet<int>();
+            label = objectiveGroupLabel;
+            completed = completedEvent;
+            mission = ownerMission;
+        }
+    }
+
+    [System.Serializable]
+    class MissionListWrapper
+    {
+        public List<Mission> list;
+    }
+
+    [SerializeField]
+    private MissionListWrapper mainMisions;
+    [SerializeField]
+    private List<MissionListWrapper> otherMissions;
+
+    private UnityEvent<string> missionChangeEvent;
+    private UnityEvent<string> objectiveGroupChangeEvent;
 
     protected MissionsManager() { }
 
     private Dictionary<string, Objective> objectiveNames;
     private HashSet<string> usedObjectivesTracker;
     private Dictionary<int, bool> objectiveStates;
-    private HashSet<int> currentGroupIds;
-    private int missionIndex = 0;
-    private int groupIndex = 0;
 
-    public UnityEvent<Mission> MissionChangeEvent
+    private List<MissionData> mainMissionsData;
+    private List<List<MissionData>> otherMissionsData;
+
+    private ObjectiveGroupData currentMainObjectiveGroup;
+    private List<ObjectiveGroupData> currentOtherObjectiveGroups;
+
+    public UnityEvent<string> MissionChangeEvent
     {
         get
         {
             if (missionChangeEvent == null)
             {
-                missionChangeEvent = new UnityEvent<Mission>();
+                missionChangeEvent = new UnityEvent<string>();
             }
             return missionChangeEvent;
         }
     }
 
-    public UnityEvent<ObjectivesGroup> ObjectiveGroupChangeEvent
+    public UnityEvent<string> ObjectiveGroupChangeEvent
     {
         get
         {
             if (objectiveGroupChangeEvent == null)
             {
-                objectiveGroupChangeEvent = new UnityEvent<ObjectivesGroup>();
+                objectiveGroupChangeEvent = new UnityEvent<string>();
             }
             return objectiveGroupChangeEvent;
         }
@@ -54,12 +112,19 @@ public class MissionsManager : Singleton<MissionsManager>
             objectiveNames = new Dictionary<string, Objective>();
         }
         usedObjectivesTracker = new HashSet<string>();
-        currentGroupIds = new HashSet<int>();
     }
 
     private void Start()
     {
-        if (missions.Count == 0)
+        Init();
+        EventManager.Instance.AddListener("GameReloaded", OnGameReload);
+        //Debug.Log(string.Format("New mission: {0}", missions[missionIndex].label));
+        //Debug.Log(string.Format("New objectives group: {0}", missions[missionIndex].groups[groupIndex].label));
+    }
+
+    private void Init()
+    {
+        if (mainMisions.list.Count == 0)
         {
             enabled = false;
             return;
@@ -67,28 +132,49 @@ public class MissionsManager : Singleton<MissionsManager>
         RegisterObjectives();
         SetObjectives();
         CheckForUnusedObjectives();
-        UpdateCurrentGroupIds();
-        ObjectiveGroupChangeEvent.Invoke(missions[missionIndex].groups[groupIndex]);
-        MissionChangeEvent.Invoke(missions[missionIndex]);
-        EventManager.Instance.AddListener("GameReloaded", OnGameReload);
-        //Debug.Log(string.Format("New mission: {0}", missions[missionIndex].label));
-        //Debug.Log(string.Format("New objectives group: {0}", missions[missionIndex].groups[groupIndex].label));
+        mainMissionsData = CreateMissionDataList(mainMisions.list);
+        currentMainObjectiveGroup = mainMissionsData[0].Groups[0];
+        otherMissionsData = new List<List<MissionData>>();
+        currentOtherObjectiveGroups = new List<ObjectiveGroupData>();
+        foreach (MissionListWrapper missions in otherMissions)
+        {
+            List<MissionData> missionData = CreateMissionDataList(missions.list);
+            otherMissionsData.Add(missionData);
+            currentOtherObjectiveGroups.Add(missionData[0].Groups[0]);
+        }
+        ObjectiveGroupChangeEvent.Invoke(currentMainObjectiveGroup.Label);
+        MissionChangeEvent.Invoke(currentMainObjectiveGroup.Mission.Label);
     }
 
-    private void OnDisable()
+    private List<MissionData> CreateMissionDataList(List<Mission> missions)
     {
-        ClearObjectiveRefsInMissions();
-    }
-
-    private void ClearObjectiveRefsInMissions()
-    {
+        List<MissionData> missionsStructs = new List<MissionData>();
         foreach (Mission mission in missions)
         {
+            MissionData missionData = new MissionData(mission.label, mission.missionCompleteEvent);
             foreach (ObjectivesGroup group in mission.groups)
             {
-                group.objectives.Clear();
+                ObjectiveGroupData objectiveGroupData = new ObjectiveGroupData(group.label, group.objectivesGroupCompleteEvent, missionData);
+                foreach (string name in group.objectiveNames)
+                {
+                    Objective objective = objectiveNames[name];
+                    objectiveGroupData.Objectives.Add(objective.Id);
+                }
+                missionData.AddObjectivesGroup(objectiveGroupData);
             }
+            for (int i = 0; i < missionData.Groups.Count - 1; i++)
+            {
+                missionData.Groups[i].NextGroup = missionData.Groups[i + 1];
+            }
+            missionData.Groups[missionsStructs.Count - 1] = null;
+            mainMissionsData.Add(missionData);
         }
+        for (int i = 0; i < missionsStructs.Count - 1; i++)
+        {
+            missionsStructs[i].nextMission = missionsStructs[i + 1];
+        }
+        missionsStructs[missionsStructs.Count - 1] = null;
+        return missionsStructs;
     }
 
     private void RegisterObjectives()
@@ -102,7 +188,7 @@ public class MissionsManager : Singleton<MissionsManager>
 
     private void SetObjectives()
     {
-        foreach (Mission mission in missions)
+        foreach (Mission mission in mainMisions.list)
         {
             foreach (ObjectivesGroup group in mission.groups)
             {
@@ -112,7 +198,6 @@ public class MissionsManager : Singleton<MissionsManager>
                     if (objectiveNames.ContainsKey(name))
                     {
                         SetObjective(name);
-                        group.objectives.Add(objectiveNames[name]);
                     }
                     else
                     {
@@ -151,24 +236,10 @@ public class MissionsManager : Singleton<MissionsManager>
     private void OnGameReload()
     {
         enabled = true;
-        missionIndex = 0;
-        groupIndex = 0;
         objectiveNames.Clear();
         objectiveStates.Clear();
         usedObjectivesTracker.Clear();
-        currentGroupIds.Clear();
-        ClearObjectiveRefsInMissions();
-        if (missions.Count == 0)
-        {
-            enabled = false;
-            return;
-        }
-        RegisterObjectives();
-        SetObjectives();
-        CheckForUnusedObjectives();
-        UpdateCurrentGroupIds();
-        ObjectiveGroupChangeEvent.Invoke(missions[missionIndex].groups[groupIndex]);
-        MissionChangeEvent.Invoke(missions[missionIndex]);
+        Init();
     }
 
     public void UnregisterObjective(Objective objective)
@@ -186,9 +257,64 @@ public class MissionsManager : Singleton<MissionsManager>
             return;
         }
         objectiveStates[id] = true;
-        if (CheckForObjectiveGroupCompletion())
+        List<int> completed = GetOtherComptetedGroups(id);
+        foreach (int completedGroupIndex in completed)
         {
-            ProceedToNextObjectivesGroup();
+            _ = ProceedToNextObjectiveGroup(currentOtherObjectiveGroups[completedGroupIndex], out ObjectiveGroupData nextGroup);
+            if (nextGroup != null)
+            {
+                currentOtherObjectiveGroups[completedGroupIndex] = nextGroup;
+            }
+            else
+            {
+                currentOtherObjectiveGroups.RemoveAt(completedGroupIndex);
+            }
+        }
+        if (IsMainObjectiveGroupCompleted(id))
+        {
+            bool missionChanged = ProceedToNextObjectiveGroup(currentMainObjectiveGroup, out ObjectiveGroupData nextGroup);
+            if (nextGroup != null)
+            {
+                currentMainObjectiveGroup = nextGroup;
+                ObjectiveGroupChangeEvent.Invoke(nextGroup.Label);
+                if(missionChanged)
+                {
+                    MissionChangeEvent.Invoke(nextGroup.Mission.Label);
+                }
+            }
+            else
+            {
+                EventManager.Instance.TriggerEvent("Victory");
+                enabled = false;
+                ObjectiveGroupChangeEvent.Invoke(null);
+                MissionChangeEvent.Invoke(null);
+            }
+        }
+    }
+
+    private bool ProceedToNextObjectiveGroup(ObjectiveGroupData currentGroup, out ObjectiveGroupData nextGroup)
+    {
+        currentGroup.Completed.Raise();
+        nextGroup = currentGroup.NextGroup;
+        if (nextGroup != null)
+        {
+            //Proceed to next objective group
+            return false;
+        }
+        else
+        {
+            currentGroup.Mission.Completed.Raise();
+            MissionData nextMission = currentGroup.Mission.nextMission;
+            if (nextMission != null)
+            {
+                //Proceed to next mission
+                nextGroup = nextMission.Groups[0];
+            }
+            else
+            {
+                nextGroup = null;
+            }
+            return true;
         }
     }
 
@@ -201,61 +327,38 @@ public class MissionsManager : Singleton<MissionsManager>
         objectiveStates[id] = false;
     }
 
-    private void ProceedToNextObjectivesGroup()
+    private bool IsMainObjectiveGroupCompleted(int currentlyCompletedObjectiveId)
     {
-        //Debug.Log(string.Format("Objectives group {0} finished", missions[missionIndex].groups[groupIndex].label));
-        if (missions[missionIndex].groups[groupIndex].objectivesGroupCompleteEvent != null)
+        if (currentMainObjectiveGroup.Objectives.Contains(currentlyCompletedObjectiveId))
         {
-            missions[missionIndex].groups[groupIndex].objectivesGroupCompleteEvent.Raise();
+            if (CheckForGroupCompletion(currentMainObjectiveGroup.Objectives))
+            {
+                return true;
+            }
         }
-        groupIndex++;
-        if (groupIndex == missions[missionIndex].groups.Count)
-        {
-            ProceedToNextMission();
-        }
-        if (enabled)
-        {
-            UpdateCurrentGroupIds();
-            ObjectiveGroupChangeEvent.Invoke(missions[missionIndex].groups[groupIndex]);
-            //Debug.Log(string.Format("New objectives group: {0}", missions[missionIndex].groups[groupIndex].label));
-        }
+        return false;
     }
 
-    private void UpdateCurrentGroupIds()
+    private List<int> GetOtherComptetedGroups(int currentlyCompletedObjectiveId)
     {
-        currentGroupIds.Clear();
-        foreach (Objective objective in missions[missionIndex].groups[groupIndex].objectives)
+        List<int> completedGroups = new List<int>();
+        for (int i = 0; i < currentOtherObjectiveGroups.Count; i++)
         {
-            currentGroupIds.Add(objective.Id);
+            HashSet<int> group = currentOtherObjectiveGroups[i].Objectives;
+            if (group.Contains(currentlyCompletedObjectiveId))
+            {
+                if (CheckForGroupCompletion(group))
+                {
+                    completedGroups.Add(i);
+                }
+            }
         }
+        return completedGroups;
     }
 
-    private void ProceedToNextMission()
+    private bool CheckForGroupCompletion(HashSet<int> group)
     {
-        //Debug.Log(string.Format("Mission {0} finished", missions[missionIndex].label));
-        if (missions[missionIndex].missionCompleteEvent != null)
-        {
-            missions[missionIndex].missionCompleteEvent.Raise();
-        }
-        missionIndex++;
-        groupIndex = 0;
-        if (missionIndex != missions.Count)
-        {
-            MissionChangeEvent.Invoke(missions[missionIndex]);
-            //Debug.Log(string.Format("New mission: {0}", missions[missionIndex].label));
-        }
-        else
-        {
-            MissionChangeEvent.Invoke(null);
-            ObjectiveGroupChangeEvent.Invoke(null);
-            EventManager.Instance.TriggerEvent("Victory");
-            enabled = false;
-        }
-    }
-
-    private bool CheckForObjectiveGroupCompletion()
-    {
-        foreach (int id in currentGroupIds)
+        foreach (int id in group)
         {
             if (!objectiveStates[id])
             {

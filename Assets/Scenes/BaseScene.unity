@@ -210,6 +210,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 921ea55fdd89c3f40952bc0a8fb176aa, type: 2}
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: otherMissions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: mainMisions.list.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: missions.Array.data[0].label
       value: Base in out test
       objectReference: {fileID: 0}
