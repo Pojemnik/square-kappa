@@ -394,12 +394,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e3baec6c716554468a6775e47afe342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missionChangeEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  objectiveGroupChangeEvent:
-    m_PersistentCalls:
-      m_Calls: []
   missions: []
 --- !u!1 &3219213405770496113
 GameObject:
@@ -444,7 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ee44ecffc3b2fb41b03f7c37470defd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiReloadDelay: 5
+  baseScene: 
 --- !u!1 &3458439195045870511
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,6 +719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8ff23a9560e793488d989d4fd969d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  logEvents: 0
 --- !u!1 &4360773627355694176
 GameObject:
   m_ObjectHideFlags: 0
@@ -2622,7 +2617,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5653950778987106431, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5653950778987106431, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -2633,7 +2628,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3855636253580473836}
     - target: {fileID: 5653950778987106431, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653950778987106431, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653950778987106431, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5653950778987106431, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
@@ -2641,11 +2644,23 @@ PrefabInstance:
       value: OnWeaponChange
       objectReference: {fileID: 0}
     - target: {fileID: 5653950778987106431, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: OnWeaponChange
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653950778987106431, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: CrosshairController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5653950778987106431, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UIAmmoDisplayController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653950778987106431, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653950778987106431, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6165911240001322639, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}

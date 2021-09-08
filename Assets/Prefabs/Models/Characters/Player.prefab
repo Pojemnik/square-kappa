@@ -105,7 +105,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2501314318224543512}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 9a47b567e46561a4cb53365180f02ea1, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -199,7 +199,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 70
   m_Drag: 1
-  m_AngularDrag: 1
+  m_AngularDrag: 15
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -615,8 +615,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54ce57977372e6141ae3558511283888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultCameraSensitivity: 0.4
-  zoomCameraSensitivity: 0.2
+  defaultCameraSensitivity: 0.3
+  zoomCameraSensitivity: 0.15
   owner: {fileID: 9028151093970926094}
 --- !u!114 &7690006316975347338
 MonoBehaviour:
@@ -698,7 +698,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5790298551402663837}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 9a47b567e46561a4cb53365180f02ea1, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.2

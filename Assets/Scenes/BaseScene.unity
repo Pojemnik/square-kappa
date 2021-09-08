@@ -141,42 +141,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 503154644506826972, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: zoomCameraSensitivity
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 503154644506826972, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: defaultCameraSensitivity
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 530259353792493682, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 530259353792493682, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 530259353792493682, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 1223144353}
-    - target: {fileID: 530259353792493682, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 530259353792493682, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: OnWeaponChange
-      objectReference: {fileID: 0}
-    - target: {fileID: 530259353792493682, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: UIAmmoDisplayController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 530259353792493682, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 981666124664837547, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -280,6 +248,10 @@ PrefabInstance:
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: missions.Array.data[0].groups.Array.data[1].objectives.Array.data[0]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173068997163958694, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: zoomFov
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3964721151380357729, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: m_LocalPosition.x
