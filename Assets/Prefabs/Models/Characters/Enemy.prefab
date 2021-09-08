@@ -46,7 +46,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1857651775500884557}
   - component: {fileID: 2625393030855254316}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: EnvironmentalCollision
   m_TagString: Enemy
   m_Icon: {fileID: 0}
