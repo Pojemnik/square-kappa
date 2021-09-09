@@ -148,7 +148,7 @@ public class MissionsManager : Singleton<MissionsManager>
 
     private List<MissionData> CreateMissionDataList(List<Mission> missions)
     {
-        List<MissionData> missionsStructs = new List<MissionData>();
+        List<MissionData> missionsDataList = new List<MissionData>();
         foreach (Mission mission in missions)
         {
             MissionData missionData = new MissionData(mission.label, mission.missionCompleteEvent);
@@ -166,15 +166,15 @@ public class MissionsManager : Singleton<MissionsManager>
             {
                 missionData.Groups[i].NextGroup = missionData.Groups[i + 1];
             }
-            missionData.Groups[missionsStructs.Count - 1] = null;
-            mainMissionsData.Add(missionData);
+            missionData.Groups[missionData.Groups.Count - 1].NextGroup = null;
+            missionsDataList.Add(missionData);
         }
-        for (int i = 0; i < missionsStructs.Count - 1; i++)
+        for (int i = 0; i < missionsDataList.Count - 1; i++)
         {
-            missionsStructs[i].nextMission = missionsStructs[i + 1];
+            missionsDataList[i].nextMission = missionsDataList[i + 1];
         }
-        missionsStructs[missionsStructs.Count - 1] = null;
-        return missionsStructs;
+        missionsDataList[missionsDataList.Count - 1].nextMission = null;
+        return missionsDataList;
     }
 
     private void RegisterObjectives()
@@ -188,7 +188,16 @@ public class MissionsManager : Singleton<MissionsManager>
 
     private void SetObjectives()
     {
-        foreach (Mission mission in mainMisions.list)
+        SetObjectivesFromList(mainMisions);
+        foreach (MissionListWrapper missionList in otherMissions)
+        {
+            SetObjectivesFromList(missionList);
+        }
+    }
+
+    private void SetObjectivesFromList(MissionListWrapper missionList)
+    {
+        foreach (Mission mission in missionList.list)
         {
             foreach (ObjectivesGroup group in mission.groups)
             {
@@ -201,7 +210,7 @@ public class MissionsManager : Singleton<MissionsManager>
                     }
                     else
                     {
-                        Debug.LogWarningFormat("No objective named {0}", name);
+                        Debug.LogWarningFormat("No objective named {0} (mission {1}, group {2})", name, mission.label, group.label);
                     }
                 }
             }
@@ -210,12 +219,11 @@ public class MissionsManager : Singleton<MissionsManager>
 
     private void SetObjective(string name)
     {
-        Objective objective = objectiveNames[name];
         if (usedObjectivesTracker.Contains(name))
         {
-            Debug.LogWarningFormat("Objective named {0} used more than once. This can lead to incorrect behaviour", name);
             return;
         }
+        Objective objective = objectiveNames[name];
         objectiveStates.Add(objective.Id, objective.defaultState);
         objective.Completed.AddListener(OnObjectiveCompleted);
         objective.Uncompleted.AddListener(OnObjectiveUncompleted);
@@ -258,8 +266,12 @@ public class MissionsManager : Singleton<MissionsManager>
         }
         objectiveStates[id] = true;
         List<int> completed = GetOtherComptetedGroups(id);
+        HashSet<ObjectiveGroupData> toRemove = new HashSet<ObjectiveGroupData>();
         foreach (int completedGroupIndex in completed)
         {
+            Debug.LogFormat("Other missions objective group {0} form mision {1} completed",
+                      currentOtherObjectiveGroups[completedGroupIndex].Label,
+                      currentOtherObjectiveGroups[completedGroupIndex].Mission.Label);
             _ = ProceedToNextObjectiveGroup(currentOtherObjectiveGroups[completedGroupIndex], out ObjectiveGroupData nextGroup);
             if (nextGroup != null)
             {
@@ -267,9 +279,10 @@ public class MissionsManager : Singleton<MissionsManager>
             }
             else
             {
-                currentOtherObjectiveGroups.RemoveAt(completedGroupIndex);
+                toRemove.Add(currentOtherObjectiveGroups[completedGroupIndex]);
             }
         }
+        currentOtherObjectiveGroups.RemoveAll((ObjectiveGroupData data) => { return toRemove.Contains(data); });
         if (IsMainObjectiveGroupCompleted(id))
         {
             bool missionChanged = ProceedToNextObjectiveGroup(currentMainObjectiveGroup, out ObjectiveGroupData nextGroup);
@@ -294,21 +307,23 @@ public class MissionsManager : Singleton<MissionsManager>
 
     private bool ProceedToNextObjectiveGroup(ObjectiveGroupData currentGroup, out ObjectiveGroupData nextGroup)
     {
-        currentGroup.Completed.Raise();
+        currentGroup.Completed?.Raise();
         nextGroup = currentGroup.NextGroup;
         if (nextGroup != null)
         {
             //Proceed to next objective group
+            Debug.LogFormat("Next objective group {0} form mission {1}", nextGroup.Label, nextGroup.Mission.Label);
             return false;
         }
         else
         {
-            currentGroup.Mission.Completed.Raise();
+            currentGroup.Mission.Completed?.Raise();
             MissionData nextMission = currentGroup.Mission.nextMission;
             if (nextMission != null)
             {
                 //Proceed to next mission
                 nextGroup = nextMission.Groups[0];
+                Debug.LogFormat("Next mission {0}", nextGroup.Mission.Label);
             }
             else
             {

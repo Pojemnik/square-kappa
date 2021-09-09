@@ -211,20 +211,48 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 921ea55fdd89c3f40952bc0a8fb176aa, type: 2}
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: otherMissions.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: mainMisions.list.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: missions.Array.data[0].label
       value: Base in out test
       objectReference: {fileID: 0}
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: mainMisions.list.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 921ea55fdd89c3f40952bc0a8fb176aa, type: 2}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: mainMisions.list.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: mainMisions.list.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: missions.Array.data[0].groups.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: otherMissions.Array.data[0].list.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: otherMissions.Array.data[1].list.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: otherMissions.Array.data[0].list.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 97b9c46b8ad2a484b951e4dffc2469c2, type: 2}
+    - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: otherMissions.Array.data[1].list.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: e45963e1d1a9d6a45a58e64d8463811e, type: 2}
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: missions.Array.data[0].groups.Array.data[0].label
       value: in->out
