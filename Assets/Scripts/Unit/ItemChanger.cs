@@ -110,6 +110,7 @@ public class ItemChanger : MonoBehaviour
         owner.CurrentWeaponController.StopAttack();
         int ammoLeft = owner.CurrentWeaponController.Reload(-1);
         shooting.PickUpAmmo(owner.CurrentWeaponController.Config.type, ammoLeft);
+        owner.CurrentWeapon.GetComponent<PickableItem>().OnDrop();
         if (useDefaultWeapon)
         {
             GrabWeapon(defaultWeapon);
@@ -132,6 +133,7 @@ public class ItemChanger : MonoBehaviour
         owner.CurrentWeapon.layer = 6; //player layer
         owner.AnimationController.UpdateWeaponAnimation(owner.CurrentWeaponController);
         PickableItem pickable = owner.CurrentWeapon.GetComponent<PickableItem>();
+        pickable.OnPickup();
         owner.CurrentWeapon.transform.localPosition = pickable.relativePosition;
         owner.CurrentWeapon.transform.localRotation = Quaternion.Euler(pickable.relativeRotation);
         weaponChangeEvent.Invoke(owner.CurrentWeaponController);
