@@ -240,6 +240,7 @@ public class MissionsManager : Singleton<MissionsManager>
         objectiveStates.Add(objective.Id, objective.defaultState);
         objective.Completed.AddListener(OnObjectiveCompleted);
         objective.Uncompleted.AddListener(OnObjectiveUncompleted);
+        objective.Disabled.AddListener(OnObjectiveDisabled);
         usedObjectivesTracker.Add(name);
     }
 
@@ -266,12 +267,13 @@ public class MissionsManager : Singleton<MissionsManager>
         Init();
     }
 
-    public void UnregisterObjective(Objective objective)
+    public void OnObjectiveDisabled(Objective objective)
     {
         objectiveNames.Remove(objective.objectiveName);
         usedObjectivesTracker.Remove(objective.objectiveName);
         objective.Completed.RemoveListener(OnObjectiveCompleted);
         objective.Uncompleted.RemoveListener(OnObjectiveUncompleted);
+        objective.Disabled.RemoveListener(OnObjectiveDisabled);
     }
 
     private void OnObjectiveCompleted(int id)

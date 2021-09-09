@@ -2,15 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeManager : Singleton<TimeManager>
+public class TimeManager : MonoBehaviour
 {
     [SerializeField]
     private TimeManagerConfig config;
-
-    private void Awake()
-    {
-        RegisterInstance(this);
-    }
 
     private void Start()
     {

@@ -12,19 +12,33 @@ public class Objective : MonoBehaviour
     public IntEvent Completed;
     [HideInInspector]
     public IntEvent Uncompleted;
+    [HideInInspector]
+    public UnityEvent<Objective> Disabled;
+
     public int Id { get => id; }
 
     public string objectiveName;
     public bool defaultState = false;
+    [Header("Debug options")]
+    [SerializeField]
+    protected bool displayDebugInfo;
 
     protected void Complete()
     {
         Completed.Invoke(id);
+        if(displayDebugInfo)
+        {
+            Debug.LogFormat("Objective {0} completed", objectiveName);
+        }
     }
 
     protected void Uncomplete()
     {
         Uncompleted.Invoke(id);
+        if (displayDebugInfo)
+        {
+            Debug.LogFormat("Objective {0} uncompleted", objectiveName);
+        }
     }
 
     protected virtual void Awake()
@@ -34,9 +48,6 @@ public class Objective : MonoBehaviour
 
     protected virtual void OnDisable()
     {
-        if (MissionsManager.Instance != null)
-        {
-            MissionsManager.Instance.UnregisterObjective(this);
-        }
+        Disabled.Invoke(this);
     }
 }

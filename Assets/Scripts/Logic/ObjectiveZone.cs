@@ -5,19 +5,15 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class ObjectiveZone : Objective
 {
+    [Header("Zone options")]
     [SerializeField]
     private bool completedWhenLeft;
-    [Header("Debug options")]
-    [SerializeField]
-    private bool displayDebugInfo;
 
-    private int triggersCount;
     private int currentlyCheckedTriggers;
 
     protected override void Awake()
     {
         base.Awake();
-        triggersCount = GetComponents<Collider>().Length;
         currentlyCheckedTriggers = 0;
     }
 
