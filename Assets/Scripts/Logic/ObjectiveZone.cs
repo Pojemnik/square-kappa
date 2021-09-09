@@ -7,6 +7,9 @@ public class ObjectiveZone : Objective
 {
     [SerializeField]
     private bool completedWhenLeft;
+    [Header("Debug options")]
+    [SerializeField]
+    private bool displayDebugInfo;
 
     private int triggersCount;
     private int currentlyCheckedTriggers;
@@ -23,8 +26,11 @@ public class ObjectiveZone : Objective
         if (other.CompareTag("PlayerTrigger"))
         {
             currentlyCheckedTriggers++;
-            Debug.LogFormat("Objective zone {0} entered", gameObject.name);
-            Debug.LogFormat("Checked triggers count: {0}", currentlyCheckedTriggers);
+            if (displayDebugInfo)
+            {
+                Debug.LogFormat("Objective zone {0} entered", gameObject.name);
+                Debug.LogFormat("Checked triggers count: {0}", currentlyCheckedTriggers);
+            }
             if (currentlyCheckedTriggers == 1)
             {
                 if (completedWhenLeft)
@@ -45,8 +51,11 @@ public class ObjectiveZone : Objective
         if (other.CompareTag("PlayerTrigger"))
         {
             currentlyCheckedTriggers--;
-            Debug.LogFormat("Objective zone {0} left", gameObject.name);
-            Debug.LogFormat("Checked triggers count: {0}", currentlyCheckedTriggers);
+            if (displayDebugInfo)
+            {
+                Debug.LogFormat("Objective zone {0} left", gameObject.name);
+                Debug.LogFormat("Checked triggers count: {0}", currentlyCheckedTriggers);
+            }
             if (currentlyCheckedTriggers == 0)
             {
                 if (completedWhenLeft)

@@ -64,18 +64,25 @@ public class MissionsManager : Singleton<MissionsManager>
     [SerializeField]
     private List<MissionListWrapper> otherMissions;
 
-    private UnityEvent<string> missionChangeEvent;
-    private UnityEvent<string> objectiveGroupChangeEvent;
+    [Header("Debug options")]
+    [SerializeField]
+    private bool warnAboutUnusedObjectices;
+    [SerializeField]
+    private bool warnAboutObjectivesUsedMoreThanOnce;
+    [SerializeField]
+    private bool warnAboutIncorrectObjectiveNamesInMissions;
+    [SerializeField]
+    private bool informAboutMissionChange;
 
     protected MissionsManager() { }
 
+    private UnityEvent<string> missionChangeEvent;
+    private UnityEvent<string> objectiveGroupChangeEvent;
     private Dictionary<string, Objective> objectiveNames;
     private HashSet<string> usedObjectivesTracker;
     private Dictionary<int, bool> objectiveStates;
-
     private List<MissionData> mainMissionsData;
     private List<List<MissionData>> otherMissionsData;
-
     private ObjectiveGroupData currentMainObjectiveGroup;
     private List<ObjectiveGroupData> currentOtherObjectiveGroups;
 
@@ -118,8 +125,6 @@ public class MissionsManager : Singleton<MissionsManager>
     {
         Init();
         EventManager.Instance.AddListener("GameReloaded", OnGameReload);
-        //Debug.Log(string.Format("New mission: {0}", missions[missionIndex].label));
-        //Debug.Log(string.Format("New objectives group: {0}", missions[missionIndex].groups[groupIndex].label));
     }
 
     private void Init()
@@ -210,7 +215,11 @@ public class MissionsManager : Singleton<MissionsManager>
                     }
                     else
                     {
-                        Debug.LogWarningFormat("No objective named {0} (mission {1}, group {2})", name, mission.label, group.label);
+                        if (warnAboutIncorrectObjectiveNamesInMissions)
+                        {
+                            Debug.LogWarningFormat(
+                                "No objective named {0} (mission {1}, group {2})", name, mission.label, group.label);
+                        }
                     }
                 }
             }
@@ -221,6 +230,10 @@ public class MissionsManager : Singleton<MissionsManager>
     {
         if (usedObjectivesTracker.Contains(name))
         {
+            if(warnAboutObjectivesUsedMoreThanOnce)
+            {
+                Debug.LogWarningFormat("Objective named {0} used more than once. Is that correct?", name);
+            }
             return;
         }
         Objective objective = objectiveNames[name];
@@ -236,7 +249,10 @@ public class MissionsManager : Singleton<MissionsManager>
         {
             if (!usedObjectivesTracker.Contains(name))
             {
-                Debug.LogWarningFormat("Objective named {0} unused", name);
+                if (warnAboutUnusedObjectices)
+                {
+                    Debug.LogWarningFormat("Objective named {0} unused", name);
+                }
             }
         }
     }
@@ -269,9 +285,12 @@ public class MissionsManager : Singleton<MissionsManager>
         HashSet<ObjectiveGroupData> toRemove = new HashSet<ObjectiveGroupData>();
         foreach (int completedGroupIndex in completed)
         {
-            Debug.LogFormat("Other missions objective group {0} form mision {1} completed",
-                      currentOtherObjectiveGroups[completedGroupIndex].Label,
-                      currentOtherObjectiveGroups[completedGroupIndex].Mission.Label);
+            if (informAboutMissionChange)
+            {
+                Debug.LogFormat("Other missions objective group {0} form mision {1} completed",
+                          currentOtherObjectiveGroups[completedGroupIndex].Label,
+                          currentOtherObjectiveGroups[completedGroupIndex].Mission.Label);
+            }
             _ = ProceedToNextObjectiveGroup(currentOtherObjectiveGroups[completedGroupIndex], out ObjectiveGroupData nextGroup);
             if (nextGroup != null)
             {
@@ -312,7 +331,10 @@ public class MissionsManager : Singleton<MissionsManager>
         if (nextGroup != null)
         {
             //Proceed to next objective group
-            Debug.LogFormat("Next objective group {0} form mission {1}", nextGroup.Label, nextGroup.Mission.Label);
+            if (informAboutMissionChange)
+            {
+                Debug.LogFormat("Next objective group {0} form mission {1}", nextGroup.Label, nextGroup.Mission.Label);
+            }
             return false;
         }
         else
@@ -323,7 +345,10 @@ public class MissionsManager : Singleton<MissionsManager>
             {
                 //Proceed to next mission
                 nextGroup = nextMission.Groups[0];
-                Debug.LogFormat("Next mission {0}", nextGroup.Mission.Label);
+                if (informAboutMissionChange)
+                {
+                    Debug.LogFormat("Next mission {0}", nextGroup.Mission.Label);
+                }
             }
             else
             {
