@@ -12,18 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54b50d63bf7539440b0f701ab53dcf86, type: 3}
   m_Name: FirstMission
   m_EditorClassIdentifier: 
-  label: Mission1
+  label:
+    m_TableReference:
+      m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+    m_TableEntryReference:
+      m_KeyId: 2518732034048
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 1
   groups:
-  - label: Armory
+  - label:
+      m_TableReference:
+        m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+      m_TableEntryReference:
+        m_KeyId: 3089895575552
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 1
     objectiveNames:
     - ArmoryEnter
-    objectives:
-    - {fileID: 0}
     objectivesGroupCompleteEvent: {fileID: 11400000, guid: 126df0d327592ee4bb3431187568921a, type: 2}
-  - label: Station
+  - label:
+      m_TableReference:
+        m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+      m_TableEntryReference:
+        m_KeyId: 3308817272832
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 1
     objectiveNames:
     - StationLeft
-    objectives:
-    - {fileID: 0}
     objectivesGroupCompleteEvent: {fileID: 0}
   missionCompleteEvent: {fileID: 0}

@@ -201,6 +201,14 @@ PrefabInstance:
       propertyPath: startupScenes.Array.data[0]
       value: FirstLevel
       objectReference: {fileID: 0}
+    - target: {fileID: 1679701231232243157, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827111992877403228, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3114061548031714373, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: missions.Array.size
       value: 1
@@ -301,6 +309,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 24.295
       objectReference: {fileID: 0}
+    - target: {fileID: 4781741931125767463, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6130940969614138891, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: damageEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
@@ -325,12 +337,20 @@ PrefabInstance:
       propertyPath: damageEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7559166903565883182, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8300263605207084044, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: m_Name
       value: LevelBase
       objectReference: {fileID: 0}
     - target: {fileID: 8674635327688783088, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: useSceneView
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9050449335669970050, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

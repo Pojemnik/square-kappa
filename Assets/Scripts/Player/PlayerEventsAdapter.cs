@@ -5,7 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(ItemChanger))]
 [RequireComponent(typeof(UnitShooting))]
-
 public class PlayerEventsAdapter : MonoBehaviour
 {
     [SerializeField]
@@ -59,6 +58,6 @@ public class PlayerEventsAdapter : MonoBehaviour
 
     private void OnPlayerDamage()
     {
-        EventManager.Instance.TriggerEvent("PlayerDamage");
+        //EventManager.Instance.TriggerEvent("PlayerDamage");
     }
 }

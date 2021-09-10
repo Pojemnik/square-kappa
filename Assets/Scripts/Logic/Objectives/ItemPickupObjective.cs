@@ -34,18 +34,25 @@ public class ItemPickupObjective : Objective
 
     private void OnItemDrop(object sender, PickableItem item)
     {
-        if (displayDebugInfo)
+        if(this == null)
         {
-            Debug.LogFormat("Item {0}, one of the triggers of {1} objective dropped", item.name, name);
+            return;
         }
         if (pickedItemsCounter == 1)
         {
             Uncomplete();
         }
-        if(pickedItemsCounter <= 0)
+        if (pickedItemsCounter <= 0)
         {
             Debug.LogErrorFormat("Critical error. Picked items count less than zero in objective {0}", name);
         }
         pickedItemsCounter--;
+        if (item != null)
+        {
+            if (displayDebugInfo)
+            {
+                Debug.LogFormat("Item {0}, one of the triggers of {1} objective dropped", item.name, name);
+            }
+        }
     }
 }

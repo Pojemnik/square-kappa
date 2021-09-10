@@ -59,7 +59,7 @@ public class EventManager : Singleton<EventManager>
         }
         else
         {
-            throw new System.Exception("Trying to call non-existing event");
+            throw new System.Exception(string.Format("Trying to call non-existing event {0}", name));
         }
     }
 }

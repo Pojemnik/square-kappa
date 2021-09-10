@@ -3,56 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
+using UnityEngine.Localization;
 
-public class MissionsManager : Singleton<MissionsManager>
+public partial class MissionsManager : Singleton<MissionsManager>
 {
-    class MissionData
-    {
-        public MissionData nextMission;
-
-        private readonly string label;
-        private readonly MissionEvent completed;
-        private readonly List<ObjectiveGroupData> groups;
-        public List<ObjectiveGroupData> Groups { get => groups; }
-        public MissionEvent Completed { get => completed; }
-        public string Label { get => label; }
-
-        public MissionData(string missionLabel, MissionEvent completedEvent)
-        {
-            groups = new List<ObjectiveGroupData>();
-            label = missionLabel;
-            completed = completedEvent;
-        }
-
-        public void AddObjectivesGroup(ObjectiveGroupData group)
-        {
-            Groups.Add(group);
-        }
-    }
-
-    class ObjectiveGroupData
-    {
-        private readonly string label;
-        private readonly HashSet<int> objectives;
-        private readonly MissionEvent completed;
-        private ObjectiveGroupData nextGroup;
-        private readonly MissionData mission;
-
-        public ObjectiveGroupData NextGroup { get => nextGroup; set => nextGroup = value; }
-        public MissionData Mission { get => mission; }
-        public string Label { get => label; }
-        public HashSet<int> Objectives { get => objectives; }
-        public MissionEvent Completed { get => completed; }
-
-        public ObjectiveGroupData(string objectiveGroupLabel, MissionEvent completedEvent, MissionData ownerMission)
-        {
-            objectives = new HashSet<int>();
-            label = objectiveGroupLabel;
-            completed = completedEvent;
-            mission = ownerMission;
-        }
-    }
-
     [System.Serializable]
     class MissionListWrapper
     {
@@ -127,6 +81,18 @@ public class MissionsManager : Singleton<MissionsManager>
         EventManager.Instance.AddListener("GameReloaded", OnGameReload);
     }
 
+    private void OnDisable()
+    {
+        if (currentMainObjectiveGroup != null)
+        {
+            currentMainObjectiveGroup.LabelChanged -= OnMainObjectiveGroupLabelChanged;
+            if (currentMainObjectiveGroup.Mission != null)
+            {
+                currentMainObjectiveGroup.Mission.LabelChanged -= OnMainMissionLabelChanged;
+            }
+        }
+    }
+
     private void Init()
     {
         if (mainMisions.list.Count == 0)
@@ -139,6 +105,8 @@ public class MissionsManager : Singleton<MissionsManager>
         CheckForUnusedObjectives();
         mainMissionsData = CreateMissionDataList(mainMisions.list);
         currentMainObjectiveGroup = mainMissionsData[0].Groups[0];
+        currentMainObjectiveGroup.Mission.LabelChanged += OnMainMissionLabelChanged;
+        currentMainObjectiveGroup.LabelChanged += OnMainObjectiveGroupLabelChanged;
         otherMissionsData = new List<List<MissionData>>();
         currentOtherObjectiveGroups = new List<ObjectiveGroupData>();
         foreach (MissionListWrapper missions in otherMissions)
@@ -149,6 +117,16 @@ public class MissionsManager : Singleton<MissionsManager>
         }
         ObjectiveGroupChangeEvent.Invoke(currentMainObjectiveGroup.Label);
         MissionChangeEvent.Invoke(currentMainObjectiveGroup.Mission.Label);
+    }
+
+    private void OnMainObjectiveGroupLabelChanged(object sender, string label)
+    {
+        ObjectiveGroupChangeEvent.Invoke(label);
+    }
+
+    private void OnMainMissionLabelChanged(object sender, string label)
+    {
+        MissionChangeEvent.Invoke(label);
     }
 
     private List<MissionData> CreateMissionDataList(List<Mission> missions)
@@ -306,18 +284,24 @@ public class MissionsManager : Singleton<MissionsManager>
         currentOtherObjectiveGroups.RemoveAll((ObjectiveGroupData data) => { return toRemove.Contains(data); });
         if (IsMainObjectiveGroupCompleted(id))
         {
+            currentMainObjectiveGroup.LabelChanged -= OnMainObjectiveGroupLabelChanged;
             bool missionChanged = ProceedToNextObjectiveGroup(currentMainObjectiveGroup, out ObjectiveGroupData nextGroup);
             if (nextGroup != null)
             {
-                currentMainObjectiveGroup = nextGroup;
-                ObjectiveGroupChangeEvent.Invoke(nextGroup.Label);
-                if(missionChanged)
+                if (missionChanged)
                 {
+                    currentMainObjectiveGroup.Mission.LabelChanged -= OnMainMissionLabelChanged;
                     MissionChangeEvent.Invoke(nextGroup.Mission.Label);
+                    nextGroup.Mission.LabelChanged += OnMainMissionLabelChanged;
                 }
+                currentMainObjectiveGroup = nextGroup;
+                currentMainObjectiveGroup.LabelChanged += OnMainObjectiveGroupLabelChanged;
+                ObjectiveGroupChangeEvent.Invoke(nextGroup.Label);
+
             }
             else
             {
+                currentMainObjectiveGroup.Mission.LabelChanged -= OnMainMissionLabelChanged;
                 EventManager.Instance.TriggerEvent("Victory");
                 enabled = false;
                 ObjectiveGroupChangeEvent.Invoke(null);
