@@ -20,6 +20,8 @@ public class UIAmmoDisplayController : MonoBehaviour
     {
         totalAmmoDisplayController = totalAmmoDisplay.GetComponent<DisplayController>();
         currentAmmoDisplayController = currentAmmoDisplay.GetComponent<DisplayController>();
+        EventManager.Instance.AddListener("Victory", HideAmmo);
+        EventManager.Instance.AddListener("PlayerDeath", HideAmmo);
     }
 
     public void OnWeaponChange(WeaponController controller)

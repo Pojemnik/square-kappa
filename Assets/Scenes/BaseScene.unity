@@ -141,14 +141,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 530259353792493682, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 530259353792493682, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
-      propertyPath: weaponChangeEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Target
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 981666124664837547, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -320,6 +312,10 @@ PrefabInstance:
     - target: {fileID: 5342963523665669336, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: m_RootOrder
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342963524692561849, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6130940969614138891, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: damageEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
