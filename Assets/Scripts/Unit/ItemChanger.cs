@@ -153,7 +153,7 @@ public class ItemChanger : MonoBehaviour
     public void DropAndDestroyWeapon()
     {
         GameObject weapon = owner.CurrentWeapon;
-        if (weapon != null)
+        if (weapon != null && weapon != defaultWeapon)
         {
             DropWeapon(owner.CurrentWeapon.GetComponent<Rigidbody>());
             Destroy(weapon);

@@ -22,7 +22,6 @@ public partial class MissionsManager
             localizedLabel = missionLabel;
             label = localizedLabel.GetLocalizedString();
             localizedLabel.StringChanged += OnLabelChanged;
-            //label = "xd";
             completed = completedEvent;
         }
 

@@ -25,7 +25,6 @@ public partial class MissionsManager
             localizedLabel = objectiveGroupLabel;
             localizedLabel.StringChanged += OnLabelChanged;
             label = localizedLabel.GetLocalizedString();
-            //label = "xd";
             completed = completedEvent;
             mission = ownerMission;
         }
