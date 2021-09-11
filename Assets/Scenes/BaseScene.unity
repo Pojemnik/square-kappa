@@ -373,13 +373,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 526694963}
+  - component: {fileID: 526694965}
   m_Layer: 5
   m_Name: UIInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &526694963
 RectTransform:
   m_ObjectHideFlags: 0
@@ -401,6 +402,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -157}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &526694965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526694962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bd43b719bd9eaa429dc37eadf607f45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textController: {fileID: 1207231468}
+  UIInfoConfig:
+  - message:
+      m_TableReference:
+        m_TableCollectionName: GUID:8d7a7c33f67c7b24293b0df6e2ba7449
+      m_TableEntryReference:
+        m_KeyId: 13482643456
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+    image:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+    missionEvent: {fileID: 11400000, guid: 126df0d327592ee4bb3431187568921a, type: 2}
 --- !u!1 &727136993
 GameObject:
   m_ObjectHideFlags: 0

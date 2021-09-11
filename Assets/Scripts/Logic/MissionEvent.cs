@@ -9,6 +9,8 @@ public class MissionEvent : ScriptableObject
     private bool displayDebugInfo;
 
     private List<MissionEventListener> listeners = new List<MissionEventListener>();
+    [HideInInspector]
+    public event System.EventHandler missionEvent;
 
     public void Raise()
     {
@@ -19,6 +21,10 @@ public class MissionEvent : ScriptableObject
         for (int i = listeners.Count - 1; i >= 0; i--)
         {
             listeners[i].OnEventRaised();
+        }
+        if(missionEvent != null)
+        {
+            missionEvent(this, null);
         }
     }
 

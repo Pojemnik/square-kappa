@@ -20,6 +20,6 @@ public class MissionEventListener : MonoBehaviour
 
     public void OnEventRaised()
     {
-        Response.Invoke(); 
+        Response.Invoke();
     }
 }

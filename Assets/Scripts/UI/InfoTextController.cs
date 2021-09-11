@@ -23,7 +23,6 @@ public class InfoTextController : MonoBehaviour
     private void Awake()
     {
         textMesh = GetComponent<TMPro.TextMeshProUGUI>();
-        TypeText("This is a test message printed on screen by InfoTextController");
     }
 
     public void TypeText(string text)
@@ -34,6 +33,7 @@ public class InfoTextController : MonoBehaviour
         typedText = "";
         typing = true;
         cursorState = true;
+        textMesh.enabled = true;
         StartCoroutine(TypeTextCoroutine());
         StartCoroutine(CurosrBlinkCoroutine());
     }

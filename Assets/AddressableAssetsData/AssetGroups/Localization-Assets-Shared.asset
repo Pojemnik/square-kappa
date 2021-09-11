@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: Assets/Misc/Missions Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+  - m_GUID: 8d7a7c33f67c7b24293b0df6e2ba7449
+    m_Address: Assets/Misc/Local/UIInfo Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 45e32cf4f59e9eb47af08082b71f9a04, type: 2}
   m_SchemaSet:
