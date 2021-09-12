@@ -16,6 +16,8 @@ public class UIInfoController : MonoBehaviour
     [SerializeField]
     private InfoTextController textController;
     [SerializeField]
+    private InfoImageController imageController;
+    [SerializeField]
     private List<UIInfoConfigType> UIInfoConfig;
 
     private void Awake()
@@ -29,10 +31,7 @@ public class UIInfoController : MonoBehaviour
     public void DisplayOnScreenMessage(LocalizedString content, LocalizedSprite image)
     {
         textController.TypeText(content.GetLocalizedString());
-    }
-
-    public void DisplayMessage(LocalizedString content)
-    {
-        textController.TypeText(content.GetLocalizedString());
+        imageController.DisplayImage(image.LoadAsset());
+        textController.displayEndEvent += delegate { imageController.HideImage(); };
     }
 }

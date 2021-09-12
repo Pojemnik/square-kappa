@@ -415,20 +415,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textController: {fileID: 1207231468}
+  imageController: {fileID: 727136997}
   UIInfoConfig:
   - message:
       m_TableReference:
-        m_TableCollectionName: GUID:8d7a7c33f67c7b24293b0df6e2ba7449
+        m_TableCollectionName: GUID:4bb6863d4b9f5754689ea89dee61337f
       m_TableEntryReference:
-        m_KeyId: 13482643456
+        m_KeyId: 11230302208
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0
     image:
       m_TableReference:
-        m_TableCollectionName: 
+        m_TableCollectionName: GUID:8d7a7c33f67c7b24293b0df6e2ba7449
       m_TableEntryReference:
-        m_KeyId: 0
+        m_KeyId: 17110716416
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0
@@ -444,13 +445,14 @@ GameObject:
   - component: {fileID: 727136994}
   - component: {fileID: 727136996}
   - component: {fileID: 727136995}
+  - component: {fileID: 727136997}
   m_Layer: 5
   m_Name: InfoImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &727136994
 RectTransform:
   m_ObjectHideFlags: 0
@@ -477,7 +479,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 727136993}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -508,6 +510,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 727136993}
   m_CullTransparentMesh: 1
+--- !u!114 &727136997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727136993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 935f126f2809ed649912ce064f1eccd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1207231466
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,7 +573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursor: _
-  letterTypeDuration: 0.2
+  letterTypeDuration: 0.1
   cursorVisibleTime: 0.5
   cursorInvisibleTime: 0.3
 --- !u!114 &1207231469
@@ -569,7 +583,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1207231466}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 

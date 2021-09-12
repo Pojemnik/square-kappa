@@ -10,33 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: UIInfo Shared Data
+  m_Name: UIInfoText Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: UIInfo
-  m_TableCollectionNameGuidString: 8d7a7c33f67c7b24293b0df6e2ba7449
+  m_TableCollectionName: UIInfoText
+  m_TableCollectionNameGuidString: 4bb6863d4b9f5754689ea89dee61337f
   m_Entries:
-  - m_Id: 17110716416
-    m_Key: MISSION1-O1-END
+  - m_Id: 11230302208
+    m_Key: MISSION-O1-END
     m_Metadata:
       m_Items: []
   m_Metadata:
-    m_Items:
-    - id: 0
+    m_Items: []
   m_KeyGenerator:
-    id: 1
+    id: 0
   references:
     version: 1
     00000000:
-      type: {class: AssetTypeMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_Entries:
-        - m_KeyId: 17110716416
-          m_TableCodes:
-          - en
-          - pl-PL
-        m_TypeString: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-    00000001:
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
-        m_CustomEpoch: 1631355581682
+        m_CustomEpoch: 1631355755352

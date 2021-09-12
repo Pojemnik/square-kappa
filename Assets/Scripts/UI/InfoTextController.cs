@@ -12,6 +12,8 @@ public class InfoTextController : MonoBehaviour
     private float cursorVisibleTime;
     [SerializeField]
     private float cursorInvisibleTime;
+    [HideInInspector]
+    public event System.EventHandler displayEndEvent;
 
     private TMPro.TextMeshProUGUI textMesh;
     private string textToType;
@@ -42,9 +44,9 @@ public class InfoTextController : MonoBehaviour
     {
         while (enumerator.MoveNext())
         {
-            yield return new WaitForSecondsRealtime(letterTypeDuration);
             typedText += enumerator.Current;
             UpdateText();
+            yield return new WaitForSecondsRealtime(letterTypeDuration);
         }
         textMesh.text = textToType;
         typing = false;
@@ -79,5 +81,9 @@ public class InfoTextController : MonoBehaviour
     private void OnTypingEnd()
     {
         textMesh.enabled = false;
+        if (displayEndEvent != null)
+        {
+            displayEndEvent(this, null);
+        }
     }
 }
