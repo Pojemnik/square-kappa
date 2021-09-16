@@ -19,11 +19,24 @@ MonoBehaviour:
     m_Key: MISSION1-O1-END
     m_Metadata:
       m_Items: []
+  - m_Id: 1951714830704640
+    m_Key: SIDEEVENT1-01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1951836914311168
+    m_Key: SIDEEVENT1-02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1965385187319808
+    m_Key: AARON-JONES
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items:
     - id: 0
+    - id: 1
   m_KeyGenerator:
-    id: 1
+    id: 2
   references:
     version: 1
     00000000:
@@ -37,6 +50,24 @@ MonoBehaviour:
         m_TypeString: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
     00000001:
+      type: {class: AssetTypeMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries:
+        - m_KeyId: 1951714830704640
+          m_TableCodes:
+          - en
+          - pl-PL
+        - m_KeyId: 1951836914311168
+          m_TableCodes:
+          - en
+          - pl-PL
+        - m_KeyId: 1965385187319808
+          m_TableCodes:
+          - en
+          - pl-PL
+        m_TypeString: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    00000002:
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
         m_CustomEpoch: 1631355581682

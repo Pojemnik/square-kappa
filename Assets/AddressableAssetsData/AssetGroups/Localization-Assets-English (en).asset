@@ -27,8 +27,26 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
-  - m_GUID: bb75152a662f07e4e93b2f374e13ccd2
-    m_Address: ui_info_image_placeholder
+  - m_GUID: f4cdda0bd503c35499972a969648e6ed
+    m_Address: Alert
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    - Locale-pl-PL
+  - m_GUID: c1634017963c85f478f724da64a4d026
+    m_Address: ChemirailInfo
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    - Locale-pl-PL
+  - m_GUID: d5beeec455098074ab4c1461aa17a074
+    m_Address: GlassBreakTip
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    - Locale-pl-PL
+  - m_GUID: 7a1953445ec35464bbbc9cd41f64a486
+    m_Address: AaronJones
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en

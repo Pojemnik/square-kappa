@@ -30,5 +30,17 @@ MonoBehaviour:
     m_Localized: Leave the base
     m_Metadata:
       m_Items: []
+  - m_Id: 2345243860000768
+    m_Localized: Enemy Area
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2345286692233216
+    m_Localized: Find hangar on one of the asteroids
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2345334826065920
+    m_Localized: Reach hangar's control room
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

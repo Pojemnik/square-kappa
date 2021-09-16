@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b50d63bf7539440b0f701ab53dcf86, type: 3}
+  m_Name: HangarMission
+  m_EditorClassIdentifier: 
+  label:
+    m_TableReference:
+      m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+    m_TableEntryReference:
+      m_KeyId: 2345243860000768
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 1
+  groups:
+  - label:
+      m_TableReference:
+        m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+      m_TableEntryReference:
+        m_KeyId: 3308817272832
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 1
+    objectiveNames:
+    - StationLeft
+    objectivesGroupCompleteEvent: {fileID: 11400000, guid: dad81fe2ee99f42489c0d1fd4dadeeda, type: 2}
+  - label:
+      m_TableReference:
+        m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+      m_TableEntryReference:
+        m_KeyId: 2345286692233216
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 1
+    objectiveNames:
+    - HangarEnter
+    objectivesGroupCompleteEvent: {fileID: 11400000, guid: ff9bbf7205f40a54d8643d0b0db901dc, type: 2}
+  - label:
+      m_TableReference:
+        m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+      m_TableEntryReference:
+        m_KeyId: 2345334826065920
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 1
+    objectiveNames:
+    - HangarBridgeEnter
+    objectivesGroupCompleteEvent: {fileID: 0}
+  missionCompleteEvent: {fileID: 0}

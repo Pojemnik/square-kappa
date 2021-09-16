@@ -16,7 +16,27 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: 4bb6863d4b9f5754689ea89dee61337f
   m_Entries:
   - m_Id: 11230302208
-    m_Key: MISSION-O1-END
+    m_Key: MISSION1-O2-END
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1946354615050240
+    m_Key: SIDEEVENT-O2-END
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1946517052055552
+    m_Key: SIDEEVENT-O1-END
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1956000562143232
+    m_Key: AARON-JONES-01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1957480232902656
+    m_Key: AARON-JONES-02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1958580352704512
+    m_Key: AARON-JONES-03
     m_Metadata:
       m_Items: []
   m_Metadata:

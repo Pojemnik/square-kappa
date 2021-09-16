@@ -19,8 +19,43 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 11230302208
-    m_Localized: "Dobra robota\nTeraz we\u017A jak\u0105\u015B bro\u0144 i wyno\u015B
-      si\u0119 st\u0105d"
+    m_Localized: "UWAGA!\nWrogowie wtargn\u0119li na teren bazy. B\u0105d\u017A czujny.\nUruchomiono
+      awaryjne otwieranie drzwi - opu\u015B\u0107 baz\u0119 tak szybko jak to mo\u017Cliwe.\n                                                                                "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1946354615050240
+    m_Localized: "APL-97 \"Chemirail\"\nBro\u0144 energetyczna stosowana przez si\u0142y
+      zbrojne Drugiej Federacji\nWysoce skuteczna na kr\xF3tkie dystanse i przeciwko
+      piechocie\nNiepraktyczna jako bro\u0144 snajperska i przeciwko celom opancerzonym\n                                                                                "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1946517052055552
+    m_Localized: "Wskaz\xF3wka:\nMo\u017Cesz t\u0142uc szyby uderzaj\u0105c je pi\u0119\u015Bciami
+      lub wlatuj\u0105c w nie z du\u017C\u0105 pr\u0119dko\u015Bci\u0105. Nie zadzia\u0142a
+      to tylko na okna prowadz\u0105ce na zewn\u0105trz, te s\u0105 zbyt wytrzyma\u0142e.\n                                                                                "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1956000562143232
+    m_Localized: "Aaron Jones:\nMarine, wreszcie si\u0119 ockn\u0105\u0142e\u015B!
+      Nie byli\u015Bmy w stanie si\u0119 do ciebie dosta\u0107 i nie byli\u015Bmy
+      pewni czy ci\u0105gle \u017Cyjesz wi\u0119c wyruszyli\u015Bmy bez ciebie. Uwa\u017Caj,
+      znajdujesz si\u0119 sam na terenie wroga. Uzbr\xF3j si\u0119, ja spr\xF3buj\u0119
+      znale\u017A\u0107 spos\xF3b \u017Ceby ci\u0119 z tamt\u0105d wyci\u0105gn\u0105\u0107.\n                                                                                "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1957480232902656
+    m_Localized: "Aaron Jones:\nMarine, dowiedzia\u0142em si\u0119 \u017Ce w okolicy
+      znajduje si\u0119 niewielki hangar z kt\xF3rego korzystali g\xF3rnicy. Przy
+      odrobinie szcz\u0119\u015Bcia znajdziesz tam trasportowiec i dotrzesz nim do
+      naszej pozycji. Przeszukaj okoliczne asteroidy - hangar powinien by\u0107 na
+      jedej z nich.\n                                                                                "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1958580352704512
+    m_Localized: "Aaron Jones:\nTo w\u0142a\u015Bnie ten hangar, ale uwa\u017Caj,
+      jest strze\u017Cony. Musisz przebi\u0107 si\u0119 do pokoju sterowania i tam
+      przygotowa\u0107 transportowiec do lotu. Wtedy dam ci dalsze instrukcje. Powodzenia,
+      marine.\n                                                                                "
     m_Metadata:
       m_Items: []
   references:
