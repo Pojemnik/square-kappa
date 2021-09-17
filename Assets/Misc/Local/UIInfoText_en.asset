@@ -19,40 +19,59 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 11230302208
-    m_Localized: "WARNING!\nEnemies break into the base. Be careful.\nEmergency door
-      opening activated - get out of here as soon as posible.\n                                                                                "
+    m_Localized: 'WARNING!
+
+      Enemies break into the base. Be careful.
+
+      Emergency
+      door opening activated - get out of here as soon as posible.'
     m_Metadata:
       m_Items: []
   - m_Id: 1946354615050240
-    m_Localized: "APL-97 \"Chemirail\"\nEnergetic weapon used by Second Federation's
-      military forces\nHigly effective on short distances and against infantry\nNot
-      recomended for sniping and armored targets\n                                                                                "
+    m_Localized: 'APL-97 "Chemirail"
+
+      Energetic weapon used by Second Federation''s
+      military forces
+
+      Higly effective on short distances and against infantry
+
+      Not
+      recomended for sniping and armored targets'
     m_Metadata:
       m_Items: []
   - m_Id: 1946517052055552
-    m_Localized: "Tip:\nYou can break glass by hitting it by fists or flying through
-      it at high speed. It only won't work on windows to outer space, they're too
-      strong.\n                                                                                "
+    m_Localized: 'Tip:
+
+      You can break glass by hitting it by fists or flying
+      through it at high speed. It only won''t work on windows to outer space, they''re
+      too strong.'
     m_Metadata:
       m_Items: []
   - m_Id: 1956000562143232
-    m_Localized: "Aaron Jones:\nMarine, you're finally awake! We couldn't reach your
-      position and weren't sure if you're still alive, so we go away without you.
-      Be carefull, you're on enemy's teritory. Arm yourself, I will try to find a
-      way to get you out of there.\n                                                                                "
+    m_Localized: 'Aaron Jones:
+
+      Marine, you''re finally awake! We couldn''t
+      reach your position and weren''t sure if you''re still alive, so we go away
+      without you. Be carefull, you''re on enemy''s teritory. Arm yourself, I will
+      try to find a way to get you out of there.'
     m_Metadata:
       m_Items: []
   - m_Id: 1957480232902656
-    m_Localized: "Aaron Jones:\nMarine, I have an information about an old mining-purpose
-      hangar near your position. With luck you will find there a transporter which
-      can bring you to our position. Search around nearby asteroids - this hangar
-      should be on one of them.\n                                                                                "
+    m_Localized: 'Aaron Jones:
+
+      Marine, I have an information about an old
+      mining-purpose hangar near your position. With luck you will find there a transporter
+      which can bring you to our position. Search around nearby asteroids - this
+      hangar should be on one of them.'
     m_Metadata:
       m_Items: []
   - m_Id: 1958580352704512
-    m_Localized: "Aaron Jones:\nThis is the hangar I was talking about, but carefull,
-      it's guarded. You have to fight your way to the control room and there prepare
-      transporter for a flight. Then I will give you next orders. Good luck, marine.\n                                                                                "
+    m_Localized: 'Aaron Jones:
+
+      This is the hangar I was talking about, but
+      carefull, it''s guarded. You have to fight your way to the control room and
+      there prepare transporter for a flight. Then I will give you next orders. Good
+      luck, marine.'
     m_Metadata:
       m_Items: []
   references:

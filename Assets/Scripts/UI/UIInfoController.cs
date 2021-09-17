@@ -11,6 +11,7 @@ public class UIInfoController : MonoBehaviour
         public LocalizedString message;
         public LocalizedSprite image;
         public MissionEvent missionEvent;
+        public float messageHideDelay;
     }
 
     [SerializeField]
@@ -24,14 +25,14 @@ public class UIInfoController : MonoBehaviour
     {
         foreach (UIInfoConfigType config in UIInfoConfig)
         {
-            config.missionEvent.missionEvent += delegate { DisplayOnScreenMessage(config.message, config.image); };
+            config.missionEvent.missionEvent += delegate { DisplayOnScreenMessage(config); };
         }
     }
 
-    public void DisplayOnScreenMessage(LocalizedString content, LocalizedSprite image)
+    private void DisplayOnScreenMessage(UIInfoConfigType config)
     {
-        textController.TypeText(content.GetLocalizedString());
-        imageController.DisplayImage(image.LoadAsset());
+        textController.TypeText(config.message.GetLocalizedString(), config.messageHideDelay);
+        imageController.DisplayImage(config.image.LoadAsset());
         textController.displayEndEvent += delegate { imageController.HideImage(); };
     }
 }

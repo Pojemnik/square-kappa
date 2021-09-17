@@ -21,13 +21,14 @@ public class InfoTextController : MonoBehaviour
     private string typedText;
     private bool cursorState;
     private bool typing;
+    private float endDelay;
 
     private void Awake()
     {
         textMesh = GetComponent<TMPro.TextMeshProUGUI>();
     }
 
-    public void TypeText(string text)
+    public void TypeText(string text, float hideDelay)
     {
         textToType = text;
         enumerator = textToType.GetEnumerator();
@@ -36,6 +37,7 @@ public class InfoTextController : MonoBehaviour
         typing = true;
         cursorState = true;
         textMesh.enabled = true;
+        endDelay = hideDelay;
         StartCoroutine(TypeTextCoroutine());
         StartCoroutine(CurosrBlinkCoroutine());
     }
@@ -51,6 +53,7 @@ public class InfoTextController : MonoBehaviour
         textMesh.text = textToType;
         typing = false;
         yield return new WaitForSecondsRealtime(letterTypeDuration);
+        yield return new WaitForSecondsRealtime(endDelay);
         OnTypingEnd();
     }
 
