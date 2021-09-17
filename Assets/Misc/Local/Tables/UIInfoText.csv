@@ -1,0 +1,25 @@
+﻿Key,Id,English(en),Polish (Poland)(pl-PL)
+"MISSION1-O2-END",11230302208,"WARNING!
+Enemies break into the base. Be careful.
+Emergency door opening activated - get out of here as soon as posible.","UWAGA!
+Wrogowie wtargnęli na teren bazy. Bądź czujny.
+Uruchomiono awaryjne otwieranie drzwi - opuść bazę tak szybko jak to możliwe."
+"SIDEEVENT-O2-END",1946354615050240,"APL-97 ""Chemirail""
+Energetic weapon used by Second Federation's military forces
+Higly effective on short distances and against infantry
+Not recomended for sniping and armored targets","APL-97 ""Chemirail""
+Broń energetyczna stosowana przez siły zbrojne Drugiej Federacji
+Wysoce skuteczna na krótkie dystanse i przeciwko piechocie
+Niepraktyczna jako broń snajperska i przeciwko celom opancerzonym"
+"SIDEEVENT-O1-END",1946517052055552,"Tip:
+You can break glass by hitting it by fists or flying through it at high speed. It only won't work on windows to outer space, they're too strong.","Wskazówka:
+Możesz tłuc szyby uderzając je pięściami lub wlatując w nie z dużą prędkością. Nie zadziała to tylko na okna prowadzące na zewnątrz, te są zbyt wytrzymałe."
+"AARON-JONES-01",1956000562143232,"Aaron Jones:
+Marine, you're finally awake! We couldn't reach your position and weren't sure if you're still alive, so we go away without you. Be carefull, you're on enemy's teritory. Arm yourself, I will try to find a way to get you out of there.","Aaron Jones:
+Marine, wreszcie się ocknąłeś! Nie byliśmy w stanie się do ciebie dostać i nie byliśmy pewni czy ciągle żyjesz więc wyruszyliśmy bez ciebie. Uważaj, znajdujesz się sam na terenie wroga. Uzbrój się, ja spróbuję znaleźć sposób żeby cię z tamtąd wyciągnąć."
+"AARON-JONES-02",1957480232902656,"Aaron Jones:
+Marine, I have an information about an old mining-purpose hangar near your position. With luck you will find there a transporter which can bring you to our position. Search around nearby asteroids - this hangar should be on one of them.","Aaron Jones:
+Marine, dowiedziałem się że w okolicy znajduje się niewielki hangar z którego korzystali górnicy. Przy odrobinie szczęścia znajdziesz tam trasportowiec i dotrzesz nim do naszej pozycji. Przeszukaj okoliczne asteroidy - hangar powinien być na jedej z nich."
+"AARON-JONES-03",1958580352704512,"Aaron Jones:
+This is the hangar I was talking about, but carefull, it's guarded. You have to fight your way to the control room and there prepare transporter for a flight. Then I will give you next orders. Good luck, marine.","Aaron Jones:
+To właśnie ten hangar, ale uważaj, jest strzeżony. Musisz przebić się do pokoju sterowania i tam przygotować transportowiec do lotu. Wtedy dam ci dalsze instrukcje. Powodzenia, marine."
