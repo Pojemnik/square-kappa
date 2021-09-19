@@ -58,6 +58,6 @@ public class PlayerEventsAdapter : MonoBehaviour
 
     private void OnPlayerDamage()
     {
-        //EventManager.Instance.TriggerEvent("PlayerDamage");
+        EventManager.Instance.TriggerEvent("PlayerDamage");
     }
 }

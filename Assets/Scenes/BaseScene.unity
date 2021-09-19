@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &25841010 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3446247155215367116, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+  m_PrefabInstance: {fileID: 509855983}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &230406966 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 304391405936315603, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
@@ -185,6 +190,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1139295922160579818, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 1104098537}
     - target: {fileID: 1297050027494034849, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: baseScene
       value: BaseScene
@@ -305,14 +314,30 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 24.295
       objectReference: {fileID: 0}
+    - target: {fileID: 4109162441492693533, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4781741931125767463, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5111981843250589654, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 25841010}
+    - target: {fileID: 5342963523665669336, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5342963524692561849, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5583631659608014449, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 878883297}
     - target: {fileID: 6130940969614138891, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
       propertyPath: damageEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
@@ -379,3 +404,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+--- !u!1 &878883297 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1679701231232243157, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+  m_PrefabInstance: {fileID: 509855983}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1104098537 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1392238978494972994, guid: 859d03b6dcec70d468f1df7d3b26f8a1, type: 3}
+  m_PrefabInstance: {fileID: 509855983}
+  m_PrefabAsset: {fileID: 0}
