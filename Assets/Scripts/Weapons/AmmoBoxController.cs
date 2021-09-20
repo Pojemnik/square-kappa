@@ -17,7 +17,7 @@ public class AmmoBoxController : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
         }
     }
 }
