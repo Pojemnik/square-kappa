@@ -14,8 +14,22 @@ public class PickableItem : MonoBehaviour
     [HideInInspector]
     public event System.EventHandler<PickableItem> Dropped;
 
+    private void Start()
+    {
+        ItemsManager.Instance.AddItem(gameObject);
+    }
+
+    private void OnDisable()
+    {
+        if (ItemsManager.Instance)
+        {
+            ItemsManager.Instance.RemoveItem(gameObject);
+        }
+    }
+
     public void OnPickup()
     {
+        ItemsManager.Instance.RemoveItem(gameObject);
         if (PickedUp != null)
         {
             PickedUp(this, this);
@@ -24,6 +38,7 @@ public class PickableItem : MonoBehaviour
 
     public void OnDrop()
     {
+        ItemsManager.Instance.AddItem(gameObject);
         if (Dropped != null)
         {
             Dropped(this, this);

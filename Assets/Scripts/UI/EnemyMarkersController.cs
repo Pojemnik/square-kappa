@@ -138,12 +138,13 @@ public class EnemyMarkersController : MonoBehaviour
         return onScreenX && onScreenY && onScreenZ;
     }
 
-    private bool EnemyHiddenOrTooFar(Vector3 enemyArmaturePosition, Vector3 cameraPos)
+    private bool EnemyHiddenOrTooFar(GameObject enemy, Vector3 enemyArmaturePosition, Vector3 cameraPos)
     {
         Debug.DrawRay(cameraPos, enemyArmaturePosition - cameraPos);
         if (Physics.Raycast(cameraPos, enemyArmaturePosition - cameraPos, out RaycastHit hit, detectionRange, KappaLayerMask.PlayerVisionMask))
         {
-            if (!hit.collider.gameObject.CompareTag("Enemy") && !showHiddenEnemies)
+            bool isEnemyPart = hit.collider.gameObject == enemy || hit.collider.transform.IsChildOf(enemy.transform);
+            if (!isEnemyPart && !showHiddenEnemies)
             {
                 return true;
             }
@@ -185,7 +186,7 @@ public class EnemyMarkersController : MonoBehaviour
             float distanceToEnemy = (cameraPos - enemyArmaturePosition).magnitude;
             GameObject marker = markers[enemyId];
             GameObject arrow = arrows[enemyId];
-            if (EnemyHiddenOrTooFar(enemyArmaturePosition, cameraPos))
+            if (EnemyHiddenOrTooFar(enemy, enemyArmaturePosition, cameraPos))
             {
                 arrow.SetActive(false);
                 marker.SetActive(false);
