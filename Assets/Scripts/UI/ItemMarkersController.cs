@@ -17,6 +17,9 @@ public class ItemMarkersController : MonoBehaviour
     [SerializeField]
     [Tooltip("Display markers on items covered by an object")]
     private bool showHiddenItems;
+    [SerializeField]
+    [Tooltip("Scale of targeted item's marker is multiplied by that factor")]
+    private float targetItemScaleMultipler;
 
     [Header("Prefabs")]
     [SerializeField]
@@ -142,13 +145,14 @@ public class ItemMarkersController : MonoBehaviour
                 //On screen, display marker
                 marker.transform.position = screenPos;
                 marker.SetActive(true);
-                marker.transform.localScale = new Vector3(scale, scale, 1);
                 if(itemId == targetId)
                 {
+                    scale *= targetItemScaleMultipler;
                     pickupIcon.SetActive(true);
                     pickupIcon.transform.position = screenPos;
                     pickupIcon.transform.localScale = new Vector3(scale, scale, 1);
                 }
+                marker.transform.localScale = new Vector3(scale, scale, 1);
             }
             else
             {
