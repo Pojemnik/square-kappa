@@ -11,18 +11,24 @@ public class ItemsManager : Singleton<ItemsManager>
     protected ItemsManager() { }
 
     public List<GameObject> ItemsList { get => items.Values.ToList(); }
-    public UnityEvent itemsListChangedEvent;
+    public event System.EventHandler<List<GameObject>> itemsListChangedEvent;
 
     public void AddItem(GameObject item)
     {
         items.Add(item.GetInstanceID(), item);
-        itemsListChangedEvent.Invoke();
+        if(itemsListChangedEvent != null)
+        {
+            itemsListChangedEvent(this, ItemsList);
+        }
     }
 
     public void RemoveItem(GameObject item)
     {
         items.Remove(item.GetInstanceID());
-        itemsListChangedEvent.Invoke();
+        if (itemsListChangedEvent != null)
+        {
+            itemsListChangedEvent(this, ItemsList);
+        }
     }
 
     private void Awake()

@@ -70,10 +70,15 @@ public class EnemyMarkersController : MonoBehaviour
         print(string.Format("Display mode: {0}", displayMode));
     }
 
-    private void OnEnemyListChange()
+    private void OnEnemyListChange(object sender, List<GameObject> enemiesList)
     {
-        enemies = EnemyManager.Instance.EnemiesList;
-        var enemiesIds = enemies.Select(e => e.GetInstanceID());
+        UpdateMarkers(enemiesList);
+    }
+
+    private void UpdateMarkers(List<GameObject> enemiesList)
+    {
+        enemies = enemiesList;
+        var enemiesIds = enemiesList.Select(e => e.GetInstanceID());
         AddNewKeysOnList(enemiesIds);
         RemoveKeysNotOnList(arrows, enemiesIds);
         RemoveKeysNotOnList(markers, enemiesIds);
@@ -162,8 +167,8 @@ public class EnemyMarkersController : MonoBehaviour
 
     private void Start()
     {
-        EnemyManager.Instance.enemiesListChangedEvent.AddListener(OnEnemyListChange);
-        OnEnemyListChange();
+        EnemyManager.Instance.enemiesListChangedEvent += OnEnemyListChange;
+        UpdateMarkers(EnemyManager.Instance.EnemiesList);
         foreach (VectorDisplayController display in distanceDisplays.Values)
         {
             display.transform.parent.gameObject.SetActive(false);

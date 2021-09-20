@@ -11,19 +11,25 @@ public class EnemyManager : Singleton<EnemyManager>
     protected EnemyManager() { }
 
     public List<GameObject> EnemiesList { get => enemies.Values.ToList(); }
-    public UnityEvent enemiesListChangedEvent;
+    public event System.EventHandler<List<GameObject>> enemiesListChangedEvent;
     public GameObject target;
 
     public void AddEnemy(GameObject enemy)
     {
         enemies.Add(enemy.GetInstanceID(), enemy);
-        enemiesListChangedEvent.Invoke();
+        if (enemiesListChangedEvent != null)
+        {
+            enemiesListChangedEvent(this, enemies.Values.ToList());
+        }
     }
 
     public void RemoveEnemy(GameObject enemy)
     {
         enemies.Remove(enemy.GetInstanceID());
-        enemiesListChangedEvent.Invoke();
+        if(enemiesListChangedEvent != null)
+        {
+            enemiesListChangedEvent(this, enemies.Values.ToList());
+        }
     }
 
     private void Awake()
