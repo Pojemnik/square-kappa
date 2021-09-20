@@ -177,6 +177,7 @@ MonoBehaviour:
     max: 1.5
   showHiddenItems: 0
   markerPrefab: {fileID: 7380555506521333920, guid: f4b4a17e59edf4647ae3cd2232ad7548, type: 3}
+  pickupIconPrefab: {fileID: 7380555506521333920, guid: d67641fbb2d5e0049bf2136e1dc118fa, type: 3}
 --- !u!1 &1273658410
 GameObject:
   m_ObjectHideFlags: 0

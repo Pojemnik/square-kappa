@@ -20,11 +20,25 @@ public class ItemMarkersController : MonoBehaviour
 
     [Header("Prefabs")]
     [SerializeField]
-    private GameObject markerPrefab;
+    private GameObject markerPrefab, pickupIconPrefab;
 
     private List<GameObject> items;
     private Dictionary<int, GameObject> markers;
     private float scaleFactor;
+    private int targetId;
+    private GameObject pickupIcon;
+
+    public void OnItemTargeted(object sender, PickableItem item)
+    {
+        if (item != null)
+        {
+            targetId = item.gameObject.GetInstanceID();
+        }
+        else
+        {
+            targetId = -1;
+        }
+    }
 
     private void OnItemListChange(object sender, List<GameObject> itemsList)
     {
@@ -57,6 +71,10 @@ public class ItemMarkersController : MonoBehaviour
         {
             Destroy(dict[key]);
             dict.Remove(key);
+            if(key == targetId)
+            {
+                targetId = -1;
+            }
         }
     }
 
@@ -97,7 +115,10 @@ public class ItemMarkersController : MonoBehaviour
     private void Start()
     {
         ItemsManager.Instance.itemsListChangedEvent += OnItemListChange;
+        ItemsManager.Instance.targetItemChanged += OnItemTargeted;
         UpdateMarkers(ItemsManager.Instance.ItemsList);
+        pickupIcon = Instantiate(pickupIconPrefab, transform);
+        pickupIcon.SetActive(false);
     }
 
     private void Update()
@@ -122,12 +143,22 @@ public class ItemMarkersController : MonoBehaviour
                 marker.transform.position = screenPos;
                 marker.SetActive(true);
                 marker.transform.localScale = new Vector3(scale, scale, 1);
+                if(itemId == targetId)
+                {
+                    pickupIcon.SetActive(true);
+                    pickupIcon.transform.position = screenPos;
+                    pickupIcon.transform.localScale = new Vector3(scale, scale, 1);
+                }
             }
             else
             {
                 //Not on screen, hide
                 marker.SetActive(false);
             }
+        }
+        if(targetId == -1)
+        {
+            pickupIcon.SetActive(false);
         }
     }
 }

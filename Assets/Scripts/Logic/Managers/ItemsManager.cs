@@ -12,6 +12,7 @@ public class ItemsManager : Singleton<ItemsManager>
 
     public List<GameObject> ItemsList { get => items.Values.ToList(); }
     public event System.EventHandler<List<GameObject>> itemsListChangedEvent;
+    public event System.EventHandler<PickableItem> targetItemChanged;
 
     public void AddItem(GameObject item)
     {
@@ -28,6 +29,14 @@ public class ItemsManager : Singleton<ItemsManager>
         if (itemsListChangedEvent != null)
         {
             itemsListChangedEvent(this, ItemsList);
+        }
+    }
+
+    public void OnItemTargeted(object sender, PickableItem item)
+    {
+        if (targetItemChanged != null)
+        {
+            targetItemChanged(this, item);
         }
     }
 

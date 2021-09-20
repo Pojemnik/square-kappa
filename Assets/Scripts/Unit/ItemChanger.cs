@@ -42,9 +42,11 @@ public class ItemChanger : MonoBehaviour
     private GameObject selectedItem;
     private new Rigidbody rigidbody;
     private UnitShooting shooting;
+    private event System.EventHandler<PickableItem> targetChanged;
 
     private void SelectWorldItem(GameObject item)
     {
+        GameObject lastItem = selectedItem;
         if (item)
         {
             if (item.CompareTag("Item"))
@@ -64,6 +66,13 @@ public class ItemChanger : MonoBehaviour
             if (selectedItem)
             {
                 selectedItem = null;
+            }
+        }
+        if(lastItem != selectedItem)
+        {
+            if(targetChanged != null)
+            {
+                targetChanged(this, selectedItem?.GetComponent<PickableItem>());
             }
         }
     }
@@ -187,6 +196,7 @@ public class ItemChanger : MonoBehaviour
         {
             GrabWeapon(null);
         }
+        targetChanged += ItemsManager.Instance.OnItemTargeted;
     }
 
     private void Update()
