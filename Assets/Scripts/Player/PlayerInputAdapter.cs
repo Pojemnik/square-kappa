@@ -5,9 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputAdapter : MonoBehaviour
 {
-    [SerializeField]
     private float defaultCameraSensitivity;
-    [SerializeField]
     private float zoomCameraSensitivity;
     [Header("References")]
     public UnitController owner;
@@ -134,5 +132,13 @@ public class PlayerInputAdapter : MonoBehaviour
         ZoomController zoomController = FindObjectOfType<ZoomController>();
         zoomController.zoomEnabled.AddListener(OnZoomEnable);
         zoomController.zoomDisabled.AddListener(OnZoomDisble);
+    }
+
+    private void Start()
+    {
+        defaultCameraSensitivity = SettingsManager.Instance.MouseSensitivity.Value;
+        SettingsManager.Instance.MouseSensitivity.ValueChanged += (_, val) => { defaultCameraSensitivity = val; };
+        zoomCameraSensitivity = SettingsManager.Instance.ZoomMouseSensitivity.Value;
+        SettingsManager.Instance.ZoomMouseSensitivity.ValueChanged += (_, val) => { zoomCameraSensitivity = val; };
     }
 }
