@@ -9,6 +9,8 @@ public class PauseController : MonoBehaviour
     private GameObject pauseBlurObject;
     [SerializeField]
     private GameObject gameUIObject;
+    [SerializeField]
+    private GameObject pauseUIObject;
     [Header("Settings")]
     [SerializeField]
     private bool pauseWhenNotFocused;
@@ -32,16 +34,19 @@ public class PauseController : MonoBehaviour
     {
         isPaused = true;
         EventManager.Instance.TriggerEvent("Pause");
+        EventManager.Instance.TriggerEvent("UnlockCursor");
         pauseBlurObject.SetActive(true);
+        pauseUIObject.SetActive(true);
         gameUIObject.SetActive(false);
     }
 
     private void Unpause()
     {
-
         isPaused = false;
+        EventManager.Instance.TriggerEvent("LockCursor");
         EventManager.Instance.TriggerEvent("Unpause");
         pauseBlurObject.SetActive(false);
+        pauseUIObject.SetActive(false);
         gameUIObject.SetActive(true);
     }
 

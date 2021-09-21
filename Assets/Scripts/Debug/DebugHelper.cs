@@ -5,19 +5,19 @@ using UnityEngine;
 public class DebugHelper : MonoBehaviour
 {
 #if UNITY_EDITOR
-    public bool useSceneView = false;
+    [SerializeField]
+    private bool useSceneView = false;
 
-    private void Awake()
+    private void Start()
     {
         if (useSceneView)
         {
-            Cursor.lockState = CursorLockMode.None;
+            EventManager.Instance.TriggerEvent("UnlockCursor");
             UnityEditor.EditorWindow.FocusWindowIfItsOpen(typeof(UnityEditor.SceneView));
         }
         else
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            EventManager.Instance.TriggerEvent("LockCursor");
         }
     }
 #endif

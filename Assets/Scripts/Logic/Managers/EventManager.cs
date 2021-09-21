@@ -9,18 +9,33 @@ public class EventManager : Singleton<EventManager>
     [SerializeField]
     private bool logEvents;
 
+    private bool initialized = false;
+
     public Dictionary<string, UnityEvent> eventDictionary;
 
     protected EventManager() { }
 
     private void Awake()
     {
+        if (!initialized)
+        {
+            Init();
+        }
+    }
+
+    private void Init()
+    {
         RegisterInstance(this);
         eventDictionary = new Dictionary<string, UnityEvent>();
+        initialized = true;
     }
 
     public void AddListener(string name, UnityAction action)
     {
+        if(!initialized)
+        {
+            Init();
+        }
         UnityEvent unityEvent;
         if (eventDictionary.TryGetValue(name, out unityEvent))
         {
@@ -36,6 +51,10 @@ public class EventManager : Singleton<EventManager>
 
     public void RemoveListener(string name, UnityAction action)
     {
+        if (!initialized)
+        {
+            Init();
+        }
         if (eventDictionary.TryGetValue(name, out UnityEvent unityEvent))
         {
             unityEvent.RemoveListener(action);
@@ -48,6 +67,10 @@ public class EventManager : Singleton<EventManager>
 
     public void TriggerEvent(string name)
     {
+        if (!initialized)
+        {
+            Init();
+        }
         UnityEvent unityEvent;
         if (eventDictionary.TryGetValue(name, out unityEvent))
         {

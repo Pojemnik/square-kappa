@@ -40,4 +40,10 @@ public class UIInputAdapter : MonoBehaviour
             pauseController.ChangePauseState();
         }
     }
+
+    public void Awake()
+    {
+        EventManager.Instance.AddListener("LockCursor", () => { Cursor.lockState = CursorLockMode.Locked; Cursor.visible = false; });
+        EventManager.Instance.AddListener("UnlockCursor", () => { Cursor.lockState = CursorLockMode.None; Cursor.visible = true; });
+    }
 }
