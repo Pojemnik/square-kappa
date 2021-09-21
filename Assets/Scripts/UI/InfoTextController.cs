@@ -22,10 +22,14 @@ public class InfoTextController : MonoBehaviour
     private bool cursorState;
     private bool typing;
     private float endDelay;
+    private bool paused;
+    private (Coroutine type, Coroutine blink) coroutines;
 
     private void Awake()
     {
         textMesh = GetComponent<TMPro.TextMeshProUGUI>();
+        paused = false;
+        EventManager.Instance.AddListener("Unpause", ContinueTyping);
     }
 
     public void TypeText(string text, float hideDelay)
@@ -38,8 +42,34 @@ public class InfoTextController : MonoBehaviour
         cursorState = true;
         textMesh.enabled = true;
         endDelay = hideDelay;
-        StartCoroutine(TypeTextCoroutine());
-        StartCoroutine(CurosrBlinkCoroutine());
+        coroutines.type = StartCoroutine(TypeTextCoroutine());
+        coroutines.blink = StartCoroutine(CurosrBlinkCoroutine());
+    }
+
+    public void StopTyping()
+    {
+        if(!typing)
+        {
+            return;
+        }
+        if (coroutines.blink != null)
+        {
+            StopCoroutine(coroutines.blink);
+        }
+        if (coroutines.type != null)
+        {
+            StopCoroutine(coroutines.type);
+        }
+        OnTypingEnd();
+    }
+
+    private void ContinueTyping()
+    {
+        if (typing)
+        {
+            StartCoroutine(TypeTextCoroutine());
+            StartCoroutine(CurosrBlinkCoroutine());
+        }
     }
 
     private IEnumerator TypeTextCoroutine()

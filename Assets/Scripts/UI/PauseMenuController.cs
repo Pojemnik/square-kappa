@@ -23,6 +23,8 @@ public class PauseMenuController : MonoBehaviour
         zoomSensitivitySlider.sliderValueChanged += (_, v) => SettingsManager.Instance.ZoomMouseSensitivity.Value = v;
         locales = UnityEngine.Localization.Settings.LocalizationSettings.AvailableLocales.Locales.ToList();
         languageDropdown.SetDropdownContent(locales.Select((e) => e.LocaleName).ToList());
+        int selectedIndex = locales.FindIndex((l) => l == UnityEngine.Localization.Settings.LocalizationSettings.SelectedLocale);
+        languageDropdown.SetSelectedOption(selectedIndex);
         languageDropdown.DropdownFieldSelected += (_, index) => selectedLocale = locales[index].Identifier;
         EventManager.Instance.AddListener("Unpause", OnMenuClose);
     }

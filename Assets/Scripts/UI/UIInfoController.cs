@@ -25,14 +25,15 @@ public class UIInfoController : MonoBehaviour
     {
         foreach (UIInfoConfigType config in UIInfoConfig)
         {
-            config.missionEvent.missionEvent += delegate { DisplayOnScreenMessage(config); };
+            config.missionEvent.missionEvent += (s, a) => DisplayOnScreenMessage(config);
+            config.message.StringChanged += (_) => textController.StopTyping();
         }
+        textController.displayEndEvent += (s, a) => imageController.HideImage();
     }
 
     private void DisplayOnScreenMessage(UIInfoConfigType config)
     {
         textController.TypeText(config.message.GetLocalizedString(), config.messageHideDelay);
         imageController.DisplayImage(config.image.LoadAsset());
-        textController.displayEndEvent += delegate { imageController.HideImage(); };
     }
 }

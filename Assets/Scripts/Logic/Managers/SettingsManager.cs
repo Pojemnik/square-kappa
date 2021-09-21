@@ -15,10 +15,7 @@ public class SettingsManager : Singleton<SettingsManager>
             set
             {
                 _value = value;
-                if (ValueChanged != null)
-                {
-                    ValueChanged(this, _value);
-                }
+                ValueChanged?.Invoke(this, _value);
             }
         }
 

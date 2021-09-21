@@ -38,21 +38,21 @@ public class PauseController : MonoBehaviour
     public void Pause()
     {
         isPaused = true;
-        EventManager.Instance.TriggerEvent("Pause");
-        EventManager.Instance.TriggerEvent("UnlockCursor");
         pauseBlurObject.SetActive(true);
         pauseUIObject.SetActive(true);
         gameUIObject.SetActive(false);
+        EventManager.Instance.TriggerEvent("Pause");
+        EventManager.Instance.TriggerEvent("UnlockCursor");
     }
 
     public void Unpause()
     {
         isPaused = false;
-        EventManager.Instance.TriggerEvent("LockCursor");
-        EventManager.Instance.TriggerEvent("Unpause");
         pauseBlurObject.SetActive(false);
         pauseUIObject.SetActive(false);
         gameUIObject.SetActive(true);
+        EventManager.Instance.TriggerEvent("LockCursor");
+        EventManager.Instance.TriggerEvent("Unpause");
     }
 
     void OnApplicationFocus(bool hasFocus)

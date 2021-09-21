@@ -21,6 +21,11 @@ public class DropdownPanelController : MonoBehaviour
         dropdown.options = options.Select((e) => new TMPro.TMP_Dropdown.OptionData(e)).ToList();
     }
 
+    public void SetSelectedOption(int index)
+    {
+        dropdown.SetValueWithoutNotify(index);
+    }
+
     private void OnDropdownValueChanged(int index)
     {
         if(DropdownFieldSelected != null)
