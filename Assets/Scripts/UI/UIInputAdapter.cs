@@ -10,6 +10,8 @@ public class UIInputAdapter : MonoBehaviour
     private EnemyMarkersController enemyMarkersController;
     [SerializeField]
     private ZoomController zoomController;
+    [SerializeField]
+    private PauseController pauseController;
 
     public void ChangeEnemyMarkersDisplayMode(InputAction.CallbackContext context)
     {
@@ -28,6 +30,14 @@ public class UIInputAdapter : MonoBehaviour
         if(context.canceled)
         {
             zoomController.DisableZoom();
+        }
+    }
+
+    public void ChangePauseState(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            pauseController.ChangePauseState();
         }
     }
 }

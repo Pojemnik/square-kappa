@@ -17,6 +17,8 @@ public class TimeManager : MonoBehaviour
         EventManager.Instance.AddListener("ResetTimescale", ResetTimescale);
         EventManager.Instance.AddListener("StopTime", StopTime);
         EventManager.Instance.AddListener("PlayerDeath", StopTime);
+        EventManager.Instance.AddListener("Pause", StopTime);
+        EventManager.Instance.AddListener("Unpause", ResetTimescale);
         EventManager.Instance.AddListener("Victory", StopTime);
         EventManager.Instance.AddListener("GameReloaded", ResetTimescale);
     }

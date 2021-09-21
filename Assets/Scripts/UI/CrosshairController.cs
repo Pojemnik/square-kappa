@@ -59,7 +59,9 @@ public class CrosshairController : MonoBehaviour
         hitMarkerImage.color = Color.clear;
         damageMarkerImage = damageMarker.GetComponent<UnityEngine.UI.Image>();
         damageMarkerImage.CrossFadeAlpha(0, 0, true);
+        damageMarker.SetActive(false);
         SetCrosshairRadius(defaultRadius);
+        EventManager.Instance.AddListener("GameReloaded", () => { HideDamageMarker(0, damageMarkerImage); });
     }
 
     private void Update()
@@ -110,6 +112,7 @@ public class CrosshairController : MonoBehaviour
             StopCoroutine(damageMerkerFadeOut);
         }
         Vector2 screenPosition = new Vector2(Vector3.Dot(towardsHitPoint, cameraTransform.right), Vector3.Dot(towardsHitPoint, cameraTransform.up));
+        damageMarker.SetActive(true);
         UnityEngine.UI.Image damageMarkerImage = damageMarker.GetComponent<UnityEngine.UI.Image>();
         Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(screenPosition.y, screenPosition.x) * Mathf.Rad2Deg + 90);
         damageMarkerImage.rectTransform.rotation = rotation;
@@ -133,5 +136,6 @@ public class CrosshairController : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(time);
         marker.CrossFadeAlpha(0, damageMarkerFadeTime, true);
+        damageMarker.SetActive(false);
     }
 }
