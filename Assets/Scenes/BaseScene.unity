@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 3327866}
   - component: {fileID: 3327865}
   - component: {fileID: 3327864}
+  - component: {fileID: 3327867}
   m_Layer: 0
   m_Name: PauseUI
   m_TagString: Untagged
@@ -268,6 +269,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &3327867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3327862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be8f1aeab69fa784a9adcc61522f5f14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseSensitivitySlider: {fileID: 386959817847333857}
+  zoomSensitivitySlider: {fileID: 1991399410}
 --- !u!1 &43312923
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,6 +785,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4444532977503073184, guid: 4e7b459c893e379458be54b6bcafc11a, type: 3}
   m_PrefabInstance: {fileID: 1754904112}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1991399410 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3264565339684866507, guid: 4e7b459c893e379458be54b6bcafc11a, type: 3}
+  m_PrefabInstance: {fileID: 1754904112}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1df996aacb8292440b2ac69320a620be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2100361032
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,7 +878,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2100361035}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 851600373}
+        m_TargetAssemblyTypeName: PauseController, Assembly-CSharp
+        m_MethodName: Unpause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2100361035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -997,6 +1035,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8301871111492881496}
   m_CullTransparentMesh: 1
+--- !u!114 &386959817847333857 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3264565339684866507, guid: 4e7b459c893e379458be54b6bcafc11a, type: 3}
+  m_PrefabInstance: {fileID: 2887037185865542186}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1df996aacb8292440b2ac69320a620be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &458299033479016292
 MonoBehaviour:
   m_ObjectHideFlags: 0

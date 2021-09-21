@@ -21,6 +21,10 @@ public class SliderPanelController : MonoBehaviour
 
     private void OnSliderValueChanged(float newValue)
     {
-        valueDisplay.text = newValue.ToString();
+        valueDisplay.text = ((float)Mathf.Round(newValue * 100) / 100).ToString();
+        if(sliderValueChanged != null)
+        {
+            sliderValueChanged(this, newValue);
+        }
     }
 }

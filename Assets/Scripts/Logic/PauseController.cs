@@ -30,7 +30,7 @@ public class PauseController : MonoBehaviour
         }
     }
 
-    private void Pause()
+    public void Pause()
     {
         isPaused = true;
         EventManager.Instance.TriggerEvent("Pause");
@@ -40,7 +40,7 @@ public class PauseController : MonoBehaviour
         gameUIObject.SetActive(false);
     }
 
-    private void Unpause()
+    public void Unpause()
     {
         isPaused = false;
         EventManager.Instance.TriggerEvent("LockCursor");

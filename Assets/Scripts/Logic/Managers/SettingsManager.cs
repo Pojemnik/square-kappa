@@ -37,4 +37,10 @@ public class SettingsManager : Singleton<SettingsManager>
         ZoomMouseSensitivity = new SettingField<float>(PlayerPrefs.GetFloat("ZoomSens"));
         RegisterInstance(this);
     }
+
+    public void SaveSettings()
+    {
+        PlayerPrefs.SetFloat("MouseSens", MouseSensitivity.Value);
+        PlayerPrefs.SetFloat("ZoomSens", ZoomMouseSensitivity.Value);
+    }
 }
