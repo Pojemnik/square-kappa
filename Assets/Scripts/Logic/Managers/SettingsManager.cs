@@ -43,4 +43,12 @@ public class SettingsManager : Singleton<SettingsManager>
         PlayerPrefs.SetFloat("MouseSens", MouseSensitivity.Value);
         PlayerPrefs.SetFloat("ZoomSens", ZoomMouseSensitivity.Value);
     }
+
+    public void SetLocale(UnityEngine.Localization.LocaleIdentifier id)
+    {
+        if(UnityEngine.Localization.Settings.LocalizationSettings.SelectedLocale != UnityEngine.Localization.Settings.LocalizationSettings.AvailableLocales.GetLocale(id))
+        {
+            UnityEngine.Localization.Settings.LocalizationSettings.SelectedLocale = UnityEngine.Localization.Settings.LocalizationSettings.AvailableLocales.GetLocale(id);
+        }
+    }
 }

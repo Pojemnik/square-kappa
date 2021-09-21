@@ -17,6 +17,11 @@ public class PauseController : MonoBehaviour
 
     private bool isPaused = false;
 
+    private void Start()
+    {
+        Unpause();
+    }
+
     public void ChangePauseState()
     {
         isPaused = !isPaused;
