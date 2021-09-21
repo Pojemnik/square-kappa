@@ -10,21 +10,34 @@ public class SliderPanelController : MonoBehaviour
     [SerializeField]
     private UnityEngine.UI.Slider slider;
 
+    private float value;
+
     [HideInInspector]
     public event System.EventHandler<float> sliderValueChanged;
 
     private void Awake()
     {
         slider.onValueChanged.AddListener(OnSliderValueChanged);
-        valueDisplay.text = slider.value.ToString();
+        UnityEngine.Localization.Settings.LocalizationSettings.SelectedLocaleChanged += (v) => UpdateValueDisplay(value, v.Formatter);
+    }
+
+    public void InitializeSlider(float startValue)
+    {
+        OnSliderValueChanged(startValue);
     }
 
     private void OnSliderValueChanged(float newValue)
     {
-        valueDisplay.text = ((float)Mathf.Round(newValue * 100) / 100).ToString();
-        if(sliderValueChanged != null)
+        UpdateValueDisplay(newValue, UnityEngine.Localization.Settings.LocalizationSettings.SelectedLocale.Formatter);
+        if (sliderValueChanged != null)
         {
             sliderValueChanged(this, newValue);
         }
+        value = newValue;
+    }
+
+    private void UpdateValueDisplay(float newValue, System.IFormatProvider format)
+    {
+        valueDisplay.text = ((float)Mathf.Round(newValue * 100) / 100).ToString(format);
     }
 }

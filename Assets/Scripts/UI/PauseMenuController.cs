@@ -9,9 +9,11 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField]
     private SliderPanelController zoomSensitivitySlider;
 
-    private void Awake()
+    private void Start()
     {
+        mouseSensitivitySlider.InitializeSlider(SettingsManager.Instance.MouseSensitivity.Value);
         mouseSensitivitySlider.sliderValueChanged += (_,v) => SettingsManager.Instance.MouseSensitivity.Value = v;
+        zoomSensitivitySlider.InitializeSlider(SettingsManager.Instance.ZoomMouseSensitivity.Value);
         zoomSensitivitySlider.sliderValueChanged += (_,v) => SettingsManager.Instance.ZoomMouseSensitivity.Value = v;
         EventManager.Instance.AddListener("Unpause", () => SettingsManager.Instance.SaveSettings());
     }
