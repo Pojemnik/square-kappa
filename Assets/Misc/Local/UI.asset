@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4db626ad063b13545924a9839ac5fa83, type: 3}
+  m_Script: {fileID: 11500000, guid: 5be51871efa6c3e4eae1703925c8f5ac, type: 3}
   m_Name: UI
   m_EditorClassIdentifier: 
   m_SharedTableData: {fileID: 11400000, guid: 2a99f8033cf58d949abc662281e9af95, type: 2}
   m_Tables:
-  - {fileID: 11400000, guid: 348e1f2a06e4261488c655dd7b6b57c8, type: 2}
-  - {fileID: 11400000, guid: 88e59c75dbf04d3409a5154cceb3bc19, type: 2}
+  - {fileID: 11400000, guid: 8bac4d11d4dd74a4a8a4e7d5d4cc7759, type: 2}
+  - {fileID: 11400000, guid: d70ee3358e6e5244f98e4bd31b903234, type: 2}
   m_Extensions: []
-  m_Group: Asset Table
+  m_Group: String Table
   references:
     version: 1

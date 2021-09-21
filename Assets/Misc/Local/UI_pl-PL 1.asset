@@ -9,35 +9,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: UI Shared Data
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI_pl-PL 1
   m_EditorClassIdentifier: 
-  m_TableCollectionName: UI
-  m_TableCollectionNameGuidString: 2a99f8033cf58d949abc662281e9af95
-  m_Entries:
+  m_LocaleId:
+    m_Code: pl-PL
+  m_SharedData: {fileID: 11400000, guid: 2a99f8033cf58d949abc662281e9af95, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
   - m_Id: 193841909760
-    m_Key: MOUSE-SENS-OPTION
+    m_Localized: "Czu\u0142o\u015B\u0107 myszy"
     m_Metadata:
       m_Items: []
   - m_Id: 247973597184
-    m_Key: ZOOM-SENS-OPTION
+    m_Localized: "Czu\u0142o\u015B\u0107 podczas celowania"
     m_Metadata:
       m_Items: []
   - m_Id: 273235890176
-    m_Key: LANG-OPTION
+    m_Localized: "J\u0119zyk"
     m_Metadata:
       m_Items: []
   - m_Id: 294794612736
-    m_Key: BACK
+    m_Localized: Wstecz
     m_Metadata:
       m_Items: []
-  m_Metadata:
-    m_Items: []
-  m_KeyGenerator:
-    id: 0
   references:
     version: 1
-    00000000:
-      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
-      data:
-        m_CustomEpoch: 1632242132194

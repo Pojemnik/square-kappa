@@ -24,6 +24,7 @@ public class SliderPanelController : MonoBehaviour
     public void InitializeSlider(float startValue)
     {
         OnSliderValueChanged(startValue);
+        slider.value = startValue;
     }
 
     private void OnSliderValueChanged(float newValue)
