@@ -11,17 +11,23 @@ public class EventManagerEditor : Editor
     private List<string> events;
     private string eventName;
     private bool groupToggle;
+    private EventManager manager;
 
     private void OnEnable()
     {
         logEvents = serializedObject.FindProperty("logEvents");
+        manager = (EventManager)target;
     }
 
     public override void OnInspectorGUI()
     {
-        if ((target as EventManager).eventDictionary != null)
+        if(manager == null)
         {
-            events = (target as EventManager).eventDictionary.Keys.ToList();
+            manager = (EventManager)target;
+        }
+        if (manager.eventDictionary != null)
+        {
+            events = manager.eventDictionary.Keys.ToList();
         }
         else
         {
@@ -35,7 +41,7 @@ public class EventManagerEditor : Editor
         eventName = EditorGUILayout.TextField(eventName);
         if (GUILayout.Button("Send event"))
         {
-            (target as EventManager).TriggerEvent(eventName);
+            manager.TriggerEvent(eventName);
         }
         if (events != null)
         {
@@ -44,7 +50,10 @@ public class EventManagerEditor : Editor
             {
                 foreach (string e in events)
                 {
-                    EditorGUILayout.LabelField(e);
+                    if(GUILayout.Button(e))
+                    {
+                        manager.TriggerEvent(e);
+                    }
                 }
             }
         }
