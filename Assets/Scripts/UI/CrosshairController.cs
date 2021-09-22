@@ -62,7 +62,14 @@ public class CrosshairController : MonoBehaviour
         damageMarkerImage.CrossFadeAlpha(0, 0, true);
         damageMarker.SetActive(false);
         SetCrosshairRadius(defaultRadius);
-        EventManager.Instance.AddListener("GameReloaded", () => { HideDamageMarker(0, damageMarkerImage); hitMarkerImage.color = Color.clear; });
+        EventManager.Instance.AddListener("GameReloaded", OnGameReload);
+    }
+
+    private void OnGameReload()
+    {
+        damageMarkerImage.CrossFadeAlpha(0, damageMarkerFadeTime, true); 
+        damageMarker.SetActive(false); 
+        hitMarkerImage.color = Color.clear;
     }
 
     private void Update()
