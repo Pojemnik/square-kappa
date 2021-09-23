@@ -26,7 +26,7 @@ public class UIAmmoDisplayController : MonoBehaviour
 
     public void OnWeaponChange(WeaponController controller)
     {
-        if(controller.Config.type == WeaponConfig.WeaponType.Rifle)
+        if(controller.Config.type == WeaponConfig.WeaponType.Rifle || controller.Config.type == WeaponConfig.WeaponType.Pistol)
         {
             DisplayAmmo();
         }

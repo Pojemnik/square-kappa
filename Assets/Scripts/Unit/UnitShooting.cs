@@ -18,10 +18,8 @@ public class UnitShooting : MonoBehaviour
     [SerializeField]
     private bool autoReload;
 
-    [Header("Start ammo")]
     [SerializeField]
-    [Min(0)]
-    private int startChemirailAmmo;
+    private SerializableDictionary<WeaponConfig.WeaponType, int> startAmmo;
 
     private new Rigidbody rigidbody;
     private WeaponController weaponController = null;
@@ -139,9 +137,15 @@ public class UnitShooting : MonoBehaviour
         allAmmo = new Dictionary<WeaponConfig.WeaponType, int>();
         foreach (WeaponConfig.WeaponType type in System.Enum.GetValues(typeof(WeaponConfig.WeaponType)))
         {
-            allAmmo.Add(type, 0);
+            if (startAmmo.ContainsKey(type))
+            {
+                allAmmo.Add(type, startAmmo[type]);
+            }
+            else
+            {
+                allAmmo.Add(type, 0);
+            }
         }
-        allAmmo[WeaponConfig.WeaponType.Rifle] = startChemirailAmmo;
     }
 
     private void OnWeaponShoot()
