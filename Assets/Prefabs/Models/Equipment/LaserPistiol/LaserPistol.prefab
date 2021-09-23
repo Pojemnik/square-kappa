@@ -63,8 +63,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f63eb59c9798bd74d83f76edc4e1138e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relativePosition: {x: -0.789, y: 2.43, z: 0.264}
-  relativeRotation: {x: 0.7269861, y: -0.00003207245, z: 92.97733}
+  relativePosition: {x: 0.0345, y: 0.5261, z: 0.0569}
+  relativeRotation: {x: 276.1834, y: 159.20502, z: 12.322096}
 --- !u!65 &7147382110946266112
 BoxCollider:
   m_ObjectHideFlags: 0
