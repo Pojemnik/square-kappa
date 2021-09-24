@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalAmmoDisplay: {fileID: 8234222499503097117}
   currentAmmoDisplay: {fileID: 4615834830725486264}
-  rangedConfig: {fileID: 11400000, guid: 10007670c5f142446a788ffb7a0085df, type: 2}
+  rangedConfig: {fileID: 11400000, guid: 2dfb529c6dd3d3345bb803310666bd17, type: 2}
 --- !u!114 &1019652684330726460
 MonoBehaviour:
   m_ObjectHideFlags: 0
