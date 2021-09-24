@@ -42,5 +42,9 @@ MonoBehaviour:
     m_Localized: Dotrzyj do pokoju kontrolnego hangaru
     m_Metadata:
       m_Items: []
+  - m_Id: 5083593331068928
+    m_Localized: "We\u017A bro\u0144 i opu\u015B\u0107 zbrojowni\u0119"
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

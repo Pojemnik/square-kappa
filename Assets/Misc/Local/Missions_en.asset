@@ -42,5 +42,9 @@ MonoBehaviour:
     m_Localized: Reach hangar's control room
     m_Metadata:
       m_Items: []
+  - m_Id: 5083593331068928
+    m_Localized: Pick some weapon and leave armory
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
