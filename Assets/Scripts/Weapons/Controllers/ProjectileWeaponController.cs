@@ -3,8 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class RangedWeaponController : WeaponController
+public class ProjectileWeaponController : WeaponController
 {
+    [SerializeField]
+    private DisplayController totalAmmoDisplay;
+    [SerializeField]
+    private DisplayController currentAmmoDisplay;
+
+    [SerializeField]
+    private ProjectileWeaponConfig rangedConfig;
+    private bool triggerHold = false;
+    private float shootCooldown;
+    private float spreadRadius;
+    private float spreadReductionCooldown;
+    private UnityEvent shootEvent;
+    private Quaternion projectileDirection;
+    private int ammo;
+    private int totalAmmo;
+
     public override WeaponConfig Config { get => rangedConfig; }
     public override UnityEvent AttackEvent { get => shootEvent; }
     public override Quaternion AttackDirection { get => projectileDirection; set { projectileDirection = value; } }
@@ -35,22 +51,6 @@ public class RangedWeaponController : WeaponController
     public override UnityEvent<(int, int)> AmmoChangeEvent { get => ammoChangeEvent; }
 
     private UnityEvent<(int, int)> ammoChangeEvent;
-
-    [SerializeField]
-    private DisplayController totalAmmoDisplay;
-    [SerializeField]
-    private DisplayController currentAmmoDisplay;
-
-    [SerializeField]
-    private RangedWeaponConfig rangedConfig;
-    private bool triggerHold = false;
-    private float shootCooldown;
-    private float spreadRadius;
-    private float spreadReductionCooldown;
-    private UnityEvent shootEvent;
-    private Quaternion projectileDirection;
-    private int ammo;
-    private int totalAmmo;
 
     private void Awake()
     {

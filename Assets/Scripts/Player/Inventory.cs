@@ -20,21 +20,21 @@ public class Inventory
 
     public int AddWeapon(GameObject weapon)
     {
-        RangedWeaponConfig.WeaponSize size = weapon.GetComponent<RangedWeaponConfig>().size;
-        if (size == RangedWeaponConfig.WeaponSize.Small)
+        ProjectileWeaponConfig.WeaponSize size = weapon.GetComponent<ProjectileWeaponConfig>().size;
+        if (size == ProjectileWeaponConfig.WeaponSize.Small)
         {
             if (smallSlots.Count < maxSmallSlots)
             {
-                smallSlots.Add(new InventorySlot(RangedWeaponConfig.WeaponSize.Small));
+                smallSlots.Add(new InventorySlot(ProjectileWeaponConfig.WeaponSize.Small));
                 smallSlots[smallSlots.Count - 1].AddWeapon(weapon);
                 return smallSlots.Count - 1 + maxBigSlots;
             }
         }
-        if (size == RangedWeaponConfig.WeaponSize.Big)
+        if (size == ProjectileWeaponConfig.WeaponSize.Big)
         {
             if (bigSlots.Count < maxBigSlots)
             {
-                bigSlots.Add(new InventorySlot(RangedWeaponConfig.WeaponSize.Big));
+                bigSlots.Add(new InventorySlot(ProjectileWeaponConfig.WeaponSize.Big));
                 bigSlots[bigSlots.Count - 1].AddWeapon(weapon);
                 return bigSlots.Count - 1;
             }
@@ -72,16 +72,16 @@ public class Inventory
 [System.Serializable]
 public class InventorySlot
 {
-    public RangedWeaponConfig.WeaponSize slotSize { get { return size; } }
+    public ProjectileWeaponConfig.WeaponSize slotSize { get { return size; } }
     public GameObject weapon { get { return weaponObject; } }
-    public RangedWeaponController controller { get { return controllerObject; } }
+    public ProjectileWeaponController controller { get { return controllerObject; } }
     public bool empty { get { return weaponObject == null; } }
 
     private GameObject weaponObject;
-    private RangedWeaponController controllerObject;
-    private RangedWeaponConfig.WeaponSize size;
+    private ProjectileWeaponController controllerObject;
+    private ProjectileWeaponConfig.WeaponSize size;
 
-    public InventorySlot(RangedWeaponConfig.WeaponSize weaponSize)
+    public InventorySlot(ProjectileWeaponConfig.WeaponSize weaponSize)
     {
         size = weaponSize;
     }
@@ -90,7 +90,7 @@ public class InventorySlot
     {
         if (empty)
         {
-            RangedWeaponController tempController = weapon.GetComponent<RangedWeaponController>();
+            ProjectileWeaponController tempController = weapon.GetComponent<ProjectileWeaponController>();
             if (tempController.Config.size != size)
             {
                 throw new System.Exception("Wrong weapon size!");

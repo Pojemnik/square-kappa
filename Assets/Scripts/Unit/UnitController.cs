@@ -58,7 +58,7 @@ public class UnitController : Unit
         //get components
         if (currentWeapon != null)
         {
-            currentWeaponController = currentWeapon.GetComponent<RangedWeaponController>();
+            currentWeaponController = currentWeapon.GetComponent<WeaponController>();
         }
     }
 

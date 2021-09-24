@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "RangedWeaponConfig", menuName = "ScriptableObjects/WeaponConfig/Ranged")]
-public class RangedWeaponConfig : WeaponConfig
+[CreateAssetMenu(fileName = "ProjectileWeaponConfig", menuName = "ScriptableObjects/WeaponConfig/Projectile")]
+public class ProjectileWeaponConfig : WeaponConfig
 {
     [Header("Weapon parameters")]
     public float shootsPerSecond;
