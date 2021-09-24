@@ -34,6 +34,7 @@ public class InfoTextController : MonoBehaviour
 
     public void TypeText(string text, float hideDelay)
     {
+        StopTyping();
         textToType = text;
         enumerator = textToType.GetEnumerator();
         textMesh.text = cursor;
@@ -67,8 +68,16 @@ public class InfoTextController : MonoBehaviour
     {
         if (typing)
         {
-            StartCoroutine(TypeTextCoroutine());
-            StartCoroutine(CurosrBlinkCoroutine());
+            if (coroutines.blink != null)
+            {
+                StopCoroutine(coroutines.blink);
+            }
+            if (coroutines.type != null)
+            {
+                StopCoroutine(coroutines.type);
+            }
+            coroutines.type = StartCoroutine(TypeTextCoroutine());
+            coroutines.blink = StartCoroutine(CurosrBlinkCoroutine());
         }
     }
 

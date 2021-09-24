@@ -23,8 +23,11 @@ MonoBehaviour:
 
       Enemies break into the base. Be careful.
 
-      Emergency
-      door opening activated - get out of here as soon as posible.'
+      Tip:
+
+      Your
+      suit can detect enemies - it will mark them with red diamonds or point with
+      arrow a direction where they are.'
     m_Metadata:
       m_Items: []
   - m_Id: 1946354615050240
@@ -52,8 +55,8 @@ MonoBehaviour:
 
       Marine, you''re finally awake! We couldn''t
       reach your position and weren''t sure if you''re still alive, so we go away
-      without you. Be carefull, you''re on enemy''s teritory. Arm yourself, I will
-      try to find a way to get you out of there.'
+      without you. Be carefull, you''re on enemy''s teritory. Arm yourself and get
+      used with zero gravity, I will try to find a way to get you out of there.'
     m_Metadata:
       m_Items: []
   - m_Id: 1957480232902656
@@ -72,6 +75,15 @@ MonoBehaviour:
       carefull, it''s guarded. You have to fight your way to the control room and
       there prepare transporter for a flight. Then I will give you next orders. Good
       luck, marine.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4694467079458816
+    m_Localized: 'Tip:
+
+      When you need to arm yourself, find an armory. There
+      you''ll always find some weapons and lots of ammo. You suit detects weapons
+      and marks it with white diamond on a screen. To pick up a weapon, click F.
+      Ammo will be picked up automatically.'
     m_Metadata:
       m_Items: []
   references:

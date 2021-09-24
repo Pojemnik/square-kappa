@@ -4516,7 +4516,7 @@ MonoBehaviour:
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0
-    missionEvent: {fileID: 11400000, guid: 126df0d327592ee4bb3431187568921a, type: 2}
+    missionEvent: {fileID: 11400000, guid: a3b506eebcb7c6c449477a93c5ff6ed4, type: 2}
     messageHideDelay: 3
   - message:
       m_TableReference:
@@ -4612,6 +4612,25 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
     missionEvent: {fileID: 11400000, guid: ff9bbf7205f40a54d8643d0b0db901dc, type: 2}
+    messageHideDelay: 3
+  - message:
+      m_TableReference:
+        m_TableCollectionName: GUID:4bb6863d4b9f5754689ea89dee61337f
+      m_TableEntryReference:
+        m_KeyId: 4694467079458816
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    image:
+      m_TableReference:
+        m_TableCollectionName: GUID:8d7a7c33f67c7b24293b0df6e2ba7449
+      m_TableEntryReference:
+        m_KeyId: 4697705589657600
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+    missionEvent: {fileID: 11400000, guid: 126df0d327592ee4bb3431187568921a, type: 2}
     messageHideDelay: 3
   references:
     version: 1

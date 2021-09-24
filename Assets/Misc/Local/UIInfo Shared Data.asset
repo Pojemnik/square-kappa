@@ -16,7 +16,7 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: 8d7a7c33f67c7b24293b0df6e2ba7449
   m_Entries:
   - m_Id: 17110716416
-    m_Key: MISSION1-O1-END
+    m_Key: MISSION1-O2-END
     m_Metadata:
       m_Items: []
   - m_Id: 1951714830704640
@@ -29,6 +29,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1965385187319808
     m_Key: AARON-JONES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4697705589657600
+    m_Key: MISSION1-01-END
     m_Metadata:
       m_Items: []
   m_Metadata:
@@ -62,6 +66,10 @@ MonoBehaviour:
           - en
           - pl-PL
         - m_KeyId: 1965385187319808
+          m_TableCodes:
+          - en
+          - pl-PL
+        - m_KeyId: 4697705589657600
           m_TableCodes:
           - en
           - pl-PL

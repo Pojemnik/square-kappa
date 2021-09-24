@@ -19,8 +19,9 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 11230302208
-    m_Localized: "UWAGA!\nWrogowie wtargn\u0119li na teren bazy. B\u0105d\u017A czujny.\nUruchomiono
-      awaryjne otwieranie drzwi - opu\u015B\u0107 baz\u0119 tak szybko jak to mo\u017Cliwe."
+    m_Localized: "UWAGA!\nWrogowie wtargn\u0119li na teren bazy. B\u0105d\u017A czujny.\nWskaz\xF3wka:\nTw\xF3j
+      str\xF3j potrafi wykrywa\u0107 wrog\xF3w - oznaczy ci ich czerwonymi rombami
+      lub strza\u0142kami poka\u017Ce z kt\xF3rej strony si\u0119 znajduj\u0105."
     m_Metadata:
       m_Items: []
   - m_Id: 1946354615050240
@@ -39,8 +40,9 @@ MonoBehaviour:
     m_Localized: "Aaron Jones:\nMarine, wreszcie si\u0119 ockn\u0105\u0142e\u015B!
       Nie byli\u015Bmy w stanie si\u0119 do ciebie dosta\u0107 i nie byli\u015Bmy
       pewni czy ci\u0105gle \u017Cyjesz wi\u0119c wyruszyli\u015Bmy bez ciebie. Uwa\u017Caj,
-      znajdujesz si\u0119 sam na terenie wroga. Uzbr\xF3j si\u0119, ja spr\xF3buj\u0119
-      znale\u017A\u0107 spos\xF3b \u017Ceby ci\u0119 z tamt\u0105d wyci\u0105gn\u0105\u0107."
+      znajdujesz si\u0119 sam na terenie wroga. Uzbr\xF3j si\u0119 i osw\xF3j z poruszaniem
+      w niewa\u017Cko\u015Bci, ja spr\xF3buj\u0119 znale\u017A\u0107 spos\xF3b \u017Ceby
+      ci\u0119 z tamt\u0105d wyci\u0105gn\u0105\u0107."
     m_Metadata:
       m_Items: []
   - m_Id: 1957480232902656
@@ -56,6 +58,14 @@ MonoBehaviour:
       jest strze\u017Cony. Musisz przebi\u0107 si\u0119 do pokoju sterowania i tam
       przygotowa\u0107 transportowiec do lotu. Wtedy dam ci dalsze instrukcje. Powodzenia,
       marine."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4694467079458816
+    m_Localized: "Wskaz\xF3wka:\nKiedy potrzebujesz si\u0119 dozbroi\u0107, odszukaj
+      zbrojowni\u0119. Znajdziesz tu zawsze troch\u0119 broni i sporo amunicji. Tw\xF3j
+      kombinezon wykrywa bro\u0144 w twoim polu widzenia i oznacza ci j\u0105 bia\u0142ym
+      rombem na ekranie. By podnie\u015B\u0107 bro\u0144, podle\u0107 do niej i naci\u015Bnij
+      F. Amunicja podnosi si\u0119 automatycznie."
     m_Metadata:
       m_Items: []
   references:

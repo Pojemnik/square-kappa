@@ -51,6 +51,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     - Locale-pl-PL
+  - m_GUID: 38738a88b28f6ae4c8989f0272a20bf0
+    m_Address: ArmoryAndWeaponTip
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    - Locale-pl-PL
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 45e32cf4f59e9eb47af08082b71f9a04, type: 2}
   m_SchemaSet:

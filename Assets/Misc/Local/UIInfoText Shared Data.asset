@@ -39,6 +39,10 @@ MonoBehaviour:
     m_Key: AARON-JONES-03
     m_Metadata:
       m_Items: []
+  - m_Id: 4694467079458816
+    m_Key: MISSION1-01-END
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
