@@ -64,7 +64,7 @@ public class UnitController : Unit
 
     public void Start()
     {
-        inventory = new Inventory(1, 2);
+        //inventory = new Inventory(1, 2);
     }
 
     public void DropItem()
@@ -92,6 +92,7 @@ public class UnitController : Unit
 
     public void PickWeaponFromInventory(int slot)
     {
+        /*
         GameObject weapon = inventory.GetWeapon(slot);
         if (currentWeapon)
         {
@@ -120,5 +121,6 @@ public class UnitController : Unit
             //GrabWeapon(weapon);
             //print(String.Format("Taken weapon from inventory: {0}", weapon.name));
         }
+        */
     }
 }

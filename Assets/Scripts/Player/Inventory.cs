@@ -4,6 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class Inventory
 {
+    /*
     private List<InventorySlot> smallSlots;
     private List<InventorySlot> bigSlots;
     private int totalSlots;
@@ -116,4 +117,5 @@ public class InventorySlot
         weaponObject = null;
         controllerObject = null;
     }
+    */
 }

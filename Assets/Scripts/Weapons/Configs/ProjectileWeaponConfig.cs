@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ProjectileWeaponConfig", menuName = "ScriptableObjects/WeaponConfig/Projectile")]
-public class ProjectileWeaponConfig : WeaponConfig
+public class ProjectileWeaponConfig : ScriptableObject
 {
     [Header("Weapon parameters")]
     public float shootsPerSecond;

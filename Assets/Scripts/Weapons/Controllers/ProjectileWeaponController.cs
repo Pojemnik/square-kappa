@@ -3,27 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ProjectileWeaponController : WeaponController
+public class ProjectileWeaponController : RangedWeaponController
 {
     [SerializeField]
-    private DisplayController totalAmmoDisplay;
-    [SerializeField]
-    private DisplayController currentAmmoDisplay;
+    protected ProjectileWeaponConfig projectileWeaponConfig;
 
-    [SerializeField]
-    private ProjectileWeaponConfig rangedConfig;
-    private bool triggerHold = false;
     private float shootCooldown;
     private float spreadRadius;
     private float spreadReductionCooldown;
-    private UnityEvent shootEvent;
-    private Quaternion projectileDirection;
-    private int ammo;
-    private int totalAmmo;
-
-    public override WeaponConfig Config { get => rangedConfig; }
-    public override UnityEvent AttackEvent { get => shootEvent; }
-    public override Quaternion AttackDirection { get => projectileDirection; set { projectileDirection = value; } }
 
     public override float Spread
     {
@@ -33,51 +20,16 @@ public class ProjectileWeaponController : WeaponController
         }
     }
 
-    public override MagazineStateType MagazineState
+    protected override void Awake()
     {
-        get
-        {
-            if (ammo == Config.maxAmmo)
-            {
-                return MagazineStateType.Full;
-            }
-            if (ammo <= 0)
-            {
-                return MagazineStateType.Empty;
-            }
-            return MagazineStateType.NotEmptyNotFull;
-        }
-    }
-    public override UnityEvent<(int, int)> AmmoChangeEvent { get => ammoChangeEvent; }
-
-    private UnityEvent<(int, int)> ammoChangeEvent;
-
-    private void Awake()
-    {
-        spreadRadius = rangedConfig.baseSpread;
-        shootEvent = new UnityEvent();
-        ammoChangeEvent = new UnityEvent<(int, int)>();
+        base.Awake();
+        spreadRadius = projectileWeaponConfig.baseSpread;
     }
 
-    public override void StartAttack()
+    protected override void StopShoot()
     {
-        StartShoot();
-    }
-
-    public override void StopAttack()
-    {
-        StopShoot();
-    }
-
-    private void StartShoot()
-    {
-        triggerHold = true;
-    }
-
-    private void StopShoot()
-    {
-        triggerHold = false;
-        spreadReductionCooldown = rangedConfig.spreadReductionDelay;
+        base.StopShoot();
+        spreadReductionCooldown = projectileWeaponConfig.spreadReductionDelay;
     }
 
     private void Shoot()
@@ -90,9 +42,9 @@ public class ProjectileWeaponController : WeaponController
         currentAmmoDisplay.SetValue(ammo);
         ammoChangeEvent.Invoke((ammo, totalAmmo));
         Vector3 projectleSpread = Random.insideUnitSphere * spreadRadius;
-        Vector3 relativeOffset = rangedConfig.projectileOffset.x * transform.right + rangedConfig.projectileOffset.y * transform.up + rangedConfig.projectileOffset.z * transform.forward;
-        Quaternion relativeRotation = Quaternion.Euler(transform.TransformDirection(projectleSpread + rangedConfig.projectileAngularOffset));
-        GameObject projectile = Instantiate(rangedConfig.projectilePrefab, transform.position + relativeOffset, projectileDirection * relativeRotation);
+        Vector3 relativeOffset = projectileWeaponConfig.projectileOffset.x * transform.right + projectileWeaponConfig.projectileOffset.y * transform.up + projectileWeaponConfig.projectileOffset.z * transform.forward;
+        Quaternion relativeRotation = Quaternion.Euler(transform.TransformDirection(projectleSpread + projectileWeaponConfig.projectileAngularOffset));
+        GameObject projectile = Instantiate(projectileWeaponConfig.projectilePrefab, transform.position + relativeOffset, projectileDirection * relativeRotation);
         if (gameObject.layer == 6)
         {
             projectile.layer = 8;
@@ -102,28 +54,28 @@ public class ProjectileWeaponController : WeaponController
             projectile.layer = 9;
         }
         ProjectileController projectileController = projectile.GetComponent<ProjectileController>();
-        projectileController.speed = rangedConfig.projectileSpeed;
+        projectileController.speed = projectileWeaponConfig.projectileSpeed;
         projectileController.direction = projectile.transform.forward;
-        projectile.transform.localScale = Vector3.one * rangedConfig.projectileScale;
+        projectile.transform.localScale = Vector3.one * projectileWeaponConfig.projectileScale;
         projectile.SetActive(true);
-        Destroy(projectile, rangedConfig.projectileLifetime);
-        if (rangedConfig.flamePrefab)
+        Destroy(projectile, projectileWeaponConfig.projectileLifetime);
+        if (projectileWeaponConfig.flamePrefab)
         {
-            GameObject fireEffect = Instantiate(rangedConfig.flamePrefab, transform.position, transform.rotation);
+            GameObject fireEffect = Instantiate(projectileWeaponConfig.flamePrefab, transform.position, transform.rotation);
             fireEffect.transform.parent = transform;
-            fireEffect.transform.Translate(rangedConfig.flameOffset, Space.Self);
-            fireEffect.transform.Rotate(rangedConfig.flameRotation);
-            fireEffect.transform.localScale = Vector3.one * rangedConfig.flameScale;
+            fireEffect.transform.Translate(projectileWeaponConfig.flameOffset, Space.Self);
+            fireEffect.transform.Rotate(projectileWeaponConfig.flameRotation);
+            fireEffect.transform.localScale = Vector3.one * projectileWeaponConfig.flameScale;
             fireEffect.SetActive(true);
-            Destroy(fireEffect, rangedConfig.fireLifetime);
+            Destroy(fireEffect, projectileWeaponConfig.fireLifetime);
         }
-        if (spreadRadius < rangedConfig.maxSpread)
+        if (spreadRadius < projectileWeaponConfig.maxSpread)
         {
-            spreadRadius += rangedConfig.spreadIncrease;
+            spreadRadius += projectileWeaponConfig.spreadIncrease;
         }
         else
         {
-            spreadRadius = rangedConfig.maxSpread;
+            spreadRadius = projectileWeaponConfig.maxSpread;
         }
         AttackEvent.Invoke();
     }
@@ -137,63 +89,25 @@ public class ProjectileWeaponController : WeaponController
         if (triggerHold && shootCooldown <= 0)
         {
             Shoot();
-            shootCooldown = 1F / rangedConfig.shootsPerSecond;
-            if (!rangedConfig.continousShooting)
+            shootCooldown = 1F / projectileWeaponConfig.shootsPerSecond;
+            if (!projectileWeaponConfig.continousShooting)
             {
                 triggerHold = false;
             }
         }
-        if (!triggerHold && spreadRadius > rangedConfig.baseSpread)
+        if (!triggerHold && spreadRadius > projectileWeaponConfig.baseSpread)
         {
             spreadReductionCooldown += Time.fixedDeltaTime;
             spreadRadius -= GetCooldownReductionValue(spreadReductionCooldown);
-            if (spreadRadius < rangedConfig.baseSpread)
+            if (spreadRadius < projectileWeaponConfig.baseSpread)
             {
-                spreadRadius = rangedConfig.baseSpread;
+                spreadRadius = projectileWeaponConfig.baseSpread;
             }
         }
     }
 
     private float GetCooldownReductionValue(float time)
     {
-        return time * rangedConfig.spreadReductionParameter;
-    }
-
-    public void Start()
-    {
-        ammo = rangedConfig.maxAmmo;
-    }
-
-    public override int Reload(int amount)
-    {
-        if (amount == -1)
-        {
-            int ammoLeft = ammo;
-            ammo = 0;
-            currentAmmoDisplay.SetValue(ammo);
-            ammoChangeEvent.Invoke((ammo, totalAmmo));
-            return ammoLeft;
-        }
-        int total = amount + ammo;
-        if (total <= Config.maxAmmo)
-        {
-            ammo = total;
-            total = 0;
-        }
-        else
-        {
-            ammo = Config.maxAmmo;
-            total -= Config.maxAmmo;
-        }
-        currentAmmoDisplay.SetValue(ammo);
-        ammoChangeEvent.Invoke((ammo, totalAmmo));
-        return total;
-    }
-
-    public override void SetTotalAmmo(int amount)
-    {
-        totalAmmoDisplay.SetValue(amount);
-        totalAmmo = amount;
-        ammoChangeEvent.Invoke((ammo, totalAmmo));
+        return time * projectileWeaponConfig.spreadReductionParameter;
     }
 }

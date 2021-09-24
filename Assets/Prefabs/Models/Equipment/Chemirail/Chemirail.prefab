@@ -183,9 +183,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0feac5d23a1814b8f274de0660c439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 24b62de53d804c743971e5c89cd6c57f, type: 2}
   totalAmmoDisplay: {fileID: 1092315712454468316}
   currentAmmoDisplay: {fileID: 4423598836128215417}
-  rangedConfig: {fileID: 11400000, guid: 2dfb529c6dd3d3345bb803310666bd17, type: 2}
+  projectileWeaponConfig: {fileID: 11400000, guid: 2dfb529c6dd3d3345bb803310666bd17, type: 2}
 --- !u!1001 &707346515661935451
 PrefabInstance:
   m_ObjectHideFlags: 0
