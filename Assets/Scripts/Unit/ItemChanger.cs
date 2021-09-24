@@ -120,6 +120,7 @@ public class ItemChanger : MonoBehaviour
         int ammoLeft = owner.CurrentWeaponController.Reload(-1);
         shooting.PickUpAmmo(owner.CurrentWeaponController.Config.type, ammoLeft);
         owner.CurrentWeapon.GetComponent<PickableItem>().OnDrop();
+        SceneLoadingManager.Instance.AddObjectToRemoveOnReload(owner.CurrentWeapon);
         if (useDefaultWeapon)
         {
             GrabWeapon(defaultWeapon);

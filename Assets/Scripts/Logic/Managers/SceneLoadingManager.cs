@@ -10,9 +10,16 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
 
     private int scenesToReloadCount;
     private int reloadedScenes;
+    private List<GameObject> removeOnReload;
+
+    public void AddObjectToRemoveOnReload(GameObject obj)
+    {
+        removeOnReload.Add(obj);
+    }
 
     private void Awake()
     {
+        removeOnReload = new List<GameObject>();
         RegisterInstance(this);
     }
 
@@ -56,6 +63,10 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
                 scenesToReload.Add(scene.buildIndex);
                 SceneManager.UnloadSceneAsync(scene);
             }
+        }
+        foreach(GameObject go in removeOnReload)
+        {
+            Destroy(go);
         }
         foreach (int sceneIndex in scenesToReload)
         {

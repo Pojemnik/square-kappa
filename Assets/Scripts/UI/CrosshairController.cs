@@ -51,7 +51,8 @@ public class CrosshairController : MonoBehaviour
     private UnityEngine.UI.Image damageMarkerImage;
     private UnityEngine.UI.Image hitMarkerImage;
     private WeaponController weapon;
-    private Coroutine damageMerkerFadeOut;
+    private Coroutine damageMarkerFadeOut;
+    private float hitMarkerHideTimestamp;
 
     void Start()
     {
@@ -61,20 +62,36 @@ public class CrosshairController : MonoBehaviour
         damageMarkerImage.CrossFadeAlpha(0, 0, true);
         damageMarker.SetActive(false);
         SetCrosshairRadius(defaultRadius);
-        EventManager.Instance.AddListener("GameReloaded", () => { HideDamageMarker(0, damageMarkerImage); });
+        EventManager.Instance.AddListener("GameReloaded", OnGameReload);
+    }
+
+    private void OnGameReload()
+    {
+        damageMarkerImage.CrossFadeAlpha(0, damageMarkerFadeTime, true); 
+        damageMarker.SetActive(false); 
+        hitMarkerImage.color = Color.clear;
     }
 
     private void Update()
     {
-        if(weapon)
+        if (weapon)
         {
             SetCrosshairRadius(weapon.Spread * radiusToSpreadRatio + minimalRadius);
+        }
+        if (Time.time >= hitMarkerHideTimestamp)
+        {
+            if (hitMarkerImage.color.a > 0)
+            {
+                Color temp = hitMarkerImage.color;
+                temp.a = Mathf.Clamp(1 - ((Time.time - hitMarkerHideTimestamp) / hitMarkerFadeTime), 0, 1);
+                hitMarkerImage.color = temp;
+            }
         }
     }
 
     void SetCrosshairRadius(float radius)
     {
-        if(radius < minimalRadius)
+        if (radius < minimalRadius)
         {
             radius = minimalRadius;
         }
@@ -88,14 +105,14 @@ public class CrosshairController : MonoBehaviour
     {
         hitMarkerImage.color = Color.white;
         hitMarkerImage.CrossFadeAlpha(1, 0, true);
-        StartCoroutine(HideHitMarker(hitMarkerDisplayTime));
+        hitMarkerHideTimestamp = Time.time + hitMarkerDisplayTime;
     }
 
     public void OnEnemyDeath()
     {
         hitMarkerImage.color = Color.red;
         hitMarkerImage.CrossFadeAlpha(1, 0, true);
-        StartCoroutine(HideHitMarker(hitMarkerDisplayTime));
+        hitMarkerHideTimestamp = Time.time + hitMarkerDisplayTime;
     }
 
     public void OnPlayerHit(DamageInfo info)
@@ -103,13 +120,13 @@ public class CrosshairController : MonoBehaviour
         Transform cameraTransform = Camera.main.transform;
         Vector3 towardsHitPoint = -info.direction;
         float angle = Vector3.Angle(cameraTransform.forward, towardsHitPoint);
-        if(!damageMarkerShowWhenForward && angle < damageMarkerMaxForwardAngle)
+        if (!damageMarkerShowWhenForward && angle < damageMarkerMaxForwardAngle)
         {
             return;
         }
-        if (damageMerkerFadeOut != null)
+        if (damageMarkerFadeOut != null)
         {
-            StopCoroutine(damageMerkerFadeOut);
+            StopCoroutine(damageMarkerFadeOut);
         }
         Vector2 screenPosition = new Vector2(Vector3.Dot(towardsHitPoint, cameraTransform.right), Vector3.Dot(towardsHitPoint, cameraTransform.up));
         damageMarker.SetActive(true);
@@ -118,18 +135,12 @@ public class CrosshairController : MonoBehaviour
         damageMarkerImage.rectTransform.rotation = rotation;
         damageMarkerImage.rectTransform.anchoredPosition = rotation * Vector3.down * damageMarkerDistanceFromCenter;
         damageMarkerImage.CrossFadeAlpha(1, 0, true);
-        damageMerkerFadeOut = StartCoroutine(HideDamageMarker(damageMarkerDisplayTime, damageMarkerImage));
+        damageMarkerFadeOut = StartCoroutine(HideDamageMarker(damageMarkerDisplayTime, damageMarkerImage));
     }
 
     public void OnWeaponChange(WeaponController newWeapon)
     {
         weapon = newWeapon;
-    }
-
-    private IEnumerator HideHitMarker(float time)
-    {
-        yield return new WaitForSecondsRealtime(time);
-        hitMarkerImage.CrossFadeAlpha(0, hitMarkerFadeTime, true);
     }
 
     private IEnumerator HideDamageMarker(float time, UnityEngine.UI.Image marker)
