@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class ProjectileWeaponController : RangedWeaponController
 {
     [SerializeField]
-    protected ProjectileWeaponConfig projectileWeaponConfig;
+    private ProjectileWeaponConfig projectileWeaponConfig;
 
     private float shootCooldown;
     private float spreadRadius;
@@ -25,9 +25,9 @@ public class ProjectileWeaponController : RangedWeaponController
         spreadRadius = projectileWeaponConfig.baseSpread;
     }
 
-    protected override void StopShoot()
+    public override void StopAttack()
     {
-        base.StopShoot();
+        base.StopAttack();
         spreadReductionCooldown = projectileWeaponConfig.spreadReductionDelay;
     }
 

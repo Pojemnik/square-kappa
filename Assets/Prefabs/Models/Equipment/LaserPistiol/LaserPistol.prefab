@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9137332409454112782}
-  - component: {fileID: 1378386358321536640}
   - component: {fileID: 1019652684330726460}
   - component: {fileID: 7147382110946266112}
   - component: {fileID: 3527605547195684927}
   - component: {fileID: 4010085492508274226}
+  - component: {fileID: 5539086193773060932}
   m_Layer: 0
   m_Name: LaserPistol
   m_TagString: Item
@@ -36,22 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1378386358321536640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4710709793634388195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad0feac5d23a1814b8f274de0660c439, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: 24b62de53d804c743971e5c89cd6c57f, type: 2}
-  totalAmmoDisplay: {fileID: 8234222499503097117}
-  currentAmmoDisplay: {fileID: 4615834830725486264}
-  projectileWeaponConfig: {fileID: 11400000, guid: 2dfb529c6dd3d3345bb803310666bd17, type: 2}
 --- !u!114 &1019652684330726460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +92,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5539086193773060932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4710709793634388195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab0b8c85353f2a459acf219270eb583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 530b7a0d1d78f9342858ffcd2ed7a6d1, type: 2}
+  totalAmmoDisplay: {fileID: 8234222499503097117}
+  currentAmmoDisplay: {fileID: 4615834830725486264}
+  rayConfig: {fileID: 11400000, guid: 10007670c5f142446a788ffb7a0085df, type: 2}
 --- !u!1001 &7073387000511778288
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -39,20 +39,10 @@ public abstract class RangedWeaponController : WeaponController
 
     public override void StartAttack()
     {
-        StartShoot();
-    }
-
-    public override void StopAttack()
-    {
-        StopShoot();
-    }
-
-    protected virtual void StartShoot()
-    {
         triggerHold = true;
     }
 
-    protected virtual void StopShoot()
+    public override void StopAttack()
     {
         triggerHold = false;
     }

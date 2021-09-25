@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RayWeaponConfig : MonoBehaviour
+[CreateAssetMenu(fileName = "RayWeaponConfig", menuName = "ScriptableObjects/WeaponConfig/Ray")]
+public class RayWeaponConfig : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float tickDuration;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("Projectile")]
+    public GameObject projectilePrefab;
+    public Vector3 projectileOffset;
 }
