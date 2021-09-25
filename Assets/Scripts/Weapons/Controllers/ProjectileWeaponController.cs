@@ -20,9 +20,8 @@ public class ProjectileWeaponController : RangedWeaponController
         }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         spreadRadius = projectileWeaponConfig.baseSpread;
     }
 
@@ -40,7 +39,7 @@ public class ProjectileWeaponController : RangedWeaponController
         }
         ammo--;
         currentAmmoDisplay.SetValue(ammo);
-        ammoChangeEvent.Invoke((ammo, totalAmmo));
+        InvokeAmmoChengeEvent(ammo, totalAmmo);
         Vector3 projectleSpread = Random.insideUnitSphere * spreadRadius;
         Vector3 relativeOffset = projectileWeaponConfig.projectileOffset.x * transform.right + projectileWeaponConfig.projectileOffset.y * transform.up + projectileWeaponConfig.projectileOffset.z * transform.forward;
         Quaternion relativeRotation = Quaternion.Euler(transform.TransformDirection(projectleSpread + projectileWeaponConfig.projectileAngularOffset));
@@ -77,7 +76,7 @@ public class ProjectileWeaponController : RangedWeaponController
         {
             spreadRadius = projectileWeaponConfig.maxSpread;
         }
-        AttackEvent.Invoke();
+        InvokeAttackEvent();
     }
 
     private void FixedUpdate()

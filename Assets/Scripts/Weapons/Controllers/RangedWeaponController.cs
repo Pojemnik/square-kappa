@@ -12,15 +12,12 @@ public abstract class RangedWeaponController : WeaponController
     [SerializeField]
     protected DisplayController currentAmmoDisplay;
 
-    protected UnityEvent shootEvent;
     protected Quaternion projectileDirection;
-    protected UnityEvent<(int, int)> ammoChangeEvent;
     protected int ammo;
     protected int totalAmmo;
     protected bool triggerHold = false;
 
     public override WeaponConfig Config { get => config; }
-    public override UnityEvent AttackEvent { get => shootEvent; }
     public override Quaternion AttackDirection { get => projectileDirection; set { projectileDirection = value; } }
     public abstract override float Spread { get; }
 
@@ -39,13 +36,7 @@ public abstract class RangedWeaponController : WeaponController
             return MagazineStateType.NotEmptyNotFull;
         }
     }
-    public override UnityEvent<(int, int)> AmmoChangeEvent { get => ammoChangeEvent; }
 
-    protected virtual void Awake()
-    {
-        shootEvent = new UnityEvent();
-        ammoChangeEvent = new UnityEvent<(int, int)>();
-    }
     public override void StartAttack()
     {
         StartShoot();
@@ -78,7 +69,7 @@ public abstract class RangedWeaponController : WeaponController
             int ammoLeft = ammo;
             ammo = 0;
             currentAmmoDisplay.SetValue(ammo);
-            ammoChangeEvent.Invoke((ammo, totalAmmo));
+            InvokeAmmoChengeEvent(ammo, totalAmmo);
             return ammoLeft;
         }
         int total = amount + ammo;
@@ -93,7 +84,7 @@ public abstract class RangedWeaponController : WeaponController
             total -= Config.maxAmmo;
         }
         currentAmmoDisplay.SetValue(ammo);
-        ammoChangeEvent.Invoke((ammo, totalAmmo));
+        InvokeAmmoChengeEvent(ammo, totalAmmo);
         return total;
     }
 
@@ -101,6 +92,6 @@ public abstract class RangedWeaponController : WeaponController
     {
         totalAmmoDisplay.SetValue(amount);
         totalAmmo = amount;
-        ammoChangeEvent.Invoke((ammo, totalAmmo));
+        InvokeAmmoChengeEvent(ammo, totalAmmo);
     }
 }

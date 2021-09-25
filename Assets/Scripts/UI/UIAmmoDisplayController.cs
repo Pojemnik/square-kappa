@@ -36,10 +36,10 @@ public class UIAmmoDisplayController : MonoBehaviour
         }
         if (weaponController != null)
         {
-            weaponController.AmmoChangeEvent.RemoveListener(OnAmmoAmountUpdated);
+            weaponController.ammoChangeEvent -= (s, a) => OnAmmoAmountUpdated(a);
         }
         weaponController = controller;
-        weaponController.AmmoChangeEvent.AddListener(OnAmmoAmountUpdated);
+        weaponController.ammoChangeEvent += (s, a) => OnAmmoAmountUpdated(a);
 
     }
 

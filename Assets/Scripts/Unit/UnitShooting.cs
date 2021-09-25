@@ -37,12 +37,12 @@ public class UnitShooting : MonoBehaviour
     {
         if (weaponController != null)
         {
-            weaponController.AttackEvent.RemoveListener(OnWeaponShoot);
+            weaponController.attackEvent -= (s, e) => OnWeaponShoot();
         }
         weaponController = newController;
         if (weaponController != null)
         {
-            weaponController.AttackEvent.AddListener(OnWeaponShoot);
+            weaponController.attackEvent += (s,e) => OnWeaponShoot();
         }
         weaponController.SetTotalAmmo(allAmmo[weaponController.Config.type]);
     }

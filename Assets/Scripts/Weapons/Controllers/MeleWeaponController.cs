@@ -7,20 +7,15 @@ public class MeleWeaponController : WeaponController
 {
     public override WeaponConfig Config { get => meleConfig; }
 
-    public override UnityEvent AttackEvent { get => attackEvent; }
-
     public override Quaternion AttackDirection { get => attackDirection; set { attackDirection = value; } }
 
     public override float Spread { get => 0; }
 
     public override MagazineStateType MagazineState => MagazineStateType.Full;
 
-    public override UnityEvent<(int, int)> AmmoChangeEvent => new UnityEvent<(int, int)>();
-
     [SerializeField]
     private MeleWeaponConfig meleConfig;
 
-    private UnityEvent attackEvent;
     private Quaternion attackDirection;
     private bool attacking;
     private bool coroutineRunning;
@@ -38,7 +33,7 @@ public class MeleWeaponController : WeaponController
     {
         coroutineRunning = true;
         yield return new WaitForSeconds(timeDelta);
-        attackEvent.Invoke();
+        InvokeAttackEvent();
         Vector3 startPos = attackDirection * -Vector3.forward * 0.3f + transform.position;
         if (Physics.SphereCast(startPos, 0.2f, attackDirection * Vector3.forward, out RaycastHit hit, meleConfig.range, KappaLayerMask.PlayerMeleAttackMask))
         {
@@ -66,7 +61,6 @@ public class MeleWeaponController : WeaponController
 
     private void Awake()
     {
-        attackEvent = new UnityEvent();
         attacking = false;
     }
 
