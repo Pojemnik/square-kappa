@@ -6,14 +6,24 @@ public class RayController : MonoBehaviour
 {
     private LineRenderer line;
     private const float maxLength = 10000F;
+    private Vector3 localStartPoint;
 
-    public void DisplayRay(Vector3 start, Vector3 direction)
+    public Vector3 StartPoint { get => transform.TransformPoint(localStartPoint); }
+
+    public void SetLocalRayDirection(Vector3 start, Vector3 direction)
     {
-        line.SetPositions(new Vector3[] { start, start + direction * maxLength });
+        localStartPoint = start;
+        line.SetPositions(new Vector3[] { start, start + transform.InverseTransformDirection(direction) * maxLength });
     }
 
-    void Start()
+    public void SetLocalRayDirection(Vector3 direction)
+    {
+        line.SetPosition(1, transform.InverseTransformDirection(direction) * maxLength);
+    }
+
+    void Awake()
     {
         line = GetComponent<LineRenderer>();
+        line.useWorldSpace = false;
     }
 }

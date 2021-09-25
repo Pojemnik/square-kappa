@@ -10,6 +10,17 @@ public class RayWeaponController : RangedWeaponController
     private RayWeaponConfig rayConfig;
 
     private RayController projectile;
+    private Coroutine shootCoroutine;
+
+    public override Quaternion AttackDirection
+    {
+        get => projectileDirection;
+        set
+        {
+            projectileDirection = value;
+            UpdateRayDirection();
+        }
+    }
 
     private void Awake()
     {
@@ -20,26 +31,37 @@ public class RayWeaponController : RangedWeaponController
     public override void StartAttack()
     {
         base.StartAttack();
+        projectile.SetLocalRayDirection(rayConfig.projectileOffset, projectileDirection * Vector3.forward);
         projectile.gameObject.SetActive(true);
+        if (shootCoroutine != null)
+        {
+            StopCoroutine(shootCoroutine);
+        }
+        shootCoroutine = StartCoroutine(Shoot());
     }
 
     public override void StopAttack()
     {
         base.StopAttack();
         projectile.gameObject.SetActive(false);
-    }
-
-    private void Shoot()
-    {
-        Vector3 offset = rayConfig.projectileOffset.x * transform.right + rayConfig.projectileOffset.y * transform.up + rayConfig.projectileOffset.z * transform.forward;
-        projectile.DisplayRay(transform.position + offset, transform.forward);
-    }
-
-    private void FixedUpdate()
-    {
-        if(triggerHold)
+        if (shootCoroutine != null)
         {
-            Shoot();
+            StopCoroutine(shootCoroutine);
+        }
+    }
+
+    private void UpdateRayDirection()
+    {
+        projectile.SetLocalRayDirection(projectileDirection * Vector3.forward);
+    }
+
+    private IEnumerator Shoot()
+    {
+        while (triggerHold)
+        {
+            yield return new WaitForSeconds(rayConfig.tickDuration);
+            //Physics.Raycast(projectile.StartPoint, projectile.Direction);
+            Debug.DrawLine(projectile.StartPoint, projectile.StartPoint + projectileDirection * Vector3.forward * 1000, Color.magenta);
         }
     }
 }

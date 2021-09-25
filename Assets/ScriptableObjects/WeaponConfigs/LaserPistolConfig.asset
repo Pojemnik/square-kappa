@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 957d83011fa9d184b94066aa23466a67, type: 3}
   m_Name: LaserPistolConfig
   m_EditorClassIdentifier: 
-  tickDuration: 1
+  tickDuration: 0.001
   projectilePrefab: {fileID: 3761920593106355367, guid: 67ea47bfd4fcae641a9e5e7c43511ee9, type: 3}
+  projectileOffset: {x: 0, y: 0, z: 0.1}
