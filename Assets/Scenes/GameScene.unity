@@ -1061,6 +1061,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1128599930}
     m_Modifications:
+    - target: {fileID: 3194792188501192520, guid: 2c2b225332d7b8e4cae61530ff0b4c2a, type: 3}
+      propertyPath: armor
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3628390850189178116, guid: 2c2b225332d7b8e4cae61530ff0b4c2a, type: 3}
       propertyPath: m_RootOrder
       value: 17
@@ -1361,7 +1365,7 @@ GameObject:
   - component: {fileID: 418123527}
   - component: {fileID: 418123529}
   - component: {fileID: 418123528}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1819,6 +1823,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1128599930}
     m_Modifications:
+    - target: {fileID: -333374077773697028, guid: 690049eb83eb13c4285afa8799395667, type: 3}
+      propertyPath: armor
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6943953166231702397, guid: 690049eb83eb13c4285afa8799395667, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -1981,6 +1989,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asteroid04
       objectReference: {fileID: 0}
+    - target: {fileID: 2588931039001239114, guid: 96f4c9a9259ade14898702db5ee05cfa, type: 3}
+      propertyPath: armor
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96f4c9a9259ade14898702db5ee05cfa, type: 3}
 --- !u!1001 &532006700
@@ -2130,6 +2142,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1128599930}
     m_Modifications:
+    - target: {fileID: -6068824614097086585, guid: 93c8f06a4b151dc4f94dba0612424365, type: 3}
+      propertyPath: armor
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 352428958641465504, guid: 93c8f06a4b151dc4f94dba0612424365, type: 3}
       propertyPath: m_Name
       value: Asteroid01
@@ -2531,7 +2547,7 @@ GameObject:
   - component: {fileID: 645201341}
   - component: {fileID: 645201343}
   - component: {fileID: 645201342}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6288,7 +6304,7 @@ GameObject:
   - component: {fileID: 1570393429}
   - component: {fileID: 1570393431}
   - component: {fileID: 1570393430}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,8 +9,10 @@ public class RayWeaponController : RangedWeaponController
     [SerializeField]
     private RayWeaponConfig rayConfig;
 
+    private GameObject flame;
     private RayController projectile;
     private Coroutine shootCoroutine;
+    private int layerMask;
 
     public override Quaternion AttackDirection
     {
@@ -39,6 +41,26 @@ public class RayWeaponController : RangedWeaponController
         }
         shootCoroutine = StartCoroutine(Shoot());
         SetProjectileLayer(projectile.gameObject);
+        CalculateLayerMask();
+    }
+
+    private void CalculateLayerMask()
+    {
+        string[] ignored;
+        if (gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            ignored = new string[] { "Player", "PlayerEnvironmentalCollision", "PlayerProjectile", "Objectives", "Pickups" };
+        }
+        else
+        {
+            ignored = new string[] { "Enemy", "EnemyEnvironmentalCollision", "EnemyProjectile", "Objectives", "Pickups" };
+        }
+        layerMask = 0;
+        foreach (string s in ignored)
+        {
+            layerMask |= LayerMask.NameToLayer(s);
+        }
+        layerMask = ~layerMask;
     }
 
     public override void StopAttack()
@@ -61,8 +83,29 @@ public class RayWeaponController : RangedWeaponController
         while (triggerHold)
         {
             yield return new WaitForSeconds(rayConfig.tickDuration);
-            Physics.Raycast(projectile.StartPoint, projectileDirection * Vector3.forward);
             Debug.DrawLine(projectile.StartPoint, projectile.StartPoint + projectileDirection * Vector3.forward * 1000, Color.magenta);
+            if(Physics.Raycast(projectile.StartPoint, projectileDirection * Vector3.forward, out RaycastHit raycastHit, 1000, layerMask))
+            {
+                Destroy(Instantiate(rayConfig.hitEffectPrefab, raycastHit.point, Quaternion.Euler(raycastHit.normal)), 0.5f);
+                Health health = GetParentsHealth(raycastHit.collider.transform);
+                if(health == null)
+                {
+                    continue;
+                }
+                DamageInfo info = new DamageInfo(config.damage, projectileDirection * Vector3.back, raycastHit.point, raycastHit.normal);
+                health.Damaged(info);
+            }
         }
+    }
+
+    private Health GetParentsHealth(Transform transform)
+    {
+        Health health = transform.gameObject.GetComponent<Health>();
+        while (transform.parent != null && health == null)
+        {
+            health = transform.gameObject.GetComponent<Health>();
+            transform = transform.parent;
+        }
+        return health;
     }
 }

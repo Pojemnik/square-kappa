@@ -10,4 +10,13 @@ public class RayWeaponConfig : ScriptableObject
     [Header("Projectile")]
     public GameObject projectilePrefab;
     public Vector3 projectileOffset;
+
+    [Header("Flame")]
+    public GameObject flamePrefab;
+    public Vector3 flameOffset;
+    public Vector3 flameRotation;
+    public float flameScale;
+
+    [Header("Hit")]
+    public GameObject hitEffectPrefab;
 }
