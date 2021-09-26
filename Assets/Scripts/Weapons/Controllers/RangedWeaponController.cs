@@ -84,4 +84,16 @@ public abstract class RangedWeaponController : WeaponController
         totalAmmo = amount;
         InvokeAmmoChengeEvent(ammo, totalAmmo);
     }
+
+    protected void SetProjectileLayer(GameObject proj)
+    {
+        if (gameObject.layer == 6)
+        {
+            proj.layer = 8;
+        }
+        else if (gameObject.layer == 7)
+        {
+            proj.layer = 9;
+        }
+    }
 }

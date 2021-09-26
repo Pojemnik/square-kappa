@@ -38,6 +38,7 @@ public class RayWeaponController : RangedWeaponController
             StopCoroutine(shootCoroutine);
         }
         shootCoroutine = StartCoroutine(Shoot());
+        SetProjectileLayer(projectile.gameObject);
     }
 
     public override void StopAttack()
@@ -60,7 +61,7 @@ public class RayWeaponController : RangedWeaponController
         while (triggerHold)
         {
             yield return new WaitForSeconds(rayConfig.tickDuration);
-            //Physics.Raycast(projectile.StartPoint, projectile.Direction);
+            Physics.Raycast(projectile.StartPoint, projectileDirection * Vector3.forward);
             Debug.DrawLine(projectile.StartPoint, projectile.StartPoint + projectileDirection * Vector3.forward * 1000, Color.magenta);
         }
     }

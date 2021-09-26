@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7084436417784591191}
-  - component: {fileID: -5935184198122095844}
   - component: {fileID: 8914746284611121590}
   - component: {fileID: 380301330061350792}
+  - component: {fileID: 1256661925055794320}
   m_Layer: 0
   m_Name: ChemirailProjectile
   m_TagString: Projectile
@@ -34,24 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5935184198122095844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5938995904749229982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5f3d4cf7d513654f870296c914cf5fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitEffectPrefab: {fileID: 4258533656440301915, guid: 118779ae6458e3c4bb91e8b4b2ff0e3c, type: 3}
-  damage: 18
-  mass: 1
-  ignoredLayers: 
-  speed: 0
-  direction: {x: 0, y: 0, z: 0}
 --- !u!135 &8914746284611121590
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -81,6 +63,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &1256661925055794320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5938995904749229982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b55f737f7450304982f2fd39172e193, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitEffectPrefab: {fileID: 4258533656440301915, guid: 118779ae6458e3c4bb91e8b4b2ff0e3c, type: 3}
+  damage: 0
+  mass: 1
+  ignoredLayers: 
+  speed: 0
+  direction: {x: 0, y: 0, z: 0}
 --- !u!1001 &5149577628679646401
 PrefabInstance:
   m_ObjectHideFlags: 0

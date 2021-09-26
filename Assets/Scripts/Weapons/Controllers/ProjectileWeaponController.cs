@@ -43,31 +43,17 @@ public class ProjectileWeaponController : RangedWeaponController
         Vector3 projectleSpread = Random.insideUnitSphere * spreadRadius;
         Vector3 relativeOffset = projectileWeaponConfig.projectileOffset.x * transform.right + projectileWeaponConfig.projectileOffset.y * transform.up + projectileWeaponConfig.projectileOffset.z * transform.forward;
         Quaternion relativeRotation = Quaternion.Euler(transform.TransformDirection(projectleSpread + projectileWeaponConfig.projectileAngularOffset));
-        GameObject projectile = Instantiate(projectileWeaponConfig.projectilePrefab, transform.position + relativeOffset, projectileDirection * relativeRotation);
-        if (gameObject.layer == 6)
-        {
-            projectile.layer = 8;
-        }
-        else if (gameObject.layer == 7)
-        {
-            projectile.layer = 9;
-        }
-        ProjectileController projectileController = projectile.GetComponent<ProjectileController>();
-        projectileController.speed = projectileWeaponConfig.projectileSpeed;
-        projectileController.direction = projectile.transform.forward;
-        projectile.transform.localScale = Vector3.one * projectileWeaponConfig.projectileScale;
-        projectile.SetActive(true);
-        Destroy(projectile, projectileWeaponConfig.projectileLifetime);
+        CreateProjectile(relativeOffset, relativeRotation);
         if (projectileWeaponConfig.flamePrefab)
         {
-            GameObject fireEffect = Instantiate(projectileWeaponConfig.flamePrefab, transform.position, transform.rotation);
-            fireEffect.transform.parent = transform;
-            fireEffect.transform.Translate(projectileWeaponConfig.flameOffset, Space.Self);
-            fireEffect.transform.Rotate(projectileWeaponConfig.flameRotation);
-            fireEffect.transform.localScale = Vector3.one * projectileWeaponConfig.flameScale;
-            fireEffect.SetActive(true);
-            Destroy(fireEffect, projectileWeaponConfig.fireLifetime);
+            CreateFlame();
         }
+        UpdateSpreadAfterShoot();
+        InvokeAttackEvent();
+    }
+
+    private void UpdateSpreadAfterShoot()
+    {
         if (spreadRadius < projectileWeaponConfig.maxSpread)
         {
             spreadRadius += projectileWeaponConfig.spreadIncrease;
@@ -76,7 +62,30 @@ public class ProjectileWeaponController : RangedWeaponController
         {
             spreadRadius = projectileWeaponConfig.maxSpread;
         }
-        InvokeAttackEvent();
+    }
+
+    private void CreateProjectile(Vector3 relativeOffset, Quaternion relativeRotation)
+    {
+        GameObject projectile = Instantiate(projectileWeaponConfig.projectilePrefab, transform.position + relativeOffset, projectileDirection * relativeRotation);
+        SetProjectileLayer(projectile);
+        ProjectileController projectileController = projectile.GetComponent<ProjectileController>();
+        projectileController.damage = config.damage;
+        projectileController.speed = projectileWeaponConfig.projectileSpeed;
+        projectileController.direction = projectile.transform.forward;
+        projectile.transform.localScale = Vector3.one * projectileWeaponConfig.projectileScale;
+        projectile.SetActive(true);
+        Destroy(projectile, projectileWeaponConfig.projectileLifetime);
+    }
+
+    private void CreateFlame()
+    {
+        GameObject fireEffect = Instantiate(projectileWeaponConfig.flamePrefab, transform.position, transform.rotation);
+        fireEffect.transform.parent = transform;
+        fireEffect.transform.Translate(projectileWeaponConfig.flameOffset, Space.Self);
+        fireEffect.transform.Rotate(projectileWeaponConfig.flameRotation);
+        fireEffect.transform.localScale = Vector3.one * projectileWeaponConfig.flameScale;
+        fireEffect.SetActive(true);
+        Destroy(fireEffect, projectileWeaponConfig.fireLifetime);
     }
 
     private void FixedUpdate()

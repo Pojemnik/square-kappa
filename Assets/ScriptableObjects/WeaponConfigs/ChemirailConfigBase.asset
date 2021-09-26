@@ -17,3 +17,4 @@ MonoBehaviour:
   backwardsForce: 1000
   maxAmmo: 30
   length: 1.2
+  damage: 18

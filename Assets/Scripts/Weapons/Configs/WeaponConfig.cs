@@ -27,4 +27,5 @@ public class WeaponConfig : ScriptableObject
     public float backwardsForce;
     public int maxAmmo;
     public float length;
+    public int damage;
 }
