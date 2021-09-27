@@ -95,10 +95,19 @@ public class RayWeaponController : RangedWeaponController
     {
         while (triggerHold)
         {
-            if(raycastHit.collider != null)
+            if (ammo <= 0)
+            {
+                triggerHold = false;
+                StopAttack();
+                break;
+            }
+            ammo--;
+            currentAmmoDisplay.SetValue(ammo);
+            InvokeAmmoChengeEvent(ammo, totalAmmo);
+            if (raycastHit.collider != null)
             {
                 Health health = GetParentsHealth(raycastHit.transform);
-                if(health == null)
+                if (health == null)
                 {
                     yield return new WaitForSeconds(rayConfig.tickDuration);
                     continue;
@@ -123,7 +132,7 @@ public class RayWeaponController : RangedWeaponController
 
     private void Update()
     {
-        if(!triggerHold)
+        if (!triggerHold)
         {
             return;
         }

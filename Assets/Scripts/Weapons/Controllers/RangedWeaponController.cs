@@ -50,6 +50,7 @@ public abstract class RangedWeaponController : WeaponController
     protected void Start()
     {
         ammo = Config.maxAmmo;
+        currentAmmoDisplay.SetValue(ammo);
     }
 
     public override int Reload(int amount)
