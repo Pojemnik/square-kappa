@@ -77,7 +77,7 @@ public class RayWeaponController : RangedWeaponController
     public override void StopAttack()
     {
         base.StopAttack();
-        projectile.gameObject.SetActive(false);
+        projectile?.gameObject?.SetActive(false);
         if (shootCoroutine != null)
         {
             StopCoroutine(shootCoroutine);
