@@ -112,7 +112,7 @@ public class RayWeaponController : RangedWeaponController
                     yield return new WaitForSeconds(rayConfig.tickDuration);
                     continue;
                 }
-                DamageInfo info = new DamageInfo(config.damage, projectileDirection * Vector3.back, raycastHit.point, raycastHit.normal);
+                DamageInfo info = new DamageInfo(config.damage, projectileDirection * Vector3.forward, raycastHit.point, raycastHit.normal);
                 health.Damaged(info);
             }
             yield return new WaitForSeconds(rayConfig.tickDuration);
