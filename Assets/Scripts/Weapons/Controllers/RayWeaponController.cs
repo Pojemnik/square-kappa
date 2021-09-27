@@ -32,6 +32,11 @@ public class RayWeaponController : RangedWeaponController
         projectile.gameObject.SetActive(false);
         hitEffect = Instantiate(rayConfig.hitEffectPrefab);
         hitEffect.SetActive(false);
+        flame = Instantiate(rayConfig.flamePrefab, transform);
+        flame.transform.localPosition = rayConfig.flameOffset;
+        flame.transform.localScale = Vector3.one * rayConfig.flameScale;
+        flame.transform.localRotation = Quaternion.Euler(rayConfig.flameRotation);
+        flame.SetActive(false);
     }
 
     public override void StartAttack()
@@ -47,6 +52,7 @@ public class RayWeaponController : RangedWeaponController
         CalculateLayerMask();
         Physics.Raycast(projectile.StartPoint, projectileDirection * Vector3.forward, out raycastHit, 1000, layerMask);
         shootCoroutine = StartCoroutine(Shoot());
+        flame.SetActive(true);
     }
 
     private void CalculateLayerMask()
@@ -77,6 +83,7 @@ public class RayWeaponController : RangedWeaponController
             StopCoroutine(shootCoroutine);
         }
         hitEffect?.SetActive(false);
+        flame?.SetActive(false);
     }
 
     private void UpdateRayDirection()
