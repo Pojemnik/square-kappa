@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 957d83011fa9d184b94066aa23466a67, type: 3}
   m_Name: LaserPistolConfig
   m_EditorClassIdentifier: 
-  tickDuration: 0.001
+  tickDuration: 0.1
   projectilePrefab: {fileID: 3761920593106355367, guid: 67ea47bfd4fcae641a9e5e7c43511ee9, type: 3}
   projectileOffset: {x: 0, y: 0, z: 0.1}
   flamePrefab: {fileID: 1362533273023082379, guid: 1474be97aaced9943989628c4c6f7016, type: 3}
   flameOffset: {x: 0, y: -0.032, z: 0.481}
   flameRotation: {x: 180, y: 0, z: 0}
   flameScale: 0.1
-  hitEffectPrefab: {fileID: 4258533656440301915, guid: 118779ae6458e3c4bb91e8b4b2ff0e3c, type: 3}
+  hitEffectPrefab: {fileID: 1934524515086190549, guid: 399eeb31773e4bb45bbe8e25eb990563, type: 3}

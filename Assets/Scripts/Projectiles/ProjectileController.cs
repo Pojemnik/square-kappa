@@ -88,7 +88,7 @@ public class ProjectileController : MonoBehaviour
             ContactPoint contact = collision.GetContact(0);
             othersHealth.Damaged(new DamageInfo(damage, direction, contact.point, contact.normal));
         }
-        Destroy(Instantiate(hitEffectPrefab, collision.GetContact(0).point, Quaternion.Euler(collision.GetContact(0).normal)), 5);
+        Destroy(Instantiate(hitEffectPrefab, collision.GetContact(0).point, Quaternion.identity), 5);
         Destroy(gameObject);
     }
 }

@@ -10,9 +10,11 @@ public class RayWeaponController : RangedWeaponController
     private RayWeaponConfig rayConfig;
 
     private GameObject flame;
+    private GameObject hitEffect;
     private RayController projectile;
     private Coroutine shootCoroutine;
     private int layerMask;
+    private RaycastHit raycastHit;
 
     public override Quaternion AttackDirection
     {
@@ -28,6 +30,8 @@ public class RayWeaponController : RangedWeaponController
     {
         projectile = Instantiate(rayConfig.projectilePrefab, transform).GetComponent<RayController>();
         projectile.gameObject.SetActive(false);
+        hitEffect = Instantiate(rayConfig.hitEffectPrefab);
+        hitEffect.SetActive(false);
     }
 
     public override void StartAttack()
@@ -39,9 +43,10 @@ public class RayWeaponController : RangedWeaponController
         {
             StopCoroutine(shootCoroutine);
         }
-        shootCoroutine = StartCoroutine(Shoot());
         SetProjectileLayer(projectile.gameObject);
         CalculateLayerMask();
+        Physics.Raycast(projectile.StartPoint, projectileDirection * Vector3.forward, out raycastHit, 1000, layerMask);
+        shootCoroutine = StartCoroutine(Shoot());
     }
 
     private void CalculateLayerMask()
@@ -71,6 +76,7 @@ public class RayWeaponController : RangedWeaponController
         {
             StopCoroutine(shootCoroutine);
         }
+        hitEffect?.SetActive(false);
     }
 
     private void UpdateRayDirection()
@@ -82,19 +88,18 @@ public class RayWeaponController : RangedWeaponController
     {
         while (triggerHold)
         {
-            yield return new WaitForSeconds(rayConfig.tickDuration);
-            Debug.DrawLine(projectile.StartPoint, projectile.StartPoint + projectileDirection * Vector3.forward * 1000, Color.magenta);
-            if(Physics.Raycast(projectile.StartPoint, projectileDirection * Vector3.forward, out RaycastHit raycastHit, 1000, layerMask))
+            if(raycastHit.collider != null)
             {
-                Destroy(Instantiate(rayConfig.hitEffectPrefab, raycastHit.point, Quaternion.Euler(raycastHit.normal)), 0.5f);
-                Health health = GetParentsHealth(raycastHit.collider.transform);
+                Health health = GetParentsHealth(raycastHit.transform);
                 if(health == null)
                 {
+                    yield return new WaitForSeconds(rayConfig.tickDuration);
                     continue;
                 }
                 DamageInfo info = new DamageInfo(config.damage, projectileDirection * Vector3.back, raycastHit.point, raycastHit.normal);
                 health.Damaged(info);
             }
+            yield return new WaitForSeconds(rayConfig.tickDuration);
         }
     }
 
@@ -107,5 +112,24 @@ public class RayWeaponController : RangedWeaponController
             transform = transform.parent;
         }
         return health;
+    }
+
+    private void Update()
+    {
+        if(!triggerHold)
+        {
+            return;
+        }
+        Debug.DrawLine(projectile.StartPoint, projectile.StartPoint + projectileDirection * Vector3.forward * 1000, Color.magenta);
+        if (Physics.Raycast(projectile.StartPoint, projectileDirection * Vector3.forward, out raycastHit, 1000, layerMask))
+        {
+            hitEffect.SetActive(true);
+            hitEffect.transform.position = raycastHit.point;
+            hitEffect.transform.rotation = Quaternion.LookRotation(raycastHit.normal);
+        }
+        else
+        {
+            hitEffect.SetActive(false);
+        }
     }
 }
