@@ -2,20 +2,60 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.Mathematics;
 
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 public class AsteroidGenerator : MonoBehaviour
 {
-    public float maxCraterSize;
-    public float minCraterSize;
-    public float bottomHeight;
-    public float hillHeight;
-    public float hillRatio;
+    [System.Serializable]
+    public class NoiseLayer
+    {
+        public bool enabled;
+        public float noiseMultipler;
+        public float baseHeight;
+        public Vector3 offset;
+        public float positionScale;
+        public enum NoiseType
+        {
+            Perlin,
+            Simplex,
+            Cellular3,
+            Cellular2
+        }
+
+        public NoiseType noiseType;
+
+        private Dictionary<NoiseType, System.Func<Vector3, float>> noiseFunctions;
+
+        private void GetNoiseFunctions()
+        {
+            noiseFunctions = new Dictionary<NoiseType, System.Func<Vector3, float>>
+            {
+                [NoiseType.Perlin] = (pos) => Unity.Mathematics.noise.cnoise(pos),
+                [NoiseType.Simplex] = (pos) => Unity.Mathematics.noise.snoise(pos),
+                [NoiseType.Cellular3] = (pos) => Unity.Mathematics.noise.cellular(pos).y,
+                [NoiseType.Cellular2] = (pos) => Unity.Mathematics.noise.cellular2x2x2(pos).x
+            };
+        }
+
+        public float GetVertexHeight(Vector3 vertex)
+        {
+            if(!enabled)
+            {
+                return 1;
+            }
+            if(noiseFunctions == null)
+            {
+                GetNoiseFunctions();
+            }
+            Vector3 pos = vertex * positionScale + offset;
+            return Mathf.Clamp01(noiseFunctions[noiseType](pos) / 2 + 0.5f) * noiseMultipler + baseHeight;
+        }
+    }
     public int meshSize;
-    public float smoothK;
-    public int craters;
-    public int seed;
+
+    public List<NoiseLayer> noiseLayers;
 
     public enum CraterOverlapMode
     {
@@ -40,51 +80,13 @@ public class AsteroidGenerator : MonoBehaviour
 
     private void ApplyChanges()
     {
-        Random.InitState(seed);
-        Vector3[] cratersPositions = new Vector3[craters];
-        float[] cratersSizes = new float[craters];
-        for (int i = 0; i < craters; i++)
-        {
-            cratersPositions[i] = Random.onUnitSphere;
-            cratersSizes[i] = Random.Range(minCraterSize, maxCraterSize);
-        }
         Vector3[] vertices = mesh.vertices;
         for (int i = 0; i < vertices.Length; i++)
         {
             float finalHeight = 1;
-            for (int j = 0; j < craters; j++)
+            foreach (NoiseLayer layer in noiseLayers)
             {
-                float height = 1;
-                float dist = (vertices[i] - cratersPositions[j]).magnitude;
-                float r = cratersSizes[j];
-                if (r < dist)
-                {
-                    continue;
-                }
-                float edge = (1 / (r * r)) * dist * dist;
-                float bottom = bottomHeight;
-                float hillSize = r * hillRatio;
-                float b = (bottomHeight - hillHeight + hillSize * hillSize) / hillSize;
-                float hill = -dist * dist + b * dist + hillHeight;
-                height = SmoothMin(edge, height, smoothK);
-                float bottomHill = SmoothMin(bottom, hill, -smoothK);
-                height = SmoothMin(bottomHill, height, -smoothK);
-                switch (craterOverlap)
-                {
-                    case CraterOverlapMode.Smooth:
-                        finalHeight = SmoothMin(finalHeight, height, smoothK);
-                        break;
-                    case CraterOverlapMode.Multiply:
-                        finalHeight *= height;
-                        break;
-                    case CraterOverlapMode.None:
-                        finalHeight = height;
-                        break;
-                    default:
-                        finalHeight = height;
-                        break;
-                }
-
+                finalHeight *= layer.GetVertexHeight(vertices[i]);
             }
             vertices[i] *= finalHeight;
         }
