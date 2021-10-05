@@ -11,6 +11,10 @@ public class UIAmmoDisplayController : MonoBehaviour
     private GameObject currentAmmoDisplay;
     [SerializeField]
     private GameObject displayContainer;
+    [SerializeField]
+    private SerializableDictionary<WeaponConfig.WeaponType, UnityEngine.Sprite> weaponIcons;
+    [SerializeField]
+    private UnityEngine.UI.Image weaponImage;
 
     private DisplayController totalAmmoDisplayController;
     private DisplayController currentAmmoDisplayController;
@@ -26,9 +30,13 @@ public class UIAmmoDisplayController : MonoBehaviour
 
     public void OnWeaponChange(WeaponController controller)
     {
-        if(controller.Config.type == WeaponConfig.WeaponType.Rifle || controller.Config.type == WeaponConfig.WeaponType.Pistol)
+        if (controller.Config.type == WeaponConfig.WeaponType.Rifle || controller.Config.type == WeaponConfig.WeaponType.Pistol)
         {
             DisplayAmmo();
+            if (weaponIcons.ContainsKey(controller.Config.type))
+            {
+                weaponImage.sprite = weaponIcons[controller.Config.type];
+            }
         }
         else
         {

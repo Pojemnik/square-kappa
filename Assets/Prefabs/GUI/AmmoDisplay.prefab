@@ -530,6 +530,13 @@ MonoBehaviour:
   totalAmmoDisplay: {fileID: 4231339823040646312}
   currentAmmoDisplay: {fileID: 4231339823920200166}
   displayContainer: {fileID: 4231339824992536736}
+  weaponIcons:
+    array:
+    - Key: 0
+      Value: {fileID: 21300000, guid: e5b5577d04d60a1478ebdd39e8db48b4, type: 3}
+    - Key: 1
+      Value: {fileID: 21300000, guid: 7b88067b2adadfb4298e3d4b3723a21e, type: 3}
+  weaponImage: {fileID: 4231339823428340178}
 --- !u!1 &4231339824266641739
 GameObject:
   m_ObjectHideFlags: 0
