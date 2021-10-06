@@ -607,7 +607,7 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: Koenigz
+    m_Name: LaserPistol
     m_StateMachine: {fileID: 1934616592236882468}
     m_Mask: {fileID: 31900000, guid: ae0809862a24c2b46ab1380a88144ed1, type: 2}
     m_Motions: []
@@ -619,7 +619,7 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: Hesgun
+    m_Name: LaserRifle
     m_StateMachine: {fileID: 5901666913732255772}
     m_Mask: {fileID: 31900000, guid: ae0809862a24c2b46ab1380a88144ed1, type: 2}
     m_Motions: []
