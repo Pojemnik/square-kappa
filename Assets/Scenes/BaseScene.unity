@@ -3252,7 +3252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1280456608684126228, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: startAmmo.array.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1280456608684126228, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: startAmmo.array.Array.data[0].Key
@@ -3263,11 +3263,19 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1280456608684126228, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: startAmmo.array.Array.data[2].Key
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280456608684126228, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: startAmmo.array.Array.data[0].Value
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1280456608684126228, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: startAmmo.array.Array.data[1].Value
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280456608684126228, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: startAmmo.array.Array.data[2].Value
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2033507179630016006, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}

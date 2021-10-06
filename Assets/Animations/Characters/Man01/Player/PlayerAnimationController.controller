@@ -621,7 +621,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Hesgun
     m_StateMachine: {fileID: 5901666913732255772}
-    m_Mask: {fileID: 0}
+    m_Mask: {fileID: 31900000, guid: ae0809862a24c2b46ab1380a88144ed1, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -705,7 +705,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Koenigz
+  m_Name: LaserPistol
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -8725235514034824271}
@@ -897,7 +897,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hesgun
+  m_Name: LaserRifle
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -4274386992424724542}

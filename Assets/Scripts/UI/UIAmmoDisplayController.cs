@@ -30,17 +30,17 @@ public class UIAmmoDisplayController : MonoBehaviour
 
     public void OnWeaponChange(WeaponController controller)
     {
-        if (controller.Config.type == WeaponConfig.WeaponType.Rifle || controller.Config.type == WeaponConfig.WeaponType.Pistol)
+        if (controller.Config.type == WeaponConfig.WeaponType.Fists)
+        {
+            HideAmmo();
+        }
+        else
         {
             DisplayAmmo();
             if (weaponIcons.ContainsKey(controller.Config.type))
             {
                 weaponImage.sprite = weaponIcons[controller.Config.type];
             }
-        }
-        else
-        {
-            HideAmmo();
         }
         if (weaponController != null)
         {

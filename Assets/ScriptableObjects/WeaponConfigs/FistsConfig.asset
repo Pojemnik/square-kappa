@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FistsConfig
   m_EditorClassIdentifier: 
   size: 0
-  type: 2
+  type: 3
   backwardsForce: 0
   maxAmmo: 0
   length: 0.5

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HesgunConfigBase
   m_EditorClassIdentifier: 
   size: 1
-  type: 1
+  type: 2
   backwardsForce: 0
   maxAmmo: 200
   length: 1.2
