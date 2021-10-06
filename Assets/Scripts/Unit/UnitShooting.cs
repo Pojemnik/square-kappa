@@ -57,6 +57,10 @@ public class UnitShooting : MonoBehaviour
         {
             return;
         }
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
         if (AmmoAvailable())
         {
             weaponController.StartAttack();
