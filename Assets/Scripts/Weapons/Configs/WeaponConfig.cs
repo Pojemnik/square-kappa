@@ -15,8 +15,9 @@ public class WeaponConfig : ScriptableObject
     [System.Serializable]
     public enum WeaponType
     {
-        Pistol,
+        LaserPistol,
         Rifle,
+        LaserRifle,
         Fists
     }
     [Tooltip("Size of slot taken by weapon in inventory")]

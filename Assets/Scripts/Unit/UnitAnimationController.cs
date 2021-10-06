@@ -61,8 +61,11 @@ public class UnitAnimationController : MonoBehaviour
                 case WeaponConfig.WeaponType.Rifle:
                     SetAnimatorLayer("Chemirail");
                     break;
-                case WeaponConfig.WeaponType.Pistol:
+                case WeaponConfig.WeaponType.LaserPistol:
                     SetAnimatorLayer("LaserPistol");
+                    break;
+                case WeaponConfig.WeaponType.LaserRifle:
+                    SetAnimatorLayer("LaserRifle");
                     break;
                 case WeaponConfig.WeaponType.Fists:
                     SetAnimatorLayer("Unarmed");

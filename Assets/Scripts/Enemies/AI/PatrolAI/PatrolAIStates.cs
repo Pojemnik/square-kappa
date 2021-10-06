@@ -39,6 +39,15 @@ namespace AI
             return obstacle;
         }
 
+        protected bool CheckForObstacle(out GameObject obstacleObject)
+        {
+            Vector3 position = owner.transform.position;
+            Vector3 towardsTarget = pathNode.transform.position - position;
+            bool obstacle = Physics.Raycast(position, towardsTarget, out RaycastHit raycastHit, towardsTarget.magnitude, KappaLayerMask.EnemyMovementMask);
+            obstacleObject = raycastHit.collider?.gameObject;
+            return obstacle;
+        }
+
         protected bool CheckForObstacleAndWaitIfNeeded()
         {
             if (CheckForObstacle())
@@ -283,6 +292,7 @@ namespace AI
 
     public class WaitState : PatrolBaseState
     {
+        private GameObject obstacle;
         public WaitState(AIPathNode node, PatrolAIConfig aiConfig) : base(node, aiConfig)
         {
         }
@@ -290,13 +300,20 @@ namespace AI
         public override void Enter()
         {
             base.Enter();
-            owner.status = "Waiting";
+            if (obstacle != null)
+            {
+                owner.status = string.Format("Waiting for object {0}", obstacle.name);
+            }
+            else
+            {
+                owner.status = string.Format("Waiting");
+            }
         }
 
         public override void Update()
         {
             //Maybe move this stuff to a coroutine and execute less often
-            if (!CheckForObstacle())
+            if (!CheckForObstacle(out obstacle))
             {
                 //owner.ChangeState(new RotateTowardsPointState(pathNode, config));
                 owner.PopState();
