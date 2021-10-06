@@ -382,7 +382,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5352123527340938801}
-  m_RootOrder: 10
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1397,7 +1397,7 @@ RectTransform:
   m_Children:
   - {fileID: 9155705054263787632}
   m_Father: {fileID: 5352123527340938801}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2714,7 +2714,7 @@ RectTransform:
   - {fileID: 8460818811186835912}
   - {fileID: 3017340776782273437}
   m_Father: {fileID: 5352123527340938801}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -2854,9 +2854,9 @@ MonoBehaviour:
       type: {class: LocalizedSprite, ns: UnityEngine.Localization, asm: Unity.Localization}
       data:
         m_TableReference:
-          m_TableCollectionName: GUID:2a99f8033cf58d949abc662281e9af95
+          m_TableCollectionName: GUID:1967eb0deb5d4ea43a023308e3a78e20
         m_TableEntryReference:
-          m_KeyId: 3116625874944
+          m_KeyId: 52800049152
           m_Key: 
         m_FallbackState: 0
         m_WaitForCompletion: 1
@@ -2900,13 +2900,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7878811559892195004}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6253138625219096660}
   m_Father: {fileID: 5352123527340938801}
-  m_RootOrder: 5
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3845,12 +3845,12 @@ RectTransform:
   - {fileID: 4621475453690111151}
   - {fileID: 7059582811675912583}
   - {fileID: 3032549978598375294}
-  - {fileID: 4639649529436297932}
-  - {fileID: 7231542553488752037}
   - {fileID: 537997543502070701}
   - {fileID: 4109162442002483954}
-  - {fileID: 5342963523290260535}
   - {fileID: 668068728}
+  - {fileID: 5342963523290260535}
+  - {fileID: 4639649529436297932}
+  - {fileID: 7231542553488752037}
   m_Father: {fileID: 7376826092593398588}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4147,9 +4147,9 @@ MonoBehaviour:
       type: {class: LocalizedSprite, ns: UnityEngine.Localization, asm: Unity.Localization}
       data:
         m_TableReference:
-          m_TableCollectionName: GUID:2a99f8033cf58d949abc662281e9af95
+          m_TableCollectionName: GUID:1967eb0deb5d4ea43a023308e3a78e20
         m_TableEntryReference:
-          m_KeyId: 2391426519040
+          m_KeyId: 9372225536
           m_Key: 
         m_FallbackState: 0
         m_WaitForCompletion: 1
@@ -4742,13 +4742,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5482706034525936085}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8302905704649783544}
   m_Father: {fileID: 5352123527340938801}
-  m_RootOrder: 6
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4968,7 +4968,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4231339823949523905, guid: a1c3d4cdbe45a1046acd17378983ff50, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4231339823949523905, guid: a1c3d4cdbe45a1046acd17378983ff50, type: 3}
       propertyPath: m_AnchorMax.x
