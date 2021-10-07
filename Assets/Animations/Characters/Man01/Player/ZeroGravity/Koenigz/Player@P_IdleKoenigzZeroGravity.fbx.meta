@@ -1,23 +1,14 @@
 fileFormatVersion: 2
-guid: 4b568000e6adfa042b4a1981889bac8c
+guid: e94ea1ec98ee6214c816926de3fba67c
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
-      74: -7251563107848887657
-    second: Man01ZeroGravityReload
+      74: -5214971248702941958
+    second: P_KoenigzIdleZeroGravity
   - first:
-      74: -1706416026594812929
-    second: Player@ReloadChemirailZeroGravity
-  - first:
-      74: -7894339109261952263
-    second: Man01ZeroGravityIdle
-  - first:
-      74: 9004129290508323013
-    second: Conversion
-  - first:
-      74: 1154269052462934797
-    second: ChemirailReloadLocal
+      74: 7892889433849153773
+    second: Player@P_KoenigzIdleZeroGravity
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -38,14 +29,43 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: P_KoenigzIdleZeroGravity
+      takeName: Player@P_KoenigzIdle
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []

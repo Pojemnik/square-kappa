@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: a6b798cd95bacf44086c55146d6cedbd
+guid: 78539771bce507246b77cf2dd3495a36
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
-      74: 6700360834223540787
-    second: HesgunLocalIdle
+      74: 4267733755172120483
+    second: Player@P_KoenigzReload
   externalObjects: {}
   materials:
     materialImportMode: 2

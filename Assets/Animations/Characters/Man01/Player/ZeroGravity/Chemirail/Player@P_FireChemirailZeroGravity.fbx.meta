@@ -9,6 +9,9 @@ ModelImporter:
   - first:
       74: 9004129290508323013
     second: Conversion
+  - first:
+      74: -4646139237462648797
+    second: ChemirailFireLocal
   externalObjects: {}
   materials:
     materialImportMode: 2

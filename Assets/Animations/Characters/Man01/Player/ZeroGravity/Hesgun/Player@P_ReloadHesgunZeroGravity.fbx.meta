@@ -1,23 +1,11 @@
 fileFormatVersion: 2
-guid: 4b568000e6adfa042b4a1981889bac8c
+guid: a3b1c9ebc2d5a5142b1ba0abdfd86cbe
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
-      74: -7251563107848887657
-    second: Man01ZeroGravityReload
-  - first:
-      74: -1706416026594812929
-    second: Player@ReloadChemirailZeroGravity
-  - first:
-      74: -7894339109261952263
-    second: Man01ZeroGravityIdle
-  - first:
-      74: 9004129290508323013
-    second: Conversion
-  - first:
-      74: 1154269052462934797
-    second: ChemirailReloadLocal
+      74: -2489844717953618421
+    second: HesgunLocalReload
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -38,7 +26,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
