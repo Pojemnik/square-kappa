@@ -29,12 +29,8 @@ public class AIShootingRules : ScriptableObject
 
 public static class AIShootingRuleCalculator
 {
-    public static AIShootingMode GetShootingMode(float distanceToTarget, AIShootingRules rules, float timeSinceSpotted)
+    public static AIShootingMode GetShootingMode(float distanceToTarget, AIShootingRules rules)
     {
-        if(timeSinceSpotted < rules.spottedToShootingDelay)
-        {
-            return AIShootingMode.NoShooting;
-        }
         foreach(AIShootingRules.AIShootingRule rule in rules.rules)
         {
             bool closerThanMax = distanceToTarget < rule.maxDistace || rule.maxDistace == -1;

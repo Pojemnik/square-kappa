@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf107986cf22d7f41abfdb52f0ea5083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 50
   collisionDamageForceTreshold: 500
   collisionDamageForceMultipler: 0.1
   armor: 0
@@ -232,7 +232,8 @@ MonoBehaviour:
   owner: {fileID: 9028151093970926094}
   infiniteAmmo: 1
   autoReload: 1
-  startChemirailAmmo: 0
+  startAmmo:
+    array: []
 --- !u!114 &7690006316975347338
 MonoBehaviour:
   m_ObjectHideFlags: 0

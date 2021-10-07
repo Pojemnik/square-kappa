@@ -102,6 +102,7 @@ public class UnitShooting : MonoBehaviour
             //No ammo to add
             return;
         }
+        StopFire();
         reloading = true;
         owner.AnimationController.SetState("Reload");
     }

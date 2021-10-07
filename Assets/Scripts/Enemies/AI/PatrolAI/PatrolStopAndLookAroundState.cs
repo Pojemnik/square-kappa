@@ -26,7 +26,7 @@ namespace AI
             if (TargetVisible(owner.enemyController.target.layer) == TargetStatus.InSight)
             {
                 Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
-                owner.ChangeState(new ChaseState(pathNode, config, true));
+                owner.ChangeState(new ChaseState(pathNode, config));
             }
         }
 

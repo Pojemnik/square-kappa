@@ -485,7 +485,14 @@ namespace AI
                 case TargetStatus.InSight:
                     lastShootingMode = shootingMode;
                     float timeSinceSpotted = useTimeDelay ? Time.time - spottedTime : float.PositiveInfinity;
-                    shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules, timeSinceSpotted);
+                    if (timeSinceSpotted < shootingRules.spottedToShootingDelay)
+                    {
+                        shootingMode = AIShootingMode.NoShooting;
+                    }
+                    else
+                    {
+                        shootingMode = AIShootingRuleCalculator.GetShootingMode(positionDelta.magnitude, shootingRules);
+                    }
                     switch (shootingMode)
                     {
                         case AIShootingMode.NoShooting:
