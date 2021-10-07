@@ -57,6 +57,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     - Locale-pl-PL
+  - m_GUID: 8dd0542b82bdcc84c9cdd5cda842d099
+    m_Address: HesgunInfo
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    - Locale-pl-PL
+  - m_GUID: 472640b1c8ec0dc41be6022b6ff04182
+    m_Address: KoenigzInfo
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    - Locale-pl-PL
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 45e32cf4f59e9eb47af08082b71f9a04, type: 2}
   m_SchemaSet:

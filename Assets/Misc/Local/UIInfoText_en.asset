@@ -86,5 +86,29 @@ MonoBehaviour:
       Ammo will be picked up automatically.'
     m_Metadata:
       m_Items: []
+  - m_Id: 9506666894585856
+    m_Localized: 'LR-54 "Hesgun"
+
+      Laser weapon used by Second Federation''s
+      military forces
+
+      Higly effective on long distances because of the immediatelly
+      hit and no dispersion
+
+      Not recomended for attacking barriered targets'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9507926003675136
+    m_Localized: 'LR-54a "Hesgun"
+
+      Short laser weapon used by Second Federation''s
+      military forces
+
+      Higly effective on long distances because of the immediatelly
+      hit and no dispersion
+
+      Not recomended for attacking barriered targets'
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

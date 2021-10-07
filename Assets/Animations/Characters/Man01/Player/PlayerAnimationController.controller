@@ -49,7 +49,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 9004129290508323013, guid: 4b568000e6adfa042b4a1981889bac8c, type: 3}
+  m_Motion: {fileID: 1154269052462934797, guid: 4b568000e6adfa042b4a1981889bac8c, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -128,7 +128,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 9004129290508323013, guid: b0ce06f43bd03444a877f1564a323582, type: 3}
+  m_Motion: {fileID: -4646139237462648797, guid: b0ce06f43bd03444a877f1564a323582, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -156,7 +156,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 9004129290508323013, guid: 4b568000e6adfa042b4a1981889bac8c, type: 3}
+  m_Motion: {fileID: -2489844717953618421, guid: a3b1c9ebc2d5a5142b1ba0abdfd86cbe, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -247,7 +247,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 9004129290508323013, guid: 4b568000e6adfa042b4a1981889bac8c, type: 3}
+  m_Motion: {fileID: 4267733755172120483, guid: 78539771bce507246b77cf2dd3495a36, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -653,7 +653,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -7562615972696706322}
-    m_Position: {x: 459.93695, y: 84.65445, z: 0}
+    m_Position: {x: 460, y: 80, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -709,7 +709,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -8725235514034824271}
-    m_Position: {x: 474.3503, y: 61.050568, z: 0}
+    m_Position: {x: 480, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5105208037124670042}
     m_Position: {x: 654.7185, y: 273.82025, z: 0}
