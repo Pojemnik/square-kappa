@@ -69,7 +69,15 @@ public class RayWeaponController : RangedWeaponController
         layerMask = 0;
         foreach (string s in ignored)
         {
-            layerMask |= LayerMask.NameToLayer(s);
+            int layer = LayerMask.NameToLayer(s);
+            if (layer == -1)
+            {
+                Debug.LogErrorFormat("No layer called {0} found", s);
+            }
+            else
+            {
+                layerMask |= (1 << layer);
+            }
         }
         layerMask = ~layerMask;
     }

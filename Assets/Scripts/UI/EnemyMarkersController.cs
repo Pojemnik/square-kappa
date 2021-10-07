@@ -130,33 +130,6 @@ public class EnemyMarkersController : MonoBehaviour
         }
     }
 
-    private bool IsScreenPointInViewport(Vector3 screenPos)
-    {
-        bool onScreenX = screenPos.x > 0 && screenPos.x < Camera.main.pixelWidth;
-        bool onScreenY = screenPos.y > 0 && screenPos.y < Camera.main.pixelHeight;
-        bool onScreenZ = screenPos.z > 0;
-        return onScreenX && onScreenY && onScreenZ;
-    }
-
-    private bool EnemyHiddenOrTooFar(GameObject enemy, Vector3 enemyArmaturePosition, Vector3 cameraPos)
-    {
-        Debug.DrawRay(cameraPos, enemyArmaturePosition - cameraPos);
-        if (Physics.Raycast(cameraPos, enemyArmaturePosition - cameraPos, out RaycastHit hit, detectionRange, KappaLayerMask.PlayerVisionMask))
-        {
-            bool isEnemyPart = hit.collider.gameObject == enemy || hit.collider.transform.IsChildOf(enemy.transform);
-            if (!isEnemyPart && !showHiddenEnemies)
-            {
-                return true;
-            }
-        }
-        else
-        {
-            //Further than detection range
-            return true;
-        }
-        return false;
-    }
-
     private void Awake()
     {
         arrows = new Dictionary<int, GameObject>();
@@ -186,18 +159,19 @@ public class EnemyMarkersController : MonoBehaviour
             float distanceToEnemy = (cameraPos - enemyArmaturePosition).magnitude;
             GameObject marker = markers[enemyId];
             GameObject arrow = arrows[enemyId];
-            if (EnemyHiddenOrTooFar(enemy, enemyArmaturePosition, cameraPos))
+            bool covered = EnemyManager.Instance.IsEnemyCovered(enemyId);
+            bool onScreen = EnemyManager.Instance.IsEnemyOnScreen(enemyId);
+            if (covered || distanceToEnemy > detectionRange)
             {
                 arrow.SetActive(false);
                 marker.SetActive(false);
                 continue;
             }
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(enemyArmaturePosition);
             float scale = scaleFactor * distanceToEnemy + markerScaleBounds.max;
-            if (IsScreenPointInViewport(screenPos))
+            if (onScreen)
             {
                 //On screen, display marker
-                marker.transform.position = screenPos;
+                marker.transform.position = Camera.main.WorldToScreenPoint(enemyArmaturePosition);
                 marker.SetActive(true);
                 arrow.SetActive(false);
                 if (displayMode == MarkersDisplayMode.ChangeSize)
