@@ -15,6 +15,9 @@ ModelImporter:
   - first:
       74: 9004129290508323013
     second: Conversion
+  - first:
+      74: 1154269052462934797
+    second: ChemirailReloadLocal
   externalObjects: {}
   materials:
     materialImportMode: 2

@@ -2203,6 +2203,8 @@ MonoBehaviour:
   otherMissions:
   - list:
     - {fileID: 11400000, guid: 563d7477d723f6e4592f6e3aa0d389a9, type: 2}
+    - {fileID: 11400000, guid: 6eee00c3629245140950d9ace04d7de3, type: 2}
+    - {fileID: 11400000, guid: d257447cbe9dd3946a485d3898025260, type: 2}
   warnAboutUnusedObjectices: 0
   warnAboutObjectivesUsedMoreThanOnce: 0
   warnAboutIncorrectObjectiveNamesInMissions: 0
@@ -4643,6 +4645,44 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
     missionEvent: {fileID: 11400000, guid: 126df0d327592ee4bb3431187568921a, type: 2}
+    messageHideDelay: 3
+  - message:
+      m_TableReference:
+        m_TableCollectionName: GUID:4bb6863d4b9f5754689ea89dee61337f
+      m_TableEntryReference:
+        m_KeyId: 9506666894585856
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    image:
+      m_TableReference:
+        m_TableCollectionName: GUID:8d7a7c33f67c7b24293b0df6e2ba7449
+      m_TableEntryReference:
+        m_KeyId: 9510603970310144
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+    missionEvent: {fileID: 11400000, guid: 969cb254c45a73948932f528f8fefc30, type: 2}
+    messageHideDelay: 3
+  - message:
+      m_TableReference:
+        m_TableCollectionName: GUID:4bb6863d4b9f5754689ea89dee61337f
+      m_TableEntryReference:
+        m_KeyId: 9507926003675136
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    image:
+      m_TableReference:
+        m_TableCollectionName: GUID:8d7a7c33f67c7b24293b0df6e2ba7449
+      m_TableEntryReference:
+        m_KeyId: 9510823500181504
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+    missionEvent: {fileID: 11400000, guid: fbde26be1a5a04442bd99a8375ab405d, type: 2}
     messageHideDelay: 3
   references:
     version: 1

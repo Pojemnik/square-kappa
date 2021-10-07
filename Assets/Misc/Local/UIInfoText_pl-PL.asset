@@ -68,5 +68,19 @@ MonoBehaviour:
       F. Amunicja podnosi si\u0119 automatycznie."
     m_Metadata:
       m_Items: []
+  - m_Id: 9506666894585856
+    m_Localized: "LR-54 \"Hesgun\"\nBro\u0144 laserowa stosowana przez si\u0142y
+      zbrojne Drugiej Federacji\nWysoce skuteczna na du\u017Ce odleg\u0142o\u015Bci
+      ze wzgl\u0119du na natychmiastowe trafienie i brak odrzutu\nNiepraktyczna przeciwko
+      celom chronionym barierami"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9507926003675136
+    m_Localized: "LR-54a \"Koenigz\"\nKr\xF3tka bro\u0144 laserowa stosowana przez
+      si\u0142y zbrojne Drugiej Federacji\nWysoce skuteczna na du\u017Ce odleg\u0142o\u015Bci
+      ze wzgl\u0119du na natychmiastowe trafienie i brak odrzutu\nNiepraktyczna przeciwko
+      celom chronionym barierami"
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
