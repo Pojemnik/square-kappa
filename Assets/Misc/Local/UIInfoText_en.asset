@@ -110,5 +110,25 @@ MonoBehaviour:
       Not recomended for attacking barriered targets'
     m_Metadata:
       m_Items: []
+  - m_Id: 10193506231275520
+    m_Localized: 'CPC-1 amunition
+
+      Used by APL-97, known as Chemirail, it is
+      in fact a highly modified plasma grenade
+
+      Picked up automaticly when
+      approaching nearby'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10194665985691648
+    m_Localized: 'PVCM amunition
+
+      Used by laser weapons, it is prepared for
+      millitary purposes small Viacelli cell
+
+      Picked up automaticly when approaching
+      nearby'
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

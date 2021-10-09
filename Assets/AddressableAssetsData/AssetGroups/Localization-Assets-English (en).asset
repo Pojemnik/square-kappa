@@ -69,6 +69,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     - Locale-pl-PL
+  - m_GUID: 5b6a90166ee5a21488a4ff841f9dc546
+    m_Address: ChemirailAmmoInfo
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    - Locale-pl-PL
+  - m_GUID: f7cc91ba7f209f446a9017a75c51cbb7
+    m_Address: PVCMAmmoInfo
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    - Locale-pl-PL
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 45e32cf4f59e9eb47af08082b71f9a04, type: 2}
   m_SchemaSet:

@@ -82,5 +82,17 @@ MonoBehaviour:
       celom chronionym barierami"
     m_Metadata:
       m_Items: []
+  - m_Id: 10193506231275520
+    m_Localized: "Amunicja CPC-1\nU\u017Cywana przez bro\u0144 APL-97, czyli Chemirail,
+      jest w istocie mocno zmodyfikowanym granatem plazmowym\nPodnoszona automatycznie
+      w momencie zbli\u017Cenia si\u0119 do niej"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10194665985691648
+    m_Localized: "Amunicja PVCM\nU\u017Cywana przez bro\u0144 laserow\u0105, jest
+      przygotowanym do zastosowa\u0144 militarnych niewielkim ogniwem Viacellego\nPodnoszona
+      automatycznie w momencie zbli\u017Cenia si\u0119 do niej"
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

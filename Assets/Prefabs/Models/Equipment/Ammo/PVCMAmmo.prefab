@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 662181616686116797}
   m_Layer: 0
   m_Name: PVCMAmmo
-  m_TagString: Untagged
+  m_TagString: Ammo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,9 +125,9 @@ GameObject:
   - component: {fileID: 2822181807875360633}
   - component: {fileID: 3548743724549519871}
   - component: {fileID: 1291086523976472859}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Ammo
-  m_TagString: Untagged
+  m_TagString: Ammo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

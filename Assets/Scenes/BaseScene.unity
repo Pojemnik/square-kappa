@@ -8,8 +8,8 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: b811d989a1910744f8d7384917b01c27
+  m_OcclusionCullingData: {fileID: 36300000, guid: 69552502391fe7e4cb206b0eb7580146, type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -2203,8 +2203,14 @@ MonoBehaviour:
   otherMissions:
   - list:
     - {fileID: 11400000, guid: 563d7477d723f6e4592f6e3aa0d389a9, type: 2}
+  - list:
     - {fileID: 11400000, guid: 6eee00c3629245140950d9ace04d7de3, type: 2}
+  - list:
     - {fileID: 11400000, guid: d257447cbe9dd3946a485d3898025260, type: 2}
+  - list:
+    - {fileID: 11400000, guid: 7b7aaeb8bef088349879617cbc25934f, type: 2}
+  - list:
+    - {fileID: 11400000, guid: 0e3b8a2fdacff054589df67bd6dc2c32, type: 2}
   warnAboutUnusedObjectices: 0
   warnAboutObjectivesUsedMoreThanOnce: 0
   warnAboutIncorrectObjectiveNamesInMissions: 0
@@ -4683,6 +4689,44 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
     missionEvent: {fileID: 11400000, guid: fbde26be1a5a04442bd99a8375ab405d, type: 2}
+    messageHideDelay: 3
+  - message:
+      m_TableReference:
+        m_TableCollectionName: GUID:4bb6863d4b9f5754689ea89dee61337f
+      m_TableEntryReference:
+        m_KeyId: 10193506231275520
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    image:
+      m_TableReference:
+        m_TableCollectionName: GUID:8d7a7c33f67c7b24293b0df6e2ba7449
+      m_TableEntryReference:
+        m_KeyId: 10199677944090624
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+    missionEvent: {fileID: 11400000, guid: bb86e62bf72ba9747bc059f35301cc6a, type: 2}
+    messageHideDelay: 3
+  - message:
+      m_TableReference:
+        m_TableCollectionName: GUID:4bb6863d4b9f5754689ea89dee61337f
+      m_TableEntryReference:
+        m_KeyId: 10194665985691648
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    image:
+      m_TableReference:
+        m_TableCollectionName: GUID:8d7a7c33f67c7b24293b0df6e2ba7449
+      m_TableEntryReference:
+        m_KeyId: 10199815806668800
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+    missionEvent: {fileID: 11400000, guid: 8eb92d141633b914aac6318f8e4592c0, type: 2}
     messageHideDelay: 3
   references:
     version: 1

@@ -43,6 +43,14 @@ MonoBehaviour:
     m_Key: KOENIGZ-TIP
     m_Metadata:
       m_Items: []
+  - m_Id: 10199677944090624
+    m_Key: CHEMIRAIL-AMMO-TIP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10199815806668800
+    m_Key: PVCM-AMMO-TIP
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items:
     - id: 0
@@ -86,6 +94,14 @@ MonoBehaviour:
           - en
           - pl-PL
         - m_KeyId: 9510823500181504
+          m_TableCodes:
+          - en
+          - pl-PL
+        - m_KeyId: 10199677944090624
+          m_TableCodes:
+          - en
+          - pl-PL
+        - m_KeyId: 10199815806668800
           m_TableCodes:
           - en
           - pl-PL
