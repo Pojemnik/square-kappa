@@ -33,30 +33,32 @@ MonoBehaviour:
   - m_Id: 1946354615050240
     m_Localized: 'APL-97 "Chemirail"
 
-      Energetic weapon used by Second Federation''s
+      Energy weapon used by Second Federation''s
       military forces
 
       Higly effective on short distances and against infantry
 
       Not
-      recomended for sniping and armored targets'
+      recomended for sniping and against armored targets'
     m_Metadata:
       m_Items: []
   - m_Id: 1946517052055552
     m_Localized: 'Tip:
 
       You can break glass by hitting it by fists or flying
-      through it at high speed. It only won''t work on windows to outer space, they''re
-      too strong.'
+      into it at high speed. It  won''t work on windows to outer space, they''re
+      too strong. To hit something or shoot, press left mouse button, use right mouse
+      button to aim.'
     m_Metadata:
       m_Items: []
   - m_Id: 1956000562143232
     m_Localized: 'Aaron Jones:
 
       Marine, you''re finally awake! We couldn''t
-      reach your position and weren''t sure if you''re still alive, so we go away
-      without you. Be carefull, you''re on enemy''s teritory. Arm yourself and get
-      used with zero gravity, I will try to find a way to get you out of there.'
+      reach your position and weren''t sure if you''re still alive, so we went away
+      without you. Be careful, you''re on enemy''s teritory. Arm yourself and get
+      used with zero gravity (WSAD + Shift + Ctrl), I will try to find a way to get
+      you out of there.'
     m_Metadata:
       m_Items: []
   - m_Id: 1957480232902656
@@ -71,19 +73,19 @@ MonoBehaviour:
   - m_Id: 1958580352704512
     m_Localized: 'Aaron Jones:
 
-      This is the hangar I was talking about, but
-      carefull, it''s guarded. You have to fight your way to the control room and
-      there prepare transporter for a flight. Then I will give you next orders. Good
+      This is the hangar I was talking about. Be
+      careful, it''s guarded. You will have to fight your way to the control room
+      and prepare transporter for a flight. Then I will give you next orders. Good
       luck, marine.'
     m_Metadata:
       m_Items: []
   - m_Id: 4694467079458816
     m_Localized: 'Tip:
 
-      When you need to arm yourself, find an armory. There
-      you''ll always find some weapons and lots of ammo. You suit detects weapons
-      and marks it with white diamond on a screen. To pick up a weapon, click F.
-      Ammo will be picked up automatically.'
+      When you need to arm yourself, find an armory. You''ll
+      always find some weapons and lots of ammo there. Your suit detects weapons
+      and marks them with white diamond on a screen. To pick up a weapon click F,
+      to reload it click R, and to drop it click T. Ammo will be picked up automatically.'
     m_Metadata:
       m_Items: []
   - m_Id: 9506666894585856
@@ -131,4 +133,5 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   references:
-    version: 1
+    version: 2
+    RefIds: []
