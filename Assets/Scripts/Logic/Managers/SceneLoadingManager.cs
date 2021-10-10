@@ -7,9 +7,12 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
 {
     [SerializeField]
     private string baseScene;
+    [SerializeField]
+    private List<string> scenesToLoadAtStartup;
 
     private int scenesToReloadCount;
     private int reloadedScenes;
+    private int loadedScenes;
     private List<GameObject> removeOnReload;
 
     public void AddObjectToRemoveOnReload(GameObject obj)
@@ -28,14 +31,19 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         EventManager.Instance.AddListener("PlayerDeath", ReloadGame);
         EventManager.Instance.AddListener("Victory", ReloadGame);
         reloadedScenes = 0;
+        scenesToReloadCount = scenesToLoadAtStartup.Count;
+        foreach(string name in scenesToLoadAtStartup)
+        {
+            SceneManager.LoadSceneAsync(name, LoadSceneMode.Additive).completed += (a) => OnReloadEnd(a,"GameStart");
+        }
     }
 
-    private void OnReloadEnd(AsyncOperation operation)
+    private void OnReloadEnd(AsyncOperation operation, string eventToSend)
     {
         reloadedScenes++;
         if (reloadedScenes == scenesToReloadCount)
         {
-            EventManager.Instance.TriggerEvent("GameReloaded");
+            EventManager.Instance.TriggerEvent(eventToSend);
             if(SceneManager.sceneCount > 1)
             {
                 if(SceneManager.GetSceneAt(0).name == baseScene)
@@ -70,7 +78,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         }
         foreach (int sceneIndex in scenesToReload)
         {
-            SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive).completed += OnReloadEnd;
+            SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive).completed += (a) => OnReloadEnd(a, "GameReloaded");
         }
     }
 }
