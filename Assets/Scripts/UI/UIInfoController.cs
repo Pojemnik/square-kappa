@@ -20,6 +20,8 @@ public class UIInfoController : MonoBehaviour
     private InfoImageController imageController;
     [SerializeField]
     private List<UIInfoConfigType> UIInfoConfig;
+    [SerializeField]
+    private GameObject panel;
 
     private void Awake()
     {
@@ -28,12 +30,13 @@ public class UIInfoController : MonoBehaviour
             config.missionEvent.missionEvent += (s, a) => DisplayOnScreenMessage(config);
             config.message.StringChanged += (_) => textController.StopTyping();
         }
-        textController.displayEndEvent += (s, a) => imageController.HideImage();
+        textController.displayEndEvent += (s, a) => { imageController.HideImage(); panel.SetActive(false); };
     }
 
     private void DisplayOnScreenMessage(UIInfoConfigType config)
     {
         textController.TypeText(config.message.GetLocalizedString(), config.messageHideDelay);
         imageController.DisplayImage(config.image.LoadAsset());
+        panel.SetActive(true);
     }
 }
