@@ -54,7 +54,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
     private void ReloadGame()
     {
         scenesToReloadCount = SceneManager.sceneCount - 1;
-        List<int> scenesToReload = new List<int>(scenesToReloadCount);
+        List<int> scenesToReload = new List<int>();
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
             Scene scene = SceneManager.GetSceneAt(i);

@@ -13,7 +13,6 @@ public class UnitController : Unit
     [Header("Components")]
     public UnitMovement movement;
     public UnitShooting shooting;
-    public UnitDash dashing;
     public ItemChanger itemChanger;
     [SerializeField]
     private UnitAnimationController animationController;
@@ -78,16 +77,6 @@ public class UnitController : Unit
     public void PickItem()
     {
         itemChanger.PickOrSwapWeapon();
-    }
-
-    public void StartDash()
-    {
-        dashing.EnableDashMode();
-    }
-
-    public void CancelDash()
-    {
-        dashing.DisableDashMode();
     }
 
     public void PickWeaponFromInventory(int slot)
