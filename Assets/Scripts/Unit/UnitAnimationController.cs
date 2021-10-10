@@ -56,6 +56,7 @@ public class UnitAnimationController : MonoBehaviour
     {
         animator.ResetTrigger("Move");
         animator.ResetTrigger("Stop");
+        animator.ResetTrigger("Spotted");
     }
 
     public void SetRotationVector(Vector2 rotation)
