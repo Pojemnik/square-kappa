@@ -155,6 +155,10 @@ public class RayWeaponController : RangedWeaponController
             return;
         }
         Debug.DrawLine(projectile.StartPoint, projectile.StartPoint + projectileDirection * Vector3.forward * 1000, Color.magenta);
+        if(hitEffect == null)
+        {
+            return;
+        }
         if (Physics.Raycast(projectile.StartPoint, projectileDirection * Vector3.forward, out raycastHit, 1000, layerMask))
         {
             hitEffect.SetActive(true);
