@@ -36,7 +36,10 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         scenesToReloadCount = scenesToLoadAtStartup.Count;
         foreach(string name in scenesToLoadAtStartup)
         {
-            SceneManager.LoadSceneAsync(name, LoadSceneMode.Additive).completed += (a) => OnReloadEnd(a,"GameStart");
+            if (!SceneManager.GetSceneByName(name).isLoaded)
+            {
+                SceneManager.LoadSceneAsync(name, LoadSceneMode.Additive).completed += (a) => OnReloadEnd(a, "GameStart");
+            }
         }
     }
 
