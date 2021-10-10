@@ -161,9 +161,9 @@ public class RayWeaponController : RangedWeaponController
         }
         if (Physics.Raycast(projectile.StartPoint, projectileDirection * Vector3.forward, out raycastHit, 1000, layerMask))
         {
-            hitEffect.SetActive(true);
             hitEffect.transform.position = raycastHit.point;
             hitEffect.transform.rotation = Quaternion.LookRotation(raycastHit.normal);
+            hitEffect.SetActive(true);
         }
         else
         {
