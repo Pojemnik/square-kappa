@@ -1006,6 +1006,10 @@ PrefabInstance:
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -8358284093133549632, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -7415039427686452872, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1

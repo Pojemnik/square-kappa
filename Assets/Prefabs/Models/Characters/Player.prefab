@@ -189,7 +189,6 @@ MonoBehaviour:
         m_CallState: 2
   movement: {fileID: 3415701483049605099}
   shooting: {fileID: 1280456608684126228}
-  dashing: {fileID: 5720152685819367687}
   itemChanger: {fileID: 5653950778987106431}
   animationController: {fileID: 7690006316975347338}
 --- !u!54 &5087437213990912334
@@ -641,9 +640,7 @@ MonoBehaviour:
   animator: {fileID: 8633829347163807104}
   cameraController: {fileID: 0}
   useWallAnimations: 0
-  wallDistanceMultipler: 0
   weaponMoveSpeed: 0
-  wallDistanceOffset: 0
 --- !u!136 &8856888390450905230
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -926,6 +923,10 @@ PrefabInstance:
     - target: {fileID: -8358284093133549632, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8358284093133549632, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8358284093133549632, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
       propertyPath: m_TagString

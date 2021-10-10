@@ -73,12 +73,12 @@ public partial class MissionsManager : Singleton<MissionsManager>
             objectiveNames = new Dictionary<string, Objective>();
         }
         usedObjectivesTracker = new HashSet<string>();
+        EventManager.Instance.AddListener("GameStart", Init);
     }
 
     private void Start()
     {
         EventManager.Instance.AddListener("GameReloaded", OnGameReload);
-        EventManager.Instance.AddListener("GameStart", Init);
     }
 
     private void OnDisable()

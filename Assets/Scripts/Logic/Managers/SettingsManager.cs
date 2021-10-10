@@ -30,8 +30,8 @@ public class SettingsManager : Singleton<SettingsManager>
 
     void Awake()
     {
-        MouseSensitivity = new SettingField<float>(PlayerPrefs.GetFloat("MouseSens"));
-        ZoomMouseSensitivity = new SettingField<float>(PlayerPrefs.GetFloat("ZoomSens"));
+        MouseSensitivity = new SettingField<float>(PlayerPrefs.GetFloat("MouseSens", 0.3f));
+        ZoomMouseSensitivity = new SettingField<float>(PlayerPrefs.GetFloat("ZoomSens", 0.15f));
         RegisterInstance(this);
     }
 

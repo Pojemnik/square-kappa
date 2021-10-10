@@ -139,7 +139,6 @@ MonoBehaviour:
       m_Calls: []
   movement: {fileID: 3415701483049605099}
   shooting: {fileID: 1280456608684126228}
-  dashing: {fileID: 0}
   itemChanger: {fileID: 0}
   animationController: {fileID: 7690006316975347338}
 --- !u!54 &5087437213990912334
@@ -253,9 +252,7 @@ MonoBehaviour:
   animator: {fileID: 6804943335188952757}
   cameraController: {fileID: 0}
   useWallAnimations: 0
-  wallDistanceMultipler: 0
   weaponMoveSpeed: 0
-  wallDistanceOffset: 0
 --- !u!114 &5933900374770886342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,6 +351,10 @@ PrefabInstance:
     - target: {fileID: -8387694030152949441, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8358284093133549632, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7415039427686452872, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
       propertyPath: m_UpdateWhenOffscreen

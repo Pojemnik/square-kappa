@@ -34,12 +34,18 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         EventManager.Instance.AddListener("Victory", ReloadGame);
         reloadedScenes = 0;
         scenesToReloadCount = scenesToLoadAtStartup.Count;
+        bool loading = false;
         foreach(string name in scenesToLoadAtStartup)
         {
             if (!SceneManager.GetSceneByName(name).isLoaded)
             {
                 SceneManager.LoadSceneAsync(name, LoadSceneMode.Additive).completed += (a) => OnReloadEnd(a, "GameStart");
+                loading = true;
             }
+        }
+        if(!loading)
+        {
+            EventManager.Instance.TriggerEvent("GameStart");
         }
     }
 
