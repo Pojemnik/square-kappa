@@ -63,6 +63,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 404466205000365646}
   m_RootOrder: 1
@@ -114,6 +115,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 617045084900469967}
   - {fileID: 1857651775500884557}
@@ -249,6 +251,11 @@ MonoBehaviour:
   owner: {fileID: 9028151093970926094}
   eventsAdapter: {fileID: 1249543029174561243}
   animator: {fileID: 6804943335188952757}
+  cameraController: {fileID: 0}
+  useWallAnimations: 0
+  wallDistanceMultipler: 0
+  weaponMoveSpeed: 0
+  wallDistanceOffset: 0
 --- !u!114 &5933900374770886342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,9 +351,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8387694030152949441, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7415039427686452872, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5975562012925579495, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5277293399067976934, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2208576255530122925, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -721677278163864365, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
       propertyPath: m_Name
       value: Man01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1620670521284574074, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
       propertyPath: m_Controller
@@ -355,6 +390,14 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9021048485301309552, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9050213114075053732, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
