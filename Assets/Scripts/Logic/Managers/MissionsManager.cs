@@ -77,8 +77,8 @@ public partial class MissionsManager : Singleton<MissionsManager>
 
     private void Start()
     {
-        Init();
         EventManager.Instance.AddListener("GameReloaded", OnGameReload);
+        EventManager.Instance.AddListener("GameStart", Init);
     }
 
     private void OnDisable()
