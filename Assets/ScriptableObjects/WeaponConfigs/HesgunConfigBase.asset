@@ -17,4 +17,5 @@ MonoBehaviour:
   backwardsForce: 0
   maxAmmo: 100
   length: 1
+  wallDistanceWhenPulled: 0.6
   damage: 2

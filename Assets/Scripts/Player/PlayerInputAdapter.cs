@@ -70,42 +70,6 @@ public class PlayerInputAdapter : MonoBehaviour
         owner.PickItem();
     }
 
-    public void Dash(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            owner.StartDash();
-        }
-        if (context.canceled)
-        {
-            owner.CancelDash();
-        }
-    }
-
-    public void PickWeapon1FromInventory(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            owner.PickWeaponFromInventory(0);
-        }
-    }
-
-    public void PickWeapon2FromInventory(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            owner.PickWeaponFromInventory(1);
-        }
-    }
-
-    public void PickWeapon3FromInventory(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            owner.PickWeaponFromInventory(2);
-        }
-    }
-
     public void Reload(InputAction.CallbackContext context)
     {
         if (context.started)

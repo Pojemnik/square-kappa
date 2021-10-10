@@ -31,13 +31,18 @@ MonoBehaviour:
     m_Key: BACK
     m_Metadata:
       m_Items: []
+  - m_Id: 6854991149060096
+    m_Key: QUIT
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    id: 0
+    rid: 6314426248667070733
   references:
-    version: 1
-    00000000:
+    version: 2
+    RefIds:
+    - rid: 6314426248667070733
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
         m_CustomEpoch: 1632242132194

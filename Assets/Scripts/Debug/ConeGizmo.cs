@@ -44,6 +44,7 @@ public class ConeGizmo : MonoBehaviour
         baseRadius = gizmo.baseRadius;
     }
 
+#if UNITY_EDITOR
     private void OnValidate()
     {
         if (gizmo == null)
@@ -53,7 +54,7 @@ public class ConeGizmo : MonoBehaviour
         UpdateCoreValues();
     }
 
-#if UNITY_EDITOR
+
     void OnDrawGizmosSelected()
     {
         if (gizmo == null)

@@ -34,4 +34,9 @@ public class PauseMenuController : MonoBehaviour
         SettingsManager.Instance.SetLocale(selectedLocale);
         SettingsManager.Instance.SaveSettings();
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
