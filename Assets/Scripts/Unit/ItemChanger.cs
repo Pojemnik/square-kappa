@@ -147,7 +147,7 @@ public class ItemChanger : MonoBehaviour
         owner.CurrentWeapon.transform.localPosition = pickable.relativePosition;
         owner.CurrentWeapon.transform.localRotation = Quaternion.Euler(pickable.relativeRotation);
         weaponChangeEvent.Invoke(owner.CurrentWeaponController);
-        environmentalCollider.height = owner.CurrentWeaponController.Config.length;
+        //environmentalCollider.height = owner.CurrentWeaponController.Config.length;
         shooting.ChangeWeaponController(owner.CurrentWeaponController);
     }
 
