@@ -128,7 +128,6 @@ public class ItemChanger : MonoBehaviour
         else
         {
             owner.CurrentWeapon = null;
-            owner.AnimationController.UpdateWeaponAnimation(null);
             weaponChangeEvent.Invoke(null);
         }
     }
@@ -141,13 +140,11 @@ public class ItemChanger : MonoBehaviour
         weaponRB.isKinematic = true;
         owner.CurrentWeapon.transform.parent = weaponMountingPoint.transform;
         owner.CurrentWeapon.layer = 6; //player layer
-        owner.AnimationController.UpdateWeaponAnimation(owner.CurrentWeaponController);
         PickableItem pickable = owner.CurrentWeapon.GetComponent<PickableItem>();
         pickable.OnPickup();
         owner.CurrentWeapon.transform.localPosition = pickable.relativePosition;
         owner.CurrentWeapon.transform.localRotation = Quaternion.Euler(pickable.relativeRotation);
         weaponChangeEvent.Invoke(owner.CurrentWeaponController);
-        //environmentalCollider.height = owner.CurrentWeaponController.Config.length;
         shooting.ChangeWeaponController(owner.CurrentWeaponController);
     }
 
