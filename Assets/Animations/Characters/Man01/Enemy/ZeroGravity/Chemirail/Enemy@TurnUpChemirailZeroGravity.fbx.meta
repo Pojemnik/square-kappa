@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 1c131f20bdb34ba4997f353822d5df0b
 ModelImporter:
-  serializedVersion: 20200
+  serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: 5324748850202803982
@@ -9,6 +9,9 @@ ModelImporter:
   - first:
       74: 9004129290508323013
     second: Conversion
+  - first:
+      74: 4895218025181281128
+    second: Enemy@TurnUpChemirailZeroGravity
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -20,6 +23,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -49,6 +53,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -60,6 +65,7 @@ ModelImporter:
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
+    optimizeBones: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
