@@ -10,12 +10,25 @@ public class UnitAnimationController : MonoBehaviour
     public AnimationEventsAdapter eventsAdapter;
     [SerializeField]
     private Animator animator;
+    [SerializeField]
+    private PlayerCameraController cameraController;
+
+    [Header("Wall animations settings")]
+    [SerializeField]
+    private bool useWallAnimations;
+    [SerializeField]
+    private float wallDistanceMultipler;
+    [SerializeField]
+    private float weaponMoveSpeed;
+    [SerializeField]
+    private float wallDistanceOffset;
 
     private HashSet<string> paramaterNames;
+    private float currentWallValue;
 
     public void SetState(string state)
     {
-        if(!paramaterNames.Contains(state))
+        if (!paramaterNames.Contains(state))
         {
             return;
         }
@@ -56,7 +69,7 @@ public class UnitAnimationController : MonoBehaviour
     {
         if (newWeapon)
         {
-            switch(newWeapon.Config.type)
+            switch (newWeapon.Config.type)
             {
                 case WeaponConfig.WeaponType.Rifle:
                     SetAnimatorLayer("Chemirail");
@@ -107,5 +120,34 @@ public class UnitAnimationController : MonoBehaviour
     {
         AnimatorControllerParameter[] parameters = animator.parameters;
         paramaterNames = new HashSet<string>(parameters.Select(e => e.name));
+    }
+
+    private void SetWallParameter(float value)
+    {
+        animator.SetFloat("Wall", value);
+    }
+
+    private void Start()
+    {
+        if (useWallAnimations)
+        {
+            cameraController.wallCloseEvent += OnWallClose;
+            currentWallValue = 0;
+        }
+    }
+
+    private void OnWallClose(object sender, float distance)
+    {
+        float target;
+        if (distance == -1)
+        {
+            target = 0;
+        }
+        else
+        {
+            target = Mathf.Clamp01(1 - (distance - wallDistanceOffset) * wallDistanceMultipler);
+        }
+        currentWallValue = Mathf.MoveTowards(currentWallValue, target, weaponMoveSpeed);
+        SetWallParameter(currentWallValue);
     }
 }

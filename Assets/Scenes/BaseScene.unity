@@ -357,6 +357,17 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &47375624 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6180033921790278234, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+  m_PrefabInstance: {fileID: 5272873305849929954}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47375622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a91e1349934ca724e8a303c73e9c9b01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &668068727
 GameObject:
   m_ObjectHideFlags: 0
@@ -3738,9 +3749,37 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[24].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6180033921790278234, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: wallRange
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6195133748417262797, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6932653595885803378, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: m_Height
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690006316975347338, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: weaponMoveSpeed
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690006316975347338, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 47375624}
+    - target: {fileID: 7690006316975347338, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: useWallAnimations
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690006316975347338, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: wallDistanceOffset
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690006316975347338, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: wallDistanceMultipler
+      value: 1.66
       objectReference: {fileID: 0}
     - target: {fileID: 8339985347243032759, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: near clip plane
@@ -3753,6 +3792,10 @@ PrefabInstance:
     - target: {fileID: 8339985347243032759, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_projectionMatrixMode
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9028151093970926094, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: inventoryChange.m_PersistentCalls.m_Calls.Array.size
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
