@@ -368,6 +368,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a91e1349934ca724e8a303c73e9c9b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &72637936 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4231339823040646311, guid: a1c3d4cdbe45a1046acd17378983ff50, type: 3}
+  m_PrefabInstance: {fileID: 8115126037419675638}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &524572831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 524572832}
+  - component: {fileID: 524572834}
+  - component: {fileID: 524572833}
+  m_Layer: 5
+  m_Name: Digit4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &524572832
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524572831}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.559125, y: 0.47021216, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 72637936}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 76.1, y: -7.700012}
+  m_SizeDelta: {x: 45, y: 45}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &524572833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524572831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 78e8888f6310e0e4d9477c8935a9a81f, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &524572834
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524572831}
+  m_CullTransparentMesh: 1
 --- !u!1 &668068727
 GameObject:
   m_ObjectHideFlags: 0
@@ -2878,25 +2959,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TrackedObjects:
-  - rid: 0
+  - rid: 6314426248667070492
   references:
     version: 2
     RefIds:
-    - rid: 0
+    - rid: 6314426248667070492
       type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
       data:
         m_Target: {fileID: 4781741930687280584}
         m_TrackedProperties:
           items:
-          - rid: 1
+          - rid: 6314426248667070493
         m_UpdateType: 0
-    - rid: 1
+    - rid: 6314426248667070493
       type: {class: LocalizedAssetProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
       data:
         m_Localized:
-          rid: 2
+          rid: 6314426248667070494
         m_PropertyPath: m_Sprite
-    - rid: 2
+    - rid: 6314426248667070494
       type: {class: LocalizedSprite, ns: UnityEngine.Localization, asm: Unity.Localization}
       data:
         m_TableReference:
@@ -3797,7 +3878,8 @@ PrefabInstance:
       propertyPath: inventoryChange.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5720152685819367687, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
 --- !u!222 &5339035766709592615
 CanvasRenderer:
@@ -4210,25 +4292,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TrackedObjects:
-  - rid: 0
+  - rid: 6314426248667070489
   references:
     version: 2
     RefIds:
-    - rid: 0
+    - rid: 6314426248667070489
       type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
       data:
         m_Target: {fileID: 2827111992510612659}
         m_TrackedProperties:
           items:
-          - rid: 1
+          - rid: 6314426248667070490
         m_UpdateType: 0
-    - rid: 1
+    - rid: 6314426248667070490
       type: {class: LocalizedAssetProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
       data:
         m_Localized:
-          rid: 2
+          rid: 6314426248667070491
         m_PropertyPath: m_Sprite
-    - rid: 2
+    - rid: 6314426248667070491
       type: {class: LocalizedSprite, ns: UnityEngine.Localization, asm: Unity.Localization}
       data:
         m_TableReference:
@@ -5133,6 +5215,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5352123527340938801}
     m_Modifications:
+    - target: {fileID: 4231339823040646310, guid: a1c3d4cdbe45a1046acd17378983ff50, type: 3}
+      propertyPath: digits.Array.data[0]
+      value: 
+      objectReference: {fileID: 524572833}
     - target: {fileID: 4231339823949523905, guid: a1c3d4cdbe45a1046acd17378983ff50, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -5223,7 +5309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4231339824992536736, guid: a1c3d4cdbe45a1046acd17378983ff50, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1c3d4cdbe45a1046acd17378983ff50, type: 3}
