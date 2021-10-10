@@ -9,6 +9,8 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
     private string baseScene;
     [SerializeField]
     private List<string> scenesToLoadAtStartup;
+    [SerializeField]
+    private float reloadDelay;
 
     private int scenesToReloadCount;
     private int reloadedScenes;
@@ -61,6 +63,12 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
 
     private void ReloadGame()
     {
+        StartCoroutine(ReloadGameCoroutine());
+    }
+
+    private IEnumerator ReloadGameCoroutine()
+    {
+        yield return new WaitForSecondsRealtime(reloadDelay);
         scenesToReloadCount = SceneManager.sceneCount - 1;
         List<int> scenesToReload = new List<int>();
         for (int i = 0; i < SceneManager.sceneCount; i++)
@@ -72,7 +80,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
                 SceneManager.UnloadSceneAsync(scene);
             }
         }
-        foreach(GameObject go in removeOnReload)
+        foreach (GameObject go in removeOnReload)
         {
             Destroy(go);
         }

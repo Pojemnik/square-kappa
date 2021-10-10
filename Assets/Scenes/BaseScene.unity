@@ -2235,6 +2235,7 @@ MonoBehaviour:
   baseScene: BaseScene
   scenesToLoadAtStartup:
   - FirstLevel
+  reloadDelay: 5
 --- !u!114 &1335088593085917849
 MonoBehaviour:
   m_ObjectHideFlags: 0
