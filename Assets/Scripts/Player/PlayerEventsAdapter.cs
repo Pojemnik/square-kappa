@@ -23,7 +23,7 @@ public class PlayerEventsAdapter : MonoBehaviour
         health = GetComponent<Health>();
         health.deathEvent.AddListener(OnPlayerDeath);
         health.damageEvent.AddListener(delegate { OnPlayerDamage(); });
-        EventManager.Instance.AddListener("GameReloaded", OnGameReolad);
+        EventManager.Instance.AddListener("GameReloaded", OnGameReload);
         startPosition = rb.position;
         startRotation = rb.rotation;
         shooting = GetComponent<UnitShooting>();
@@ -40,7 +40,7 @@ public class PlayerEventsAdapter : MonoBehaviour
         rb.isKinematic = false;
     }
 
-    private void OnGameReolad()
+    private void OnGameReload()
     {
         health.Heal();
         itemChanger.DropAndDestroyWeapon();

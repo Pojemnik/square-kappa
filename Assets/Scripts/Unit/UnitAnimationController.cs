@@ -134,6 +134,10 @@ public class UnitAnimationController : MonoBehaviour
             owner.itemChanger.weaponChangeEvent.AddListener(UpdateWallPullParameters);
             currentWallValue = 0;
         }
+        if (owner.itemChanger != null)
+        {
+            owner.itemChanger.weaponChangeEvent.AddListener(UpdateWeaponAnimation);
+        }
     }
 
     private void UpdateWallPullParameters(WeaponController newWeapon)
@@ -144,7 +148,7 @@ public class UnitAnimationController : MonoBehaviour
 
     private void OnWallClose(object sender, float distance)
     {
-        
+
         float target;
         if (distance == -1)
         {
