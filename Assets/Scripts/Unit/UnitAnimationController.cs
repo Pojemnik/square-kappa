@@ -17,10 +17,9 @@ public class UnitAnimationController : MonoBehaviour
     [SerializeField]
     private bool useWallAnimations;
     [SerializeField]
-    private float wallDistanceMultipler;
-    [SerializeField]
     private float weaponMoveSpeed;
-    [SerializeField]
+
+    private float wallDistanceMultipler;
     private float wallDistanceOffset;
 
     private HashSet<string> paramaterNames;
@@ -132,12 +131,20 @@ public class UnitAnimationController : MonoBehaviour
         if (useWallAnimations)
         {
             cameraController.wallCloseEvent += OnWallClose;
+            owner.itemChanger.weaponChangeEvent.AddListener(UpdateWallPullParameters);
             currentWallValue = 0;
         }
     }
 
+    private void UpdateWallPullParameters(WeaponController newWeapon)
+    {
+        wallDistanceOffset = newWeapon.Config.wallDistanceWhenPulled;
+        wallDistanceMultipler = 1 / (newWeapon.Config.length - wallDistanceOffset);
+    }
+
     private void OnWallClose(object sender, float distance)
     {
+        
         float target;
         if (distance == -1)
         {

@@ -16,5 +16,6 @@ MonoBehaviour:
   type: 1
   backwardsForce: 1000
   maxAmmo: 30
-  length: 0.85
+  length: 1
+  wallDistanceWhenPulled: 0.6
   damage: 7
