@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: IdleChemirailZeroGravity
+  m_Name: IdleLaserPistolZeroGravity
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -21,7 +21,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -5214971248702941958, guid: e94ea1ec98ee6214c816926de3fba67c, type: 3}
+  m_Motion: {fileID: -7002791526390090911}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -80,6 +80,37 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!206 &-7768449726505049342
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ChemirailFireWallTree
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: -4646139237462648797, guid: b0ce06f43bd03444a877f1564a323582, type: 3}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Wall
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -6973224243720986276, guid: f2f6644212f53114dad3f45460679a05, type: 3}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Wall
+    m_Mirror: 0
+  m_BlendParameter: Wall
+  m_BlendParameterY: Wall
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
 --- !u!1101 &-7755884800688936198
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -128,7 +159,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -4646139237462648797, guid: b0ce06f43bd03444a877f1564a323582, type: 3}
+  m_Motion: {fileID: -7768449726505049342}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -200,6 +231,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e1c6e9df76164f4487ce5949bf3eafe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!206 &-7002791526390090911
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LaserPistolIdleWallTree
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: -5214971248702941958, guid: e94ea1ec98ee6214c816926de3fba67c, type: 3}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Wall
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 4182855489402493676, guid: f18f1223b76d78d468235e1466d9cc9f, type: 3}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Wall
+    m_Mirror: 0
+  m_BlendParameter: Wall
+  m_BlendParameterY: Wall
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
 --- !u!1101 &-5212750577493842374
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -282,7 +344,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: IdleChemirailZeroGravity
+  m_Name: IdleLaserRifleZeroGravity
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -296,7 +358,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 6700360834223540787, guid: a6b798cd95bacf44086c55146d6cedbd, type: 3}
+  m_Motion: {fileID: -901766883560663704}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -532,6 +594,37 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!206 &-901766883560663704
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LaserRifleIdleWallBlend
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: 6700360834223540787, guid: a6b798cd95bacf44086c55146d6cedbd, type: 3}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Wall
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 5312614270822858439, guid: 8b89499ad3a9bc047920d370beac3707, type: 3}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Wall
+    m_Mirror: 0
+  m_BlendParameter: Wall
+  m_BlendParameterY: Wall
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
 --- !u!1101 &-782488883951693628
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -974,6 +1067,21 @@ AnimatorStateTransition:
   m_InterruptionSource: 2
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!206 &6757521424651210168
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Blend Tree
+  m_Childs: []
+  m_BlendParameter: Wall
+  m_BlendParameterY: Wall
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
 --- !u!1107 &7299425813240253829
 AnimatorStateMachine:
   serializedVersion: 6
