@@ -45,28 +45,30 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         }
         if(!loading)
         {
+            DeactivateBaseScene();
             EventManager.Instance.TriggerEvent("GameStart");
         }
     }
 
-    private void OnReloadEnd(AsyncOperation operation, string eventToSend)
+    private void OnReloadEnd(AsyncOperation _, string eventToSend)
     {
         reloadedScenes++;
         if (reloadedScenes == scenesToReloadCount)
         {
             EventManager.Instance.TriggerEvent(eventToSend);
-            if(SceneManager.sceneCount > 1)
-            {
-                if(SceneManager.GetSceneAt(0).name == baseScene)
-                {
-                    SceneManager.SetActiveScene(SceneManager.GetSceneAt(1));
-                }
-                else
-                {
-                    SceneManager.SetActiveScene(SceneManager.GetSceneAt(0));
-                }
-            }
+            DeactivateBaseScene();
             reloadedScenes = 0;
+        }
+    }
+
+    private void DeactivateBaseScene()
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            if (SceneManager.GetSceneAt(i).name != baseScene)
+            {
+                SceneManager.SetActiveScene(SceneManager.GetSceneAt(i));
+            }
         }
     }
 
