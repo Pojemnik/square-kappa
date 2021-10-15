@@ -555,23 +555,21 @@ namespace AI
             base.Enter();
             movement.SetTargetRotation(-hitDirection);
             owner.status = "Checking for damage source";
-            //owner.enemyController.unitController.AnimationController.ResetTriggers();
-            //owner.enemyController.unitController.AnimationController.SetState("LookAround");
         }
 
         public override void Update()
         {
+            if (TargetVisible(owner.enemyController.target.layer) == TargetStatus.InSight)
+            {
+                Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
+                owner.ChangeState(new ChaseState(pathNode, config, true));
+            }
             if (!movement.IsRotating)
             {
                 if (stopped)
                 {
                     owner.ChangeState(new RotateTowardsPointState(pathNode, config));
                 }
-            }
-            if (TargetVisible(owner.enemyController.target.layer) == TargetStatus.InSight)
-            {
-                Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
-                owner.ChangeState(new ChaseState(pathNode, config, true));
             }
         }
 
@@ -588,6 +586,11 @@ namespace AI
             {
                 movement.MoveInGlobalCoordinatesIgnoringSpeed(-movement.Velocity.normalized * config.acceleration);
             }
+        }
+
+        public override void Damaged(DamageInfo info)
+        {
+            //Ignore damage
         }
     }
 }
