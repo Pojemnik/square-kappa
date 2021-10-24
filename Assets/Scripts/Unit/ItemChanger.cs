@@ -9,8 +9,6 @@ public class ItemChanger : MonoBehaviour
     [Header("References")]
     [SerializeField]
     private Unit owner;
-    [SerializeField]
-    private CapsuleCollider environmentalCollider;
 
     [Header("Default weapon")]
     [SerializeField]

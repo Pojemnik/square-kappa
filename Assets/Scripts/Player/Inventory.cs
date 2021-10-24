@@ -4,7 +4,6 @@ using UnityEngine;
 [System.Serializable]
 public class Inventory
 {
-    /*
     private List<InventorySlot> smallSlots;
     private List<InventorySlot> bigSlots;
     private int totalSlots;
@@ -21,21 +20,21 @@ public class Inventory
 
     public int AddWeapon(GameObject weapon)
     {
-        ProjectileWeaponConfig.WeaponSize size = weapon.GetComponent<ProjectileWeaponConfig>().size;
-        if (size == ProjectileWeaponConfig.WeaponSize.Small)
+        WeaponConfig.WeaponSize size = weapon.GetComponent<WeaponConfig>().size;
+        if (size == WeaponConfig.WeaponSize.Small)
         {
             if (smallSlots.Count < maxSmallSlots)
             {
-                smallSlots.Add(new InventorySlot(ProjectileWeaponConfig.WeaponSize.Small));
+                smallSlots.Add(new InventorySlot(WeaponConfig.WeaponSize.Small));
                 smallSlots[smallSlots.Count - 1].AddWeapon(weapon);
                 return smallSlots.Count - 1 + maxBigSlots;
             }
         }
-        if (size == ProjectileWeaponConfig.WeaponSize.Big)
+        if (size == WeaponConfig.WeaponSize.Big)
         {
             if (bigSlots.Count < maxBigSlots)
             {
-                bigSlots.Add(new InventorySlot(ProjectileWeaponConfig.WeaponSize.Big));
+                bigSlots.Add(new InventorySlot(WeaponConfig.WeaponSize.Big));
                 bigSlots[bigSlots.Count - 1].AddWeapon(weapon);
                 return bigSlots.Count - 1;
             }
@@ -73,16 +72,16 @@ public class Inventory
 [System.Serializable]
 public class InventorySlot
 {
-    public ProjectileWeaponConfig.WeaponSize slotSize { get { return size; } }
+    public WeaponConfig.WeaponSize slotSize { get { return size; } }
     public GameObject weapon { get { return weaponObject; } }
-    public ProjectileWeaponController controller { get { return controllerObject; } }
+    public WeaponController controller { get { return controllerObject; } }
     public bool empty { get { return weaponObject == null; } }
 
     private GameObject weaponObject;
-    private ProjectileWeaponController controllerObject;
-    private ProjectileWeaponConfig.WeaponSize size;
+    private WeaponController controllerObject;
+    private WeaponConfig.WeaponSize size;
 
-    public InventorySlot(ProjectileWeaponConfig.WeaponSize weaponSize)
+    public InventorySlot(WeaponConfig.WeaponSize weaponSize)
     {
         size = weaponSize;
     }
@@ -92,16 +91,16 @@ public class InventorySlot
         if (empty)
         {
             ProjectileWeaponController tempController = weapon.GetComponent<ProjectileWeaponController>();
+            if (tempController == null)
+            {
+                throw new System.Exception("No weapon controller in weapon!");
+            }
             if (tempController.Config.size != size)
             {
                 throw new System.Exception("Wrong weapon size!");
             }
             weaponObject = weapon;
             controllerObject = tempController;
-            if (controllerObject == null)
-            {
-                throw new System.Exception("No weapon controller in weapon!");
-            }
         }
         else
         {
@@ -117,5 +116,4 @@ public class InventorySlot
         weaponObject = null;
         controllerObject = null;
     }
-    */
 }
