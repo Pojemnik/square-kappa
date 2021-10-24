@@ -24,6 +24,10 @@ public class Health : MonoBehaviour
     [Min(0)]
     private int armor;
     [SerializeField]
+    private bool healable;
+
+    [Header("Particles")]
+    [SerializeField]
     private GameObject hitParticlePrefab;
     [SerializeField]
     private GameObject destructionParticlePrefab;
@@ -78,6 +82,12 @@ public class Health : MonoBehaviour
         healthChangeEvent.Invoke(currentHealth);
     }
 
+    public void Heal(int amount)
+    {
+        currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+        healthChangeEvent.Invoke(currentHealth);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.impulse.magnitude > collisionDamageForceTreshold)
@@ -87,6 +97,15 @@ public class Health : MonoBehaviour
             ContactPoint contactPoint = collision.GetContact(0);
             DamageInfo info = new DamageInfo(damage, direction, contactPoint.point, contactPoint.normal);
             Damaged(info);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("HealthPack") && currentHealth != maxHealth)
+        {
+            HealthPackController packController = other.gameObject.GetComponent<HealthPackController>();
+            Heal(packController.HealAmount);
         }
     }
 }
