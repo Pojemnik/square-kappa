@@ -9,6 +9,7 @@ TagManager:
   - Item
   - Ammo
   - PlayerTrigger
+  - HealthPack
   layers:
   - Default
   - TransparentFX
