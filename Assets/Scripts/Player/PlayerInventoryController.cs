@@ -18,13 +18,15 @@ public class PlayerInventoryController : MonoBehaviour
 
     private ItemChanger changer;
     private Inventory inventory;
+    private int currentSlot;
 
-    private void Awake()
+    private void Start()
     {
-        inventory = new Inventory(smallSlots, bigSlots);
+        inventory = new Inventory(smallSlots, bigSlots, owner.CurrentWeapon);
+        currentSlot = inventory.MeleWeaponSlotIndex;
     }
-    /*
-    public void PickWeaponFromInventory(int slot)
+
+    public void SelectSlot(int slot)
     {
         GameObject weapon = inventory.GetWeapon(slot);
         if (owner.CurrentWeapon != null)
@@ -55,5 +57,4 @@ public class PlayerInventoryController : MonoBehaviour
             //print(String.Format("Taken weapon from inventory: {0}", weapon.name));
         }
     }
-    */
 }
