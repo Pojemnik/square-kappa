@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -7,53 +8,104 @@ public class Inventory
     private List<InventorySlot> smallSlots;
     private List<InventorySlot> bigSlots;
     private InventorySlot defaultWeaponSlot;
-    private int totalSlots;
     private int maxSmallSlots;
     private int maxBigSlots;
     public int MeleWeaponSlotIndex => maxBigSlots + maxSmallSlots;
 
     public Inventory(int bigSlotsNumber, int smallSlotsNumber, GameObject startWeapon)
     {
-        smallSlots = new List<InventorySlot>();
-        bigSlots = new List<InventorySlot>();
         maxBigSlots = bigSlotsNumber;
         maxSmallSlots = smallSlotsNumber;
-        defaultWeaponSlot = new InventorySlot(WeaponConfig.WeaponSize.Small);
+        if (maxSmallSlots == 0)
+        {
+            smallSlots = new List<InventorySlot>();
+        }
+        else
+        {
+            smallSlots = Enumerable.Repeat(new InventorySlot(WeaponConfig.WeaponSlotType.Small), maxSmallSlots).ToList();
+        }
+        if (maxSmallSlots == 0)
+        {
+            bigSlots = new List<InventorySlot>();
+        }
+        else
+        {
+            bigSlots = Enumerable.Repeat(new InventorySlot(WeaponConfig.WeaponSlotType.Small), maxBigSlots).ToList();
+        }
+        defaultWeaponSlot = new InventorySlot(WeaponConfig.WeaponSlotType.Mele);
         defaultWeaponSlot.AddWeapon(startWeapon);
     }
 
     public int AddWeapon(GameObject weapon)
     {
-        WeaponConfig.WeaponSize size = weapon.GetComponent<WeaponConfig>().size;
-        if (size == WeaponConfig.WeaponSize.Small)
+        WeaponConfig.WeaponSlotType type = weapon.GetComponent<WeaponConfig>().slotType;
+        if (type == WeaponConfig.WeaponSlotType.Small)
         {
-            if (smallSlots.Count < maxSmallSlots)
+            int slotIndex = FindFirstEmptySlot(smallSlots);
+            if (slotIndex != -1)
             {
-                smallSlots.Add(new InventorySlot(WeaponConfig.WeaponSize.Small));
-                smallSlots[smallSlots.Count - 1].AddWeapon(weapon);
-                return smallSlots.Count - 1 + maxBigSlots;
+                smallSlots[slotIndex].AddWeapon(weapon);
+                return slotIndex;
             }
         }
-        if (size == WeaponConfig.WeaponSize.Big)
+        if (type == WeaponConfig.WeaponSlotType.Big)
         {
-            if (bigSlots.Count < maxBigSlots)
+            int slotIndex = FindFirstEmptySlot(bigSlots);
+            if (slotIndex != -1)
             {
-                bigSlots.Add(new InventorySlot(WeaponConfig.WeaponSize.Big));
-                bigSlots[bigSlots.Count - 1].AddWeapon(weapon);
-                return bigSlots.Count - 1;
+                bigSlots[slotIndex].AddWeapon(weapon);
+                return slotIndex;
             }
         }
         return -1;
     }
 
+    public void ReplaceWeapon(int index, GameObject weapon)
+    {
+        InventorySlot slot = GetSlotOfIndex(index);
+        slot.RemoveWeapon();
+        slot.AddWeapon(weapon);
+    }
+
     //Returns a weapon or null if selected slot is empty/out of range
     public GameObject GetWeapon(int index)
+    {
+        return GetSlotOfIndex(index).Weapon;
+    }
+
+    public bool SlotAvailable(WeaponConfig.WeaponSlotType type)
+    {
+        int slotIndex = -1;
+        if (type == WeaponConfig.WeaponSlotType.Small)
+        {
+            slotIndex = FindFirstEmptySlot(smallSlots);
+        }
+        else if (type == WeaponConfig.WeaponSlotType.Big)
+        {
+            slotIndex = FindFirstEmptySlot(bigSlots);
+        }
+        return slotIndex != -1;
+    }
+
+    private int FindFirstEmptySlot(List<InventorySlot> slots)
+    {
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].Empty)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private InventorySlot GetSlotOfIndex(int index)
     {
         if (maxBigSlots > index)
         {
             if (bigSlots.Count > index)
             {
-                return bigSlots[index].Weapon;
+                return bigSlots[index];
             }
             return null;
         }
@@ -62,14 +114,14 @@ public class Inventory
         {
             if (smallSlots.Count > index)
             {
-                return smallSlots[index].Weapon;
+                return smallSlots[index];
             }
             return null;
         }
         index -= maxSmallSlots;
-        if(index == 0)
+        if (index == 0)
         {
-            return defaultWeaponSlot.Weapon;
+            return defaultWeaponSlot;
         }
         return null;
     }
@@ -78,30 +130,30 @@ public class Inventory
 [System.Serializable]
 public class InventorySlot
 {
-    public WeaponConfig.WeaponSize SlotSize => size;
+    public WeaponConfig.WeaponSlotType SlotType => type;
     public GameObject Weapon => weaponObject;
     public WeaponController WeaponController => controllerObject;
     public bool Empty => weaponObject == null;
 
     private GameObject weaponObject;
     private WeaponController controllerObject;
-    private WeaponConfig.WeaponSize size;
+    private readonly WeaponConfig.WeaponSlotType type;
 
-    public InventorySlot(WeaponConfig.WeaponSize weaponSize)
+    public InventorySlot(WeaponConfig.WeaponSlotType weaponSize)
     {
-        size = weaponSize;
+        type = weaponSize;
     }
 
     public void AddWeapon(GameObject weapon)
     {
         if (Empty)
         {
-            ProjectileWeaponController tempController = weapon.GetComponent<ProjectileWeaponController>();
+            WeaponController tempController = weapon.GetComponent<WeaponController>();
             if (tempController == null)
             {
                 throw new System.Exception("No weapon controller in weapon!");
             }
-            if (tempController.Config.size != size)
+            if (tempController.Config.slotType != type)
             {
                 throw new System.Exception("Wrong weapon size!");
             }
@@ -118,7 +170,7 @@ public class InventorySlot
     {
         if (weaponObject == null)
         {
-            Debug.LogWarning("Removing empty weapon from inventory!");
+            Debug.LogWarning("Removing empty weapon from inventory slot!");
         }
         weaponObject = null;
         controllerObject = null;

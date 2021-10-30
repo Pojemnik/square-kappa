@@ -5,7 +5,7 @@ using UnityEngine;
 public class InventoryDisplayController : MonoBehaviour
 {
     public List<TMPro.TextMeshProUGUI> slotDescriptions;
-    public List<WeaponConfig.WeaponSize> slotSizes;
+    public List<WeaponConfig.WeaponSlotType> slotSizes;
 
     private void Awake()
     {
@@ -15,9 +15,9 @@ public class InventoryDisplayController : MonoBehaviour
         }
     }
 
-    private string GetDefaultText(int slotNumber, WeaponConfig.WeaponSize size)
+    private string GetDefaultText(int slotNumber, WeaponConfig.WeaponSlotType size)
     {
-        string sizeName = (slotSizes[slotNumber] == WeaponConfig.WeaponSize.Small) ? "small" : "big";
+        string sizeName = (slotSizes[slotNumber] == WeaponConfig.WeaponSlotType.Small) ? "small" : "big";
         return string.Format("{0}: Empty ({1} weapon)", slotNumber, sizeName);
     }
 

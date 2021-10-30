@@ -32,6 +32,12 @@ public class ItemChanger : MonoBehaviour
     [SerializeField]
     private float weaponDropCollisionTimeout;
 
+    [Header("Inventory config")]
+    [SerializeField]
+    private int smallSlots;
+    [SerializeField]
+    private int bigSlots;
+
     [Header("Events")]
     public UnityEngine.Events.UnityEvent<WeaponController> weaponChangeEvent;
 
@@ -41,6 +47,8 @@ public class ItemChanger : MonoBehaviour
     private new Rigidbody rigidbody;
     private UnitShooting shooting;
     private event System.EventHandler<PickableItem> targetChanged;
+    private Inventory inventory;
+    private int currentSlot;
 
     private void SelectWorldItem(GameObject item)
     {
@@ -68,10 +76,7 @@ public class ItemChanger : MonoBehaviour
         }
         if(lastItem != selectedItem)
         {
-            if(targetChanged != null)
-            {
-                targetChanged(this, selectedItem?.GetComponent<PickableItem>());
-            }
+            targetChanged?.Invoke(this, selectedItem?.GetComponent<PickableItem>());
         }
     }
 
@@ -98,12 +103,13 @@ public class ItemChanger : MonoBehaviour
 
     public void ThrowWeaponAway()
     {
-        if (owner.CurrentWeapon == defaultWeapon)
+        GameObject currentWeapon = owner.CurrentWeapon;
+        if (currentWeapon == defaultWeapon)
         {
             return;
         }
-        StartCoroutine(owner.CurrentWeapon.GetComponent<PickableItem>().SetLayerAfterDelay(weaponDropCollisionTimeout, 0));
-        Rigidbody weaponRB = owner.CurrentWeapon.GetComponent<Rigidbody>();
+        StartCoroutine(currentWeapon.GetComponent<PickableItem>().SetLayerAfterDelay(weaponDropCollisionTimeout, 0));
+        Rigidbody weaponRB = currentWeapon.GetComponent<Rigidbody>();
         DropWeapon(weaponRB);
         weaponRB.AddRelativeForce(0, 0, weaponThrowForce);
         weaponRB.AddRelativeTorque(0, -20, 0);
@@ -193,6 +199,8 @@ public class ItemChanger : MonoBehaviour
             GrabWeapon(null);
         }
         targetChanged += ItemsManager.Instance.OnItemTargeted;
+        inventory = new Inventory(smallSlots, bigSlots, owner.CurrentWeapon);
+        currentSlot = inventory.MeleWeaponSlotIndex;
     }
 
     private void Update()
