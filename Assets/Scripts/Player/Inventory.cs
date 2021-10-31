@@ -30,7 +30,7 @@ public class Inventory
         }
         else
         {
-            bigSlots = Enumerable.Repeat(new InventorySlot(WeaponConfig.WeaponSlotType.Small), maxBigSlots).ToList();
+            bigSlots = Enumerable.Repeat(new InventorySlot(WeaponConfig.WeaponSlotType.Big), maxBigSlots).ToList();
         }
         defaultWeaponSlot = new InventorySlot(WeaponConfig.WeaponSlotType.Mele);
         defaultWeaponSlot.AddWeapon(startWeapon);
@@ -38,14 +38,14 @@ public class Inventory
 
     public int AddWeapon(GameObject weapon)
     {
-        WeaponConfig.WeaponSlotType type = weapon.GetComponent<WeaponConfig>().slotType;
+        WeaponConfig.WeaponSlotType type = weapon.GetComponent<WeaponController>().Config.slotType;
         if (type == WeaponConfig.WeaponSlotType.Small)
         {
             int slotIndex = FindFirstEmptySlot(smallSlots);
             if (slotIndex != -1)
             {
                 smallSlots[slotIndex].AddWeapon(weapon);
-                return slotIndex;
+                return slotIndex + bigSlots.Count;
             }
         }
         if (type == WeaponConfig.WeaponSlotType.Big)
@@ -87,16 +87,35 @@ public class Inventory
         return slotIndex != -1;
     }
 
-    private int FindFirstEmptySlot(List<InventorySlot> slots)
+    public void RemoveWeapon(int index)
     {
-        for (int i = 0; i < slots.Count; i++)
+        InventorySlot slot = GetSlotOfIndex(index);
+        slot.RemoveWeapon();
+    }
+
+    public void Clear()
+    {
+        foreach(InventorySlot slot in smallSlots)
         {
-            if (slots[i].Empty)
+            slot.RemoveWeapon();
+        }
+        foreach (InventorySlot slot in bigSlots)
+        {
+            slot.RemoveWeapon();
+        }
+        defaultWeaponSlot.RemoveWeapon();
+    }
+
+    public int GetSlotWithWeapon()
+    {
+        for(int i = 0; i < bigSlots.Count + smallSlots.Count + 1; i++)
+        {
+            if(!GetSlotOfIndex(i).Empty)
             {
                 return i;
             }
         }
-        return -1;
+        throw new System.Exception("No weapon found in any slot. This should never happen");
     }
 
     private InventorySlot GetSlotOfIndex(int index)
@@ -124,6 +143,18 @@ public class Inventory
             return defaultWeaponSlot;
         }
         return null;
+    }
+
+    private int FindFirstEmptySlot(List<InventorySlot> slots)
+    {
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].Empty)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }
 

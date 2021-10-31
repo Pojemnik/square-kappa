@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,8 +12,6 @@ public class ItemChanger : MonoBehaviour
     private Unit owner;
 
     [Header("Default weapon")]
-    [SerializeField]
-    private bool useDefaultWeapon;
     [SerializeField]
     private GameObject defaultWeapon;
 
@@ -40,6 +39,8 @@ public class ItemChanger : MonoBehaviour
 
     [Header("Events")]
     public UnityEngine.Events.UnityEvent<WeaponController> weaponChangeEvent;
+    public UnityEngine.Events.UnityEvent<WeaponController> weaponInCurrentSlotChangeEvent;
+    public UnityEngine.Events.UnityEvent<int> currentSlotChangeEvent;
 
     private WeaponController defaultWeaponController;
     private PlayerCameraController cameraController;
@@ -74,31 +75,82 @@ public class ItemChanger : MonoBehaviour
                 selectedItem = null;
             }
         }
-        if(lastItem != selectedItem)
+        if (lastItem != selectedItem)
         {
             targetChanged?.Invoke(this, selectedItem?.GetComponent<PickableItem>());
         }
     }
 
+    public void ClearInventory()
+    {
+        inventory.Clear();
+    }
+
     public void PickOrSwapWeapon()
     {
-        if (owner.CurrentWeapon == defaultWeapon || owner.CurrentWeapon == null)
+        if (selectedItem == null)
         {
-            PickWeaponUp();
+            return;
+        }
+        WeaponController selectedWeaponController = selectedItem.GetComponent<WeaponController>();
+        if (selectedWeaponController == null)
+        {
+            return;
+        }
+        if (owner.CurrentWeapon == null)
+        {
+            Debug.LogError("Current weapon is null in player. This should never happen");
+        }
+        if (owner.CurrentWeaponController.Config.slotType == selectedWeaponController.Config.slotType)
+        {
+            if (inventory.SlotAvailable(selectedWeaponController.Config.slotType))
+            {
+                //Pick up to slot and select
+                int slot = inventory.AddWeapon(selectedItem);
+                ChangeActiveSlot(slot);
+                weaponInCurrentSlotChangeEvent.Invoke(owner.CurrentWeaponController);
+            }
+            else
+            {
+                //swap in slot
+                inventory.ReplaceWeapon(currentSlot, selectedItem);
+                ChangeActiveSlot(currentSlot);
+                weaponInCurrentSlotChangeEvent.Invoke(owner.CurrentWeaponController);
+            }
+            selectedItem = null;
         }
         else
         {
-            SwapWeapons();
+            if (inventory.SlotAvailable(selectedWeaponController.Config.slotType))
+            {
+                //Pick up to slot and select
+                int slot = inventory.AddWeapon(selectedItem);
+                ChangeActiveSlot(slot);
+                weaponInCurrentSlotChangeEvent.Invoke(owner.CurrentWeaponController);
+                selectedItem = null;
+            }
+            else
+            {
+                //???
+                Debug.LogWarning("IDK");
+            }
         }
     }
 
-    public void SwapWeapons()
+    public void ChangeActiveSlot(int slot)
     {
-        if (selectedItem)
+        owner.CurrentWeaponController?.StopAttack();
+        owner.CurrentWeapon?.SetActive(false);
+        GameObject weaponFromInventory = inventory.GetWeapon(slot);
+        if(weaponFromInventory == null)
         {
-            ThrowWeaponAway();
-            PickWeaponUp();
+            Debug.LogFormat("Selected weapon from slot {0}, but it's empty.", slot);
+            return;
         }
+        Debug.LogFormat("Selected weapon {0} from slot {1}", weaponFromInventory, slot);
+        BindWeapon(weaponFromInventory);
+        currentSlotChangeEvent.Invoke(slot);
+        currentSlot = slot;
     }
 
     public void ThrowWeaponAway()
@@ -108,15 +160,17 @@ public class ItemChanger : MonoBehaviour
         {
             return;
         }
+        inventory.RemoveWeapon(currentSlot);
         StartCoroutine(currentWeapon.GetComponent<PickableItem>().SetLayerAfterDelay(weaponDropCollisionTimeout, 0));
         Rigidbody weaponRB = currentWeapon.GetComponent<Rigidbody>();
-        DropWeapon(weaponRB);
+        UnbindWeapon(weaponRB);
         weaponRB.AddRelativeForce(0, 0, weaponThrowForce);
         weaponRB.AddRelativeTorque(0, -20, 0);
         weaponRB.AddForce(rigidbody.velocity, ForceMode.VelocityChange);
+        ChangeActiveSlot(inventory.GetSlotWithWeapon());
     }
 
-    private void DropWeapon(Rigidbody weaponRB)
+    private void UnbindWeapon(Rigidbody weaponRB)
     {
         weaponRB.isKinematic = false;
         owner.CurrentWeapon.transform.parent = null;
@@ -125,18 +179,10 @@ public class ItemChanger : MonoBehaviour
         shooting.PickUpAmmo(owner.CurrentWeaponController.Config.type, ammoLeft);
         owner.CurrentWeapon.GetComponent<PickableItem>().OnDrop();
         SceneLoadingManager.Instance.AddObjectToRemoveOnReload(owner.CurrentWeapon);
-        if (useDefaultWeapon)
-        {
-            GrabWeapon(defaultWeapon);
-        }
-        else
-        {
-            owner.CurrentWeapon = null;
-            weaponChangeEvent.Invoke(null);
-        }
+        BindWeapon(defaultWeapon);
     }
 
-    public void GrabWeapon(GameObject weapon)
+    private void BindWeapon(GameObject weapon)
     {
         owner.CurrentWeapon = weapon;
         owner.CurrentWeapon.SetActive(true);
@@ -152,21 +198,13 @@ public class ItemChanger : MonoBehaviour
         shooting.ChangeWeaponController(owner.CurrentWeaponController);
     }
 
-    public void PickWeaponUp()
-    {
-        if (selectedItem)
-        {
-            GrabWeapon(selectedItem);
-            selectedItem = null;
-        }
-    }
-
     public void DropAndDestroyWeapon()
     {
         GameObject weapon = owner.CurrentWeapon;
         if (weapon != null && weapon != defaultWeapon)
         {
-            DropWeapon(owner.CurrentWeapon.GetComponent<Rigidbody>());
+            inventory.RemoveWeapon(currentSlot);
+            UnbindWeapon(owner.CurrentWeapon.GetComponent<Rigidbody>());
             Destroy(weapon);
         }
     }
@@ -181,23 +219,16 @@ public class ItemChanger : MonoBehaviour
     private void Start()
     {
         cameraController.targettingRange = weaponPickupRange;
-        if (useDefaultWeapon)
+        if (defaultWeapon == null)
         {
-            if (defaultWeapon == null)
-            {
-                throw new System.Exception("No default weapon");
-            }
-            defaultWeaponController = defaultWeapon.GetComponent<WeaponController>();
-            if (defaultWeaponController == null)
-            {
-                throw new System.Exception("No controller in default weapon");
-            }
-            GrabWeapon(defaultWeapon);
+            throw new System.Exception("No default weapon");
         }
-        else
+        defaultWeaponController = defaultWeapon.GetComponent<WeaponController>();
+        if (defaultWeaponController == null)
         {
-            GrabWeapon(null);
+            throw new System.Exception("No controller in default weapon");
         }
+        BindWeapon(defaultWeapon);
         targetChanged += ItemsManager.Instance.OnItemTargeted;
         inventory = new Inventory(smallSlots, bigSlots, owner.CurrentWeapon);
         currentSlot = inventory.MeleWeaponSlotIndex;

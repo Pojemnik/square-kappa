@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a270b8c67091c41a80e5814b8214ec, type: 3}
   m_Name: ChemirailConfigBase
   m_EditorClassIdentifier: 
-  size: 1
+  slotType: 1
   type: 1
   backwardsForce: 1000
   maxAmmo: 30

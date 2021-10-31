@@ -91,6 +91,14 @@ public class PlayerInputAdapter : MonoBehaviour
         zoom = false;
     }
 
+    public void ChangeWeapon(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            owner.itemChanger.ChangeActiveSlot((int)context.ReadValue<float>());
+        }
+    }
+
     private void Awake()
     {
         ZoomController zoomController = FindObjectOfType<ZoomController>();
