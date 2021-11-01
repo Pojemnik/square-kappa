@@ -5,8 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputAdapter : MonoBehaviour
 {
-    private float defaultCameraSensitivity;
+    private float cameraSensitivity;
     private float zoomCameraSensitivity;
+    [SerializeField]
+    private float scrollSensitivity;
     [Header("References")]
     public UnitController owner;
 
@@ -36,7 +38,7 @@ public class PlayerInputAdapter : MonoBehaviour
         }
         else
         {
-            owner.movement.RelativeLook(rawInputLook * defaultCameraSensitivity);
+            owner.movement.RelativeLook(rawInputLook * cameraSensitivity);
         }
     }
 
@@ -99,6 +101,14 @@ public class PlayerInputAdapter : MonoBehaviour
         }
     }
 
+    public void NextWeapon(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            owner.itemChanger.NextWeapon((int)(context.ReadValue<Vector2>().y * scrollSensitivity));
+        }
+    }
+
     private void Awake()
     {
         ZoomController zoomController = FindObjectOfType<ZoomController>();
@@ -108,8 +118,8 @@ public class PlayerInputAdapter : MonoBehaviour
 
     private void Start()
     {
-        defaultCameraSensitivity = SettingsManager.Instance.MouseSensitivity.Value;
-        SettingsManager.Instance.MouseSensitivity.ValueChanged += (_, val) => { defaultCameraSensitivity = val; };
+        cameraSensitivity = SettingsManager.Instance.MouseSensitivity.Value;
+        SettingsManager.Instance.MouseSensitivity.ValueChanged += (_, val) => { cameraSensitivity = val; };
         zoomCameraSensitivity = SettingsManager.Instance.ZoomMouseSensitivity.Value;
         SettingsManager.Instance.ZoomMouseSensitivity.ValueChanged += (_, val) => { zoomCameraSensitivity = val; };
     }

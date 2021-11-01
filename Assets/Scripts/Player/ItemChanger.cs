@@ -168,6 +168,18 @@ public class ItemChanger : MonoBehaviour
         ChangeActiveSlot(slot);
     }
 
+    public void NextWeapon(int delta)
+    {
+        int slot = currentSlot + delta;
+        int slotsNumber = inventory.MeleWeaponSlotIndex + 1;
+        while(slot < 0)
+        {
+            slot += slotsNumber;
+        }
+        slot %= slotsNumber;
+        ChangeWeapon(slot);
+    }
+
     public void ThrowWeapon()
     {
         GameObject currentWeapon = owner.CurrentWeapon;

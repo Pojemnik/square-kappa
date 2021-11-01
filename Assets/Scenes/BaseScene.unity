@@ -4234,9 +4234,13 @@ PrefabInstance:
       propertyPath: weaponInCurrentSlotChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5752946300653547729, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: scrollSensitivity
+      value: 0.0083
+      objectReference: {fileID: 0}
     - target: {fileID: 6165911240001322639, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 22
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 6165911240001322639, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_ActionEvents.Array.data[17].m_ActionId
@@ -4257,6 +4261,10 @@ PrefabInstance:
     - target: {fileID: 6165911240001322639, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_ActionEvents.Array.data[21].m_ActionId
       value: 5f4e7453-ba37-48ba-838d-ca6cfd2021e8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6165911240001322639, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_ActionId
+      value: a69e4ca5-893b-45f5-852a-5970ba3c31a5
       objectReference: {fileID: 0}
     - target: {fileID: 6165911240001322639, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_ActionEvents.Array.data[23].m_ActionId
@@ -4285,6 +4293,10 @@ PrefabInstance:
     - target: {fileID: 6165911240001322639, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_ActionEvents.Array.data[21].m_ActionName
       value: Player/SelectWeapon[/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4]
+      objectReference: {fileID: 0}
+    - target: {fileID: 6165911240001322639, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_ActionName
+      value: Player/NextWeapon[/Mouse/scroll]
       objectReference: {fileID: 0}
     - target: {fileID: 6165911240001322639, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_ActionEvents.Array.data[23].m_ActionName
@@ -4381,7 +4393,7 @@ PrefabInstance:
     - target: {fileID: 6165911240001322639, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 6027232053930846747}
+      objectReference: {fileID: 503154644064210995}
     - target: {fileID: 6165911240001322639, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4436,7 +4448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6165911240001322639, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeZoomState
+      value: NextWeapon
       objectReference: {fileID: 0}
     - target: {fileID: 6165911240001322639, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -4496,7 +4508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6165911240001322639, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIInputAdapter, Assembly-CSharp
+      value: PlayerInputAdapter, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6165911240001322639, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
