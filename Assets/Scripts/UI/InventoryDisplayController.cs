@@ -4,33 +4,57 @@ using UnityEngine;
 
 public class InventoryDisplayController : MonoBehaviour
 {
-    public List<TMPro.TextMeshProUGUI> slotDescriptions;
-    public List<WeaponConfig.WeaponSize> slotSizes;
+    [SerializeField]
+    private List<TMPro.TextMeshProUGUI> slotDescriptions;
+    [SerializeField]
+    private List<WeaponConfig.WeaponSlotType> slotSizes;
+    [SerializeField]
+    private int defaultSlot;
+
+    private List<string> weaponNames = new List<string> { "Empty", "Empty", "Empty", "Fists" };
+    private int currentSlot;
+
+    private Dictionary<WeaponConfig.WeaponSlotType, string> slotSizeNames = new Dictionary<WeaponConfig.WeaponSlotType, string>
+    {
+        {WeaponConfig.WeaponSlotType.Big, "big" },
+        {WeaponConfig.WeaponSlotType.Small, "small"},
+        {WeaponConfig.WeaponSlotType.Mele, "mele"}
+    };
 
     private void Awake()
     {
-        for(int i = 0; i < slotDescriptions.Count; i++)
+        currentSlot = defaultSlot;
+        for (int i = 0; i < slotDescriptions.Count; i++)
         {
-            slotDescriptions[i].text = GetDefaultText(i, slotSizes[i]);
+            slotDescriptions[i].text = GetSlotText(i);
         }
     }
 
-    private string GetDefaultText(int slotNumber, WeaponConfig.WeaponSize size)
+    private string GetSlotText(int slotIndex)
     {
-        string sizeName = (slotSizes[slotNumber] == WeaponConfig.WeaponSize.Small) ? "small" : "big";
-        return string.Format("{0}: Empty ({1} weapon)", slotNumber, sizeName);
+        string sizeName = slotSizeNames[slotSizes[slotIndex]];
+        string selectedStr = slotIndex == currentSlot ? "* " : "";
+        return string.Format("{2} {0}: {3} ({1} weapon)", slotIndex, sizeName, selectedStr, weaponNames[slotIndex]);
     }
 
-    public void AddWeapon(int slot, string weaponName)
+    public void OnChangeCurrentSlotContent(WeaponController weapon)
     {
-        print(string.Format("Slot: {0} Weapon: {1}", slot, weaponName));
-        if (weaponName == "")
+        if (weapon == null)
         {
-            slotDescriptions[slot].text = GetDefaultText(slot, slotSizes[slot]);
+            weaponNames[currentSlot] = "Empty";
         }
         else
         {
-            slotDescriptions[slot].text = string.Format("{0}: {1}", slot, weaponName);
+            weaponNames[currentSlot] = weapon.gameObject.name;
         }
+        slotDescriptions[currentSlot].text = GetSlotText(currentSlot);
+    }
+
+    public void OnChangeSelectedSlot(int selectedSlot)
+    {
+        int lastSelected = currentSlot;
+        currentSlot = selectedSlot;
+        slotDescriptions[lastSelected].text = GetSlotText(lastSelected);
+        slotDescriptions[currentSlot].text = GetSlotText(currentSlot);
     }
 }

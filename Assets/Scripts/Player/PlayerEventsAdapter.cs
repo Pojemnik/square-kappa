@@ -44,6 +44,7 @@ public class PlayerEventsAdapter : MonoBehaviour
     {
         health.Heal();
         itemChanger.DropAndDestroyWeapon();
+        itemChanger.ClearInventory();
         shooting.ResetAmmoAmount();
         MovePlayerToStartPosition();
     }

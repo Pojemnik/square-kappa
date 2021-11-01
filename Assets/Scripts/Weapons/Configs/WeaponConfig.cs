@@ -6,10 +6,11 @@ using UnityEngine;
 public class WeaponConfig : ScriptableObject
 {
     [System.Serializable]
-    public enum WeaponSize
+    public enum WeaponSlotType
     {
         Small,
-        Big
+        Big,
+        Mele
     }
 
     [System.Serializable]
@@ -20,8 +21,8 @@ public class WeaponConfig : ScriptableObject
         LaserRifle,
         Fists
     }
-    [Tooltip("Size of slot taken by weapon in inventory")]
-    public WeaponSize size;
+    [Tooltip("Type of slot taken by weapon in inventory")]
+    public WeaponSlotType slotType;
     [Tooltip("Weapon type used for selecting animation")]
     public WeaponType type;
     [Tooltip("Backwards force applied to shooter while shooting")]
