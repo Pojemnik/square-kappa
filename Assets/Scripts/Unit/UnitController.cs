@@ -5,11 +5,6 @@ using UnityEngine.InputSystem;
 
 public class UnitController : Unit
 {
-    [Header("Events")]
-    //TODO fix inventory
-    public UnityEngine.Events.UnityEvent<int, string> inventoryChange;
-    private Inventory inventory;
-
     [Header("Components")]
     public UnitMovement movement;
     public UnitShooting shooting;
@@ -59,18 +54,5 @@ public class UnitController : Unit
         {
             currentWeaponController = currentWeapon.GetComponent<WeaponController>();
         }
-    }
-
-    public void DropItem()
-    {
-        if (currentWeapon != null)
-        {
-            itemChanger.ThrowWeaponAway();
-        }
-    }
-
-    public void PickItem()
-    {
-        itemChanger.PickOrSwapWeapon();
     }
 }

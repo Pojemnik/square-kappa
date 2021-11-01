@@ -22,7 +22,7 @@ public class Inventory
         }
         else
         {
-            smallSlots = Enumerable.Repeat(new InventorySlot(WeaponConfig.WeaponSlotType.Small), maxSmallSlots).ToList();
+            smallSlots = InitSlots(WeaponConfig.WeaponSlotType.Small, maxSmallSlots);
         }
         if (maxSmallSlots == 0)
         {
@@ -30,7 +30,7 @@ public class Inventory
         }
         else
         {
-            bigSlots = Enumerable.Repeat(new InventorySlot(WeaponConfig.WeaponSlotType.Big), maxBigSlots).ToList();
+            bigSlots = InitSlots(WeaponConfig.WeaponSlotType.Big, maxBigSlots);
         }
         defaultWeaponSlot = new InventorySlot(WeaponConfig.WeaponSlotType.Mele);
         defaultWeaponSlot.AddWeapon(startWeapon);
@@ -60,10 +60,13 @@ public class Inventory
         return -1;
     }
 
-    public void ReplaceWeapon(int index, GameObject weapon)
+    public void AddWeaponToSlot(int index, GameObject weapon)
     {
         InventorySlot slot = GetSlotOfIndex(index);
-        slot.RemoveWeapon();
+        if(!slot.Empty)
+        {
+            throw new System.Exception(string.Format("Tried to add weapon {0} to occupied slot (slot index {1})", weapon.gameObject.name, index));
+        }
         slot.AddWeapon(weapon);
     }
 
@@ -116,6 +119,16 @@ public class Inventory
             }
         }
         throw new System.Exception("No weapon found in any slot. This should never happen");
+    }
+
+    private List<InventorySlot> InitSlots(WeaponConfig.WeaponSlotType type, int count)
+    {
+        List<InventorySlot> slots = new List<InventorySlot>();
+        for(int i = 0; i < count; i++)
+        {
+            slots.Add(new InventorySlot(type));
+        }
+        return slots;
     }
 
     private InventorySlot GetSlotOfIndex(int index)

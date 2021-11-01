@@ -113,7 +113,12 @@ public class ItemChanger : MonoBehaviour
             else
             {
                 //swap in slot
-                inventory.ReplaceWeapon(currentSlot, selectedItem);
+                if(owner.CurrentWeapon == defaultWeapon)
+                {
+                    return;
+                }
+                ThrowWeapon();
+                inventory.AddWeaponToSlot(currentSlot, selectedItem);
                 ChangeActiveSlot(currentSlot);
                 weaponInCurrentSlotChangeEvent.Invoke(owner.CurrentWeaponController);
             }
@@ -137,36 +142,52 @@ public class ItemChanger : MonoBehaviour
         }
     }
 
-    public void ChangeActiveSlot(int slot)
+    private void ChangeActiveSlot(int slot)
     {
-        owner.CurrentWeaponController?.StopAttack();
-        owner.CurrentWeapon?.SetActive(false);
         GameObject weaponFromInventory = inventory.GetWeapon(slot);
         if(weaponFromInventory == null)
         {
-            Debug.LogFormat("Selected weapon from slot {0}, but it's empty.", slot);
+            Debug.LogFormat("Selected weapon from slot {0}, which is empty", slot);
             return;
         }
+        owner.CurrentWeaponController?.StopAttack();
+        owner.CurrentWeapon?.SetActive(false);
         Debug.LogFormat("Selected weapon {0} from slot {1}", weaponFromInventory, slot);
         BindWeapon(weaponFromInventory);
         currentSlotChangeEvent.Invoke(slot);
         currentSlot = slot;
     }
 
-    public void ThrowWeaponAway()
+    public void ChangeWeapon(int slot)
     {
-        GameObject currentWeapon = owner.CurrentWeapon;
-        if (currentWeapon == defaultWeapon)
+        if (slot == currentSlot)
         {
+            Debug.LogFormat("Selected weapon from slot {0}, which is tge same as current", slot);
             return;
         }
+        ChangeActiveSlot(slot);
+    }
+
+    public void ThrowWeapon()
+    {
+        GameObject currentWeapon = owner.CurrentWeapon;
         inventory.RemoveWeapon(currentSlot);
+        weaponInCurrentSlotChangeEvent.Invoke(null);
         StartCoroutine(currentWeapon.GetComponent<PickableItem>().SetLayerAfterDelay(weaponDropCollisionTimeout, 0));
         Rigidbody weaponRB = currentWeapon.GetComponent<Rigidbody>();
         UnbindWeapon(weaponRB);
         weaponRB.AddRelativeForce(0, 0, weaponThrowForce);
         weaponRB.AddRelativeTorque(0, -20, 0);
         weaponRB.AddForce(rigidbody.velocity, ForceMode.VelocityChange);
+    }
+
+    public void DropCurrentWeapon()
+    {
+        if(owner.CurrentWeapon == defaultWeapon)
+        {
+            return;
+        }
+        ThrowWeapon();
         ChangeActiveSlot(inventory.GetSlotWithWeapon());
     }
 
@@ -230,7 +251,7 @@ public class ItemChanger : MonoBehaviour
         }
         BindWeapon(defaultWeapon);
         targetChanged += ItemsManager.Instance.OnItemTargeted;
-        inventory = new Inventory(smallSlots, bigSlots, owner.CurrentWeapon);
+        inventory = new Inventory(bigSlots, smallSlots, owner.CurrentWeapon);
         currentSlot = inventory.MeleWeaponSlotIndex;
     }
 

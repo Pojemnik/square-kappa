@@ -58,7 +58,7 @@ public class PlayerInputAdapter : MonoBehaviour
         {
             return;
         }
-        owner.DropItem();
+        owner.itemChanger.DropCurrentWeapon();
     }
 
     public void PickItem(InputAction.CallbackContext context)
@@ -67,7 +67,7 @@ public class PlayerInputAdapter : MonoBehaviour
         {
             return;
         }
-        owner.PickItem();
+        owner.itemChanger.PickOrSwapWeapon();
     }
 
     public void Reload(InputAction.CallbackContext context)
@@ -95,7 +95,7 @@ public class PlayerInputAdapter : MonoBehaviour
     {
         if (context.started)
         {
-            owner.itemChanger.ChangeActiveSlot((int)context.ReadValue<float>());
+            owner.itemChanger.ChangeWeapon((int)context.ReadValue<float>());
         }
     }
 
