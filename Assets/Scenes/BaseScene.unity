@@ -4551,6 +4551,10 @@ PrefabInstance:
       value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 7690006316975347338, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: weaponChangeDuration
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690006316975347338, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: wallDistanceMultipler
       value: 1.66
       objectReference: {fileID: 0}
