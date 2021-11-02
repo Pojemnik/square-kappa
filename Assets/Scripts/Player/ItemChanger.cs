@@ -136,8 +136,12 @@ public class ItemChanger : MonoBehaviour
             }
             else
             {
-                //???
-                Debug.LogWarning("IDK");
+                int slot = inventory.GetSlotOfSize(selectedWeaponController.Config.slotType);
+                ChangeActiveSlot(slot);
+                ThrowWeapon();
+                inventory.AddWeaponToSlot(currentSlot, selectedItem);
+                ChangeActiveSlot(currentSlot);
+                weaponInCurrentSlotChangeEvent.Invoke(owner.CurrentWeaponController);
             }
         }
     }
