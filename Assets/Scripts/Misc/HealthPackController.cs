@@ -9,11 +9,8 @@ public class HealthPackController : MonoBehaviour
 
     public int HealAmount { get => healAmount; }
 
-    private void OnTriggerEnter(Collider other)
+    public void Consume()
     {
-        if (other.CompareTag("Player"))
-        {
-            Destroy(transform.parent.gameObject);
-        }
+        Destroy(transform.parent.gameObject);
     }
 }
