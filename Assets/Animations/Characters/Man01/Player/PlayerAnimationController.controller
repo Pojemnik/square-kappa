@@ -364,6 +364,37 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!206 &-4209238814894206828
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UnarmedWallBlendTree
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: -7407292870563955770, guid: e8f8a8cec55a883458de4793a1396117, type: 3}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Wall
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -2024815478776409616, guid: dea3625f632911543b1053d1fb8933c8, type: 3}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Wall
+    m_Mirror: 0
+  m_BlendParameter: Wall
+  m_BlendParameterY: Wall
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
 --- !u!1101 &-4049112525687352871
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -541,7 +572,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -7407292870563955770, guid: e8f8a8cec55a883458de4793a1396117, type: 3}
+  m_Motion: {fileID: -4209238814894206828}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: MirrorPunch
@@ -1096,7 +1127,7 @@ AnimatorStateMachine:
     m_Position: {x: 400, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1424630840366341386}
-    m_Position: {x: 400, y: 80, z: 0}
+    m_Position: {x: 390, y: 100, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
