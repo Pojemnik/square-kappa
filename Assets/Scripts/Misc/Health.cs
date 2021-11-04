@@ -23,8 +23,6 @@ public class Health : MonoBehaviour
     [Tooltip("Amount of damage subrtacted from every hit")]
     [Min(0)]
     private int armor;
-    [SerializeField]
-    private bool healable;
 
     [Header("Particles")]
     [SerializeField]
@@ -106,6 +104,7 @@ public class Health : MonoBehaviour
         {
             HealthPackController packController = other.gameObject.GetComponent<HealthPackController>();
             Heal(packController.HealAmount);
+            packController.Consume();
         }
     }
 }

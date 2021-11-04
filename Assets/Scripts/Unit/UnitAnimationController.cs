@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Events;
 
 public class UnitAnimationController : MonoBehaviour
 {
@@ -19,11 +20,19 @@ public class UnitAnimationController : MonoBehaviour
     [SerializeField]
     private float weaponMoveSpeed;
 
+    [Header("Weapon change animation parameters")]
+    [SerializeField]
+    private float weaponChangeDuration;
+
     private float wallDistanceMultipler;
     private float wallDistanceOffset;
 
     private HashSet<string> paramaterNames;
     private float currentWallValue;
+
+    private float currentPullValue;
+    private bool animateWeaponPull;
+    private float currentPullAnimationTime;
 
     public void SetState(string state)
     {
@@ -138,7 +147,15 @@ public class UnitAnimationController : MonoBehaviour
         if (owner.itemChanger != null)
         {
             owner.itemChanger.weaponChangeEvent.AddListener(UpdateWeaponAnimation);
+            owner.itemChanger.weaponChangeEvent.AddListener((_) => StartPullAnimation());
         }
+    }
+
+    private void StartPullAnimation()
+    {
+        animateWeaponPull = true;
+        currentPullAnimationTime = 0;
+        currentPullValue = 0;
     }
 
     private void UpdateWallPullParameters(WeaponController newWeapon)
@@ -149,7 +166,6 @@ public class UnitAnimationController : MonoBehaviour
 
     private void OnWallClose(object sender, float distance)
     {
-
         float target;
         if (distance == -1)
         {
@@ -160,6 +176,25 @@ public class UnitAnimationController : MonoBehaviour
             target = Mathf.Clamp01(1 - (distance - wallDistanceOffset) * wallDistanceMultipler);
         }
         currentWallValue = Mathf.MoveTowards(currentWallValue, target, weaponMoveSpeed);
-        SetWallParameter(currentWallValue);
+        SetWallParameter(Mathf.Max(currentWallValue, currentPullValue));
+    }
+
+    private void Update()
+    {
+        if (animateWeaponPull)
+        {
+            if (currentPullAnimationTime < weaponChangeDuration)
+            {
+                currentPullAnimationTime += Time.deltaTime;
+                currentPullValue = Mathf.Lerp(1, 0, currentPullAnimationTime / weaponChangeDuration);
+                SetWallParameter(Mathf.Max(currentWallValue, currentPullValue));
+            }
+            else
+            {
+                currentPullAnimationTime = 0;
+                currentPullValue = 0;
+                animateWeaponPull = false;
+            }
+        }
     }
 }

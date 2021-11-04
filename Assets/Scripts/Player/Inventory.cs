@@ -121,6 +121,20 @@ public class Inventory
         throw new System.Exception("No weapon found in any slot. This should never happen");
     }
 
+    public int GetSlotOfSize(WeaponConfig.WeaponSlotType type)
+    {
+        switch (type)
+        {
+            case WeaponConfig.WeaponSlotType.Small:
+                return maxBigSlots;
+            case WeaponConfig.WeaponSlotType.Big:
+                return 0;
+            default:
+                return maxBigSlots + maxSmallSlots;
+        }
+
+    }
+
     private List<InventorySlot> InitSlots(WeaponConfig.WeaponSlotType type, int count)
     {
         List<InventorySlot> slots = new List<InventorySlot>();
