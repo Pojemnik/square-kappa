@@ -166,7 +166,7 @@ public class ItemChanger : MonoBehaviour
     {
         if (slot == currentSlot)
         {
-            Debug.LogFormat("Selected weapon from slot {0}, which is tge same as current", slot);
+            Debug.LogFormat("Selected weapon from slot {0}, which is the same as current", slot);
             return;
         }
         ChangeActiveSlot(slot);

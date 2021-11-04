@@ -171,9 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58809af716df9834092ee4f68708b242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryChange:
-    m_PersistentCalls:
-      m_Calls: []
   movement: {fileID: 3415701483049605099}
   shooting: {fileID: 1280456608684126228}
   itemChanger: {fileID: 5653950778987106431}
@@ -210,7 +207,6 @@ MonoBehaviour:
   collisionDamageForceTreshold: 500
   collisionDamageForceMultipler: 0.1
   armor: 0
-  healable: 0
   hitParticlePrefab: {fileID: 0}
   destructionParticlePrefab: {fileID: 0}
   deathEvent:
@@ -542,7 +538,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 9028151093970926094}
-  useDefaultWeapon: 1
   defaultWeapon: {fileID: 7949570221139043065}
   firstPresonCamera: {fileID: 6014078750031605804}
   weaponPickupRange: 1
@@ -566,6 +561,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  weaponInCurrentSlotChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  currentSlotChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1280456608684126228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,6 +603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54ce57977372e6141ae3558511283888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scrollSensitivity: -0.009
   owner: {fileID: 9028151093970926094}
 --- !u!114 &7690006316975347338
 MonoBehaviour:
@@ -621,6 +623,7 @@ MonoBehaviour:
   cameraController: {fileID: 6180033921790278234}
   useWallAnimations: 1
   weaponMoveSpeed: 0.04
+  weaponChangeDuration: 0
 --- !u!136 &8856888390450905230
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -5,56 +5,41 @@ using UnityEngine;
 public class InventoryDisplayController : MonoBehaviour
 {
     [SerializeField]
-    private List<TMPro.TextMeshProUGUI> slotDescriptions;
+    private UnityEngine.UI.Image[] weaponImages;
     [SerializeField]
-    private List<WeaponConfig.WeaponSlotType> slotSizes;
+    private GameObject[] backgroundPanels;
     [SerializeField]
     private int defaultSlot;
 
-    private List<string> weaponNames = new List<string> { "Empty", "Empty", "Empty", "Fists" };
     private int currentSlot;
-
-    private Dictionary<WeaponConfig.WeaponSlotType, string> slotSizeNames = new Dictionary<WeaponConfig.WeaponSlotType, string>
-    {
-        {WeaponConfig.WeaponSlotType.Big, "big" },
-        {WeaponConfig.WeaponSlotType.Small, "small"},
-        {WeaponConfig.WeaponSlotType.Mele, "mele"}
-    };
 
     private void Awake()
     {
         currentSlot = defaultSlot;
-        for (int i = 0; i < slotDescriptions.Count; i++)
+        foreach(GameObject panel in backgroundPanels)
         {
-            slotDescriptions[i].text = GetSlotText(i);
+            panel.SetActive(false);
         }
-    }
-
-    private string GetSlotText(int slotIndex)
-    {
-        string sizeName = slotSizeNames[slotSizes[slotIndex]];
-        string selectedStr = slotIndex == currentSlot ? "* " : "";
-        return string.Format("{2} {0}: {3} ({1} weapon)", slotIndex, sizeName, selectedStr, weaponNames[slotIndex]);
+        backgroundPanels[currentSlot].SetActive((true));
     }
 
     public void OnChangeCurrentSlotContent(WeaponController weapon)
     {
         if (weapon == null)
         {
-            weaponNames[currentSlot] = "Empty";
+            weaponImages[currentSlot].sprite = UIAssetsManager.Instance.GetEmptySprite();
         }
         else
         {
-            weaponNames[currentSlot] = weapon.gameObject.name;
+            weaponImages[currentSlot].sprite = UIAssetsManager.Instance.GetWeaponSprite(weapon.Config.type);
         }
-        slotDescriptions[currentSlot].text = GetSlotText(currentSlot);
     }
 
     public void OnChangeSelectedSlot(int selectedSlot)
     {
-        int lastSelected = currentSlot;
+        backgroundPanels[currentSlot].SetActive(false);
         currentSlot = selectedSlot;
-        slotDescriptions[lastSelected].text = GetSlotText(lastSelected);
-        slotDescriptions[currentSlot].text = GetSlotText(currentSlot);
+        backgroundPanels[currentSlot].SetActive(true);
+
     }
 }
