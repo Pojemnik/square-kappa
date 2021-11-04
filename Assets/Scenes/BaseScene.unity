@@ -2711,7 +2711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseScene: BaseScene
   scenesToLoadAtStartup:
-  - TestScene
+  - FirstLevel
   reloadDelay: 5
 --- !u!114 &1335088593085917849
 MonoBehaviour:
