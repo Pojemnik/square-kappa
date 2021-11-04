@@ -76,6 +76,44 @@ public class Inventory
         return GetSlotOfIndex(index).Weapon;
     }
 
+    public int GetNextWeapon(int startIndex)
+    {
+        for(int i = startIndex + 1; i < smallSlots.Count + bigSlots.Count + 1; i++)
+        {
+            if (!GetSlotOfIndex(i).Empty)
+            {
+                return i;
+            }
+        }
+        for (int i = 0; i < startIndex; i++)
+        {
+            if (!GetSlotOfIndex(i).Empty)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int GetPreviousWeapon(int startIndex)
+    {
+        for (int i = startIndex - 1; i >= 0; i--)
+        {
+            if (!GetSlotOfIndex(i).Empty)
+            {
+                return i;
+            }
+        }
+        for (int i = smallSlots.Count + bigSlots.Count; i > startIndex; i--)
+        {
+            if (!GetSlotOfIndex(i).Empty)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public bool SlotAvailable(WeaponConfig.WeaponSlotType type)
     {
         int slotIndex = -1;

@@ -37,12 +37,12 @@ public class UnitShooting : MonoBehaviour
     {
         if (weaponController != null)
         {
-            weaponController.attackEvent -= (s, e) => OnWeaponShoot();
+            weaponController.attackEvent -= OnWeaponShootWrapper;
         }
         weaponController = newController;
         if (weaponController != null)
         {
-            weaponController.attackEvent += (s,e) => OnWeaponShoot();
+            weaponController.attackEvent += OnWeaponShootWrapper;
         }
         weaponController.SetTotalAmmo(allAmmo[weaponController.Config.type]);
     }
@@ -163,5 +163,10 @@ public class UnitShooting : MonoBehaviour
         {
             StopFire();
         }
+    }
+
+    private void OnWeaponShootWrapper(object sender, System.EventArgs args)
+    {
+        OnWeaponShoot();
     }
 }
