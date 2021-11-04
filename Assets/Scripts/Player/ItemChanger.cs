@@ -174,13 +174,23 @@ public class ItemChanger : MonoBehaviour
 
     public void NextWeapon(int delta)
     {
-        int slot = currentSlot + delta;
-        int slotsNumber = inventory.MeleWeaponSlotIndex + 1;
-        while(slot < 0)
+        if(delta == 0)
         {
-            slot += slotsNumber;
+            return;
         }
-        slot %= slotsNumber;
+        int slot;
+        if(delta > 0)
+        {
+            slot = inventory.GetNextWeapon(currentSlot);
+        }
+        else
+        {
+            slot = inventory.GetPreviousWeapon(currentSlot);
+        }
+        if(slot == -1)
+        {
+            return;
+        }
         ChangeWeapon(slot);
     }
 
