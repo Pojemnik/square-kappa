@@ -8,13 +8,15 @@ public class ProjectileController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]
-    protected GameObject hitEffectPrefab;
+    private GameObject hitEffectPrefab;
+    [SerializeField]
+    private GameObject hitDecalPrefab;
 
     [Header("Parameters")]
     [HideInInspector]
     public int damage;
     [SerializeField]
-    protected float mass;
+    private float mass;
     [HideInInspector]
     public int[] ignoredLayers;
     [HideInInspector]
@@ -72,6 +74,7 @@ public class ProjectileController : MonoBehaviour
             }
         }
         GameObject topParent = GetParentWithHealth(other.transform);
+        ContactPoint point = collision.GetContact(0);
         if (IsPushable(other))
         {
             Rigidbody othersRb = other.GetComponent<Rigidbody>();
@@ -80,15 +83,15 @@ public class ProjectileController : MonoBehaviour
                 return;
             }
             float forceValue = mass * collision.relativeVelocity.magnitude / othersRb.mass;
-            othersRb.AddForceAtPosition(forceValue * direction.normalized, collision.GetContact(0).point, ForceMode.VelocityChange);
+            othersRb.AddForceAtPosition(forceValue * direction.normalized, point.point, ForceMode.VelocityChange);
         }
         Health othersHealth = topParent.gameObject.GetComponent<Health>();
         if (othersHealth != null)
         {
-            ContactPoint contact = collision.GetContact(0);
-            othersHealth.Damaged(new DamageInfo(damage, direction, contact.point, contact.normal));
+            othersHealth.Damaged(new DamageInfo(damage, direction, point.point, point.normal));
         }
-        Destroy(Instantiate(hitEffectPrefab, collision.GetContact(0).point, Quaternion.identity), 5);
+        Destroy(Instantiate(hitEffectPrefab, point.point, Quaternion.LookRotation(point.normal)), 5);
+        Destroy(Instantiate(hitDecalPrefab, point.point + point.normal * -0.1f, Quaternion.LookRotation(point.normal), other.transform), 60);
         Destroy(gameObject);
     }
 }
