@@ -124,6 +124,7 @@ public class RayWeaponController : RangedWeaponController
             InvokeAmmoChengeEvent(ammo, totalAmmo);
             if (raycastHit.collider != null)
             {
+                Destroy(Instantiate(rayConfig.hitDecal, raycastHit.point + raycastHit.normal * -0.1f, Quaternion.LookRotation(raycastHit.normal), raycastHit.transform), 60);
                 Health health = GetParentsHealth(raycastHit.transform);
                 if (health == null)
                 {

@@ -20,3 +20,4 @@ MonoBehaviour:
   flameRotation: {x: 180, y: 0, z: 0}
   flameScale: 0.1
   hitEffectPrefab: {fileID: 1934524515086190549, guid: 399eeb31773e4bb45bbe8e25eb990563, type: 3}
+  hitDecal: {fileID: 340711116643846951, guid: 9361419d2074e8549b326fdbf19a1783, type: 3}

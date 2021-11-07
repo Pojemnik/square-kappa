@@ -19,4 +19,7 @@ public class RayWeaponConfig : ScriptableObject
 
     [Header("Hit")]
     public GameObject hitEffectPrefab;
+
+    [Header("Decal")]
+    public GameObject hitDecal;
 }
