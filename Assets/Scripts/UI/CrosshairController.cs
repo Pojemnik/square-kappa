@@ -51,7 +51,7 @@ public class CrosshairController : MonoBehaviour
     private UnityEngine.UI.Image damageMarkerImage;
     private UnityEngine.UI.Image hitMarkerImage;
     private WeaponController weapon;
-    private Coroutine damageMarkerFadeOut;
+    private CoroutineWrapper damageMarkerFadeOut;
     private float hitMarkerHideTimestamp;
 
     void Start()
@@ -63,12 +63,13 @@ public class CrosshairController : MonoBehaviour
         damageMarker.SetActive(false);
         SetCrosshairRadius(defaultRadius);
         EventManager.Instance.AddListener("GameReloaded", OnGameReload);
+        damageMarkerFadeOut = new CoroutineWrapper(() => HideDamageMarker(damageMarkerDisplayTime, damageMarkerImage));
     }
 
     private void OnGameReload()
     {
-        damageMarkerImage.CrossFadeAlpha(0, damageMarkerFadeTime, true); 
-        damageMarker.SetActive(false); 
+        damageMarkerImage.CrossFadeAlpha(0, damageMarkerFadeTime, true);
+        damageMarker.SetActive(false);
         hitMarkerImage.color = Color.clear;
     }
 
@@ -124,10 +125,7 @@ public class CrosshairController : MonoBehaviour
         {
             return;
         }
-        if (damageMarkerFadeOut != null)
-        {
-            StopCoroutine(damageMarkerFadeOut);
-        }
+        damageMarkerFadeOut.StopIfRunning(this);
         Vector2 screenPosition = new Vector2(Vector3.Dot(towardsHitPoint, cameraTransform.right), Vector3.Dot(towardsHitPoint, cameraTransform.up));
         damageMarker.SetActive(true);
         UnityEngine.UI.Image damageMarkerImage = damageMarker.GetComponent<UnityEngine.UI.Image>();
@@ -135,7 +133,7 @@ public class CrosshairController : MonoBehaviour
         damageMarkerImage.rectTransform.rotation = rotation;
         damageMarkerImage.rectTransform.anchoredPosition = rotation * Vector3.down * damageMarkerDistanceFromCenter;
         damageMarkerImage.CrossFadeAlpha(1, 0, true);
-        damageMarkerFadeOut = StartCoroutine(HideDamageMarker(damageMarkerDisplayTime, damageMarkerImage));
+        damageMarkerFadeOut.Run(this);
     }
 
     public void OnWeaponChange(WeaponController newWeapon)

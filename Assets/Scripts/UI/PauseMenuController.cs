@@ -10,6 +10,8 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField]
     private SliderPanelController zoomSensitivitySlider;
     [SerializeField]
+    private SliderPanelController soundVolumeSlider;
+    [SerializeField]
     private DropdownPanelController languageDropdown;
 
     private List<UnityEngine.Localization.Locale> locales;
@@ -17,16 +19,23 @@ public class PauseMenuController : MonoBehaviour
 
     private void Start()
     {
-        mouseSensitivitySlider.InitializeSlider(SettingsManager.Instance.MouseSensitivity.Value);
-        mouseSensitivitySlider.sliderValueChanged += (_, v) => SettingsManager.Instance.MouseSensitivity.Value = v;
-        zoomSensitivitySlider.InitializeSlider(SettingsManager.Instance.ZoomMouseSensitivity.Value);
-        zoomSensitivitySlider.sliderValueChanged += (_, v) => SettingsManager.Instance.ZoomMouseSensitivity.Value = v;
+        InitSliders();
         locales = UnityEngine.Localization.Settings.LocalizationSettings.AvailableLocales.Locales.ToList();
         languageDropdown.SetDropdownContent(locales.Select((e) => e.LocaleName).ToList());
         int selectedIndex = locales.FindIndex((l) => l == UnityEngine.Localization.Settings.LocalizationSettings.SelectedLocale);
         languageDropdown.SetSelectedOption(selectedIndex);
         languageDropdown.DropdownFieldSelected += (_, index) => selectedLocale = locales[index].Identifier;
         EventManager.Instance.AddListener("Unpause", OnMenuClose);
+    }
+
+    private void InitSliders()
+    {
+        mouseSensitivitySlider.InitializeSlider(SettingsManager.Instance.MouseSensitivity.Value);
+        mouseSensitivitySlider.sliderValueChanged += (_, v) => SettingsManager.Instance.MouseSensitivity.Value = v;
+        zoomSensitivitySlider.InitializeSlider(SettingsManager.Instance.ZoomMouseSensitivity.Value);
+        zoomSensitivitySlider.sliderValueChanged += (_, v) => SettingsManager.Instance.ZoomMouseSensitivity.Value = v;
+        soundVolumeSlider.InitializeSlider(SettingsManager.Instance.SoundVolume.Value);
+        soundVolumeSlider.sliderValueChanged += (_, v) => SettingsManager.Instance.SoundVolume.Value = v;
     }
 
     private void OnMenuClose()

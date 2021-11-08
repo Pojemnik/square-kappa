@@ -38,6 +38,10 @@ MonoBehaviour:
     m_Localized: Quit game
     m_Metadata:
       m_Items: []
+  - m_Id: 17426887066308608
+    m_Localized: Sound volume
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

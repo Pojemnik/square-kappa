@@ -27,11 +27,20 @@ public class SettingsManager : Singleton<SettingsManager>
 
     public SettingField<float> MouseSensitivity { get; private set; }
     public SettingField<float> ZoomMouseSensitivity { get; private set; }
+    public SettingField<float> SoundVolume { get; private set; }
+
+    [SerializeField]
+    public float defaultMouseSensitivity;
+    [SerializeField]
+    public float defaultZoomSensitivity;
+    [SerializeField]
+    public float defaultSoundVolume;
 
     void Awake()
     {
-        MouseSensitivity = new SettingField<float>(PlayerPrefs.GetFloat("MouseSens", 0.3f));
-        ZoomMouseSensitivity = new SettingField<float>(PlayerPrefs.GetFloat("ZoomSens", 0.15f));
+        MouseSensitivity = new SettingField<float>(PlayerPrefs.GetFloat("MouseSens", defaultMouseSensitivity));
+        ZoomMouseSensitivity = new SettingField<float>(PlayerPrefs.GetFloat("ZoomSens", defaultZoomSensitivity));
+        SoundVolume = new SettingField<float>(PlayerPrefs.GetFloat("SoundVolume", defaultSoundVolume));
         RegisterInstance(this);
     }
 
@@ -39,6 +48,7 @@ public class SettingsManager : Singleton<SettingsManager>
     {
         PlayerPrefs.SetFloat("MouseSens", MouseSensitivity.Value);
         PlayerPrefs.SetFloat("ZoomSens", ZoomMouseSensitivity.Value);
+        PlayerPrefs.SetFloat("SoundVolume", SoundVolume.Value);
     }
 
     public void SetLocale(UnityEngine.Localization.LocaleIdentifier id)

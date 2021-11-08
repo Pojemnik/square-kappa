@@ -35,14 +35,18 @@ MonoBehaviour:
     m_Key: QUIT
     m_Metadata:
       m_Items: []
+  - m_Id: 17426887066308608
+    m_Key: SOUND-VOL-OPTION
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    rid: 6314426248667070733
+    rid: 7693468875377606783
   references:
     version: 2
     RefIds:
-    - rid: 6314426248667070733
+    - rid: 7693468875377606783
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
         m_CustomEpoch: 1632242132194
