@@ -38,6 +38,10 @@ MonoBehaviour:
     m_Localized: "Wyjd\u017A z gry"
     m_Metadata:
       m_Items: []
+  - m_Id: 17426887066308608
+    m_Localized: "G\u0142o\u015Bno\u015B\u0107 d\u017Awi\u0119ku"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
