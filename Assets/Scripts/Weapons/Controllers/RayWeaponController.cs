@@ -12,7 +12,7 @@ public class RayWeaponController : RangedWeaponController
     private GameObject flame;
     private GameObject hitEffect;
     private RayController projectile;
-    private Coroutine shootCoroutine;
+    private CoroutineWrapper shootCoroutine;
     private int layerMask;
     private RaycastHit raycastHit;
 
@@ -37,6 +37,7 @@ public class RayWeaponController : RangedWeaponController
         flame.transform.localScale = Vector3.one * rayConfig.flameScale;
         flame.transform.localRotation = Quaternion.Euler(rayConfig.flameRotation);
         flame.SetActive(false);
+        shootCoroutine = new CoroutineWrapper(() => Shoot());
     }
 
     public override void StartAttack()
@@ -44,14 +45,11 @@ public class RayWeaponController : RangedWeaponController
         base.StartAttack();
         projectile.SetLocalRayDirection(rayConfig.projectileOffset, projectileDirection * Vector3.forward);
         projectile.gameObject.SetActive(true);
-        if (shootCoroutine != null)
-        {
-            StopCoroutine(shootCoroutine);
-        }
+        shootCoroutine.StopIfRunning(this);
         SetProjectileLayer(projectile.gameObject);
         CalculateLayerMask();
         Physics.Raycast(projectile.StartPoint, projectileDirection * Vector3.forward, out raycastHit, 1000, layerMask);
-        shootCoroutine = StartCoroutine(Shoot());
+        shootCoroutine.Run(this);
         flame.SetActive(true);
     }
 
@@ -84,16 +82,13 @@ public class RayWeaponController : RangedWeaponController
 
     public override void StopAttack()
     {
-        if(this == null)
+        if (this == null)
         {
             return;
         }
         base.StopAttack();
         projectile?.gameObject?.SetActive(false);
-        if (shootCoroutine != null)
-        {
-            StopCoroutine(shootCoroutine);
-        }
+        shootCoroutine.StopIfRunning(this);
         if (hitEffect != null)
         {
             hitEffect.SetActive(false);
@@ -156,7 +151,7 @@ public class RayWeaponController : RangedWeaponController
             return;
         }
         Debug.DrawLine(projectile.StartPoint, projectile.StartPoint + projectileDirection * Vector3.forward * 1000, Color.magenta);
-        if(hitEffect == null)
+        if (hitEffect == null)
         {
             return;
         }

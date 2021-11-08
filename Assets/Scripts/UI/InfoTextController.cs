@@ -27,17 +27,18 @@ public class InfoTextController : MonoBehaviour
     private bool cursorState;
     private bool typing;
     private float endDelay;
-    private bool paused;
-    private (Coroutine type, Coroutine blink) coroutines;
+    private CoroutineWrapper blinkCoroutine;
+    private CoroutineWrapper typeCoroutine;
     private GameObject cursor;
 
     private void Awake()
     {
         textMesh = GetComponent<TMPro.TextMeshProUGUI>();
-        paused = false;
         EventManager.Instance.AddListener("Unpause", ContinueTyping);
         cursor = Instantiate(cursorPrefab, transform);
         cursor.SetActive(false);
+        blinkCoroutine = new CoroutineWrapper(() => CurosrBlinkCoroutine());
+        typeCoroutine = new CoroutineWrapper(() => TypeTextCoroutine());
     }
 
     public void TypeText(string text, float hideDelay)
@@ -56,8 +57,8 @@ public class InfoTextController : MonoBehaviour
         cursorState = true;
         textMesh.enabled = true;
         endDelay = hideDelay;
-        coroutines.type = StartCoroutine(TypeTextCoroutine());
-        coroutines.blink = StartCoroutine(CurosrBlinkCoroutine());
+        blinkCoroutine.Run(this);
+        typeCoroutine.Run(this);
     }
 
     public void StopTyping()
@@ -66,14 +67,8 @@ public class InfoTextController : MonoBehaviour
         {
             return;
         }
-        if (coroutines.blink != null)
-        {
-            StopCoroutine(coroutines.blink);
-        }
-        if (coroutines.type != null)
-        {
-            StopCoroutine(coroutines.type);
-        }
+        blinkCoroutine.StopIfRunning(this);
+        typeCoroutine.StopIfRunning(this);
         OnTypingEnd();
     }
 
@@ -81,16 +76,8 @@ public class InfoTextController : MonoBehaviour
     {
         if (typing)
         {
-            if (coroutines.blink != null)
-            {
-                StopCoroutine(coroutines.blink);
-            }
-            if (coroutines.type != null)
-            {
-                StopCoroutine(coroutines.type);
-            }
-            coroutines.type = StartCoroutine(TypeTextCoroutine());
-            coroutines.blink = StartCoroutine(CurosrBlinkCoroutine());
+            blinkCoroutine.Reset(this);
+            typeCoroutine.Reset(this);
         }
     }
 
