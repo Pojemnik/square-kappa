@@ -45,7 +45,7 @@ public class InfoTextController : MonoBehaviour
     {
         StopTyping();
         var info = textMesh.GetTextInfo(text);
-        for (int i = 0; i < info.lineCount; i++)
+        for (int i = 0; i < info.lineCount - 1; i++)
         {
             TMPro.TMP_LineInfo line = info.lineInfo[i];
             text = text.Remove(line.lastCharacterIndex, 1).Insert(line.lastCharacterIndex, "\n");
@@ -63,13 +63,12 @@ public class InfoTextController : MonoBehaviour
 
     public void StopTyping()
     {
-        if (!typing)
-        {
-            return;
-        }
         blinkCoroutine.StopIfRunning(this);
         typeCoroutine.StopIfRunning(this);
-        OnTypingEnd();
+        if (typing)
+        {
+            OnTypingEnd();
+        }
     }
 
     private void ContinueTyping()
@@ -87,12 +86,12 @@ public class InfoTextController : MonoBehaviour
         {
             typedText += enumerator.Current;
             UpdateText();
-            yield return new WaitForSecondsRealtime(letterTypeDuration);
+            yield return new WaitForSeconds(letterTypeDuration);
         }
         textMesh.text = textToType;
         typing = false;
-        yield return new WaitForSecondsRealtime(letterTypeDuration);
-        yield return new WaitForSecondsRealtime(endDelay);
+        yield return new WaitForSeconds(letterTypeDuration);
+        yield return new WaitForSeconds(endDelay);
         OnTypingEnd();
     }
 
@@ -102,11 +101,11 @@ public class InfoTextController : MonoBehaviour
         {
             if (cursorState)
             {
-                yield return new WaitForSecondsRealtime(cursorVisibleTime);
+                yield return new WaitForSeconds(cursorVisibleTime);
             }
             else
             {
-                yield return new WaitForSecondsRealtime(cursorInvisibleTime);
+                yield return new WaitForSeconds(cursorInvisibleTime);
             }
             cursorState = !cursorState;
             UpdateText();
@@ -117,7 +116,7 @@ public class InfoTextController : MonoBehaviour
 
     private void UpdateText()
     {
-        string text = typedText;// + (cursorState ? cursorString : "");
+        string text = typedText;
         textMesh.text = text;
         var info = textMesh.GetTextInfo(text);
         float x = info.lineInfo[info.lineCount - 1].length;
