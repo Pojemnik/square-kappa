@@ -11,6 +11,11 @@ public class UIAssetsManager : Singleton<UIAssetsManager>
     [SerializeField]
     private Sprite emptySprite;
 
+    private void Awake()
+    {
+        RegisterInstance(this);
+    }
+
     public Sprite GetEmptySprite()
     {
         return emptySprite;
