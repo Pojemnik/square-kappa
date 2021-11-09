@@ -1303,7 +1303,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6579847255812216627, guid: 4e7b459c893e379458be54b6bcafc11a, type: 3}
       propertyPath: m_MinValue
-      value: 0
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 7167637970905180780, guid: 4e7b459c893e379458be54b6bcafc11a, type: 3}
       propertyPath: m_Type
