@@ -9,6 +9,7 @@ public class UnitController : Unit
     public UnitMovement movement;
     public UnitShooting shooting;
     public ItemChanger itemChanger;
+    public EnvironmentInteractor interactor;
     [SerializeField]
     private UnitAnimationController animationController;
     public override UnitAnimationController AnimationController { get => animationController; }

@@ -63,13 +63,14 @@ public class PlayerInputAdapter : MonoBehaviour
         owner.itemChanger.DropCurrentWeapon();
     }
 
-    public void PickItem(InputAction.CallbackContext context)
+    public void Action1(InputAction.CallbackContext context)
     {
         if (!context.started)
         {
             return;
         }
         owner.itemChanger.PickOrSwapWeapon();
+        owner.interactor.InteractWithSelected();
     }
 
     public void Reload(InputAction.CallbackContext context)

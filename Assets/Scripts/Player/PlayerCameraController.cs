@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerCameraController : MonoBehaviour
 {
-    [HideInInspector]
     public float targettingRange;
     [SerializeField]
     private float wallRange;

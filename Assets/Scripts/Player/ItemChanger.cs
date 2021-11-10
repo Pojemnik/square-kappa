@@ -21,8 +21,6 @@ public class ItemChanger : MonoBehaviour
 
     [Header("Item pickup")]
     [SerializeField]
-    private float weaponPickupRange;
-    [SerializeField]
     private GameObject weaponMountingPoint;
 
     [Header("Item dropping")]
@@ -53,32 +51,26 @@ public class ItemChanger : MonoBehaviour
 
     private void SelectWorldItem(GameObject item)
     {
-        GameObject lastItem = selectedItem;
-        if (item)
+        if (selectedItem == item)
+        {
+            return;
+        }
+        if (item == null)
+        {
+            selectedItem = null;
+        }
+        else
         {
             if (item.CompareTag("Item"))
             {
-                if (selectedItem != item)
-                {
-                    selectedItem = item;
-                }
+                selectedItem = item;
             }
             else
             {
                 selectedItem = null;
             }
         }
-        else
-        {
-            if (selectedItem)
-            {
-                selectedItem = null;
-            }
-        }
-        if (lastItem != selectedItem)
-        {
-            targetChanged?.Invoke(this, selectedItem?.GetComponent<PickableItem>());
-        }
+        targetChanged?.Invoke(this, selectedItem?.GetComponent<PickableItem>());
     }
 
     public void ClearInventory()
@@ -113,7 +105,7 @@ public class ItemChanger : MonoBehaviour
             else
             {
                 //swap in slot
-                if(owner.CurrentWeapon == defaultWeapon)
+                if (owner.CurrentWeapon == defaultWeapon)
                 {
                     return;
                 }
@@ -149,14 +141,14 @@ public class ItemChanger : MonoBehaviour
     private void ChangeActiveSlot(int slot)
     {
         GameObject weaponFromInventory = inventory.GetWeapon(slot);
-        if(weaponFromInventory == null)
+        if (weaponFromInventory == null)
         {
-            Debug.LogFormat("Selected weapon from slot {0}, which is empty", slot);
+            //Debug.LogFormat("Selected weapon from slot {0}, which is empty", slot);
             return;
         }
         owner.CurrentWeaponController?.StopAttack();
         owner.CurrentWeapon?.SetActive(false);
-        Debug.LogFormat("Selected weapon {0} from slot {1}", weaponFromInventory, slot);
+        //Debug.LogFormat("Selected weapon {0} from slot {1}", weaponFromInventory, slot);
         BindWeapon(weaponFromInventory);
         currentSlotChangeEvent.Invoke(slot);
         currentSlot = slot;
@@ -166,7 +158,7 @@ public class ItemChanger : MonoBehaviour
     {
         if (slot == currentSlot)
         {
-            Debug.LogFormat("Selected weapon from slot {0}, which is the same as current", slot);
+            //Debug.LogFormat("Selected weapon from slot {0}, which is the same as current", slot);
             return;
         }
         ChangeActiveSlot(slot);
@@ -174,12 +166,12 @@ public class ItemChanger : MonoBehaviour
 
     public void NextWeapon(int delta)
     {
-        if(delta == 0)
+        if (delta == 0)
         {
             return;
         }
         int slot;
-        if(delta > 0)
+        if (delta > 0)
         {
             slot = inventory.GetNextWeapon(currentSlot);
         }
@@ -187,7 +179,7 @@ public class ItemChanger : MonoBehaviour
         {
             slot = inventory.GetPreviousWeapon(currentSlot);
         }
-        if(slot == -1)
+        if (slot == -1)
         {
             return;
         }
@@ -209,7 +201,7 @@ public class ItemChanger : MonoBehaviour
 
     public void DropCurrentWeapon()
     {
-        if(owner.CurrentWeapon == defaultWeapon)
+        if (owner.CurrentWeapon == defaultWeapon)
         {
             return;
         }
@@ -265,7 +257,6 @@ public class ItemChanger : MonoBehaviour
 
     private void Start()
     {
-        cameraController.targettingRange = weaponPickupRange;
         if (defaultWeapon == null)
         {
             throw new System.Exception("No default weapon");
