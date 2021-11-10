@@ -21,8 +21,6 @@ public class UnitMovement : MonoBehaviour
     private float rotationAnimationSmoothness;
     [SerializeField]
     private float rotationAnimationMaxValue;
-    [SerializeField]
-    private MinMax<float> xRotationBounds;
 
     [Header("Camera")]
     public bool cameraAiming;
