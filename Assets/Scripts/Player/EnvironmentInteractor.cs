@@ -30,7 +30,7 @@ public class EnvironmentInteractor : MonoBehaviour
 
     private void SelectWorldObject(GameObject selection)
     {
-        if (selectedObject == null || selectedObject.gameObject == selection)
+        if (selectedObject != null && selectedObject.gameObject == selection)
         {
             return;
         }
