@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class ObjectivesGroup
 {
-    public UnityEngine.Localization.LocalizedString label;
     public List<string> objectiveNames;
     public MissionEvent objectivesGroupCompleteEvent;
+    public UnityEngine.Localization.LocalizedString label;
 }

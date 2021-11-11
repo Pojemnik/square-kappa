@@ -13,7 +13,7 @@ public class EnvironmentInteractor : MonoBehaviour
     private GameObject firstPresonCamera;
 
     private PlayerCameraController cameraController;
-    private InteractiveObject selectedObject;
+    private InteractiveObjective selectedObject;
 
     private void Awake()
     {
@@ -42,7 +42,7 @@ public class EnvironmentInteractor : MonoBehaviour
         {
             if (selection.CompareTag("Interactive"))
             {
-                selectedObject = selection.GetComponent<InteractiveObject>();
+                selectedObject = selection.GetComponent<InteractiveObjective>();
                 if(selectedObject == null)
                 {
                     Debug.LogErrorFormat("Error. Selecteed object {0} tagged interactive, but without interactive component.", selection.name);

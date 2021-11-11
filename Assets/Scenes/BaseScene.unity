@@ -3591,6 +3591,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 7b7aaeb8bef088349879617cbc25934f, type: 2}
   - list:
     - {fileID: 11400000, guid: 0e3b8a2fdacff054589df67bd6dc2c32, type: 2}
+  - list:
+    - {fileID: 11400000, guid: 9c6bc359db2b6cd45a05cedd5acfd9d0, type: 2}
   warnAboutUnusedObjectices: 0
   warnAboutObjectivesUsedMoreThanOnce: 0
   warnAboutIncorrectObjectiveNamesInMissions: 0

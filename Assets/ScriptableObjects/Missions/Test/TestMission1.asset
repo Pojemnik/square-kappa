@@ -12,10 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54b50d63bf7539440b0f701ab53dcf86, type: 3}
   m_Name: TestMission1
   m_EditorClassIdentifier: 
-  label: Test mission 1
+  label:
+    m_TableReference:
+      m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+    m_TableEntryReference:
+      m_KeyId: 2518732034048
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   groups:
-  - label: Test group
-    objectiveNames:
-    - purple
+  - objectiveNames:
+    - cube
     objectivesGroupCompleteEvent: {fileID: 0}
-  missionCompleteEvent: {fileID: 0}
+    label:
+      m_TableReference:
+        m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+      m_TableEntryReference:
+        m_KeyId: 2518732034048
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  missionCompleteEvent: {fileID: 11400000, guid: d0ec5375e955ab744b03a53e62bad47c, type: 2}
+  references:
+    version: 2
+    RefIds: []
