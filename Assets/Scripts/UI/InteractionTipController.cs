@@ -76,7 +76,7 @@ public class InteractionTipController : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Interaction tip error: tried to display more than one tip at once");
+            //Debug.LogWarning("Interaction tip error: tried to display more than one tip at once");
         }
     }
 

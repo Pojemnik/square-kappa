@@ -4699,6 +4699,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 422124062644852559, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
+      propertyPath: interactionTip
+      value: 
+      objectReference: {fileID: 1237312521}
     - target: {fileID: 2033507179630016006, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: maxHealth
       value: 100
