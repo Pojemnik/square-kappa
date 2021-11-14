@@ -23,13 +23,16 @@ public class ItemMarkersController : MonoBehaviour
 
     [Header("Prefabs")]
     [SerializeField]
-    private GameObject markerPrefab, pickupIconPrefab;
+    private GameObject markerPrefab;
+
+    [Header("References")]
+    [SerializeField]
+    private InteractionTipController interactionTip;
 
     private List<GameObject> items;
     private Dictionary<int, GameObject> markers;
     private float scaleFactor;
     private int targetId;
-    private GameObject pickupIcon;
 
     public void OnItemTargeted(object sender, PickableItem item)
     {
@@ -120,8 +123,6 @@ public class ItemMarkersController : MonoBehaviour
         ItemsManager.Instance.itemsListChangedEvent += OnItemListChange;
         ItemsManager.Instance.targetItemChanged += OnItemTargeted;
         UpdateMarkers(ItemsManager.Instance.ItemsList);
-        pickupIcon = Instantiate(pickupIconPrefab, transform);
-        pickupIcon.SetActive(false);
     }
 
     private void Update()
@@ -148,9 +149,7 @@ public class ItemMarkersController : MonoBehaviour
                 if(itemId == targetId)
                 {
                     scale *= targetItemScaleMultipler;
-                    pickupIcon.SetActive(true);
-                    pickupIcon.transform.position = screenPos;
-                    pickupIcon.transform.localScale = new Vector3(scale, scale, 1);
+                    interactionTip.DisplayTip(screenPos, InteractionTipController.TipType.Pickup);
                 }
                 marker.transform.localScale = new Vector3(scale, scale, 1);
             }
@@ -162,7 +161,7 @@ public class ItemMarkersController : MonoBehaviour
         }
         if(targetId == -1)
         {
-            pickupIcon.SetActive(false);
+            interactionTip.HideTip(InteractionTipController.TipType.Pickup);
         }
     }
 }
