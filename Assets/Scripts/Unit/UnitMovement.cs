@@ -68,6 +68,9 @@ public class UnitMovement : MonoBehaviour
     private float rotationStartTime;
     private float rotationDuration;
     private Vector2 rotationValue;
+    private Vector2 rotationAnimationVector;
+
+    private bool isGamePaused;
 
     public void MoveXZ(Vector2 vector)
     {
@@ -132,6 +135,11 @@ public class UnitMovement : MonoBehaviour
             Quaternion xRotation = Quaternion.AngleAxis(-deltaLook.x, Vector3.forward);
             Quaternion yRotation = Quaternion.AngleAxis(-deltaLook.y, Vector3.right);
             lookTarget = rigidbody.rotation * xRotation * yRotation;
+            if (!isGamePaused)
+            {
+                rotationAnimationVector = Vector2.ClampMagnitude(deltaLook / 30, 0.3f);
+                owner.AnimationController.SetRotationVector(rotationAnimationVector);
+            }
         }
     }
 
@@ -241,6 +249,11 @@ public class UnitMovement : MonoBehaviour
         CalculateSmoothRotation();
         lookTarget = rigidbody.rotation;
         SetAim();
+        if (rotationAnimationVector != Vector2.zero)
+        {
+            rotationAnimationVector = Vector2.MoveTowards(rotationAnimationVector, Vector2.zero, 0.03f);
+            owner.AnimationController.SetRotationVector(rotationAnimationVector);
+        }
     }
 
     private void CalculateSmoothRotation()
@@ -300,11 +313,32 @@ public class UnitMovement : MonoBehaviour
         }
     }
 
+    private void SetPause()
+    {
+        isGamePaused = true;
+    }
+
+    private void ResetPause()
+    {
+        isGamePaused = false;
+    }
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
         lastMoveDelta = Vector3.zero;
         lookTarget = rigidbody.rotation;
+        rotationAnimationVector = Vector2.zero;
+    }
+
+    private void OnEnable()
+    {
+        EventManager.Instance?.AddListener("Pause", SetPause);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance?.AddListener("Unpause", ResetPause);
     }
 
     private void FixedUpdate()

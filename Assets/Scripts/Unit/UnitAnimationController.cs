@@ -118,7 +118,7 @@ public class UnitAnimationController : MonoBehaviour
         animator.SetLayerWeight(index, 1);
         for (int i = 1; i < animator.layerCount; i++)
         {
-            if (i != index)
+            if (i != index && animator.GetLayerName(i) != "Legs")
             {
                 animator.SetLayerWeight(i, 0);
             }
