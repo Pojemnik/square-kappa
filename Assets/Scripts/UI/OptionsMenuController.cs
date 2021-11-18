@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class PauseMenuController : MonoBehaviour
+public class OptionsMenuController : MonoBehaviour
 {
     [SerializeField]
     private SliderPanelController mouseSensitivitySlider;
@@ -25,7 +25,7 @@ public class PauseMenuController : MonoBehaviour
         int selectedIndex = locales.FindIndex((l) => l == UnityEngine.Localization.Settings.LocalizationSettings.SelectedLocale);
         languageDropdown.SetSelectedOption(selectedIndex);
         languageDropdown.DropdownFieldSelected += (_, index) => selectedLocale = locales[index].Identifier;
-        EventManager.Instance.AddListener("Unpause", OnMenuClose);
+        EventManager.Instance?.AddListener("Unpause", OnMenuClose);
     }
 
     private void InitSliders()

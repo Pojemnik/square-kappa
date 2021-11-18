@@ -42,6 +42,22 @@ MonoBehaviour:
     m_Localized: Sound volume
     m_Metadata:
       m_Items: []
+  - m_Id: 20933001896579072
+    m_Localized: Options
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20933080615276544
+    m_Localized: Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20933150848897024
+    m_Localized: New game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20933314384809984
+    m_Localized: Select level
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

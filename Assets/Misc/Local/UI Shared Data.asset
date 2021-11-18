@@ -39,14 +39,30 @@ MonoBehaviour:
     m_Key: SOUND-VOL-OPTION
     m_Metadata:
       m_Items: []
+  - m_Id: 20933001896579072
+    m_Key: MENU-OPTIONS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20933080615276544
+    m_Key: MENU-CREDITS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20933150848897024
+    m_Key: MENU-NEW-GAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20933314384809984
+    m_Key: MENU-SELECT-LEVEL
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    rid: 7693468875377606783
+    rid: 7693469094803669056
   references:
     version: 2
     RefIds:
-    - rid: 7693468875377606783
+    - rid: 7693469094803669056
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
         m_CustomEpoch: 1632242132194

@@ -36,12 +36,17 @@ public class SettingsManager : Singleton<SettingsManager>
     [SerializeField]
     public float defaultSoundVolume;
 
-    void Awake()
+    private void Awake()
     {
         MouseSensitivity = new SettingField<float>(PlayerPrefs.GetFloat("MouseSens", defaultMouseSensitivity));
         ZoomMouseSensitivity = new SettingField<float>(PlayerPrefs.GetFloat("ZoomSens", defaultZoomSensitivity));
         SoundVolume = new SettingField<float>(PlayerPrefs.GetFloat("SoundVolume", defaultSoundVolume));
         RegisterInstance(this);
+    }
+
+    private void OnDestroy()
+    {
+        SaveSettings();
     }
 
     public void SaveSettings()

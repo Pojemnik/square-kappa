@@ -42,6 +42,22 @@ MonoBehaviour:
     m_Localized: "G\u0142o\u015Bno\u015B\u0107 d\u017Awi\u0119ku"
     m_Metadata:
       m_Items: []
+  - m_Id: 20933001896579072
+    m_Localized: Opcje
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20933080615276544
+    m_Localized: O autorach
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20933150848897024
+    m_Localized: Nowa gra
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20933314384809984
+    m_Localized: Wybierz poziom
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
