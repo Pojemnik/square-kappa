@@ -2279,7 +2279,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 89ac7ccf513e0ea408020591d2e093cf, type: 2}
+  - {fileID: 2100000, guid: 4dfde8febf1a7184da04a97c761454b2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3193,8 +3193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseScene: BaseScene
-  scenesToLoadAtStartup:
-  - FirstLevel
+  scenesToLoadAtStartup: []
   reloadDelay: 5
 --- !u!114 &1335088593085917849
 MonoBehaviour:
