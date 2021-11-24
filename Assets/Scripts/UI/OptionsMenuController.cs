@@ -28,6 +28,11 @@ public class OptionsMenuController : MonoBehaviour
         EventManager.Instance?.AddListener("Unpause", OnMenuClose);
     }
 
+    private void OnDisable()
+    {
+        OnMenuClose();
+    }
+
     private void InitSliders()
     {
         mouseSensitivitySlider.InitializeSlider(SettingsManager.Instance.MouseSensitivity.Value);
