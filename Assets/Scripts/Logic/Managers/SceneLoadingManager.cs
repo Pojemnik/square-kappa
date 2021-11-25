@@ -55,59 +55,50 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         removeOnReload.Add(obj);
     }
 
-    private IEnumerator LoadLevel(int levelIndex)
+    private IEnumerator LoadScene(string sceneName, bool activate)
+    {
+        if (!SceneManager.GetSceneByName(sceneName).isLoaded)
+        {
+            AsyncOperation loading = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            if (activate)
+            {
+                loading.allowSceneActivation = true;
+            }
+            while (!loading.isDone)
+            {
+                yield return null;
+            }
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+            Debug.LogFormat("Loaded scene {0}", sceneName);
+        }
+        else
+        {
+            Debug.LogFormat("Scene {0} was already loaded", sceneName);
+        }
+    }
+
+    private IEnumerator UnloadScene(string sceneName)
     {
         AsyncOperation loading;
-        if (!SceneManager.GetSceneByName(loadingScene).isLoaded)
+        if (SceneManager.GetSceneByName(sceneName).isLoaded)
         {
-            loading = SceneManager.LoadSceneAsync(loadingScene, LoadSceneMode.Additive);
-            loading.allowSceneActivation = true;
+            loading = SceneManager.UnloadSceneAsync(sceneName);
             while (!loading.isDone)
             {
                 yield return null;
             }
+            Debug.LogFormat("Unloaded scene {0}", sceneName);
         }
         else
         {
-            Debug.Log("Loading scene was already loaded");
+            Debug.LogFormat("Scene {0} was already unloaded", sceneName);
         }
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(loadingScene));
+    }
 
-        if (SceneManager.GetSceneByName(menuScene).isLoaded)
-        {
-            loading = SceneManager.UnloadSceneAsync(menuScene);
-            while (!loading.isDone)
-            {
-                yield return null;
-            }
-        }
-        else
-        {
-            Debug.Log("Menu scene was already unloaded");
-        }
-
-        if (SceneManager.GetSceneByName(levelsBaseScene).isLoaded)
-        {
-            loading = SceneManager.UnloadSceneAsync(levelsBaseScene);
-            while (!loading.isDone)
-            {
-                yield return null;
-            }
-        }
-        else
-        {
-            Debug.Log("Level base was already unloaded");
-        }
-
-        loading = SceneManager.LoadSceneAsync(levelsBaseScene, LoadSceneMode.Additive);
-        while (!loading.isDone)
-        {
-            yield return null;
-        }
-        Debug.Log("Loaded level base");
-
+    private IEnumerator LoadMultipleScenes(string[] scenesToLoad)
+    {
         List<AsyncOperation> operations = new List<AsyncOperation>();
-        foreach (string lvl in levels[levelIndex].scenes)
+        foreach (string lvl in scenesToLoad)
         {
             operations.Add(SceneManager.LoadSceneAsync(lvl, LoadSceneMode.Additive));
         }
@@ -124,49 +115,12 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
                 }
             }
         }
-
-        if (SceneManager.GetSceneByName(loadingScene).isLoaded)
-        {
-            loading = SceneManager.UnloadSceneAsync(loadingScene);
-            while (!loading.isDone)
-            {
-                yield return null;
-            }
-        }
-        else
-        {
-            Debug.Log("Loadig scene was already unloaded");
-        }
-
-        DeactivateBaseScene();
-        EventManager.Instance.TriggerEvent("GameStart");
-        currentLevel = (CurrentLevel)levelIndex;
     }
 
-    private IEnumerator LoadMenu()
+    private IEnumerator UnloadMultipleScenes(string[] scenesToLoad)
     {
-        if(currentLevel == CurrentLevel.Menu)
-        {
-            yield break;
-        }
-        AsyncOperation loading;
-        if (!SceneManager.GetSceneByName(loadingScene).isLoaded)
-        {
-            loading = SceneManager.LoadSceneAsync(loadingScene, LoadSceneMode.Additive);
-            loading.allowSceneActivation = true;
-            while (!loading.isDone)
-            {
-                yield return null;
-            }
-        }
-        else
-        {
-            Debug.Log("Loading scene was already loaded");
-        }
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(loadingScene));
-
         List<AsyncOperation> operations = new List<AsyncOperation>();
-        foreach (string lvl in levels[(int)currentLevel].scenes)
+        foreach (string lvl in scenesToLoad)
         {
             operations.Add(SceneManager.UnloadSceneAsync(lvl));
         }
@@ -183,47 +137,32 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
                 }
             }
         }
+    }
 
-        if (SceneManager.GetSceneByName(levelsBaseScene).isLoaded)
-        {
-            loading = SceneManager.UnloadSceneAsync(levelsBaseScene);
-            while (!loading.isDone)
-            {
-                yield return null;
-            }
-        }
-        else
-        {
-            Debug.Log("Level base was already unloaded");
-        }
+    private IEnumerator LoadLevel(int levelIndex)
+    {
+        yield return StartCoroutine(LoadScene(loadingScene, true));
+        yield return StartCoroutine(UnloadScene(menuScene));
+        yield return StartCoroutine(UnloadScene(levelsBaseScene));
+        yield return StartCoroutine(LoadScene(levelsBaseScene, false));
+        yield return StartCoroutine(LoadMultipleScenes(levels[levelIndex].scenes));
+        yield return StartCoroutine(UnloadScene(loadingScene));
+        DeactivateBaseScene();
+        EventManager.Instance.TriggerEvent("GameStart");
+        currentLevel = (CurrentLevel)levelIndex;
+    }
 
-        if (!SceneManager.GetSceneByName(menuScene).isLoaded)
+    private IEnumerator LoadMenu()
+    {
+        if(currentLevel == CurrentLevel.Menu)
         {
-            loading = SceneManager.LoadSceneAsync(menuScene, LoadSceneMode.Additive);
-            loading.allowSceneActivation = true;
-            while (!loading.isDone)
-            {
-                yield return null;
-            }
+            yield break;
         }
-        else
-        {
-            Debug.Log("Menu scene was already loaded");
-        }
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(menuScene));
-
-        if (SceneManager.GetSceneByName(loadingScene).isLoaded)
-        {
-            loading = SceneManager.UnloadSceneAsync(loadingScene);
-            while (!loading.isDone)
-            {
-                yield return null;
-            }
-        }
-        else
-        {
-            Debug.Log("Loading scene was already unloaded");
-        }
+        yield return StartCoroutine(LoadScene(loadingScene, true));
+        yield return StartCoroutine(UnloadMultipleScenes(levels[(int)currentLevel].scenes));
+        yield return StartCoroutine(UnloadScene(levelsBaseScene));
+        yield return StartCoroutine(LoadScene(menuScene, true));
+        yield return StartCoroutine(UnloadScene(loadingScene));
     }
 
     public void StartLevel(int level)
