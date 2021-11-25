@@ -45,8 +45,8 @@ public class OptionsMenuController : MonoBehaviour
 
     private void OnMenuClose()
     {
-        SettingsManager.Instance.SetLocale(selectedLocale);
-        SettingsManager.Instance.SaveSettings();
+        SettingsManager.Instance?.SetLocale(selectedLocale);
+        SettingsManager.Instance?.SaveSettings();
     }
 
     public void QuitGame()
