@@ -208,7 +208,7 @@ MonoBehaviour:
   menuScene: MainMenu
   baseScene: EvenMoreBaseScene
   loadingScene: LoadingScene
-  loadOnStartup: 4
+  loadOnStartup: 3
   otherScene: TestScene
 --- !u!4 &779629581
 Transform:

@@ -36,13 +36,13 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
 
     [Header("Startup")]
     [SerializeField]
-    private LevelEnum loadOnStartup;
+    private LevelIndexEnum loadOnStartup;
     [SerializeField]
     private string otherScene;
 
     private List<GameObject> removeOnReload;
 
-    private enum LevelEnum : int
+    public enum LevelIndexEnum : int
     {
         Level1 = 0,
         Level2,
@@ -51,7 +51,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         Other
     }
 
-    private LevelEnum currentLevel;
+    private LevelIndexEnum currentLevel;
 
     public void AddObjectToRemoveOnReload(GameObject obj)
     {
@@ -152,12 +152,12 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         yield return StartCoroutine(UnloadScene(loadingScene));
         DeactivateBaseScene();
         EventManager.Instance.TriggerEvent("GameStart");
-        currentLevel = (LevelEnum)levelIndex;
+        currentLevel = (LevelIndexEnum)levelIndex;
     }
 
     private IEnumerator LoadMenu()
     {
-        if (currentLevel == LevelEnum.Menu)
+        if (currentLevel == LevelIndexEnum.Menu)
         {
             yield break;
         }
@@ -174,7 +174,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         yield return UnloadScene(menuScene);
         yield return LoadScene(sceneName, true);
         EventManager.Instance.TriggerEvent("GameStart");
-        currentLevel = LevelEnum.Other;
+        currentLevel = LevelIndexEnum.Other;
     }
 
     public void StartLevel(int level)
@@ -213,10 +213,10 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         RegisterInstance(this);
         switch (loadOnStartup)
         {
-            case LevelEnum.Menu:
+            case LevelIndexEnum.Menu:
                 StartCoroutine(LoadMenuOnly());
                 break;
-            case LevelEnum.Other:
+            case LevelIndexEnum.Other:
                 StartCoroutine(LoadOneScene(otherScene));
                 break;
             default:
@@ -250,7 +250,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
 
     private IEnumerator ReloadGameCoroutine()
     {
-        if (currentLevel == LevelEnum.Other || currentLevel == LevelEnum.Menu)
+        if (currentLevel == LevelIndexEnum.Other || currentLevel == LevelIndexEnum.Menu)
         {
             Debug.LogError("Player died in incorrect scene state. This should never happen");
         }

@@ -7,21 +7,13 @@ using UnityEngine.Localization;
 
 public partial class MissionsManager : Singleton<MissionsManager>
 {
-    [System.Serializable]
-    class MissionListWrapper
-    {
-        public List<Mission> list;
-    }
-
     [HideInInspector]
     public bool initFinished { get; private set; }
     [HideInInspector]
     public event System.EventHandler initFinishedEvent;
 
     [SerializeField]
-    private MissionListWrapper mainMisions;
-    [SerializeField]
-    private List<MissionListWrapper> otherMissions;
+    private LevelMissionGroup missionGroup;
 
     [Header("Debug options")]
     [SerializeField]
@@ -101,7 +93,7 @@ public partial class MissionsManager : Singleton<MissionsManager>
 
     private void Init()
     {
-        if (mainMisions.list.Count == 0)
+        if (missionGroup.mainMisions.list.Count == 0)
         {
             enabled = false;
             return;
@@ -109,13 +101,13 @@ public partial class MissionsManager : Singleton<MissionsManager>
         RegisterObjectives();
         SetObjectives();
         CheckForUnusedObjectives();
-        mainMissionsData = CreateMissionDataList(mainMisions.list);
+        mainMissionsData = CreateMissionDataList(missionGroup.mainMisions.list);
         currentMainObjectiveGroup = mainMissionsData[0].Groups[0];
         currentMainObjectiveGroup.Mission.LabelChanged += OnMainMissionLabelChanged;
         currentMainObjectiveGroup.LabelChanged += OnMainObjectiveGroupLabelChanged;
         otherMissionsData = new List<List<MissionData>>();
         currentOtherObjectiveGroups = new List<ObjectiveGroupData>();
-        foreach (MissionListWrapper missions in otherMissions)
+        foreach (LevelMissionGroup.MissionListWrapper missions in missionGroup.otherMissions)
         {
             List<MissionData> missionData = CreateMissionDataList(missions.list);
             otherMissionsData.Add(missionData);
@@ -187,14 +179,14 @@ public partial class MissionsManager : Singleton<MissionsManager>
 
     private void SetObjectives()
     {
-        SetObjectivesFromList(mainMisions);
-        foreach (MissionListWrapper missionList in otherMissions)
+        SetObjectivesFromList(missionGroup.mainMisions);
+        foreach (LevelMissionGroup.MissionListWrapper missionList in missionGroup.otherMissions)
         {
             SetObjectivesFromList(missionList);
         }
     }
 
-    private void SetObjectivesFromList(MissionListWrapper missionList)
+    private void SetObjectivesFromList(LevelMissionGroup.MissionListWrapper missionList)
     {
         foreach (Mission mission in missionList.list)
         {

@@ -3745,23 +3745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e3baec6c716554468a6775e47afe342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMisions:
-    list:
-    - {fileID: 11400000, guid: 921ea55fdd89c3f40952bc0a8fb176aa, type: 2}
-    - {fileID: 11400000, guid: b66a7d8068189af409e4c8d1551d15f2, type: 2}
-  otherMissions:
-  - list:
-    - {fileID: 11400000, guid: 563d7477d723f6e4592f6e3aa0d389a9, type: 2}
-  - list:
-    - {fileID: 11400000, guid: 6eee00c3629245140950d9ace04d7de3, type: 2}
-  - list:
-    - {fileID: 11400000, guid: d257447cbe9dd3946a485d3898025260, type: 2}
-  - list:
-    - {fileID: 11400000, guid: 7b7aaeb8bef088349879617cbc25934f, type: 2}
-  - list:
-    - {fileID: 11400000, guid: 0e3b8a2fdacff054589df67bd6dc2c32, type: 2}
-  - list:
-    - {fileID: 11400000, guid: 9c6bc359db2b6cd45a05cedd5acfd9d0, type: 2}
+  missionGroup: {fileID: 11400000, guid: 75202de259b47804aaaa4eabf004e45c, type: 2}
   warnAboutUnusedObjectices: 0
   warnAboutObjectivesUsedMoreThanOnce: 0
   warnAboutIncorrectObjectiveNamesInMissions: 0
