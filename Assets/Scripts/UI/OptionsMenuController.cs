@@ -28,6 +28,11 @@ public class OptionsMenuController : MonoBehaviour
         EventManager.Instance?.AddListener("Unpause", OnMenuClose);
     }
 
+    private void OnDisable()
+    {
+        OnMenuClose();
+    }
+
     private void InitSliders()
     {
         mouseSensitivitySlider.InitializeSlider(SettingsManager.Instance.MouseSensitivity.Value);
@@ -40,12 +45,12 @@ public class OptionsMenuController : MonoBehaviour
 
     private void OnMenuClose()
     {
-        SettingsManager.Instance.SetLocale(selectedLocale);
-        SettingsManager.Instance.SaveSettings();
+        SettingsManager.Instance?.SetLocale(selectedLocale);
+        SettingsManager.Instance?.SaveSettings();
     }
 
     public void QuitGame()
     {
-        Application.Quit();
+        SceneLoadingManager.Instance.GoFromLevelToMenu();
     }
 }

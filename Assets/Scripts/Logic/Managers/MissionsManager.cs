@@ -13,6 +13,11 @@ public partial class MissionsManager : Singleton<MissionsManager>
         public List<Mission> list;
     }
 
+    [HideInInspector]
+    public bool initFinished { get; private set; }
+    [HideInInspector]
+    public event System.EventHandler initFinishedEvent;
+
     [SerializeField]
     private MissionListWrapper mainMisions;
     [SerializeField]
@@ -73,12 +78,13 @@ public partial class MissionsManager : Singleton<MissionsManager>
             objectiveNames = new Dictionary<string, Objective>();
         }
         usedObjectivesTracker = new HashSet<string>();
+        initFinished = false;
         EventManager.Instance.AddListener("GameStart", Init);
+        EventManager.Instance.AddListener("GameQuit", OnGameQuit);
     }
 
     private void Start()
     {
-        EventManager.Instance.AddListener("GameReloaded", OnGameReload);
     }
 
     private void OnDisable()
@@ -117,6 +123,9 @@ public partial class MissionsManager : Singleton<MissionsManager>
         }
         ObjectiveGroupChangeEvent.Invoke(currentMainObjectiveGroup.Label);
         MissionChangeEvent.Invoke(currentMainObjectiveGroup.Mission.Label);
+        initFinished = true;
+        initFinishedEvent?.Invoke(this, null);
+        Debug.Log("Init finished");
     }
 
     private void OnMainObjectiveGroupLabelChanged(object sender, string label)
@@ -140,8 +149,15 @@ public partial class MissionsManager : Singleton<MissionsManager>
                 ObjectiveGroupData objectiveGroupData = new ObjectiveGroupData(group.label, group.objectivesGroupCompleteEvent, missionData);
                 foreach (string name in group.objectiveNames)
                 {
-                    Objective objective = objectiveNames[name];
-                    objectiveGroupData.Objectives.Add(objective.Id);
+                    if (objectiveNames.ContainsKey(name))
+                    {
+                        Objective objective = objectiveNames[name];
+                        objectiveGroupData.Objectives.Add(objective.Id);
+                    }
+                    else
+                    {
+                        Debug.LogErrorFormat("No objective called {0} found in current scenes", name);
+                    }
                 }
                 missionData.AddObjectivesGroup(objectiveGroupData);
             }
@@ -208,7 +224,7 @@ public partial class MissionsManager : Singleton<MissionsManager>
     {
         if (usedObjectivesTracker.Contains(name))
         {
-            if(warnAboutObjectivesUsedMoreThanOnce)
+            if (warnAboutObjectivesUsedMoreThanOnce)
             {
                 Debug.LogWarningFormat("Objective named {0} used more than once. Is that correct?", name);
             }
@@ -236,13 +252,13 @@ public partial class MissionsManager : Singleton<MissionsManager>
         }
     }
 
-    private void OnGameReload()
+    private void OnGameQuit()
     {
+        initFinished = false;
         enabled = true;
         objectiveNames.Clear();
         objectiveStates.Clear();
         usedObjectivesTracker.Clear();
-        Init();
     }
 
     public void OnObjectiveDisabled(Objective objective)

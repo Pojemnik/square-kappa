@@ -46,6 +46,11 @@ namespace MainMenu
             DisplayWindow(MenuWindow.Main);
         }
 
+        private void Start()
+        {
+            
+        }
+
         private void DisplayWindow(MenuWindow windoToDisplay)
         {
             foreach (SerializableDictionary<MenuWindow, GameObject>.Pair window in windows)
@@ -63,7 +68,7 @@ namespace MainMenu
 
         private void NewGame()
         {
-
+            SceneLoadingManager.Instance.StartLevel(0);
         }
     }
 }

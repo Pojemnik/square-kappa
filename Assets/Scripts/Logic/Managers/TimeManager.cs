@@ -21,6 +21,7 @@ public class TimeManager : MonoBehaviour
         EventManager.Instance.AddListener("Unpause", ResetTimescale);
         EventManager.Instance.AddListener("Victory", StopTime);
         EventManager.Instance.AddListener("GameReloaded", ResetTimescale);
+        EventManager.Instance.AddListener("GameStart", ResetTimescale);
     }
 
     private void TemporaryTimeStop(float time)

@@ -20,9 +20,10 @@ public class SoundManager : Singleton<SoundManager>
         EventManager.Instance.AddListener("StopTime", () => PauseSounds());
         EventManager.Instance.AddListener("Victory", () => PauseSounds());
         EventManager.Instance.AddListener("PlayerDeath", () => PauseSounds());
+        EventManager.Instance.AddListener("GameQuit", () => PauseSounds());
         EventManager.Instance.AddListener("Unpause", () => UnpauseSounds());
         EventManager.Instance.AddListener("ResetTimescale", () => UnpauseSounds());
-        EventManager.Instance.AddListener("GameReloaded", () => UnpauseSounds());
+        EventManager.Instance.AddListener("GameStart", () => UnpauseSounds());
     }
 
     private void PauseSounds()
