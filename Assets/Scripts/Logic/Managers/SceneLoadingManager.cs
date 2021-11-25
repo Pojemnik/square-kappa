@@ -25,8 +25,6 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
     [Header("Menu")]
     [SerializeField]
     private string menuScene;
-    [SerializeField]
-    private bool loadMenuOnStart;
 
     [Header("Base")]
     [SerializeField]
@@ -36,19 +34,24 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
     [SerializeField]
     private string loadingScene;
 
-    private int scenesLeftToLoadOrUnload;
+    [Header("Startup")]
+    [SerializeField]
+    private LevelEnum loadOnStartup;
+    [SerializeField]
+    private string otherScene;
+
     private List<GameObject> removeOnReload;
-    private bool loadingInProgress;
-    
-    private enum CurrentLevel : int
+
+    private enum LevelEnum : int
     {
         Level1 = 0,
         Level2,
         Level3,
-        Menu
+        Menu,
+        Other
     }
 
-    private CurrentLevel currentLevel;
+    private LevelEnum currentLevel;
 
     public void AddObjectToRemoveOnReload(GameObject obj)
     {
@@ -149,12 +152,12 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         yield return StartCoroutine(UnloadScene(loadingScene));
         DeactivateBaseScene();
         EventManager.Instance.TriggerEvent("GameStart");
-        currentLevel = (CurrentLevel)levelIndex;
+        currentLevel = (LevelEnum)levelIndex;
     }
 
     private IEnumerator LoadMenu()
     {
-        if(currentLevel == CurrentLevel.Menu)
+        if (currentLevel == LevelEnum.Menu)
         {
             yield break;
         }
@@ -163,6 +166,15 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         yield return StartCoroutine(UnloadScene(levelsBaseScene));
         yield return StartCoroutine(LoadScene(menuScene, true));
         yield return StartCoroutine(UnloadScene(loadingScene));
+    }
+
+    private IEnumerator LoadOneScene(string sceneName)
+    {
+        yield return LoadScene(levelsBaseScene, false);
+        yield return UnloadScene(menuScene);
+        yield return LoadScene(sceneName, true);
+        EventManager.Instance.TriggerEvent("GameStart");
+        currentLevel = LevelEnum.Other;
     }
 
     public void StartLevel(int level)
@@ -199,9 +211,18 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
     {
         removeOnReload = new List<GameObject>();
         RegisterInstance(this);
-        if (loadMenuOnStart)
+        switch (loadOnStartup)
         {
-            StartCoroutine(LoadMenuOnly());
+            case LevelEnum.Menu:
+                StartCoroutine(LoadMenuOnly());
+                break;
+            case LevelEnum.Other:
+                StartCoroutine(LoadOneScene(otherScene));
+                break;
+            default:
+                int level = (int)loadOnStartup;
+                StartLevel(level);
+                break;
         }
     }
 
@@ -209,16 +230,6 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
     {
         EventManager.Instance.AddListener("PlayerDeath", ReloadGame);
         EventManager.Instance.AddListener("Victory", ReloadGame);
-    }
-
-    private void OnLoadingEnd(AsyncOperation _, string eventToSend)
-    {
-        scenesLeftToLoadOrUnload--;
-        if (scenesLeftToLoadOrUnload == 0 && !loadingInProgress)
-        {
-            EventManager.Instance.TriggerEvent(eventToSend);
-            DeactivateBaseScene();
-        }
     }
 
     private void DeactivateBaseScene()
@@ -239,25 +250,16 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
 
     private IEnumerator ReloadGameCoroutine()
     {
-        yield return new WaitForSecondsRealtime(reloadDelay);
-        scenesLeftToLoadOrUnload = SceneManager.sceneCount - 1;
-        List<int> scenesToReload = new List<int>();
-        for (int i = 0; i < SceneManager.sceneCount; i++)
+        if (currentLevel == LevelEnum.Other || currentLevel == LevelEnum.Menu)
         {
-            Scene scene = SceneManager.GetSceneAt(i);
-            if (scene != SceneManager.GetSceneByName(levelsBaseScene))
-            {
-                scenesToReload.Add(scene.buildIndex);
-                SceneManager.UnloadSceneAsync(scene);
-            }
+            Debug.LogError("Player died in incorrect scene state. This should never happen");
         }
-        foreach (GameObject go in removeOnReload)
+        else
         {
-            Destroy(go);
-        }
-        foreach (int sceneIndex in scenesToReload)
-        {
-            SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive).completed += (a) => OnLoadingEnd(a, "GameReloaded");
+            yield return new WaitForSecondsRealtime(reloadDelay);
+            yield return StartCoroutine(UnloadMultipleScenes(levels[(int)currentLevel].scenes));
+            yield return StartCoroutine(LoadLevel((int)currentLevel));
+            DeactivateBaseScene();
         }
     }
 }
