@@ -233,6 +233,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
 
     public void GoFromLevelToMenu()
     {
+        EventManager.Instance.TriggerEvent("GameQuit");
         StartCoroutine(LoadMenu());
     }
 

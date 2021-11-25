@@ -80,11 +80,11 @@ public partial class MissionsManager : Singleton<MissionsManager>
         usedObjectivesTracker = new HashSet<string>();
         initFinished = false;
         EventManager.Instance.AddListener("GameStart", Init);
+        EventManager.Instance.AddListener("GameQuit", OnGameQuit);
     }
 
     private void Start()
     {
-        EventManager.Instance.AddListener("GameReloaded", OnGameReload);
     }
 
     private void OnDisable()
@@ -252,14 +252,13 @@ public partial class MissionsManager : Singleton<MissionsManager>
         }
     }
 
-    private void OnGameReload()
+    private void OnGameQuit()
     {
         initFinished = false;
         enabled = true;
         objectiveNames.Clear();
         objectiveStates.Clear();
         usedObjectivesTracker.Clear();
-        Init();
     }
 
     public void OnObjectiveDisabled(Objective objective)
