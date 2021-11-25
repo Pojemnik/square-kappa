@@ -51,6 +51,6 @@ public class OptionsMenuController : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        SceneLoadingManager.Instance.GoFromLevelToMenu();
     }
 }
