@@ -162,10 +162,15 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
             yield break;
         }
         yield return StartCoroutine(LoadScene(loadingScene, true));
-        yield return StartCoroutine(UnloadMultipleScenes(levels[(int)currentLevel].scenes));
+        if (currentLevel != LevelIndexEnum.Menu && currentLevel != LevelIndexEnum.Other)
+        {
+            yield return StartCoroutine(UnloadMultipleScenes(levels[(int)currentLevel].scenes));
+        }
         yield return StartCoroutine(UnloadScene(levelsBaseScene));
         yield return StartCoroutine(LoadScene(menuScene, true));
         yield return StartCoroutine(UnloadScene(loadingScene));
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     private IEnumerator LoadOneScene(string sceneName)
@@ -188,33 +193,15 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         StartCoroutine(LoadMenu());
     }
 
-    private IEnumerator LoadMenuOnly()
-    {
-        AsyncOperation loading;
-        if (!SceneManager.GetSceneByName(menuScene).isLoaded)
-        {
-            loading = SceneManager.LoadSceneAsync(menuScene, LoadSceneMode.Additive);
-            loading.allowSceneActivation = true;
-            while (!loading.isDone)
-            {
-                yield return null;
-            }
-        }
-        else
-        {
-            Debug.Log("Menu scene was already loaded");
-        }
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(menuScene));
-    }
-
     private void Awake()
     {
+        currentLevel = LevelIndexEnum.Other;
         removeOnReload = new List<GameObject>();
         RegisterInstance(this);
         switch (loadOnStartup)
         {
             case LevelIndexEnum.Menu:
-                StartCoroutine(LoadMenuOnly());
+                StartCoroutine(LoadMenu());
                 break;
             case LevelIndexEnum.Other:
                 StartCoroutine(LoadOneScene(otherScene));
