@@ -51,6 +51,8 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         Other
     }
 
+    public LevelIndexEnum CurrentLevel { get => currentLevel; }
+
     private LevelIndexEnum currentLevel;
 
     public void AddObjectToRemoveOnReload(GameObject obj)
@@ -151,8 +153,8 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         yield return StartCoroutine(LoadMultipleScenes(levels[levelIndex].scenes));
         yield return StartCoroutine(UnloadScene(loadingScene));
         DeactivateBaseScene();
-        EventManager.Instance.TriggerEvent("GameStart");
         currentLevel = (LevelIndexEnum)levelIndex;
+        EventManager.Instance.TriggerEvent("GameStart");
     }
 
     private IEnumerator LoadMenu()

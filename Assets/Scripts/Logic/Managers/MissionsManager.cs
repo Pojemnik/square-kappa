@@ -13,7 +13,9 @@ public partial class MissionsManager : Singleton<MissionsManager>
     public event System.EventHandler initFinishedEvent;
 
     [SerializeField]
-    private LevelMissionGroup missionGroup;
+    private List<LevelMissionGroup> levelsMissions;
+
+    private LevelMissionGroup currentMissionGroup;
 
     [Header("Debug options")]
     [SerializeField]
@@ -75,10 +77,6 @@ public partial class MissionsManager : Singleton<MissionsManager>
         EventManager.Instance.AddListener("GameQuit", OnGameQuit);
     }
 
-    private void Start()
-    {
-    }
-
     private void OnDisable()
     {
         if (currentMainObjectiveGroup != null)
@@ -93,7 +91,14 @@ public partial class MissionsManager : Singleton<MissionsManager>
 
     private void Init()
     {
-        if (missionGroup.mainMisions.list.Count == 0)
+        int currentLevel = (int)SceneLoadingManager.Instance.CurrentLevel;
+        if(currentLevel > levelsMissions.Count || currentLevel < 0)
+        {
+            enabled = false;
+            return;
+        }
+        currentMissionGroup = levelsMissions[currentLevel];
+        if (currentMissionGroup.mainMisions.list.Count == 0)
         {
             enabled = false;
             return;
@@ -101,13 +106,13 @@ public partial class MissionsManager : Singleton<MissionsManager>
         RegisterObjectives();
         SetObjectives();
         CheckForUnusedObjectives();
-        mainMissionsData = CreateMissionDataList(missionGroup.mainMisions.list);
+        mainMissionsData = CreateMissionDataList(currentMissionGroup.mainMisions.list);
         currentMainObjectiveGroup = mainMissionsData[0].Groups[0];
         currentMainObjectiveGroup.Mission.LabelChanged += OnMainMissionLabelChanged;
         currentMainObjectiveGroup.LabelChanged += OnMainObjectiveGroupLabelChanged;
         otherMissionsData = new List<List<MissionData>>();
         currentOtherObjectiveGroups = new List<ObjectiveGroupData>();
-        foreach (LevelMissionGroup.MissionListWrapper missions in missionGroup.otherMissions)
+        foreach (LevelMissionGroup.MissionListWrapper missions in currentMissionGroup.otherMissions)
         {
             List<MissionData> missionData = CreateMissionDataList(missions.list);
             otherMissionsData.Add(missionData);
@@ -179,8 +184,8 @@ public partial class MissionsManager : Singleton<MissionsManager>
 
     private void SetObjectives()
     {
-        SetObjectivesFromList(missionGroup.mainMisions);
-        foreach (LevelMissionGroup.MissionListWrapper missionList in missionGroup.otherMissions)
+        SetObjectivesFromList(currentMissionGroup.mainMisions);
+        foreach (LevelMissionGroup.MissionListWrapper missionList in currentMissionGroup.otherMissions)
         {
             SetObjectivesFromList(missionList);
         }
