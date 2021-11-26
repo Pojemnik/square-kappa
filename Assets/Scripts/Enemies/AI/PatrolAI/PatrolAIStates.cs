@@ -23,6 +23,10 @@ namespace AI
 
         public override void Update()
         {
+            if(owner.enemyController.target == null)
+            {
+                return;
+            }
             base.Update();
             if (TargetVisible(owner.enemyController.target.layer) == TargetStatus.InSight)
             {

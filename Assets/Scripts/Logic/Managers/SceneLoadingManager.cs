@@ -146,10 +146,19 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
 
     private IEnumerator LoadLevel(int levelIndex)
     {
+        int currentLevelIndex = (int)currentLevel;
+        if(currentLevelIndex == levelIndex)
+        {
+            yield break;
+        }
         yield return StartCoroutine(LoadScene(loadingScene, true));
         yield return StartCoroutine(UnloadScene(menuScene));
         yield return StartCoroutine(UnloadScene(levelsBaseScene));
         yield return StartCoroutine(LoadScene(levelsBaseScene, false));
+        if (currentLevel != LevelIndexEnum.Menu && currentLevel != LevelIndexEnum.Other)
+        {
+            yield return StartCoroutine(UnloadMultipleScenes(levels[currentLevelIndex].scenes));
+        }
         yield return StartCoroutine(LoadMultipleScenes(levels[levelIndex].scenes));
         yield return StartCoroutine(UnloadScene(loadingScene));
         DeactivateBaseScene();

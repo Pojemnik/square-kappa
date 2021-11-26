@@ -180,6 +180,10 @@ namespace AI
 
         public override void Update()
         {
+            if(owner.enemyController.target == null)
+            {
+                return;
+            }
             if (TargetVisible(owner.enemyController.target.layer) == TargetStatus.InSight)
             {
                 Debug.DrawLine(owner.transform.position, owner.enemyController.target.transform.position, Color.red);
