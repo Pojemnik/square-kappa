@@ -6,35 +6,33 @@ public partial class MissionsManager
     class ObjectiveGroupData
     {
         private readonly LocalizedString localizedLabel;
-        private string label;
-        private readonly HashSet<int> objectives;
-        private readonly MissionEvent completed;
         private ObjectiveGroupData nextGroup;
-        private readonly MissionData mission;
         public event System.EventHandler<string> LabelChanged;
 
         public ObjectiveGroupData NextGroup { get => nextGroup; set => nextGroup = value; }
-        public MissionData Mission { get => mission; }
-        public string Label { get => label; }
-        public HashSet<int> Objectives { get => objectives; }
-        public MissionEvent Completed { get => completed; }
+        public MissionData Mission { get; private set; }
+        public string Label { get; private set; }
+        public HashSet<int> Objectives { get; private set; }
+        public MissionEvent Completed { get; private set; }
+        public ObjectivesGroup.ObjectivesGroupCompletionMode CompletionMode { get; private set; }
 
-        public ObjectiveGroupData(LocalizedString objectiveGroupLabel, MissionEvent completedEvent, MissionData ownerMission)
+        public ObjectiveGroupData(ObjectivesGroup group, MissionData ownerMission)
         {
-            objectives = new HashSet<int>();
-            localizedLabel = objectiveGroupLabel;
+            Objectives = new HashSet<int>();
+            localizedLabel = group.label;
             localizedLabel.StringChanged += OnLabelChanged;
-            label = localizedLabel.GetLocalizedString();
-            completed = completedEvent;
-            mission = ownerMission;
+            Label = localizedLabel.GetLocalizedString();
+            Completed = group.objectivesGroupCompleteEvent;
+            Mission = ownerMission;
+            CompletionMode = group.completionMode;
         }
 
         private void OnLabelChanged(string value)
         {
-            label = value;
+            Label = value;
             if (LabelChanged != null)
             {
-                LabelChanged(this, label);
+                LabelChanged(this, Label);
             }
         }
     }

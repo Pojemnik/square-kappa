@@ -202,12 +202,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelsBaseScene: BaseScene
   levels:
-  - name: First level
-    scenes:
-    - FirstLevel
   - name: Test level
     scenes:
     - TestScene
+  - name: First level
+    scenes:
+    - FirstLevel
   reloadDelay: 0
   menuScene: MainMenu
   baseScene: EvenMoreBaseScene

@@ -11,6 +11,8 @@ public class BreakableObject : MonoBehaviour
     [SerializeField]
     private BreakableObjectSettings settings;
 
+
+    public event System.EventHandler broken;
     private Health objectsHealth;
 
     private Vector3 RandomVector(float minValue, float maxValue)
@@ -37,13 +39,14 @@ public class BreakableObject : MonoBehaviour
         fragmentsRB.AddTorque(RandomVector(settings.fragmentsAngularForce));
     }
 
-    public void OnBreak()
+    private void OnBreak()
     {
         int fragmentsNumber = Random.Range(settings.fragmentsNumber.min, settings.fragmentsNumber.max);
         for (int i = 0; i < fragmentsNumber; i++)
         {
             CreateFragment();
         }
+        broken?.Invoke(this, null);
         Destroy(gameObject);
     }
 

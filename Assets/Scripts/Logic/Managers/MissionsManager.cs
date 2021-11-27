@@ -143,7 +143,7 @@ public partial class MissionsManager : Singleton<MissionsManager>
             MissionData missionData = new MissionData(mission.label, mission.missionCompleteEvent);
             foreach (ObjectivesGroup group in mission.groups)
             {
-                ObjectiveGroupData objectiveGroupData = new ObjectiveGroupData(group.label, group.objectivesGroupCompleteEvent, missionData);
+                ObjectiveGroupData objectiveGroupData = new ObjectiveGroupData(group, missionData);
                 foreach (string name in group.objectiveNames)
                 {
                     if (objectiveNames.ContainsKey(name))
@@ -370,7 +370,7 @@ public partial class MissionsManager : Singleton<MissionsManager>
     {
         if (currentMainObjectiveGroup.Objectives.Contains(currentlyCompletedObjectiveId))
         {
-            if (CheckForGroupCompletion(currentMainObjectiveGroup.Objectives))
+            if (CheckForGroupCompletion(currentMainObjectiveGroup.Objectives, currentMainObjectiveGroup.CompletionMode))
             {
                 return true;
             }
@@ -386,7 +386,7 @@ public partial class MissionsManager : Singleton<MissionsManager>
             HashSet<int> group = currentOtherObjectiveGroups[i].Objectives;
             if (group.Contains(currentlyCompletedObjectiveId))
             {
-                if (CheckForGroupCompletion(group))
+                if (CheckForGroupCompletion(group, currentOtherObjectiveGroups[i].CompletionMode))
                 {
                     completedGroups.Add(i);
                 }
@@ -395,15 +395,29 @@ public partial class MissionsManager : Singleton<MissionsManager>
         return completedGroups;
     }
 
-    private bool CheckForGroupCompletion(HashSet<int> group)
+    private bool CheckForGroupCompletion(HashSet<int> group, ObjectivesGroup.ObjectivesGroupCompletionMode mode)
     {
-        foreach (int id in group)
+        if (mode == ObjectivesGroup.ObjectivesGroupCompletionMode.All)
         {
-            if (!objectiveStates[id])
+            foreach (int id in group)
             {
-                return false;
+                if (!objectiveStates[id])
+                {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
+        else
+        {
+            foreach (int id in group)
+            {
+                if (objectiveStates[id])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

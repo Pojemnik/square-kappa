@@ -23,8 +23,8 @@ MonoBehaviour:
     m_LocalVariables: []
   groups:
   - objectiveNames:
-    - cube
-    objectivesGroupCompleteEvent: {fileID: 0}
+    - nodobra
+    objectivesGroupCompleteEvent: {fileID: 11400000, guid: d0ec5375e955ab744b03a53e62bad47c, type: 2}
     label:
       m_TableReference:
         m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
