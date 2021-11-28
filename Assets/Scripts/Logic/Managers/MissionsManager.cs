@@ -13,7 +13,9 @@ public partial class MissionsManager : Singleton<MissionsManager>
     public event System.EventHandler initFinishedEvent;
 
     [SerializeField]
-    private LevelMissionGroup missionGroup;
+    private List<LevelMissionGroup> levelsMissions;
+
+    private LevelMissionGroup currentMissionGroup;
 
     [Header("Debug options")]
     [SerializeField]
@@ -75,10 +77,6 @@ public partial class MissionsManager : Singleton<MissionsManager>
         EventManager.Instance.AddListener("GameQuit", OnGameQuit);
     }
 
-    private void Start()
-    {
-    }
-
     private void OnDisable()
     {
         if (currentMainObjectiveGroup != null)
@@ -93,7 +91,14 @@ public partial class MissionsManager : Singleton<MissionsManager>
 
     private void Init()
     {
-        if (missionGroup.mainMisions.list.Count == 0)
+        int currentLevel = (int)SceneLoadingManager.Instance.CurrentLevel;
+        if(currentLevel > levelsMissions.Count || currentLevel < 0)
+        {
+            enabled = false;
+            return;
+        }
+        currentMissionGroup = levelsMissions[currentLevel];
+        if (currentMissionGroup.mainMisions.list.Count == 0)
         {
             enabled = false;
             return;
@@ -101,13 +106,13 @@ public partial class MissionsManager : Singleton<MissionsManager>
         RegisterObjectives();
         SetObjectives();
         CheckForUnusedObjectives();
-        mainMissionsData = CreateMissionDataList(missionGroup.mainMisions.list);
+        mainMissionsData = CreateMissionDataList(currentMissionGroup.mainMisions.list);
         currentMainObjectiveGroup = mainMissionsData[0].Groups[0];
         currentMainObjectiveGroup.Mission.LabelChanged += OnMainMissionLabelChanged;
         currentMainObjectiveGroup.LabelChanged += OnMainObjectiveGroupLabelChanged;
         otherMissionsData = new List<List<MissionData>>();
         currentOtherObjectiveGroups = new List<ObjectiveGroupData>();
-        foreach (LevelMissionGroup.MissionListWrapper missions in missionGroup.otherMissions)
+        foreach (LevelMissionGroup.MissionListWrapper missions in currentMissionGroup.otherMissions)
         {
             List<MissionData> missionData = CreateMissionDataList(missions.list);
             otherMissionsData.Add(missionData);
@@ -138,7 +143,7 @@ public partial class MissionsManager : Singleton<MissionsManager>
             MissionData missionData = new MissionData(mission.label, mission.missionCompleteEvent);
             foreach (ObjectivesGroup group in mission.groups)
             {
-                ObjectiveGroupData objectiveGroupData = new ObjectiveGroupData(group.label, group.objectivesGroupCompleteEvent, missionData);
+                ObjectiveGroupData objectiveGroupData = new ObjectiveGroupData(group, missionData);
                 foreach (string name in group.objectiveNames)
                 {
                     if (objectiveNames.ContainsKey(name))
@@ -179,8 +184,8 @@ public partial class MissionsManager : Singleton<MissionsManager>
 
     private void SetObjectives()
     {
-        SetObjectivesFromList(missionGroup.mainMisions);
-        foreach (LevelMissionGroup.MissionListWrapper missionList in missionGroup.otherMissions)
+        SetObjectivesFromList(currentMissionGroup.mainMisions);
+        foreach (LevelMissionGroup.MissionListWrapper missionList in currentMissionGroup.otherMissions)
         {
             SetObjectivesFromList(missionList);
         }
@@ -365,7 +370,7 @@ public partial class MissionsManager : Singleton<MissionsManager>
     {
         if (currentMainObjectiveGroup.Objectives.Contains(currentlyCompletedObjectiveId))
         {
-            if (CheckForGroupCompletion(currentMainObjectiveGroup.Objectives))
+            if (CheckForGroupCompletion(currentMainObjectiveGroup.Objectives, currentMainObjectiveGroup.CompletionMode))
             {
                 return true;
             }
@@ -381,7 +386,7 @@ public partial class MissionsManager : Singleton<MissionsManager>
             HashSet<int> group = currentOtherObjectiveGroups[i].Objectives;
             if (group.Contains(currentlyCompletedObjectiveId))
             {
-                if (CheckForGroupCompletion(group))
+                if (CheckForGroupCompletion(group, currentOtherObjectiveGroups[i].CompletionMode))
                 {
                     completedGroups.Add(i);
                 }
@@ -390,15 +395,29 @@ public partial class MissionsManager : Singleton<MissionsManager>
         return completedGroups;
     }
 
-    private bool CheckForGroupCompletion(HashSet<int> group)
+    private bool CheckForGroupCompletion(HashSet<int> group, ObjectivesGroup.ObjectivesGroupCompletionMode mode)
     {
-        foreach (int id in group)
+        if (mode == ObjectivesGroup.ObjectivesGroupCompletionMode.All)
         {
-            if (!objectiveStates[id])
+            foreach (int id in group)
             {
-                return false;
+                if (!objectiveStates[id])
+                {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
+        else
+        {
+            foreach (int id in group)
+            {
+                if (objectiveStates[id])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
