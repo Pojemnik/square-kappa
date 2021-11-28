@@ -12,6 +12,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: a58995121621ad2448b09f1bc3c18980, type: 2}
     - target: {fileID: 3516960505228769513, guid: bbef5a3e6134dda429c70eeba906e5a8, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3516960505228769513, guid: bbef5a3e6134dda429c70eeba906e5a8, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3516960505228769513, guid: bbef5a3e6134dda429c70eeba906e5a8, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3516960505228769513, guid: bbef5a3e6134dda429c70eeba906e5a8, type: 3}
       propertyPath: m_BoundingSphereOverride.w
       value: 1.0291855e+10
       objectReference: {fileID: 0}

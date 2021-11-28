@@ -540,6 +540,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6091893280028903022, guid: 437be684ff36d4b4ba8684baa7ea15eb, type: 3}
+      propertyPath: m_Color.b
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091893280028903022, guid: 437be684ff36d4b4ba8684baa7ea15eb, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091893280028903022, guid: 437be684ff36d4b4ba8684baa7ea15eb, type: 3}
+      propertyPath: m_Color.r
+      value: 0.72156864
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091893280028903022, guid: 437be684ff36d4b4ba8684baa7ea15eb, type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8500465342624809522, guid: 437be684ff36d4b4ba8684baa7ea15eb, type: 3}
       propertyPath: m_Name
       value: ScreenGlowParticles
