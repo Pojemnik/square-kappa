@@ -5991,6 +5991,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textController: {fileID: 5568184445419003121}
   imageController: {fileID: 7758713017785003182}
+  panel: {fileID: 1662558415}
   UIInfoConfig:
   - message:
       m_TableReference:
@@ -6201,7 +6202,26 @@ MonoBehaviour:
       m_WaitForCompletion: 0
     missionEvent: {fileID: 11400000, guid: 8eb92d141633b914aac6318f8e4592c0, type: 2}
     messageHideDelay: 3
-  panel: {fileID: 1662558415}
+  playerOutOfBoundsConfig:
+    message:
+      m_TableReference:
+        m_TableCollectionName: GUID:4bb6863d4b9f5754689ea89dee61337f
+      m_TableEntryReference:
+        m_KeyId: 29131295730749440
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    image:
+      m_TableReference:
+        m_TableCollectionName: GUID:8d7a7c33f67c7b24293b0df6e2ba7449
+      m_TableEntryReference:
+        m_KeyId: 17110716416
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+    missionEvent: {fileID: 0}
+    messageHideDelay: 3
   references:
     version: 2
     RefIds: []

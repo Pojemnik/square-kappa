@@ -97,6 +97,11 @@ MonoBehaviour:
       automatycznie w momencie zbli\u017Cenia si\u0119 do niej"
     m_Metadata:
       m_Items: []
+  - m_Id: 29131295730749440
+    m_Localized: "\u017Bo\u0142nierzu, opuszczasz teren misji. Natychmiast zawr\xF3\u0107.
+      Je\u015Bli tego nie zrobisz zostaniesz uznany za dezertera i odpowiednio ukarany"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

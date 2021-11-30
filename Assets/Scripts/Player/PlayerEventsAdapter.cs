@@ -28,6 +28,7 @@ public class PlayerEventsAdapter : MonoBehaviour
         startRotation = rb.rotation;
         shooting = GetComponent<UnitShooting>();
         itemChanger = GetComponent<ItemChanger>();
+        EventManager.Instance.AddListener("PlayerOut", KillPlayer);
     }
 
     private void MovePlayerToStartPosition()
@@ -49,6 +50,11 @@ public class PlayerEventsAdapter : MonoBehaviour
         MovePlayerToStartPosition();
     }
 
+    private void KillPlayer()
+    {
+        health.Damaged(new DamageInfo(1000, Vector3.up, Vector3.zero, Vector3.up));
+    }
+
     private void OnPlayerDeath()
     {
         if (callDeathEvent)
@@ -60,5 +66,11 @@ public class PlayerEventsAdapter : MonoBehaviour
     private void OnPlayerDamage()
     {
         EventManager.Instance.TriggerEvent("PlayerDamage");
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.Instance?.RemoveListener("GameReloaded", OnGameReload);
+        EventManager.Instance?.RemoveListener("PlayerOut", KillPlayer);
     }
 }

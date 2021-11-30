@@ -14,18 +14,27 @@ public class UIInfoController : MonoBehaviour
         public float messageHideDelay;
     }
 
+    [Header("References")]
     [SerializeField]
     private InfoTextController textController;
     [SerializeField]
     private InfoImageController imageController;
     [SerializeField]
-    private List<UIInfoConfigType> UIInfoConfig;
-    [SerializeField]
     private UnityEngine.UI.Image panel;
+
+    [Header("Missions config")]
+    [SerializeField]
+    private List<UIInfoConfigType> UIInfoConfig;
+
+    [Header("Other config")]
+    [SerializeField]
+    private UIInfoConfigType playerOutOfBoundsConfig;
+
 
     private Dictionary<UIInfoConfigType, System.EventHandler> missionEventHandlers;
     private Dictionary<UIInfoConfigType, LocalizedString.ChangeHandler> stringChangedEventHandlers;
     private System.EventHandler displayEndEventHandler;
+    private UnityEngine.Events.UnityAction playerOutHandler;
 
     private void Awake()
     {
@@ -43,7 +52,10 @@ public class UIInfoController : MonoBehaviour
         }
         displayEndEventHandler = (s, a) => { imageController.HideImage(); panel.enabled = false; };
         textController.displayEndEvent += displayEndEventHandler;
+        playerOutHandler = () => DisplayOnScreenMessage(playerOutOfBoundsConfig);
+        EventManager.Instance.AddListener("PlayerOutWarning", playerOutHandler);
     }
+    //Vector3(300,200,300)
 
     private void OnDestroy()
     {
@@ -53,6 +65,7 @@ public class UIInfoController : MonoBehaviour
             config.message.StringChanged -= stringChangedEventHandlers[config];
         }
         textController.displayEndEvent -= displayEndEventHandler;
+        EventManager.Instance?.RemoveListener("PlayerOutWarning", playerOutHandler);
     }
 
     private void DisplayOnScreenMessage(UIInfoConfigType config)
