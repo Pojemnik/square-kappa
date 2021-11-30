@@ -39,4 +39,13 @@ public class LevelBoundaryController : MonoBehaviour
             EventManager.Instance.TriggerEvent("PlayerOutWarning");
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            inBounds = true;
+            counterValue = 0;
+        }
+    }
 }
