@@ -9,6 +9,8 @@ public class DoorController : MonoBehaviour
     {
         public Vector3 closedPosition;
         public Vector3 openedPosition;
+        public Vector3 closedRotation;
+        public Vector3 openedRotation;
     }
 
     [SerializeField]
@@ -43,6 +45,8 @@ public class DoorController : MonoBehaviour
             time += Time.deltaTime;
             lowerPart.transform.localPosition = Vector3.Lerp(lowerPartConfig.closedPosition, lowerPartConfig.openedPosition, time / openingTime);
             upperPart.transform.localPosition = Vector3.Lerp(upperPartConfig.closedPosition, upperPartConfig.openedPosition, time / openingTime);
+            lowerPart.transform.localRotation = Quaternion.Slerp(Quaternion.Euler(lowerPartConfig.closedRotation), Quaternion.Euler(lowerPartConfig.openedRotation), time / openingTime);
+            upperPart.transform.localRotation = Quaternion.Slerp(Quaternion.Euler(upperPartConfig.closedRotation), Quaternion.Euler(upperPartConfig.openedRotation), time / openingTime);
             if(time >= openingTime)
             {
                 isOpening = false;
