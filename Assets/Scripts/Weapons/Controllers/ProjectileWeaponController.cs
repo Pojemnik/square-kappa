@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class ProjectileWeaponController : RangedWeaponController
 {
     [SerializeField]
-    private ProjectileWeaponConfig projectileWeaponConfig;
+    protected ProjectileWeaponConfig projectileWeaponConfig;
 
     private float shootCooldown;
     private float spreadRadius;
@@ -31,7 +31,7 @@ public class ProjectileWeaponController : RangedWeaponController
         spreadReductionCooldown = projectileWeaponConfig.spreadReductionDelay;
     }
 
-    private void Shoot()
+    protected virtual void Shoot()
     {
         if (ammo <= 0)
         {
@@ -64,7 +64,7 @@ public class ProjectileWeaponController : RangedWeaponController
         }
     }
 
-    private void CreateProjectile(Vector3 relativeOffset, Quaternion relativeRotation)
+    protected void CreateProjectile(Vector3 relativeOffset, Quaternion relativeRotation)
     {
         GameObject projectile = Instantiate(projectileWeaponConfig.projectilePrefab, transform.position + relativeOffset, projectileDirection * relativeRotation);
         SetProjectileLayer(projectile);
@@ -77,7 +77,7 @@ public class ProjectileWeaponController : RangedWeaponController
         Destroy(projectile, projectileWeaponConfig.projectileLifetime);
     }
 
-    private void CreateFlame()
+    protected void CreateFlame()
     {
         GameObject fireEffect = Instantiate(projectileWeaponConfig.flamePrefab, transform.position, transform.rotation);
         fireEffect.transform.parent = transform;
