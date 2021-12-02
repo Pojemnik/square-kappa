@@ -22,6 +22,8 @@ public class EnemyController : MonoBehaviour
     public float visibilitySphereRadius;
     public float visibilityConeAngle;
     public float visibilityConeHeight;
+    [SerializeField]
+    private bool dropWeaponAfterDeath;
     [ReadOnly]
     [SerializeField]
     private float visibilityConeRadius;
@@ -50,7 +52,10 @@ public class EnemyController : MonoBehaviour
 
     public void OnDeath()
     {
-        DropWeapon();
+        if (dropWeaponAfterDeath)
+        {
+            DropWeapon();
+        }
         if (enableRagdoll)
         {
             StartRagdoll();
