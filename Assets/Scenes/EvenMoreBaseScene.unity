@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.005015299, g: 0.0139682125, b: 0.043419924, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: 6c30f3b01a4d64e4eae4082746c104eb, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -207,6 +207,9 @@ MonoBehaviour:
   - name: Test level
     scenes:
     - TestScene
+  - name: Prologue1SpecialMission
+    scenes:
+    - Prologue1SpecialMissionMainScene
   reloadDelay: 0
   menuScene: MainMenu
   baseScene: EvenMoreBaseScene
