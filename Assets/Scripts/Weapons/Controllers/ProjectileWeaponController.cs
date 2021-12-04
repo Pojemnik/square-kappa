@@ -46,7 +46,7 @@ public class ProjectileWeaponController : RangedWeaponController
         CreateProjectile(relativeOffset, relativeRotation);
         if (projectileWeaponConfig.flamePrefab)
         {
-            CreateFlame();
+            CreateFlame(projectileWeaponConfig.flameOffset);
         }
         UpdateSpreadAfterShoot();
         InvokeAttackEvent();
@@ -77,11 +77,11 @@ public class ProjectileWeaponController : RangedWeaponController
         Destroy(projectile, projectileWeaponConfig.projectileLifetime);
     }
 
-    protected void CreateFlame()
+    protected void CreateFlame(Vector3 flameOffset)
     {
         GameObject fireEffect = Instantiate(projectileWeaponConfig.flamePrefab, transform.position, transform.rotation);
         fireEffect.transform.parent = transform;
-        fireEffect.transform.Translate(projectileWeaponConfig.flameOffset, Space.Self);
+        fireEffect.transform.Translate(flameOffset, Space.Self);
         fireEffect.transform.Rotate(projectileWeaponConfig.flameRotation);
         fireEffect.transform.localScale = Vector3.one * projectileWeaponConfig.flameScale;
         fireEffect.SetActive(true);

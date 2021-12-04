@@ -16,7 +16,8 @@ public class DoubleProjectileWeaponController : ProjectileWeaponController
         CreateProjectile(relativeOffset - centerOffset, relativeRotation);
         if (projectileWeaponConfig.flamePrefab != null)
         {
-            CreateFlame();
+            CreateFlame(projectileWeaponConfig.flameOffset + offsetFromTheCenter);
+            CreateFlame(projectileWeaponConfig.flameOffset - offsetFromTheCenter);
         }
         InvokeAttackEvent();
     }
