@@ -61,7 +61,7 @@ public class EnemyController : MonoBehaviour
         {
             StartRagdoll();
         }
-        EnemyManager.Instance.RemoveEnemy(gameObject);
+        EnemyManager.Instance.RemoveEnemy(this);
         Destroy(gameObject);
     }
 
@@ -69,7 +69,7 @@ public class EnemyController : MonoBehaviour
     {
         if (EnemyManager.Instance)
         {
-            EnemyManager.Instance.RemoveEnemy(gameObject);
+            EnemyManager.Instance.RemoveEnemy(this);
         }
     }
 

@@ -35,7 +35,7 @@ public class EnemyManager : Singleton<EnemyManager>
         }
     }
 
-    public void RemoveEnemy(GameObject enemy)
+    public void RemoveEnemy(EnemyController enemy)
     {
         enemies.Remove(enemy.GetInstanceID());
         enemyVisibility.Remove(enemy.GetInstanceID());
