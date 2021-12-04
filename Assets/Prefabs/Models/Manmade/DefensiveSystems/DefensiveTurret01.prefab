@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3806937705497110615}
   - component: {fileID: 5511786570368876342}
   - component: {fileID: 3002018631059458516}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DefensiveTurret01Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3215917909843699061}
+  - {fileID: 5543061439884255922}
   m_Father: {fileID: 9220430101574223555}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 949531305469585446}
   - component: {fileID: 6733158439750131463}
   - component: {fileID: 4556610797016267577}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DefensiveTurret01Guns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3806937705497110615}
+  m_Father: {fileID: 5543061439884255922}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6650809007835239106
@@ -217,6 +217,38 @@ MonoBehaviour:
   currentAmmoDisplay: {fileID: 0}
   projectileWeaponConfig: {fileID: 11400000, guid: 476bf17976863da4ba417cbd8ff06566, type: 2}
   offsetFromTheCenter: {x: 0.5, y: 0, z: 0}
+--- !u!1 &3721179479578441824
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5543061439884255922}
+  m_Layer: 7
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5543061439884255922
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3721179479578441824}
+  m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: -0.18963647, z: 0.19965023}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3215917909843699061}
+  m_Father: {fileID: 3806937705497110615}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -45, y: 0, z: 0}
 --- !u!1 &4543187250058850905
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,7 +260,7 @@ GameObject:
   - component: {fileID: 6736172548509683824}
   - component: {fileID: 8335085019623475564}
   - component: {fileID: 1879141687026237359}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DefensiveTurret01Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,9 +346,10 @@ GameObject:
   - component: {fileID: 8520310696052414464}
   - component: {fileID: 9030111557013085048}
   - component: {fileID: 3266443111163972924}
-  m_Layer: 0
+  - component: {fileID: 156051997339609813}
+  m_Layer: 7
   m_Name: DefensiveTurret01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -408,7 +441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58809af716df9834092ee4f68708b242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: {fileID: 0}
+  movement: {fileID: 156051997339609813}
   shooting: {fileID: 8520310696052414464}
   itemChanger: {fileID: 0}
   interactor: {fileID: 0}
@@ -430,9 +463,10 @@ MonoBehaviour:
   weapon: {fileID: 1550822884169036470}
   shooting: {fileID: 8520310696052414464}
   head: {fileID: 650954456294556673}
-  ShootingRules: {fileID: 0}
-  ShootingRulesInterpretation: {fileID: 0}
-  visibilitySphereRadius: 5
+  core: {fileID: 4543187250058850905}
+  ShootingRules: {fileID: 11400000, guid: b0c566fb97f3ff84ea6e1c6d451fceca, type: 2}
+  ShootingRulesInterpretation: {fileID: 11400000, guid: c849ae16fad72e04f85041e84049bc83, type: 2}
+  visibilitySphereRadius: 1000
   visibilityConeAngle: 20
   visibilityConeHeight: 5
   dropWeaponAfterDeath: 0
@@ -444,3 +478,19 @@ MonoBehaviour:
   notSelectedColor: {r: 0, g: 1, b: 0.023912907, a: 1}
   enableRagdoll: 0
   ragdollPrefab: {fileID: 0}
+--- !u!114 &156051997339609813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8412263407651576953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8899011e0387805428c690eef33339b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraAiming: 0
+  owner: {fileID: 9030111557013085048}
+  firstPresonCamera: {fileID: 1550822884169036470}
+  turret: {fileID: 0}

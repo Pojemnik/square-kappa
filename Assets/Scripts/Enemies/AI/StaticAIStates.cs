@@ -99,8 +99,8 @@ namespace AI
             lastShoot = false;
             owner.status = "Shooting to target";
             spottedTime = lastSeenTime = Time.time;
-            owner.enemyController.unitController.AnimationController.ResetTriggers();
-            owner.enemyController.unitController.AnimationController.SetState("Spotted");
+            owner.enemyController.unitController.AnimationController?.ResetTriggers();
+            owner.enemyController.unitController.AnimationController?.SetState("Spotted");
         }
 
         public override void Update()
@@ -166,16 +166,16 @@ namespace AI
         public override void Enter()
         {
             base.Enter();
-            owner.enemyController.unitController.AnimationController.eventsAdapter.lookaroundEnd.AddListener(OnLookAroundEnd);
-            owner.enemyController.unitController.AnimationController.ResetTriggers();
-            owner.enemyController.unitController.AnimationController.SetState("LookAround");
+            owner.enemyController.unitController.AnimationController?.eventsAdapter.lookaroundEnd.AddListener(OnLookAroundEnd);
+            owner.enemyController.unitController.AnimationController?.ResetTriggers();
+            owner.enemyController.unitController.AnimationController?.SetState("LookAround");
             owner.status = "Looking around";
         }
 
         private void OnLookAroundEnd()
         {
-            owner.enemyController.unitController.AnimationController.ResetTriggers();
-            owner.enemyController.unitController.AnimationController.SetState("LookAround");
+            owner.enemyController.unitController.AnimationController?.ResetTriggers();
+            owner.enemyController.unitController.AnimationController?.SetState("LookAround");
         }
 
         public override void Update()
@@ -193,7 +193,7 @@ namespace AI
 
         public override void Exit()
         {
-            owner.enemyController.unitController.AnimationController.eventsAdapter.lookaroundEnd.RemoveListener(OnLookAroundEnd);
+            owner.enemyController.unitController.AnimationController?.eventsAdapter.lookaroundEnd.RemoveListener(OnLookAroundEnd);
             base.Exit();
         }
 
@@ -216,7 +216,7 @@ namespace AI
         public override void Enter()
         {
             base.Enter();
-            owner.enemyController.unitController.AnimationController.ResetTriggers();
+            owner.enemyController.unitController.AnimationController?.ResetTriggers();
             movement.SetTargetRotation(-hitDirection);
             owner.status = "Looking for damege source";
         }

@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private UnitShooting shooting;
     public GameObject head;
+    public GameObject core;
 
     [Header("Enemy properites")]
     public AIShootingRules ShootingRules;
@@ -105,13 +106,13 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         target = EnemyManager.Instance.target;
-        EnemyManager.Instance.AddEnemy(gameObject);
+        EnemyManager.Instance.AddEnemy(this);
         CrosshairController crosshair = FindObjectOfType<CrosshairController>();
         Health health = GetComponent<Health>();
         health.deathEvent.AddListener(crosshair.OnEnemyDeath);
         health.healthChangeEvent.AddListener(delegate { crosshair.OnEnemyHit(); });
         unitController.CurrentWeapon = weapon;
-        unitController.AnimationController.UpdateWeaponAnimation(unitController.CurrentWeaponController);
+        unitController.AnimationController?.UpdateWeaponAnimation(unitController.CurrentWeaponController);
         shooting.ChangeWeaponController(weapon.GetComponent<WeaponController>());
         shooting.IgnoreRecoil = true;
         unitController.movement.cameraAiming = false;
