@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rules:
   - minDistace: 0
+    maxDistace: 20
+    shootingMode: 0
+  - minDistace: 20
     maxDistace: -1
     shootingMode: 3
   spottedToShootingDelay: 0
