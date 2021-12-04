@@ -52,7 +52,7 @@ public class PlayerEventsAdapter : MonoBehaviour
 
     private void KillPlayer()
     {
-        health.Damaged(new DamageInfo(1000, Vector3.up, Vector3.zero, Vector3.up));
+        health.DealDamageFromNowhere(1000);
     }
 
     private void OnPlayerDeath()

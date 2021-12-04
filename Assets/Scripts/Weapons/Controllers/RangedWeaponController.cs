@@ -50,7 +50,7 @@ public abstract class RangedWeaponController : WeaponController
     protected void Start()
     {
         ammo = Config.maxAmmo;
-        currentAmmoDisplay.SetValue(ammo);
+        currentAmmoDisplay?.SetValue(ammo);
     }
 
     public override int Reload(int amount)
@@ -59,7 +59,7 @@ public abstract class RangedWeaponController : WeaponController
         {
             int ammoLeft = ammo;
             ammo = 0;
-            currentAmmoDisplay.SetValue(ammo);
+            currentAmmoDisplay?.SetValue(ammo);
             InvokeAmmoChengeEvent(ammo, totalAmmo);
             return ammoLeft;
         }
@@ -74,14 +74,14 @@ public abstract class RangedWeaponController : WeaponController
             ammo = Config.maxAmmo;
             total -= Config.maxAmmo;
         }
-        currentAmmoDisplay.SetValue(ammo);
+        currentAmmoDisplay?.SetValue(ammo);
         InvokeAmmoChengeEvent(ammo, totalAmmo);
         return total;
     }
 
     public override void SetTotalAmmo(int amount)
     {
-        totalAmmoDisplay.SetValue(amount);
+        totalAmmoDisplay?.SetValue(amount);
         totalAmmo = amount;
         InvokeAmmoChengeEvent(ammo, totalAmmo);
     }

@@ -6,13 +6,13 @@ using UnityEngine.Events;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
-    private Dictionary<int, GameObject> enemies;
+    private Dictionary<int, EnemyController> enemies;
     private Dictionary<int,(bool covered, bool onScreen)> enemyVisibility;
 
     protected EnemyManager() { }
 
-    public List<GameObject> EnemiesList { get => enemies.Values.ToList(); }
-    public event System.EventHandler<List<GameObject>> enemiesListChangedEvent;
+    public List<EnemyController> EnemiesList { get => enemies.Values.ToList(); }
+    public event System.EventHandler<List<EnemyController>> enemiesListChangedEvent;
     public GameObject target;
     
     public bool IsEnemyCovered(int enemyId)
@@ -25,7 +25,7 @@ public class EnemyManager : Singleton<EnemyManager>
         return enemyVisibility[enemyId].onScreen;
     }
 
-    public void AddEnemy(GameObject enemy)
+    public void AddEnemy(EnemyController enemy)
     {
         enemies.Add(enemy.GetInstanceID(), enemy);
         enemyVisibility.Add(enemy.GetInstanceID(), (false, false));
@@ -35,7 +35,7 @@ public class EnemyManager : Singleton<EnemyManager>
         }
     }
 
-    public void RemoveEnemy(GameObject enemy)
+    public void RemoveEnemy(EnemyController enemy)
     {
         enemies.Remove(enemy.GetInstanceID());
         enemyVisibility.Remove(enemy.GetInstanceID());
@@ -48,21 +48,21 @@ public class EnemyManager : Singleton<EnemyManager>
     private void Awake()
     {
         RegisterInstance(this);
-        enemies = new Dictionary<int, GameObject>();
+        enemies = new Dictionary<int, EnemyController>();
         enemyVisibility = new Dictionary<int, (bool covered, bool onScreen)>();
     }
 
     private void Update()
     {
-        foreach(GameObject enemy in enemies.Values)
+        foreach(EnemyController enemy in enemies.Values)
         {
             AddEnemyToSetIfVisible(enemy);
         }
     }
 
-    private void AddEnemyToSetIfVisible(GameObject enemy)
+    private void AddEnemyToSetIfVisible(EnemyController enemy)
     {
-        Vector3 enemyArmaturePosition = enemy.transform.GetChild(0).GetChild(1).GetChild(0).position;
+        Vector3 enemyArmaturePosition = enemy.core.transform.position;
         Vector3 screenPos = Camera.main.WorldToScreenPoint(enemyArmaturePosition);
         int enemyId = enemy.GetInstanceID();
         enemyVisibility[enemyId] = (IsEnemyHidden(enemy, enemyArmaturePosition, Camera.main.transform.position), IsScreenPointInViewport(screenPos));
@@ -76,12 +76,12 @@ public class EnemyManager : Singleton<EnemyManager>
         return onScreenX && onScreenY && onScreenZ;
     }
 
-    private bool IsEnemyHidden(GameObject enemy, Vector3 enemyArmaturePosition, Vector3 cameraPos)
+    private bool IsEnemyHidden(EnemyController enemy, Vector3 enemyArmaturePosition, Vector3 cameraPos)
     {
         Debug.DrawRay(cameraPos, enemyArmaturePosition - cameraPos);
         if (Physics.Raycast(cameraPos, enemyArmaturePosition - cameraPos, out RaycastHit hit, float.PositiveInfinity, KappaLayerMask.PlayerVisionMask))
         {
-            bool isEnemyPart = hit.collider.gameObject == enemy || hit.collider.transform.IsChildOf(enemy.transform);
+            bool isEnemyPart = hit.collider.gameObject == enemy.gameObject || hit.collider.transform.IsChildOf(enemy.transform);
             if (!isEnemyPart)
             {
                 return true;
@@ -90,7 +90,7 @@ public class EnemyManager : Singleton<EnemyManager>
         else
         {
             //This should never happen
-            Debug.LogWarningFormat("Enemy {0} not hit by raycast", enemy.name);
+            Debug.LogWarningFormat("Enemy {0} not hit by raycast", enemy.gameObject.name);
             return true;
         }
         return false;

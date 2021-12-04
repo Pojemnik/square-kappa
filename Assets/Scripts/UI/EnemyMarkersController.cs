@@ -32,7 +32,7 @@ public class EnemyMarkersController : MonoBehaviour
     [SerializeField]
     private GameObject distanceDisplayPrefab;
 
-    private List<GameObject> enemies;
+    private List<EnemyController> enemies;
     private Dictionary<int, GameObject> arrows;
     private Dictionary<int, GameObject> markers;
     private Dictionary<int, VectorDisplayController> distanceDisplays;
@@ -70,12 +70,12 @@ public class EnemyMarkersController : MonoBehaviour
         print(string.Format("Display mode: {0}", displayMode));
     }
 
-    private void OnEnemyListChange(object sender, List<GameObject> enemiesList)
+    private void OnEnemyListChange(object sender, List<EnemyController> enemiesList)
     {
         UpdateMarkers(enemiesList);
     }
 
-    private void UpdateMarkers(List<GameObject> enemiesList)
+    private void UpdateMarkers(List<EnemyController> enemiesList)
     {
         enemies = enemiesList;
         var enemiesIds = enemiesList.Select(e => e.GetInstanceID());
@@ -152,10 +152,10 @@ public class EnemyMarkersController : MonoBehaviour
     private void Update()
     {
         Vector3 cameraPos = Camera.main.gameObject.transform.position;
-        foreach (GameObject enemy in enemies)
+        foreach (EnemyController enemy in enemies)
         {
             int enemyId = enemy.GetInstanceID();
-            Vector3 enemyArmaturePosition = enemy.transform.GetChild(0).GetChild(1).GetChild(0).position;
+            Vector3 enemyArmaturePosition = enemy.core.transform.position;
             float distanceToEnemy = (cameraPos - enemyArmaturePosition).magnitude;
             GameObject marker = markers[enemyId];
             GameObject arrow = arrows[enemyId];

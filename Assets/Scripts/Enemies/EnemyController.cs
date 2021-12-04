@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private UnitShooting shooting;
     public GameObject head;
+    public GameObject core;
 
     [Header("Enemy properites")]
     public AIShootingRules ShootingRules;
@@ -22,6 +23,8 @@ public class EnemyController : MonoBehaviour
     public float visibilitySphereRadius;
     public float visibilityConeAngle;
     public float visibilityConeHeight;
+    [SerializeField]
+    private bool dropWeaponAfterDeath;
     [ReadOnly]
     [SerializeField]
     private float visibilityConeRadius;
@@ -50,12 +53,15 @@ public class EnemyController : MonoBehaviour
 
     public void OnDeath()
     {
-        DropWeapon();
+        if (dropWeaponAfterDeath)
+        {
+            DropWeapon();
+        }
         if (enableRagdoll)
         {
             StartRagdoll();
         }
-        EnemyManager.Instance.RemoveEnemy(gameObject);
+        EnemyManager.Instance.RemoveEnemy(this);
         Destroy(gameObject);
     }
 
@@ -63,7 +69,7 @@ public class EnemyController : MonoBehaviour
     {
         if (EnemyManager.Instance)
         {
-            EnemyManager.Instance.RemoveEnemy(gameObject);
+            EnemyManager.Instance.RemoveEnemy(this);
         }
     }
 
@@ -100,13 +106,13 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         target = EnemyManager.Instance.target;
-        EnemyManager.Instance.AddEnemy(gameObject);
+        EnemyManager.Instance.AddEnemy(this);
         CrosshairController crosshair = FindObjectOfType<CrosshairController>();
         Health health = GetComponent<Health>();
         health.deathEvent.AddListener(crosshair.OnEnemyDeath);
         health.healthChangeEvent.AddListener(delegate { crosshair.OnEnemyHit(); });
         unitController.CurrentWeapon = weapon;
-        unitController.AnimationController.UpdateWeaponAnimation(unitController.CurrentWeaponController);
+        unitController.AnimationController?.UpdateWeaponAnimation(unitController.CurrentWeaponController);
         shooting.ChangeWeaponController(weapon.GetComponent<WeaponController>());
         shooting.IgnoreRecoil = true;
         unitController.movement.cameraAiming = false;

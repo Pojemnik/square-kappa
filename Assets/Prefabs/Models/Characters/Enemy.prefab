@@ -134,12 +134,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58809af716df9834092ee4f68708b242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryChange:
-    m_PersistentCalls:
-      m_Calls: []
   movement: {fileID: 3415701483049605099}
   shooting: {fileID: 1280456608684126228}
   itemChanger: {fileID: 0}
+  interactor: {fileID: 0}
   animationController: {fileID: 7690006316975347338}
 --- !u!54 &5087437213990912334
 Rigidbody:
@@ -208,15 +206,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae14bbea1d93ccb4097cd5c638ec2a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraAiming: 0
+  owner: {fileID: 9028151093970926094}
+  firstPresonCamera: {fileID: 1366656395245015967}
   speed: {x: 20000, y: 20000, z: 20000}
   defaultDrag: 1
   rollSpeed: 120
   rotationSpeed: 180
   rotationAnimationSmoothness: 0.3
   rotationAnimationMaxValue: 0.7
-  cameraAiming: 0
-  owner: {fileID: 9028151093970926094}
-  firstPresonCamera: {fileID: 1366656395245015967}
 --- !u!114 &1280456608684126228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,6 +251,7 @@ MonoBehaviour:
   cameraController: {fileID: 0}
   useWallAnimations: 0
   weaponMoveSpeed: 0
+  weaponChangeDuration: 0
 --- !u!114 &5933900374770886342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,11 +269,13 @@ MonoBehaviour:
   weapon: {fileID: 7919145566204492828}
   shooting: {fileID: 1280456608684126228}
   head: {fileID: 1366656395245015967}
+  core: {fileID: 342856824088965809}
   ShootingRules: {fileID: 11400000, guid: bdf46c5fdb1218643b596cafe7c586b2, type: 2}
   ShootingRulesInterpretation: {fileID: 11400000, guid: 1b8f2961fc3e0de40a99b548c0215a91, type: 2}
   visibilitySphereRadius: 10
   visibilityConeAngle: 45
   visibilityConeHeight: 30
+  dropWeaponAfterDeath: 0
   visibilityConeRadius: 24.852814
   points: 50
   coneLines: 6
@@ -383,6 +384,11 @@ Transform:
 --- !u!95 &6804943335188952757 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
+  m_PrefabInstance: {fileID: 1088347466842622756}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &342856824088965809 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8369794539166238315, guid: f626ed1b555b8004a9ffa53c2544e939, type: 3}
   m_PrefabInstance: {fileID: 1088347466842622756}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1366656395245015967 stripped

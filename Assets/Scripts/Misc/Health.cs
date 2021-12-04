@@ -42,6 +42,11 @@ public class Health : MonoBehaviour
         currentHealth = maxHealth;
     }
 
+    public void DealDamageFromNowhere(int amount)
+    {
+        Damaged(new DamageInfo(amount, Vector3.forward, Vector3.forward, Vector3.forward));
+    }
+
     public void Damaged(DamageInfo info)
     {
         if(!enabled)
