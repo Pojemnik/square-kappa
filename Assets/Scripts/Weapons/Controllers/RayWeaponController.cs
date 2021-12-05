@@ -62,7 +62,7 @@ public class RayWeaponController : RangedWeaponController
         }
         else
         {
-            ignored = new string[] { "Enemy", "EnemyEnvironmentalCollision", "EnemyProjectile", "Objectives", "Pickups" };
+            ignored = new string[] { "Enemy", "EnemyEnvironmentalCollision", "EnemyProjectile", "Objectives", "Pickups", "PlayerEnvironmentalCollision", };
         }
         layerMask = 0;
         foreach (string s in ignored)
@@ -119,7 +119,10 @@ public class RayWeaponController : RangedWeaponController
             InvokeAmmoChengeEvent(ammo, totalAmmo);
             if (raycastHit.collider != null)
             {
-                Destroy(Instantiate(rayConfig.hitDecal, raycastHit.point + raycastHit.normal * -0.1f, Quaternion.LookRotation(raycastHit.normal), raycastHit.transform), 60);
+                if (raycastHit.collider.gameObject.layer != LayerMask.NameToLayer("Player"))
+                {
+                    Destroy(Instantiate(rayConfig.hitDecal, raycastHit.point + raycastHit.normal * -0.1f, Quaternion.LookRotation(raycastHit.normal), raycastHit.transform), 60);
+                }
                 Health health = GetParentsHealth(raycastHit.transform);
                 if (health == null)
                 {

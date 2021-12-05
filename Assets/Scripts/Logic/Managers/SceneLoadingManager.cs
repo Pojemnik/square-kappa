@@ -60,7 +60,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         removeOnReload.Add(obj);
     }
 
-    private IEnumerator LoadScene(string sceneName, bool activate)
+    private IEnumerator LoadSceneIfNotLoaded(string sceneName, bool activate)
     {
         if (!SceneManager.GetSceneByName(sceneName).isLoaded)
         {
@@ -82,7 +82,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         }
     }
 
-    private IEnumerator UnloadScene(string sceneName)
+    private IEnumerator UnloadSceneIfLoaded(string sceneName)
     {
         AsyncOperation loading;
         if (SceneManager.GetSceneByName(sceneName).isLoaded)
@@ -105,7 +105,10 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         List<AsyncOperation> operations = new List<AsyncOperation>();
         foreach (string lvl in scenesToLoad)
         {
-            operations.Add(SceneManager.LoadSceneAsync(lvl, LoadSceneMode.Additive));
+            if (!SceneManager.GetSceneByName(lvl).isLoaded)
+            {
+                operations.Add(SceneManager.LoadSceneAsync(lvl, LoadSceneMode.Additive));
+            }
         }
         int counter = 0;
         while (counter != operations.Count)
@@ -127,7 +130,10 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         List<AsyncOperation> operations = new List<AsyncOperation>();
         foreach (string lvl in scenesToLoad)
         {
-            operations.Add(SceneManager.UnloadSceneAsync(lvl));
+            if (SceneManager.GetSceneByName(lvl).isLoaded)
+            {
+                operations.Add(SceneManager.UnloadSceneAsync(lvl));
+            }
         }
         int counter = 0;
         while (counter != operations.Count)
@@ -147,16 +153,16 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
     private IEnumerator LoadLevel(int levelIndex)
     {
         int currentLevelIndex = (int)currentLevel;
-        yield return StartCoroutine(LoadScene(loadingScene, true));
-        yield return StartCoroutine(UnloadScene(menuScene));
-        yield return StartCoroutine(UnloadScene(levelsBaseScene));
-        yield return StartCoroutine(LoadScene(levelsBaseScene, false));
+        yield return StartCoroutine(LoadSceneIfNotLoaded(loadingScene, true));
+        yield return StartCoroutine(UnloadSceneIfLoaded(menuScene));
+        yield return StartCoroutine(UnloadSceneIfLoaded(levelsBaseScene));
+        yield return StartCoroutine(LoadSceneIfNotLoaded(levelsBaseScene, false));
         if (currentLevel != LevelIndexEnum.Menu && currentLevel != LevelIndexEnum.Other)
         {
             yield return StartCoroutine(UnloadMultipleScenes(levels[currentLevelIndex].scenes));
         }
         yield return StartCoroutine(LoadMultipleScenes(levels[levelIndex].scenes));
-        yield return StartCoroutine(UnloadScene(loadingScene));
+        yield return StartCoroutine(UnloadSceneIfLoaded(loadingScene));
         DeactivateBaseScene();
         currentLevel = (LevelIndexEnum)levelIndex;
         EventManager.Instance.TriggerEvent("GameStart");
@@ -168,23 +174,28 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         {
             yield break;
         }
-        yield return StartCoroutine(LoadScene(loadingScene, true));
+        yield return StartCoroutine(LoadSceneIfNotLoaded(loadingScene, true));
         if (currentLevel != LevelIndexEnum.Menu && currentLevel != LevelIndexEnum.Other)
         {
             yield return StartCoroutine(UnloadMultipleScenes(levels[(int)currentLevel].scenes));
         }
-        yield return StartCoroutine(UnloadScene(levelsBaseScene));
-        yield return StartCoroutine(LoadScene(menuScene, true));
-        yield return StartCoroutine(UnloadScene(loadingScene));
+        yield return StartCoroutine(UnloadSceneIfLoaded(levelsBaseScene));
+        yield return StartCoroutine(LoadSceneIfNotLoaded(menuScene, true));
+        yield return StartCoroutine(UnloadSceneIfLoaded(loadingScene));
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
     private IEnumerator LoadOneScene(string sceneName)
     {
-        yield return LoadScene(levelsBaseScene, false);
-        yield return UnloadScene(menuScene);
-        yield return LoadScene(sceneName, true);
+        yield return UnloadSceneIfLoaded(menuScene);
+        foreach (Level lvl in levels)
+        {
+            yield return UnloadMultipleScenes(lvl.scenes);
+        }
+        yield return UnloadSceneIfLoaded(levelsBaseScene);
+        yield return LoadSceneIfNotLoaded(levelsBaseScene, false);
+        yield return LoadSceneIfNotLoaded(sceneName, true);
         EventManager.Instance.TriggerEvent("GameStart");
         currentLevel = LevelIndexEnum.Other;
     }
@@ -230,7 +241,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
     {
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
-            if (SceneManager.GetSceneAt(i).name != levelsBaseScene)
+            if (SceneManager.GetSceneAt(i).name != levelsBaseScene && SceneManager.GetSceneAt(i).name != baseScene)
             {
                 SceneManager.SetActiveScene(SceneManager.GetSceneAt(i));
             }
