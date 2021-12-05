@@ -201,15 +201,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelsBaseScene: BaseScene
   levels:
-  - name: First level
-    scenes:
-    - FirstLevel
-  - name: Test level
-    scenes:
-    - TestScene
   - name: Prologue1SpecialMission
     scenes:
     - Prologue1SpecialMissionMainScene
+  - name: Prologue2ThroughTheBarrier
+    scenes:
+    - Prologue2ThroughTheBarrierMainScene
+  - name: Prologue3AudaciousSabotage
+    scenes:
+    - Prologue3AudaciousSabotageMainScene
+  - name: Prologue3AudaciousSabotage
+    scenes:
+    - Prologue3AudaciousSabotageMainScene
+  - name: Prologue3AudaciousSabotage
+    scenes:
+    - Prologue3AudaciousSabotageMainScene
   reloadDelay: 0
   menuScene: MainMenu
   baseScene: EvenMoreBaseScene

@@ -28,7 +28,6 @@ MonoBehaviour:
   m_Name: Tonemapping
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   mode:
     m_OverrideState: 1
     m_Value: 2
@@ -45,7 +44,6 @@ MonoBehaviour:
   m_Name: ShadowsMidtonesHighlights
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   shadows:
     m_OverrideState: 1
     m_Value: {x: 0.771073, y: 0.95923233, z: 1, w: -0.15748031}
@@ -58,16 +56,12 @@ MonoBehaviour:
   shadowsStart:
     m_OverrideState: 1
     m_Value: 0
-    min: 0
   shadowsEnd:
     m_OverrideState: 1
     m_Value: 0.24
-    min: 0
   highlightsStart:
     m_OverrideState: 1
     m_Value: 0.36
-    min: 0
   highlightsEnd:
     m_OverrideState: 1
     m_Value: 1
-    min: 0
