@@ -90,8 +90,11 @@ public class ProjectileController : MonoBehaviour
         {
             othersHealth.Damaged(new DamageInfo(damage, direction, point.point, point.normal));
         }
+        if (collision.gameObject.layer != LayerMask.NameToLayer("Player") && collision.gameObject.layer != LayerMask.NameToLayer("PlayerEnvironmentalCollision"))
+        {
+            Destroy(Instantiate(hitDecalPrefab, point.point + point.normal * -0.1f, Quaternion.LookRotation(point.normal), other.transform), 60);
+        }
         Destroy(Instantiate(hitEffectPrefab, point.point, Quaternion.LookRotation(point.normal)), 5);
-        Destroy(Instantiate(hitDecalPrefab, point.point + point.normal * -0.1f, Quaternion.LookRotation(point.normal), other.transform), 60);
         Destroy(gameObject);
     }
 }
