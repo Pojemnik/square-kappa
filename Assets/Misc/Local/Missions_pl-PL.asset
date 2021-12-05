@@ -46,5 +46,42 @@ MonoBehaviour:
     m_Localized: "We\u017A bro\u0144 i opu\u015B\u0107 zbrojowni\u0119"
     m_Metadata:
       m_Items: []
+  - m_Id: 31383558554537984
+    m_Localized: Zlokalizuj cel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31384458220163072
+    m_Localized: "Dotrzyj do centrum \u0142\u0105czno\u015Bci"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31385195209707520
+    m_Localized: "Znajd\u017A pok\xF3j \u0142\u0105czno\u015Bci"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31386219597156352
+    m_Localized: Pobierz z konsoli koordynaty celu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31386421888438272
+    m_Localized: Wyrusz do celu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31386967038906368
+    m_Localized: Dotrzyj do hangaru
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31387093790773248
+    m_Localized: "Znajd\u017A pok\xF3j kontroli lotu"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31387235168178176
+    m_Localized: "Za\u0142aduj koordynaty do konsoli"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31387418639618048
+    m_Localized: "Wyrusz kapsu\u0142\u0105 w kierunku celu"
+    m_Metadata:
+      m_Items: []
   references:
-    version: 1
+    version: 2
+    RefIds: []

@@ -46,5 +46,42 @@ MonoBehaviour:
     m_Localized: Pick some weapon and leave armory
     m_Metadata:
       m_Items: []
+  - m_Id: 31383558554537984
+    m_Localized: Localize target
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31384458220163072
+    m_Localized: Reach the comm center
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31385195209707520
+    m_Localized: Find the comm room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31386219597156352
+    m_Localized: Download target coordinates from console
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31386421888438272
+    m_Localized: Launch to the target
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31386967038906368
+    m_Localized: Reach the hangar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31387093790773248
+    m_Localized: Find the flight control room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31387235168178176
+    m_Localized: Upload coordinates to the console
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31387418639618048
+    m_Localized: Launch capsule to the target
+    m_Metadata:
+      m_Items: []
   references:
-    version: 1
+    version: 2
+    RefIds: []

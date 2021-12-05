@@ -43,13 +43,50 @@ MonoBehaviour:
     m_Key: MISSION1-02
     m_Metadata:
       m_Items: []
+  - m_Id: 31383558554537984
+    m_Key: Prologue1Mission1Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31384458220163072
+    m_Key: Prologue1Mission1Quest1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31385195209707520
+    m_Key: Prologue1Mission1Quest2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31386219597156352
+    m_Key: Prologue1Mission1Quest3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31386421888438272
+    m_Key: Prologue1Mission2Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31386967038906368
+    m_Key: Prologue1Mission2Quest1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31387093790773248
+    m_Key: Prologue1Mission2Quest2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31387235168178176
+    m_Key: Prologue1Mission2Quest3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31387418639618048
+    m_Key: Prologue1Mission2Quest4
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    id: 0
+    rid: 0
   references:
-    version: 1
-    00000000:
+    version: 2
+    RefIds:
+    - rid: 0
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
         m_CustomEpoch: 1631262296520
