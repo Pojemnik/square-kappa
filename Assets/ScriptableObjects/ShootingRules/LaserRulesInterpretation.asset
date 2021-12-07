@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeBetweenShoots: 0
   TimeBetweenBursts: 3
-  BurstDuration: 1
+  BurstDuration: 3

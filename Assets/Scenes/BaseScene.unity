@@ -6670,7 +6670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bceb2f52c708dbb4792c34eff4668af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useSceneView: 1
+  useSceneView: 0
 --- !u!114 &8795632386014380222
 MonoBehaviour:
   m_ObjectHideFlags: 0

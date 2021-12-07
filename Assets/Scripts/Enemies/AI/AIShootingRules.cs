@@ -25,6 +25,7 @@ public class AIShootingRules : ScriptableObject
 
     public List<AIShootingRule> rules;
     public float spottedToShootingDelay;
+    public float aimErrorRange;
 }
 
 public static class AIShootingRuleCalculator
