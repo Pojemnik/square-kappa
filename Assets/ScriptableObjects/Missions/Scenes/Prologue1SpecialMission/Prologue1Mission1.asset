@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b50d63bf7539440b0f701ab53dcf86, type: 3}
+  m_Name: Prologue1Mission1
+  m_EditorClassIdentifier: 
+  label:
+    m_TableReference:
+      m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+    m_TableEntryReference:
+      m_KeyId: 31383558554537984
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 1
+    m_LocalVariables: []
+  groups:
+  - completionMode: 0
+    objectiveNames:
+    - CommCenterEntered
+    objectivesGroupCompleteEvent: {fileID: 11400000, guid: bad5150df4efe99468f0e73d20d91866, type: 2}
+    label:
+      m_TableReference:
+        m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+      m_TableEntryReference:
+        m_KeyId: 31384458220163072
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 1
+      m_LocalVariables: []
+  - completionMode: 0
+    objectiveNames:
+    - CommRoomEntered
+    objectivesGroupCompleteEvent: {fileID: 11400000, guid: 7554c1b08316b5446a67a006d8a8a949, type: 2}
+    label:
+      m_TableReference:
+        m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+      m_TableEntryReference:
+        m_KeyId: 31385195209707520
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 1
+      m_LocalVariables: []
+  - completionMode: 0
+    objectiveNames:
+    - CommRoomConsoleUsed
+    objectivesGroupCompleteEvent: {fileID: 11400000, guid: a266a54cd7dd9da449857167c8f74eac, type: 2}
+    label:
+      m_TableReference:
+        m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+      m_TableEntryReference:
+        m_KeyId: 31386219597156352
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 1
+      m_LocalVariables: []
+  missionCompleteEvent: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 494ec843a1ab09a4b964a36d83c73003, type: 3}
+  m_Name: Prologue1MissionGroup
+  m_EditorClassIdentifier: 
+  mainMisions:
+    list:
+    - {fileID: 11400000, guid: 67afc1a7396c469428e38a284be8507f, type: 2}
+    - {fileID: 11400000, guid: a3219d467dbe4aa4cb20d95859313cf9, type: 2}
+  otherMissions:
+  - list:
+    - {fileID: 11400000, guid: 563d7477d723f6e4592f6e3aa0d389a9, type: 2}
+  - list:
+    - {fileID: 11400000, guid: 6eee00c3629245140950d9ace04d7de3, type: 2}
+  - list:
+    - {fileID: 11400000, guid: d257447cbe9dd3946a485d3898025260, type: 2}
+  - list:
+    - {fileID: 11400000, guid: 7b7aaeb8bef088349879617cbc25934f, type: 2}
+  - list:
+    - {fileID: 11400000, guid: 0e3b8a2fdacff054589df67bd6dc2c32, type: 2}
