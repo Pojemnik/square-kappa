@@ -16,6 +16,15 @@ public class PauseController : MonoBehaviour
     private bool pauseWhenNotFocused;
 
     private bool isPaused = false;
+    private bool gameRunning = false;
+
+    private void Awake()
+    {
+        EventManager.Instance.AddListener("GameStart", () => gameRunning = true);
+        EventManager.Instance.AddListener("GameReloaded", () => gameRunning = true);
+        EventManager.Instance.AddListener("Victory", () => gameRunning = false);
+        EventManager.Instance.AddListener("PlayerDeath", () => gameRunning = false);
+    }
 
     private void Start()
     {
@@ -24,6 +33,10 @@ public class PauseController : MonoBehaviour
 
     public void ChangePauseState()
     {
+        if(!gameRunning)
+        {
+            return;
+        }
         isPaused = !isPaused;
         if(isPaused)
         {
