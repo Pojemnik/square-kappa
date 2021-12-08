@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VictoryScreenController : MonoBehaviour
+public class VictoryScreenController : GameOverScreenController
 {
-    private UIImageController imageController;
-
-    void Start()
+    protected override void Start()
     {
-        imageController = GetComponent<UIImageController>();
-        EventManager.Instance.AddListener("Victory", imageController.ShowScreen);
+        base.Start();
+        EventManager.Instance.AddListener("Victory", ShowScreenAndUnlockCursor);
         EventManager.Instance.AddListener("GameReloaded", imageController.HideScreen);
     }
 }

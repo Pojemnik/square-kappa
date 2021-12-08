@@ -231,12 +231,6 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         }
     }
 
-    private void Start()
-    {
-        EventManager.Instance.AddListener("PlayerDeath", ReloadGame);
-        EventManager.Instance.AddListener("Victory", ReloadGame);
-    }
-
     private void DeactivateBaseScene()
     {
         for (int i = 0; i < SceneManager.sceneCount; i++)
@@ -248,7 +242,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         }
     }
 
-    private void ReloadGame()
+    public void ReloadGame()
     {
         StartCoroutine(ReloadGameCoroutine());
     }

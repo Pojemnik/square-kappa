@@ -55,14 +55,22 @@ MonoBehaviour:
     m_Key: MENU-SELECT-LEVEL
     m_Metadata:
       m_Items: []
+  - m_Id: 28315408702427136
+    m_Key: BACK-TO-MENU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28315495461605376
+    m_Key: TRY-AGAIN
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    rid: 7693469094803669056
+    rid: 9201476560412738320
   references:
     version: 2
     RefIds:
-    - rid: 7693469094803669056
+    - rid: 9201476560412738320
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
         m_CustomEpoch: 1632242132194

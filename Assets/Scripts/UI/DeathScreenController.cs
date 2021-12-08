@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathScreenController : MonoBehaviour
+public class DeathScreenController : GameOverScreenController
 {
-    private UIImageController imageController;
-
-    void Start()
+    protected override void Start()
     {
-        imageController = GetComponent<UIImageController>();
-        EventManager.Instance.AddListener("PlayerDeath", imageController.ShowScreen);
+        base.Start();
+        EventManager.Instance.AddListener("PlayerDeath", ShowScreenAndUnlockCursor);
         EventManager.Instance.AddListener("GameReloaded", imageController.HideScreen);
     }
 }

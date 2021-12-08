@@ -58,6 +58,14 @@ MonoBehaviour:
     m_Localized: Wybierz poziom
     m_Metadata:
       m_Items: []
+  - m_Id: 28315408702427136
+    m_Localized: "Wr\xF3\u0107 do menu"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28315495461605376
+    m_Localized: "Spr\xF3buj ponownie"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

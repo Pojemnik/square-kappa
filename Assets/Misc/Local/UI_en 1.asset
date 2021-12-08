@@ -58,6 +58,14 @@ MonoBehaviour:
     m_Localized: Select level
     m_Metadata:
       m_Items: []
+  - m_Id: 28315408702427136
+    m_Localized: Back to menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28315495461605376
+    m_Localized: Try again
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
