@@ -315,10 +315,18 @@ public partial class MissionsManager : Singleton<MissionsManager>
             else
             {
                 currentMainObjectiveGroup.Mission.LabelChanged -= OnMainMissionLabelChanged;
-                EventManager.Instance.TriggerEvent("Victory");
-                enabled = false;
-                ObjectiveGroupChangeEvent.Invoke(null);
-                MissionChangeEvent.Invoke(null);
+                int currentLevel = (int)SceneLoadingManager.Instance.CurrentLevel;
+                if (currentLevel + 1 == levelsMissions.Count)
+                {
+                    EventManager.Instance.TriggerEvent("Victory");
+                    enabled = false;
+                    ObjectiveGroupChangeEvent.Invoke(null);
+                    MissionChangeEvent.Invoke(null);
+                }
+                else
+                {
+                    SceneLoadingManager.Instance.StartLevel(currentLevel + 1);
+                }
             }
         }
     }
