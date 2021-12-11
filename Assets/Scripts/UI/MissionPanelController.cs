@@ -9,9 +9,10 @@ public class MissionPanelController : MonoBehaviour
     private TMPro.TextMeshProUGUI missionText;
     [SerializeField]
     private TMPro.TextMeshProUGUI objectiveText;
+    [SerializeField]
+    private InfoTextController missionTextController;
 
     private float missionTextDefaultHeight;
-    private float objectiveTextDefaultHeight;
 
     private void Awake()
     {
@@ -19,8 +20,9 @@ public class MissionPanelController : MonoBehaviour
         objectiveText.text = "";
         MissionsManager.Instance.MissionChangeEvent.AddListener(OnMissionChange);
         MissionsManager.Instance.ObjectiveGroupChangeEvent.AddListener(OnObjectiveGroupChange);
+        missionTextController.hideAfterDisplayEnd = false;
+        missionText.ForceMeshUpdate();
         missionTextDefaultHeight = missionText.rectTransform.rect.height;
-        objectiveTextDefaultHeight = objectiveText.rectTransform.rect.height;
     }
 
     private void Start()
@@ -52,9 +54,10 @@ public class MissionPanelController : MonoBehaviour
         {
             objectiveText.text = groupLabel;
         }
-        UpdateObjectiveTextHeight(groupLabel);
+        //UpdateObjectiveTextHeight(groupLabel);
     }
 
+    /*
     private void UpdateObjectiveTextHeight(string groupLabel)
     {
         objectiveText.ForceMeshUpdate();
@@ -74,6 +77,7 @@ public class MissionPanelController : MonoBehaviour
             objectiveText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, objectiveTextDefaultHeight);
         }
     }
+    */
 
     private void OnMissionChange(string missionLabel)
     {
@@ -83,31 +87,25 @@ public class MissionPanelController : MonoBehaviour
         }
         else
         {
-            missionText.text = missionLabel;
+            int linesRequired = missionTextController.TypeText(missionLabel, 0);
+            UpdateMissionTextHeight(linesRequired);
         }
-        missionText.ForceMeshUpdate();
-        UpdateMissionTextHeight(missionLabel);
     }
 
-    private void UpdateMissionTextHeight(string missionLabel)
+    private void UpdateMissionTextHeight(int linesRequired)
     {
-        missionText.ForceMeshUpdate();
-        if (missionText.preferredHeight > missionTextDefaultHeight)
+        if (missionText.rectTransform.rect.height == linesRequired * missionTextDefaultHeight)
         {
-            if (missionText.preferredHeight < missionTextDefaultHeight * 2)
-            {
-                missionText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, missionTextDefaultHeight * 2);
-                UpdateObjectiveTextPosition(missionTextDefaultHeight * 2);
-            }
-            else
-            {
-                Debug.LogErrorFormat("Mission {0} label is to long - it doesn't fit on panel", missionLabel);
-            }
+            return;
+        }
+        if (linesRequired < 3)
+        {
+            missionText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, missionTextDefaultHeight * linesRequired);
+            UpdateObjectiveTextPosition(missionTextDefaultHeight * linesRequired);
         }
         else
         {
-            missionText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, missionTextDefaultHeight);
-            UpdateObjectiveTextPosition(missionTextDefaultHeight);
+            Debug.LogError("Mission label is to long - it doesn't fit on panel");
         }
     }
 

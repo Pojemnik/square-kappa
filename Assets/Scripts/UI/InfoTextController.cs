@@ -19,6 +19,10 @@ public class InfoTextController : MonoBehaviour
     private float letterTypeDuration;
     [HideInInspector]
     public event System.EventHandler displayEndEvent;
+    [HideInInspector]
+    public event System.EventHandler neededLinesChanged;
+    [HideInInspector]
+    public bool hideAfterDisplayEnd = true;
 
     private TMPro.TextMeshProUGUI textMesh;
     private string textToType;
@@ -41,7 +45,7 @@ public class InfoTextController : MonoBehaviour
         typeCoroutine = new CoroutineWrapper(() => TypeTextCoroutine());
     }
 
-    public void TypeText(string text, float hideDelay)
+    public int TypeText(string text, float hideDelay)
     {
         StopTyping();
         var info = textMesh.GetTextInfo(text);
@@ -59,6 +63,7 @@ public class InfoTextController : MonoBehaviour
         endDelay = hideDelay;
         blinkCoroutine.Run(this);
         typeCoroutine.Run(this);
+        return textMesh.GetTextInfo(textToType).lineCount;
     }
 
     public void StopTyping()
@@ -127,7 +132,10 @@ public class InfoTextController : MonoBehaviour
 
     private void OnTypingEnd()
     {
-        textMesh.enabled = false;
+        if (hideAfterDisplayEnd)
+        {
+            textMesh.enabled = false;
+        }
         if (displayEndEvent != null)
         {
             displayEndEvent(this, null);

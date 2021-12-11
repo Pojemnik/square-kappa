@@ -15,6 +15,5 @@ MonoBehaviour:
   mainMisions:
     list:
     - {fileID: 11400000, guid: b967affdce47b944fac0fb23f2374bd0, type: 2}
-  otherMissions:
-  - list:
-    - {fileID: 11400000, guid: 631a86e2a976f6746a57c7573eaf46ec, type: 2}
+    - {fileID: 11400000, guid: 9c6bc359db2b6cd45a05cedd5acfd9d0, type: 2}
+  otherMissions: []
