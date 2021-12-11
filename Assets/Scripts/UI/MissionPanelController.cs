@@ -11,8 +11,12 @@ public class MissionPanelController : MonoBehaviour
     private TMPro.TextMeshProUGUI objectiveText;
     [SerializeField]
     private InfoTextController missionTextController;
+    [SerializeField]
+    private InfoTextController objectiveTextController;
 
     private float missionTextDefaultHeight;
+    private float objectiveTextDefaultHeight;
+    private string nextObjectiveName;
 
     private void Awake()
     {
@@ -21,8 +25,16 @@ public class MissionPanelController : MonoBehaviour
         MissionsManager.Instance.MissionChangeEvent.AddListener(OnMissionChange);
         MissionsManager.Instance.ObjectiveGroupChangeEvent.AddListener(OnObjectiveGroupChange);
         missionTextController.hideAfterDisplayEnd = false;
-        missionText.ForceMeshUpdate();
         missionTextDefaultHeight = missionText.rectTransform.rect.height;
+        missionTextController.displayEndEvent += OnMissionTypeEnd;
+        objectiveTextController.hideAfterDisplayEnd = false;
+        objectiveTextDefaultHeight = objectiveText.rectTransform.rect.height;
+    }
+
+    private void OnMissionTypeEnd(object sender, EventArgs e)
+    {
+        int linesRequired = objectiveTextController.TypeText(nextObjectiveName, 0);
+        UpdateObjectiveTextHeight(linesRequired);
     }
 
     private void Start()
@@ -46,38 +58,32 @@ public class MissionPanelController : MonoBehaviour
 
     private void OnObjectiveGroupChange(string groupLabel)
     {
+        objectiveText.text = "";
         if (groupLabel == null)
         {
-            objectiveText.text = "";
+            nextObjectiveName = "";
         }
         else
         {
-            objectiveText.text = groupLabel;
+            nextObjectiveName = groupLabel;
         }
-        //UpdateObjectiveTextHeight(groupLabel);
     }
 
-    /*
-    private void UpdateObjectiveTextHeight(string groupLabel)
+    private void UpdateObjectiveTextHeight(int linesRequired)
     {
-        objectiveText.ForceMeshUpdate();
-        if (objectiveText.preferredHeight > objectiveTextDefaultHeight)
+        if (objectiveText.rectTransform.rect.height == linesRequired * objectiveTextDefaultHeight)
         {
-            if (objectiveText.preferredHeight < objectiveTextDefaultHeight * 2)
-            {
-                objectiveText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, objectiveTextDefaultHeight * 2);
-            }
-            else
-            {
-                Debug.LogErrorFormat("Objective {0} label is to long - it doesn't fit on panel", groupLabel);
-            }
+            return;
+        }
+        if (linesRequired < 3)
+        {
+            objectiveText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, objectiveTextDefaultHeight * linesRequired);
         }
         else
         {
-            objectiveText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, objectiveTextDefaultHeight);
+            Debug.LogError("Objective label is to long - it doesn't fit on panel");
         }
     }
-    */
 
     private void OnMissionChange(string missionLabel)
     {

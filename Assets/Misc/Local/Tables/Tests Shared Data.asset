@@ -27,14 +27,26 @@ MonoBehaviour:
     m_Key: "SHORT-MISSION-NAME\t"
     m_Metadata:
       m_Items: []
+  - m_Id: 7538164682752
+    m_Key: LONG-OBJECTIVE-NAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7674370510848
+    m_Key: "SHORT-OBJECTIVE-NAME\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19176452313088
+    m_Key: VERY-LONG-OBJECTIVE-NAME
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    rid: 9201476621656129809
+    rid: 9201476621656130256
   references:
     version: 2
     RefIds:
-    - rid: 9201476621656129809
+    - rid: 9201476621656130256
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
         m_CustomEpoch: 1639220219955

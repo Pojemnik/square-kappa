@@ -30,6 +30,19 @@ MonoBehaviour:
     m_Localized: "Kr\xF3tka misja"
     m_Metadata:
       m_Items: []
+  - m_Id: 7538164682752
+    m_Localized: "Bardzo d\u0142uga i opisiowa nazwa celu"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7674370510848
+    m_Localized: "Kr\xF3tki cel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19176452313088
+    m_Localized: "Baaa aaaaaaaa aaaaaa aaaar dzo d\u0142uga naaaa aaaaazwa celu,
+      kt\xF3ra powinna by d\u0142u\u017Csza ni\u017C jenda linia"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

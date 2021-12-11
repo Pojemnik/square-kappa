@@ -63,7 +63,9 @@ public class InfoTextController : MonoBehaviour
         endDelay = hideDelay;
         blinkCoroutine.Run(this);
         typeCoroutine.Run(this);
-        return textMesh.GetTextInfo(textToType).lineCount;
+        int lines = textMesh.GetTextInfo(textToType).lineCount;
+        textMesh.text = "";
+        return lines;
     }
 
     public void StopTyping()

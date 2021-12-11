@@ -30,6 +30,19 @@ MonoBehaviour:
     m_Localized: A short mission
     m_Metadata:
       m_Items: []
+  - m_Id: 7538164682752
+    m_Localized: A very long and descriptive objective name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7674370510848
+    m_Localized: A short objective
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19176452313088
+    m_Localized: A veee eeeeeeee eeeeeeee eeeeeee ery long objective naaaa ame that
+      have to be longer than one line
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

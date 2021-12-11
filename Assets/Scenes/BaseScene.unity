@@ -5370,6 +5370,7 @@ GameObject:
   - component: {fileID: 9047056217306886178}
   - component: {fileID: 7286727243691286562}
   - component: {fileID: 5247795647754362430}
+  - component: {fileID: 9047056217306886179}
   m_Layer: 5
   m_Name: ObjectiveText
   m_TagString: Untagged
@@ -6728,6 +6729,7 @@ MonoBehaviour:
   missionText: {fileID: 5342586875077411901}
   objectiveText: {fileID: 5247795647754362430}
   missionTextController: {fileID: 6697607676877957493}
+  objectiveTextController: {fileID: 9047056217306886179}
 --- !u!1 &6338085212230576068
 GameObject:
   m_ObjectHideFlags: 0
@@ -7701,6 +7703,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -30}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &9047056217306886179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4733462508433971825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e91ad19e8beb5cc47b7a5597522b466e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorVisibleTime: 0.5
+  cursorInvisibleTime: 0.3
+  cursorPrefab: {fileID: 7483714042738752089, guid: d81edfb747613d045a2a70776643e9c3, type: 3}
+  offset: {x: -135, y: -10}
+  letterTypeDuration: 0.05
+  hideAfterDisplayEnd: 1
 --- !u!1 &9050449335701249133
 GameObject:
   m_ObjectHideFlags: 0
