@@ -41,6 +41,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
     private string otherScene;
 
     private List<GameObject> removeOnReload;
+    private ScreenCoverController currentScreenCover;
 
     public enum LevelIndexEnum : int
     {
@@ -165,6 +166,15 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         yield return StartCoroutine(UnloadSceneIfLoaded(loadingScene));
         DeactivateBaseScene();
         currentLevel = (LevelIndexEnum)levelIndex;
+        currentScreenCover = FindObjectOfType<ScreenCoverController>();
+        if (currentScreenCover == null)
+        {
+            Debug.LogWarning("Screen cover not found");
+        }
+        else
+        {
+            yield return StartCoroutine(currentScreenCover.HideCoverCoroutine());
+        }
         EventManager.Instance.TriggerEvent("GameStart");
     }
 
@@ -173,6 +183,14 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         if (currentLevel == LevelIndexEnum.Menu)
         {
             yield break;
+        }
+        if (currentScreenCover == null)
+        {
+            Debug.LogWarning("Screen cover not cached. This may be caused by a scene loading error");
+        }
+        else
+        {
+            yield return StartCoroutine(currentScreenCover.ShowCoverCoroutine());
         }
         yield return StartCoroutine(LoadSceneIfNotLoaded(loadingScene, true));
         if (currentLevel != LevelIndexEnum.Menu && currentLevel != LevelIndexEnum.Other)
