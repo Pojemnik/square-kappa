@@ -66,6 +66,10 @@ MonoBehaviour:
     m_Localized: "Spr\xF3buj ponownie"
     m_Metadata:
       m_Items: []
+  - m_Id: 30103195357335552
+    m_Localized: "Rozpocznij gr\u0119"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

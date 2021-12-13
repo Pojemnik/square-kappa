@@ -42,6 +42,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
 
     private List<GameObject> removeOnReload;
     private ScreenCoverController currentScreenCover;
+    private bool loadingConfirmed;
 
     public enum LevelIndexEnum : int
     {
@@ -151,10 +152,24 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         }
     }
 
-    private IEnumerator LoadLevel(int levelIndex)
+    private void LoadingConfirmationListener()
+    {
+        loadingConfirmed = true;
+    }
+
+    private IEnumerator LoadLevel(int levelIndex, bool waitForPlayerConfirmation)
     {
         int currentLevelIndex = (int)currentLevel;
         yield return StartCoroutine(LoadSceneIfNotLoaded(loadingScene, true));
+        LoadingScreenController loadingScreen = FindObjectOfType<LoadingScreenController>();
+        loadingScreen.InitLoading(currentLevel);
+        if(waitForPlayerConfirmation)
+        {
+            loadingConfirmed = false;
+            loadingScreen.okButton.onClick.AddListener(LoadingConfirmationListener);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
         yield return StartCoroutine(UnloadSceneIfLoaded(menuScene));
         yield return StartCoroutine(UnloadSceneIfLoaded(levelsBaseScene));
         yield return StartCoroutine(LoadSceneIfNotLoaded(levelsBaseScene, false));
@@ -163,6 +178,13 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
             yield return StartCoroutine(UnloadMultipleScenes(levels[currentLevelIndex].scenes));
         }
         yield return StartCoroutine(LoadMultipleScenes(levels[levelIndex].scenes));
+        if (waitForPlayerConfirmation)
+        {
+            while (!loadingConfirmed)
+            {
+                yield return null;
+            }
+        }
         yield return StartCoroutine(UnloadSceneIfLoaded(loadingScene));
         DeactivateBaseScene();
         currentLevel = (LevelIndexEnum)levelIndex;
@@ -193,6 +215,8 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
             yield return StartCoroutine(currentScreenCover.ShowCoverCoroutine());
         }
         yield return StartCoroutine(LoadSceneIfNotLoaded(loadingScene, true));
+        LoadingScreenController loadingScreen = FindObjectOfType<LoadingScreenController>();
+        loadingScreen.InitLoading(currentLevel);
         if (currentLevel != LevelIndexEnum.Menu && currentLevel != LevelIndexEnum.Other)
         {
             yield return StartCoroutine(UnloadMultipleScenes(levels[(int)currentLevel].scenes));
@@ -218,9 +242,9 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         currentLevel = LevelIndexEnum.Other;
     }
 
-    public void StartLevel(int level)
+    public void StartLevel(int level, bool waitForConfirmation)
     {
-        StartCoroutine(LoadLevel(level));
+        StartCoroutine(LoadLevel(level, waitForConfirmation));
     }
 
     public void GoFromLevelToMenu()
@@ -244,7 +268,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
                 break;
             default:
                 int level = (int)loadOnStartup;
-                StartLevel(level);
+                StartLevel(level, false);
                 break;
         }
     }
@@ -275,7 +299,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         {
             yield return new WaitForSecondsRealtime(reloadDelay);
             yield return StartCoroutine(UnloadMultipleScenes(levels[(int)currentLevel].scenes));
-            yield return StartCoroutine(LoadLevel((int)currentLevel));
+            yield return StartCoroutine(LoadLevel((int)currentLevel, false));
             DeactivateBaseScene();
         }
     }

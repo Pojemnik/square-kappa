@@ -63,6 +63,10 @@ MonoBehaviour:
     m_Key: TRY-AGAIN
     m_Metadata:
       m_Items: []
+  - m_Id: 30103195357335552
+    m_Key: START-GAME
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

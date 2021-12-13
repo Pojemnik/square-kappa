@@ -17,7 +17,7 @@ public class DebugHelper : MonoBehaviour
         }
         else
         {
-            EventManager.Instance.TriggerEvent("LockCursor");
+            //EventManager.Instance.TriggerEvent("LockCursor");
         }
     }
 #endif

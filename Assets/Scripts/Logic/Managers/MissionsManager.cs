@@ -325,7 +325,7 @@ public partial class MissionsManager : Singleton<MissionsManager>
                 }
                 else
                 {
-                    SceneLoadingManager.Instance.StartLevel(currentLevel + 1);
+                    SceneLoadingManager.Instance.StartLevel(currentLevel + 1, true);
                 }
             }
         }

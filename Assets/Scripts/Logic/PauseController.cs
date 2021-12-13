@@ -20,25 +20,25 @@ public class PauseController : MonoBehaviour
 
     private void Awake()
     {
-        EventManager.Instance.AddListener("GameStart", () => gameRunning = true);
-        EventManager.Instance.AddListener("GameReloaded", () => gameRunning = true);
+        EventManager.Instance.AddListener("GameStart", () => { gameRunning = true; Unpause(); });
+        EventManager.Instance.AddListener("GameReloaded", () => { gameRunning = true; Unpause(); });
         EventManager.Instance.AddListener("Victory", () => gameRunning = false);
         EventManager.Instance.AddListener("PlayerDeath", () => gameRunning = false);
     }
 
     private void Start()
     {
-        Unpause();
+        //Unpause();
     }
 
     public void ChangePauseState()
     {
-        if(!gameRunning)
+        if (!gameRunning)
         {
             return;
         }
         isPaused = !isPaused;
-        if(isPaused)
+        if (isPaused)
         {
             Pause();
         }
@@ -76,14 +76,14 @@ public class PauseController : MonoBehaviour
         }
         if (hasFocus)
         {
-            if(isPaused)
+            if (isPaused)
             {
                 Unpause();
             }
         }
         else
         {
-            if(!isPaused)
+            if (!isPaused)
             {
                 Pause();
             }
@@ -92,7 +92,7 @@ public class PauseController : MonoBehaviour
 
     void OnApplicationPause(bool pauseStatus)
     {
-        if(!pauseWhenNotFocused)
+        if (!pauseWhenNotFocused)
         {
             return;
         }
