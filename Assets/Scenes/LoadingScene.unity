@@ -273,6 +273,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1205430341}
+  - {fileID: 1618479490}
   m_Father: {fileID: 2119847130}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -343,6 +344,7 @@ MonoBehaviour:
       Value: {fileID: 21300000, guid: da34c0ffe970920459d754aeb3935c63, type: 3}
     - Key: 4
       Value: {fileID: 21300000, guid: da34c0ffe970920459d754aeb3935c63, type: 3}
+  textMesh: {fileID: 1205430342}
   okButton: {fileID: 1618479491}
 --- !u!1 &1205430340
 GameObject:
@@ -687,7 +689,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1332219788}
-  m_Father: {fileID: 2119847130}
+  m_Father: {fileID: 822278933}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
@@ -870,7 +872,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 822278933}
-  - {fileID: 1618479490}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
