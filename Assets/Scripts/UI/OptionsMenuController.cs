@@ -20,12 +20,20 @@ public class OptionsMenuController : MonoBehaviour
     private void Start()
     {
         InitSliders();
+        if (languageDropdown != null)
+        {
+            InitLocaleSettings();
+        }
+        EventManager.Instance?.AddListener("Unpause", OnMenuClose);
+    }
+
+    private void InitLocaleSettings()
+    {
         locales = UnityEngine.Localization.Settings.LocalizationSettings.AvailableLocales.Locales.ToList();
         languageDropdown.SetDropdownContent(locales.Select((e) => e.LocaleName).ToList());
         int selectedIndex = locales.FindIndex((l) => l == UnityEngine.Localization.Settings.LocalizationSettings.SelectedLocale);
         languageDropdown.SetSelectedOption(selectedIndex);
         languageDropdown.DropdownFieldSelected += (_, index) => selectedLocale = locales[index].Identifier;
-        EventManager.Instance?.AddListener("Unpause", OnMenuClose);
     }
 
     private void OnDisable()

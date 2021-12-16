@@ -162,7 +162,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         int currentLevelIndex = (int)currentLevel;
         yield return StartCoroutine(LoadSceneIfNotLoaded(loadingScene, true));
         LoadingScreenController loadingScreen = FindObjectOfType<LoadingScreenController>();
-        loadingScreen.InitLoading(currentLevel);
+        loadingScreen.InitLoading(currentLevel, waitForPlayerConfirmation);
         if(waitForPlayerConfirmation)
         {
             loadingConfirmed = false;
