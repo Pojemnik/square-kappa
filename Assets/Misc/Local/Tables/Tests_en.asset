@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Tests_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: eaa43b90ffdb61c46801950545332e16, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 11771367424
+    m_Localized: A very long and descriptive mission name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1824541167616
+    m_Localized: Another very long and descriptive mission name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6045843902464
+    m_Localized: A short mission
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7538164682752
+    m_Localized: A very long and descriptive objective name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7674370510848
+    m_Localized: A short objective
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19176452313088
+    m_Localized: A veee eeeeeeee eeeeeeee eeeeeee ery long objective naaaa ame that
+      have to be longer than one line
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

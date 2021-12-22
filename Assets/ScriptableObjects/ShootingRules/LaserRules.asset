@@ -23,5 +23,5 @@ MonoBehaviour:
     maxDistace: -1
     shootingMode: 3
   spottedToShootingDelay: 0
-  aimDelay: 0.1
-  aimErrorRange: 0.2
+  aimError: 0.2
+  aimSpeed: 0.06

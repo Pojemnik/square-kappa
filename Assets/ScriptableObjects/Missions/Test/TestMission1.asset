@@ -14,22 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label:
     m_TableReference:
-      m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+      m_TableCollectionName: GUID:eaa43b90ffdb61c46801950545332e16
     m_TableEntryReference:
-      m_KeyId: 2518732034048
+      m_KeyId: 6045843902464
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   groups:
-  - objectiveNames:
-    - nodobra
+  - completionMode: 0
+    objectiveNames:
+    - cube
     objectivesGroupCompleteEvent: {fileID: 11400000, guid: d0ec5375e955ab744b03a53e62bad47c, type: 2}
     label:
       m_TableReference:
-        m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+        m_TableCollectionName: GUID:eaa43b90ffdb61c46801950545332e16
       m_TableEntryReference:
-        m_KeyId: 2518732034048
+        m_KeyId: 19176452313088
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0

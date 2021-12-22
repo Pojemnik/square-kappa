@@ -28,7 +28,7 @@ namespace AI
         private float spottedTime;
         private bool useTimeDelay;
         private float aimDelayCounter;
-        private Vector3 targetOffset;
+        private Vector3 lastTargetPos;
 
         public StaticShootState(AIPathNode node, StaticAIConfig aiConfig, bool reactImmediately = false) : base(node, aiConfig)
         {
@@ -104,17 +104,19 @@ namespace AI
             owner.enemyController.unitController.AnimationController?.ResetTriggers();
             owner.enemyController.unitController.AnimationController?.SetState("Spotted");
             aimDelayCounter = 0;
+            Vector3 targetOffset = new Vector3(Mathf.Sin(aimDelayCounter / 2), Mathf.Cos(aimDelayCounter / 3), Mathf.Sin(aimDelayCounter / 4)) * shootingRules.aimError;
+            lastTargetPos = owner.enemyController.target.transform.position + targetOffset * 2;
         }
 
         public override void Update()
         {
             Vector3 position = owner.enemyController.transform.position;
             Vector3 targetPosition = owner.enemyController.target.transform.position;
-            targetOffset = new Vector3(Mathf.Sin(aimDelayCounter / 2), Mathf.Cos(aimDelayCounter / 3), Mathf.Sin(aimDelayCounter / 4)) * shootingRules.aimErrorRange;
-            Debug.LogFormat("Used last position. {0}", targetOffset - targetPosition);
-            targetPosition += targetOffset;
+            Vector3 targetOffset = new Vector3(Mathf.Sin(aimDelayCounter / 2), Mathf.Cos(aimDelayCounter / 3), Mathf.Sin(aimDelayCounter / 4)) * shootingRules.aimError;
+            targetPosition = Vector3.MoveTowards(lastTargetPos, targetPosition + targetOffset, shootingRules.aimSpeed);
             Vector3 positionDelta = targetPosition - position;
             movement.SetRotationImmediately(positionDelta);
+            lastTargetPos = targetPosition;
             switch (TargetVisible(owner.enemyController.target.layer))
             {
                 case TargetStatus.InSight:
