@@ -25,8 +25,8 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 2.89
   m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.12459633, g: 0.12156863, b: 0.14117648, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: fd26c472856985349922771f3be292ea, type: 2}
+  m_SubtractiveShadowColor: {r: 0.14117648, g: 0.12202801, b: 0.12156863, a: 1}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 3342595f870f801498f1f1619bdce7f5, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.065
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 287471379}
-  m_IndirectSpecularColor: {r: 0.00032599445, g: 0.0009079338, b: 0.0028222948, a: 0.065}
+  m_IndirectSpecularColor: {r: 0.004004807, g: 0.00027063902, b: 0.0003258122, a: 0.065}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000004, guid: 6c30f3b01a4d64e4eae4082746c104eb, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: c3f3dfc3c3ab58d49b27dd21a8c5cd35, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
