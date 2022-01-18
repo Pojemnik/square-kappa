@@ -5,32 +5,49 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputAdapter : MonoBehaviour
 {
-    private float cameraSensitivity;
-    private float zoomCameraSensitivity;
     [SerializeField]
     private float scrollSensitivity;
     [Header("References")]
     public UnitController owner;
 
     private bool zoom;
+    private float cameraSensitivity;
+    private float zoomCameraSensitivity;
+    private bool enableMovement = false;
 
     public void MoveXZ(InputAction.CallbackContext context)
     {
+        if(!enableMovement)
+        {
+            return;
+        }
         owner.movement.MoveXZ(context.ReadValue<Vector2>());
     }
 
     public void MoveY(InputAction.CallbackContext context)
     {
+        if (!enableMovement)
+        {
+            return;
+        }
         owner.movement.MoveY(context.ReadValue<float>());
     }
 
     public void Roll(InputAction.CallbackContext context)
     {
+        if (!enableMovement)
+        {
+            return;
+        }
         owner.movement.Roll(context.ReadValue<float>());
     }
 
     public void RelativeLook(InputAction.CallbackContext context)
     {
+        if (!enableMovement)
+        {
+            return;
+        }
         Vector2 rawInputLook = context.ReadValue<Vector2>();
         if (zoom)
         {
@@ -44,6 +61,10 @@ public class PlayerInputAdapter : MonoBehaviour
 
     public void Fire(InputAction.CallbackContext context)
     {
+        if (!enableMovement)
+        {
+            return;
+        }
         if (context.started)
         {
             owner.shooting.StartFire();
@@ -56,6 +77,10 @@ public class PlayerInputAdapter : MonoBehaviour
 
     public void DropItem(InputAction.CallbackContext context)
     {
+        if (!enableMovement)
+        {
+            return;
+        }
         if (!context.started)
         {
             return;
@@ -65,6 +90,10 @@ public class PlayerInputAdapter : MonoBehaviour
 
     public void Action1(InputAction.CallbackContext context)
     {
+        if (!enableMovement)
+        {
+            return;
+        }
         if (!context.started)
         {
             return;
@@ -75,6 +104,10 @@ public class PlayerInputAdapter : MonoBehaviour
 
     public void Reload(InputAction.CallbackContext context)
     {
+        if (!enableMovement)
+        {
+            return;
+        }
         if (context.started)
         {
             if (owner.CurrentWeaponController != null)
@@ -96,6 +129,10 @@ public class PlayerInputAdapter : MonoBehaviour
 
     public void ChangeWeapon(InputAction.CallbackContext context)
     {
+        if (!enableMovement)
+        {
+            return;
+        }
         if (context.started)
         {
             owner.itemChanger.ChangeWeapon((int)context.ReadValue<float>());
@@ -104,6 +141,10 @@ public class PlayerInputAdapter : MonoBehaviour
 
     public void NextWeapon(InputAction.CallbackContext context)
     {
+        if (!enableMovement)
+        {
+            return;
+        }
         if (context.started)
         {
             owner.itemChanger.NextWeapon((int)(context.ReadValue<Vector2>().y * scrollSensitivity));
@@ -123,5 +164,6 @@ public class PlayerInputAdapter : MonoBehaviour
         SettingsManager.Instance.MouseSensitivity.ValueChanged += (_, val) => { cameraSensitivity = val; };
         zoomCameraSensitivity = SettingsManager.Instance.ZoomMouseSensitivity.Value;
         SettingsManager.Instance.ZoomMouseSensitivity.ValueChanged += (_, val) => { zoomCameraSensitivity = val; };
+        EventManager.Instance.AddListener("GameStart", () => enableMovement = true);
     }
 }

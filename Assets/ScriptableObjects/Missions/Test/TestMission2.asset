@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label:
     m_TableReference:
-      m_TableCollectionName: GUID:2a99f8033cf58d949abc662281e9af95
+      m_TableCollectionName: GUID:eaa43b90ffdb61c46801950545332e16
     m_TableEntryReference:
-      m_KeyId: 17426887066308608
+      m_KeyId: 11771367424
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -28,22 +28,9 @@ MonoBehaviour:
     objectivesGroupCompleteEvent: {fileID: 0}
     label:
       m_TableReference:
-        m_TableCollectionName: GUID:2a99f8033cf58d949abc662281e9af95
+        m_TableCollectionName: GUID:eaa43b90ffdb61c46801950545332e16
       m_TableEntryReference:
-        m_KeyId: 294794612736
-        m_Key: 
-      m_FallbackState: 0
-      m_WaitForCompletion: 0
-      m_LocalVariables: []
-  - completionMode: 0
-    objectiveNames:
-    - ChemirailPickup
-    objectivesGroupCompleteEvent: {fileID: 0}
-    label:
-      m_TableReference:
-        m_TableCollectionName: GUID:2a99f8033cf58d949abc662281e9af95
-      m_TableEntryReference:
-        m_KeyId: 294794612736
+        m_KeyId: 7538164682752
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0

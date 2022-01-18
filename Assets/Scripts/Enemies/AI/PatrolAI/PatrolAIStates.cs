@@ -371,6 +371,8 @@ namespace AI
         private float lastSeenTime;
         private float spottedTime;
         private bool useTimeDelay;
+        private float aimDelayCounter;
+        private Vector3 lastTargetPos;
 
         public ChaseState(AIPathNode node, PatrolAIConfig aiConfig, bool reactImmediately = false) : base(node, aiConfig)
         {
@@ -446,6 +448,9 @@ namespace AI
             owner.enemyController.unitController.AnimationController.SetState("Spotted");
             lastSeenTime = spottedTime = Time.time;
             owner.status = "Chasing player";
+            aimDelayCounter = 0;
+            Vector3 targetOffset = new Vector3(Mathf.Sin(aimDelayCounter / 2), Mathf.Cos(aimDelayCounter / 3), Mathf.Sin(aimDelayCounter / 4)) * shootingRules.aimError;
+            lastTargetPos = owner.enemyController.target.transform.position + targetOffset * 2;
         }
 
         public override void PhysicsUpdate()
@@ -482,8 +487,11 @@ namespace AI
         {
             Vector3 position = owner.enemyController.transform.position;
             Vector3 targetPosition = owner.enemyController.target.transform.position;
+            Vector3 targetOffset = new Vector3(Mathf.Sin(aimDelayCounter / 2), Mathf.Cos(aimDelayCounter / 3), Mathf.Sin(aimDelayCounter / 4)) * shootingRules.aimError;
+            targetPosition = Vector3.MoveTowards(lastTargetPos, targetPosition + targetOffset, shootingRules.aimSpeed);
             Vector3 positionDelta = targetPosition - position;
             movement.SetRotationImmediately(positionDelta);
+            lastTargetPos = targetPosition;
             switch (TargetVisible(owner.enemyController.target.layer))
             {
                 case TargetStatus.InSight:

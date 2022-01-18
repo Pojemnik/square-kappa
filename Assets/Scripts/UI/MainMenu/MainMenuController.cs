@@ -68,7 +68,7 @@ namespace MainMenu
 
         private void NewGame()
         {
-            SceneLoadingManager.Instance.StartLevel(0);
+            SceneLoadingManager.Instance.StartLevel(0, true);
         }
     }
 }
