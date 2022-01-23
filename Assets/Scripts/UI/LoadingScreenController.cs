@@ -20,7 +20,7 @@ public class LoadingScreenController : MonoBehaviour
         image.sprite = null;
     }
 
-    public void InitLoading(SceneLoadingManager.LevelIndexEnum levelIndex, bool showOkButton = false)
+    public void InitLoading(SceneLoadingManager.LevelIndexEnum levelIndex)
     {
         if (!sprites.ContainsKey(levelIndex))
         {
@@ -30,7 +30,7 @@ public class LoadingScreenController : MonoBehaviour
         {
             image.sprite = sprites[levelIndex];
         }
-        okButton.gameObject.SetActive(showOkButton);
+        okButton.gameObject.SetActive(false);
         //if (!loadingMessages.ContainsKey(levelIndex))
         //{
         //    Debug.LogErrorFormat("No loading message for level {0}", levelIndex);
@@ -41,5 +41,10 @@ public class LoadingScreenController : MonoBehaviour
         //    textMesh.enabled = true;
         //    textMesh.text = loadingMessages[levelIndex].GetLocalizedString();
         //}
+    }
+
+    public void ShowOKButton()
+    {
+        okButton.gameObject.SetActive(true);
     }
 }

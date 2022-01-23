@@ -162,7 +162,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         int currentLevelIndex = (int)currentLevel;
         yield return StartCoroutine(LoadSceneIfNotLoaded(loadingScene, true));
         LoadingScreenController loadingScreen = FindObjectOfType<LoadingScreenController>();
-        loadingScreen.InitLoading(currentLevel, waitForPlayerConfirmation);
+        loadingScreen.InitLoading(currentLevel);
         if(waitForPlayerConfirmation)
         {
             loadingConfirmed = false;
@@ -180,6 +180,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         yield return StartCoroutine(LoadMultipleScenes(levels[levelIndex].scenes));
         if (waitForPlayerConfirmation)
         {
+            loadingScreen.ShowOKButton();
             while (!loadingConfirmed)
             {
                 yield return null;
