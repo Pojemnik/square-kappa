@@ -178,7 +178,14 @@ public partial class MissionsManager : Singleton<MissionsManager>
         Objective[] objectives = (Objective[])FindObjectsOfType(typeof(Objective));
         foreach (Objective objective in objectives)
         {
-            objectiveNames.Add(objective.objectiveName, objective);
+            if (objective.name != "")
+            {
+                objectiveNames.Add(objective.objectiveName, objective);
+            }
+            else
+            {
+                Debug.LogWarningFormat("Unnamed mission objective in object {0}", objective.gameObject.name);
+            }
         }
     }
 
