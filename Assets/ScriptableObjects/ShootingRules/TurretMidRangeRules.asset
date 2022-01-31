@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91b5075bdb9386842a2fb06e7dcee2fa, type: 3}
-  m_Name: TurretTestRules
+  m_Name: TurretMidRangeRules
   m_EditorClassIdentifier: 
   rules:
   - minDistace: 0
-    maxDistace: 20
+    maxDistace: 150
     shootingMode: 0
-  - minDistace: 20
+  - minDistace: 150
     maxDistace: -1
     shootingMode: 3
   spottedToShootingDelay: 0
   aimError: 0
-  aimSpeed: 5
+  aimSpeed: 3

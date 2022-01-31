@@ -371,7 +371,7 @@ MonoBehaviour:
   collisionDamageForceMultipler: 0
   armor: 0
   hitParticlePrefab: {fileID: 0}
-  destructionParticlePrefab: {fileID: 0}
+  destructionParticlePrefab: {fileID: 5799961575119348041, guid: 3319cff2fcdc0e346aa985c4fbc8eb43, type: 3}
   deathEvent:
     m_PersistentCalls:
       m_Calls:
@@ -448,7 +448,7 @@ MonoBehaviour:
   core: {fileID: 4543187250058850905}
   ShootingRules: {fileID: 11400000, guid: b0c566fb97f3ff84ea6e1c6d451fceca, type: 2}
   ShootingRulesInterpretation: {fileID: 11400000, guid: c849ae16fad72e04f85041e84049bc83, type: 2}
-  visibilitySphereRadius: 20
+  visibilitySphereRadius: 75
   visibilityConeAngle: 20
   visibilityConeHeight: 5
   dropWeaponAfterDeath: 0
