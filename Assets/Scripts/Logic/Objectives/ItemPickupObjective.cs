@@ -13,6 +13,11 @@ public class ItemPickupObjective : Objective
         base.Awake();
         foreach(PickableItem item in items)
         {
+            if(item == null)
+            {
+                Debug.LogWarningFormat("Null item in pickup objective {0}", gameObject.name);
+                continue;
+            }
             item.PickedUp += OnItemPickup;
             item.Dropped += OnItemDrop;
         }

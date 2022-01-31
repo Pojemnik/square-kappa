@@ -170,13 +170,14 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        yield return StartCoroutine(UnloadSceneIfLoaded(menuScene));
         yield return StartCoroutine(UnloadSceneIfLoaded(levelsBaseScene));
-        yield return StartCoroutine(LoadSceneIfNotLoaded(levelsBaseScene, false));
+        yield return StartCoroutine(UnloadSceneIfLoaded(menuScene));
         if (currentLevel != LevelIndexEnum.Menu && currentLevel != LevelIndexEnum.Other)
         {
             yield return StartCoroutine(UnloadMultipleScenes(levels[currentLevelIndex].scenes));
         }
+        yield return StartCoroutine(UnloadMultipleScenes(levels[levelIndex].scenes));
+        yield return StartCoroutine(LoadSceneIfNotLoaded(levelsBaseScene, false));
         yield return StartCoroutine(LoadMultipleScenes(levels[levelIndex].scenes));
         if (waitForPlayerConfirmation)
         {
