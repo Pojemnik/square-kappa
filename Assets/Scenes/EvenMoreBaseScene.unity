@@ -8,8 +8,8 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 5993af587d7cd3c4d81da543e94a4946
+  m_OcclusionCullingData: {fileID: 36300000, guid: 02b437b15cadff5419a0b722dee3c0b8, type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -220,7 +220,7 @@ MonoBehaviour:
   menuScene: MainMenu
   baseScene: EvenMoreBaseScene
   loadingScene: LoadingScene
-  loadOnStartup: 4
+  loadOnStartup: 0
   otherScene: TestScene
 --- !u!4 &779629581
 Transform:
