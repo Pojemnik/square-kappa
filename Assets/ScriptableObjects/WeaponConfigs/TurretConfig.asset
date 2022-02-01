@@ -21,7 +21,7 @@ MonoBehaviour:
   spreadReductionDelay: 0
   projectilePrefab: {fileID: 5938995904749229982, guid: a9800f263430e004fbe1efb2a192eedc, type: 3}
   projectileSpeed: 80
-  projectileOffset: {x: 0, y: 0, z: 0}
+  projectileOffset: {x: 0, y: -0.14, z: 1.42}
   projectileAngularOffset: {x: 0, y: 0, z: 0}
   projectileScale: 0.3
   projectileLifetime: 5
