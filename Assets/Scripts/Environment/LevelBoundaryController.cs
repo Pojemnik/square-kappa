@@ -10,10 +10,12 @@ public class LevelBoundaryController : MonoBehaviour
 
     private float counterValue;
     private bool inBounds;
+    private int currentlyCheckedTriggers;
 
     private void Awake()
     {
-        inBounds = true;
+        inBounds = false;
+        currentlyCheckedTriggers = 0;
     }
 
     private void Update()
@@ -34,9 +36,13 @@ public class LevelBoundaryController : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            inBounds = false;
-            counterValue = 0;
-            EventManager.Instance.TriggerEvent("PlayerOutWarning");
+            currentlyCheckedTriggers--;
+            if (currentlyCheckedTriggers == 0)
+            {
+                inBounds = false;
+                counterValue = 0;
+                EventManager.Instance.TriggerEvent("PlayerOutWarning");
+            }
         }
     }
 
@@ -46,6 +52,7 @@ public class LevelBoundaryController : MonoBehaviour
         {
             inBounds = true;
             counterValue = 0;
+            currentlyCheckedTriggers++;
         }
     }
 }
