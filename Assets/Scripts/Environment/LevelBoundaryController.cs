@@ -7,6 +7,8 @@ public class LevelBoundaryController : MonoBehaviour
 {
     [SerializeField]
     private float killTime;
+    [SerializeField]
+    private GameObject volume;
 
     private float counterValue;
     private bool inBounds;
@@ -14,7 +16,7 @@ public class LevelBoundaryController : MonoBehaviour
 
     private void Awake()
     {
-        inBounds = false;
+        SetInBounds(true);
         currentlyCheckedTriggers = 0;
     }
 
@@ -25,7 +27,7 @@ public class LevelBoundaryController : MonoBehaviour
             counterValue += Time.deltaTime;
             if(counterValue >= killTime)
             {
-                inBounds = true;
+                SetInBounds(true);
                 counterValue = 0;
                 EventManager.Instance.TriggerEvent("PlayerOut");
             }
@@ -39,7 +41,7 @@ public class LevelBoundaryController : MonoBehaviour
             currentlyCheckedTriggers--;
             if (currentlyCheckedTriggers == 0)
             {
-                inBounds = false;
+                SetInBounds(false);
                 counterValue = 0;
                 EventManager.Instance.TriggerEvent("PlayerOutWarning");
             }
@@ -50,9 +52,15 @@ public class LevelBoundaryController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            inBounds = true;
+            SetInBounds(true);
             counterValue = 0;
             currentlyCheckedTriggers++;
         }
+    }
+
+    private void SetInBounds(bool value)
+    {
+        inBounds = value;
+        volume.SetActive(value);
     }
 }

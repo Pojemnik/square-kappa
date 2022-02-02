@@ -359,8 +359,6 @@ GameObject:
   m_Component:
   - component: {fileID: 74614464}
   - component: {fileID: 74614467}
-  - component: {fileID: 74614466}
-  - component: {fileID: 74614468}
   m_Layer: 0
   m_Name: PlayableVolume
   m_TagString: Untagged
@@ -380,22 +378,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1022448255}
-  m_RootOrder: 2
+  m_Father: {fileID: 1167998168}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &74614466
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 74614463}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 75
-  m_Center: {x: 6, y: -45.78, z: 24.35}
 --- !u!114 &74614467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,24 +393,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsGlobal: 0
+  m_IsGlobal: 1
   priority: 10
   blendDistance: 10
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 3b1b5726b504e89439cba9cf59b3adf1, type: 2}
---- !u!135 &74614468
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 74614463}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 75
-  m_Center: {x: 6, y: -146.5, z: 89.6}
 --- !u!1 &105587529
 GameObject:
   m_ObjectHideFlags: 0
@@ -4778,7 +4750,6 @@ Transform:
   m_Children:
   - {fileID: 427918119}
   - {fileID: 1167998168}
-  - {fileID: 74614464}
   - {fileID: 1204300613}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -5316,7 +5287,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 74614464}
   m_Father: {fileID: 1022448255}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5333,6 +5305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   killTime: 10
+  volume: {fileID: 74614463}
 --- !u!135 &1167998170
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5754,7 +5727,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1022448255}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1204300614
 MonoBehaviour:
