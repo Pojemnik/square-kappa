@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using System.Linq;
 using UnityEngine.Localization;
 
+[RequireComponent(typeof(AudioSource))]
 public partial class MissionsManager : Singleton<MissionsManager>
 {
     [HideInInspector]
@@ -38,6 +39,8 @@ public partial class MissionsManager : Singleton<MissionsManager>
     private List<List<MissionData>> otherMissionsData;
     private ObjectiveGroupData currentMainObjectiveGroup;
     private List<ObjectiveGroupData> currentOtherObjectiveGroups;
+
+    private AudioSource audioSource;
 
     public UnityEvent<string> MissionChangeEvent
     {
@@ -75,6 +78,7 @@ public partial class MissionsManager : Singleton<MissionsManager>
         initFinished = false;
         EventManager.Instance.AddListener("GameStart", Init);
         EventManager.Instance.AddListener("GameQuit", OnGameQuit);
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnDisable()
@@ -304,6 +308,7 @@ public partial class MissionsManager : Singleton<MissionsManager>
         currentOtherObjectiveGroups.RemoveAll((ObjectiveGroupData data) => { return toRemove.Contains(data); });
         if (IsMainObjectiveGroupCompleted(id))
         {
+            audioSource.Play();
             currentMainObjectiveGroup.LabelChanged -= OnMainObjectiveGroupLabelChanged;
             bool missionChanged = ProceedToNextObjectiveGroup(currentMainObjectiveGroup, out ObjectiveGroupData nextGroup);
             if (nextGroup != null)

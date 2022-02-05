@@ -51,12 +51,10 @@ public class MeleWeaponController : WeaponController
 
     public void OnAttackEnd()
     {
-        Debug.Log("Attack end");
         if (attacking)
         {
             if (!attackCoroutine.Running)
             {
-                Debug.Log("Rerun");
                 attackCoroutine.Run(this);
             }
         }
@@ -80,13 +78,11 @@ public class MeleWeaponController : WeaponController
         if (!attackCoroutine.Running)
         {
             attackCoroutine.Run(this);
-            Debug.Log("Attack");
         }
     }
 
     public override void StopAttack()
     {
         attacking = false;
-        Debug.Log("StopAttack");
     }
 }

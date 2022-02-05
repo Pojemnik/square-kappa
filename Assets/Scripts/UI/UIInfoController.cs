@@ -21,6 +21,8 @@ public class UIInfoController : MonoBehaviour
     private InfoImageController imageController;
     [SerializeField]
     private UnityEngine.UI.Image panel;
+    [SerializeField]
+    private AudioSource soundSource;
 
     [Header("Missions config")]
     [SerializeField]
@@ -29,6 +31,8 @@ public class UIInfoController : MonoBehaviour
     [Header("Other config")]
     [SerializeField]
     private UIInfoConfigType playerOutOfBoundsConfig;
+    [SerializeField]
+    private AudioClip callSound;
 
 
     private Dictionary<UIInfoConfigType, System.EventHandler> missionEventHandlers;
@@ -55,7 +59,6 @@ public class UIInfoController : MonoBehaviour
         playerOutHandler = () => DisplayOnScreenMessage(playerOutOfBoundsConfig);
         EventManager.Instance.AddListener("PlayerOutWarning", playerOutHandler);
     }
-    //Vector3(300,200,300)
 
     private void OnDestroy()
     {
@@ -72,6 +75,7 @@ public class UIInfoController : MonoBehaviour
     {
         textController.TypeText(config.message.GetLocalizedString(), config.messageHideDelay);
         imageController.DisplayImage(config.image.LoadAsset());
+        soundSource.PlayOneShot(callSound);
         panel.enabled = true;
     }
 }
