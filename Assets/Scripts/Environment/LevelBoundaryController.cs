@@ -61,6 +61,6 @@ public class LevelBoundaryController : MonoBehaviour
     private void SetInBounds(bool value)
     {
         inBounds = value;
-        volume.SetActive(value);
+        volume?.SetActive(value);
     }
 }
