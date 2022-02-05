@@ -133,8 +133,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 29131295730749440
-    m_Localized: Soldier, you are leaving the mission area. Get back immediately.
-      If you continue, you will be recognized as deserter and punished accordingly
+    m_Localized: 'WARNING!
+
+      Don''t fly away from the asteroids! There are powerful
+      phisics anomalies out of the base area that will reap you apart in a short
+      time. Go back while you still can!'
     m_Metadata:
       m_Items: []
   references:

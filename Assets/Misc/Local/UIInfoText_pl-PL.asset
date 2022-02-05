@@ -98,8 +98,9 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 29131295730749440
-    m_Localized: "\u017Bo\u0142nierzu, opuszczasz teren misji. Natychmiast zawr\xF3\u0107.
-      Je\u015Bli tego nie zrobisz zostaniesz uznany za dezertera i odpowiednio ukarany"
+    m_Localized: "UWAGA!\nNie oddalaj si\u0119 od asteroid! Poza obszarem bazy istniej\u0105
+      pot\u0119\u017Cne anomalie fizyczne kt\xF3re w kr\xF3tkim czasie rozerw\u0105
+      ci\u0119 na strz\u0119py. Zawr\xF3\u0107, p\xF3ki to mo\u017Cliwe!"
     m_Metadata:
       m_Items: []
   references:
