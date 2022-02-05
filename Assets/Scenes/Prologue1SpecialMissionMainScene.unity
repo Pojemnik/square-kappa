@@ -12385,7 +12385,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1527860215692724072, guid: d18e4b049831b694f94e68bad03a374c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3373449865262456130, guid: d18e4b049831b694f94e68bad03a374c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a58995121621ad2448b09f1bc3c18980, type: 2}
+    - target: {fileID: 3376466780003854987, guid: d18e4b049831b694f94e68bad03a374c, type: 3}
+      propertyPath: m_text
+      value: "     Stan silnika:\t\tPaliwo:\nW pe\u0142ni sprawny\t\t3%\n---------------------------------------------------------\nParametry
+        skoku:\nst: Dexham\t\tXF: 87%\nH: 01x663821\t\tdet. 0.52418008"
       objectReference: {fileID: 0}
     - target: {fileID: 3485583851079524668, guid: d18e4b049831b694f94e68bad03a374c, type: 3}
       propertyPath: m_RootOrder
@@ -12429,6 +12438,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3485583851079524668, guid: d18e4b049831b694f94e68bad03a374c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7171630390683442526, guid: d18e4b049831b694f94e68bad03a374c, type: 3}
+      propertyPath: m_text
+      value: "Niewystarczaj\u0105ca\nilo\u015B\u0107 paliwa!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7171630390683442526, guid: d18e4b049831b694f94e68bad03a374c, type: 3}
+      propertyPath: m_fontStyle
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9121178335958372414, guid: d18e4b049831b694f94e68bad03a374c, type: 3}

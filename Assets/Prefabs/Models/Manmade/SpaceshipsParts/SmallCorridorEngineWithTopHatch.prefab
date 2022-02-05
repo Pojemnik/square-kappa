@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 570635904179922113}
   - component: {fileID: 5666135990992573738}
   - component: {fileID: 4673104834857635965}
+  - component: {fileID: 323967619499912536}
   m_Layer: 0
   m_Name: Hatch
   m_TagString: Untagged
@@ -312,7 +313,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1270607304514402969}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.3, z: 0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -440,6 +441,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fragments: {fileID: 11400000, guid: f3ee7b1034a31e44aacd0d135ae4375f, type: 2}
   settings: {fileID: 11400000, guid: 9d8540eab8b57334cab029b1286515ca, type: 2}
+--- !u!114 &323967619499912536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270607304514402969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d227176d2583b8a4ea9c933e6541ff93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lowerPart: {fileID: 0}
+  upperPart: {fileID: 1270607304514402969}
+  upperPartConfig:
+    closedPosition: {x: 0, y: 0, z: 0}
+    openedPosition: {x: 0, y: 0, z: 0}
+    closedRotation: {x: 0, y: 0, z: 0}
+    openedRotation: {x: -90, y: 0, z: 0}
+  lowerPartConfig:
+    closedPosition: {x: 0, y: 0, z: 0}
+    openedPosition: {x: 0, y: 0, z: 0}
+    closedRotation: {x: 0, y: 0, z: 0}
+    openedRotation: {x: 0, y: 0, z: 0}
+  openingTime: 1.5
 --- !u!1 &1462137988713122810
 GameObject:
   m_ObjectHideFlags: 0

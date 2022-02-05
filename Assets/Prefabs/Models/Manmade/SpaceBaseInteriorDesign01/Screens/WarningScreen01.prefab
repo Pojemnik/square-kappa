@@ -35,6 +35,10 @@ PrefabInstance:
       propertyPath: m_BoundingSphereOverride.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4728186862198654991, guid: bbef5a3e6134dda429c70eeba906e5a8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a58995121621ad2448b09f1bc3c18980, type: 2}
     - target: {fileID: 4767915636618146093, guid: bbef5a3e6134dda429c70eeba906e5a8, type: 3}
       propertyPath: m_Name
       value: WarningScreen01
