@@ -20,6 +20,10 @@ public class CoroutineWrapper
 
     public void Run(MonoBehaviour context)
     {
+        if(running)
+        {
+            Debug.LogWarningFormat("Object {0} is running coroutine {1} ore than once", context, this);
+        }
         coroutine = context.StartCoroutine(CoroutineFunctionWrapper(context));
     }
 
