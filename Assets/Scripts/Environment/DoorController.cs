@@ -26,9 +26,14 @@ public class DoorController : MonoBehaviour
 
     private float time;
     private bool isOpening;
+    private bool isCurrenltyOpen = false;
 
     public void Open()
     {
+        if(isCurrenltyOpen)
+        {
+            return;
+        }
         time = 0;
         isOpening = true;
     }
@@ -43,13 +48,20 @@ public class DoorController : MonoBehaviour
         if (isOpening)
         {
             time += Time.deltaTime;
-            lowerPart.transform.localPosition = Vector3.Lerp(lowerPartConfig.closedPosition, lowerPartConfig.openedPosition, time / openingTime);
-            upperPart.transform.localPosition = Vector3.Lerp(upperPartConfig.closedPosition, upperPartConfig.openedPosition, time / openingTime);
-            lowerPart.transform.localRotation = Quaternion.Slerp(Quaternion.Euler(lowerPartConfig.closedRotation), Quaternion.Euler(lowerPartConfig.openedRotation), time / openingTime);
-            upperPart.transform.localRotation = Quaternion.Slerp(Quaternion.Euler(upperPartConfig.closedRotation), Quaternion.Euler(upperPartConfig.openedRotation), time / openingTime);
-            if(time >= openingTime)
+            if (upperPart != null)
+            {
+                upperPart.transform.localPosition = Vector3.Lerp(upperPartConfig.closedPosition, upperPartConfig.openedPosition, time / openingTime);
+                upperPart.transform.localRotation = Quaternion.Slerp(Quaternion.Euler(upperPartConfig.closedRotation), Quaternion.Euler(upperPartConfig.openedRotation), time / openingTime);
+            }
+            if (lowerPart != null)
+            {
+                lowerPart.transform.localPosition = Vector3.Lerp(lowerPartConfig.closedPosition, lowerPartConfig.openedPosition, time / openingTime);
+                lowerPart.transform.localRotation = Quaternion.Slerp(Quaternion.Euler(lowerPartConfig.closedRotation), Quaternion.Euler(lowerPartConfig.openedRotation), time / openingTime);
+            }
+            if (time >= openingTime)
             {
                 isOpening = false;
+                isCurrenltyOpen = true;
             }
         }
     }
