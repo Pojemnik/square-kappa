@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractiveObjective : Objective
+public class InteractiveObjective : Objective, IInteractive
 {
     private bool completed;
 
@@ -18,7 +18,6 @@ public class InteractiveObjective : Objective
 
     public void Interact()
     {
-        //Debug.LogFormat("Player interacted with {0}", gameObject.name);
         if(completed)
         {
             Uncomplete();
