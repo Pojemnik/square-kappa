@@ -21,3 +21,4 @@ MonoBehaviour:
   damage: 6
   range: 1
   damageTimeDelta: 0.2
+  afterDamageTimeDelta: 0.3

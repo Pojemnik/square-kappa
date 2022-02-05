@@ -6,10 +6,18 @@ public class SoundManager : Singleton<SoundManager>
 {
     [SerializeField]
     private UnityEngine.Audio.AudioMixer audioMixer;
+    [SerializeField]
+    private AudioSource[] exclusionsFromPauseList;
+
+    private HashSet<AudioSource> exclusionsFromPause;
 
     private void Awake()
     {
         RegisterInstance(this);
+        foreach(AudioSource source in exclusionsFromPauseList)
+        {
+            exclusionsFromPause.Add(source);
+        }
     }
 
     private void Start()
@@ -40,7 +48,10 @@ public class SoundManager : Singleton<SoundManager>
         AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
         foreach (AudioSource source in audioSources)
         {
-            source.UnPause();
+            if (!exclusionsFromPause.Contains(source))
+            {
+                source.UnPause();
+            }
         }
     }
 

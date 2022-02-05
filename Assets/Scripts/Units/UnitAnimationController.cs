@@ -33,6 +33,7 @@ public class UnitAnimationController : MonoBehaviour
     private float currentPullValue;
     private bool animateWeaponPull;
     private float currentPullAnimationTime;
+    private bool mirrorState = false;
 
     public void SetState(string state)
     {
@@ -59,6 +60,12 @@ public class UnitAnimationController : MonoBehaviour
             return;
         }
         animator.SetBool(state, false);
+    }
+
+    public void ChangeMirrorState()
+    {
+        mirrorState = !mirrorState;
+        animator.SetBool("Mirror", mirrorState);
     }
 
     public void ResetTriggers()

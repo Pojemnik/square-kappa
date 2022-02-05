@@ -48,6 +48,7 @@ public class InfoTextController : MonoBehaviour
     public int TypeText(string text, float hideDelay)
     {
         StopTyping();
+        textMesh.text = "";
         var info = textMesh.GetTextInfo(text);
         for (int i = 0; i < info.lineCount - 1; i++)
         {
@@ -61,10 +62,9 @@ public class InfoTextController : MonoBehaviour
         cursorState = true;
         textMesh.enabled = true;
         endDelay = hideDelay;
+        int lines = textMesh.GetTextInfo(textToType).lineCount;
         blinkCoroutine.Run(this);
         typeCoroutine.Run(this);
-        int lines = textMesh.GetTextInfo(textToType).lineCount;
-        textMesh.text = "";
         return lines;
     }
 
@@ -138,6 +138,8 @@ public class InfoTextController : MonoBehaviour
         {
             textMesh.enabled = false;
         }
+        cursor.SetActive(false);
+        blinkCoroutine.StopIfRunning(this);
         if (displayEndEvent != null)
         {
             displayEndEvent(this, null);

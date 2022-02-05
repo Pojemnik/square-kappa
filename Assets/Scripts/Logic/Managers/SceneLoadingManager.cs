@@ -191,6 +191,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         DeactivateBaseScene();
         currentLevel = (LevelIndexEnum)levelIndex;
         currentScreenCover = FindObjectOfType<ScreenCoverController>();
+        EventManager.Instance.TriggerEvent("GameStart");
         if (currentScreenCover == null)
         {
             Debug.LogWarning("Screen cover not found");
@@ -199,7 +200,6 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         {
             yield return StartCoroutine(currentScreenCover.HideCoverCoroutine());
         }
-        EventManager.Instance.TriggerEvent("GameStart");
     }
 
     private IEnumerator LoadMenu()

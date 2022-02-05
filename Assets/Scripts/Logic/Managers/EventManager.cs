@@ -74,7 +74,14 @@ public class EventManager : Singleton<EventManager>
         UnityEvent unityEvent;
         if (eventDictionary.TryGetValue(name, out unityEvent))
         {
-            unityEvent.Invoke();
+            try
+            {
+                unityEvent.Invoke();
+            }
+            catch(System.Exception e)
+            {
+                Debug.LogErrorFormat("Exception {0} while invoking event {1}", e.Message, name);
+            }
             if (logEvents)
             {
                 Debug.LogFormat("Event {0} called", name);

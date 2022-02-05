@@ -8,9 +8,10 @@ public class CoroutineWrapper
     public bool Running { get => running; }
 
     public delegate IEnumerator CoroutineFunction();
+    public event System.EventHandler onCoroutineEnd;
 
-    private CoroutineFunction coroutineFunction;
     private Coroutine coroutine;
+    private CoroutineFunction coroutineFunction;
 
     public CoroutineWrapper(CoroutineFunction func)
     {
@@ -19,21 +20,38 @@ public class CoroutineWrapper
 
     public void Run(MonoBehaviour context)
     {
-        running = true;
-        coroutine = context.StartCoroutine(coroutineFunction());
+        if(running)
+        {
+            Debug.LogWarningFormat("Object {0} is running coroutine {1} ore than once", context, this);
+        }
+        coroutine = context.StartCoroutine(CoroutineFunctionWrapper(context));
     }
 
     public void StopIfRunning(MonoBehaviour context)
     {
         if(running)
         {
-            context.StopCoroutine(coroutine);
+            Stop(context);
         }
+    }
+
+    private void Stop(MonoBehaviour context)
+    {
+        context.StopCoroutine(coroutine);
+        running = false;
     }
 
     public void Reset(MonoBehaviour context)
     {
         StopIfRunning(context);
         Run(context);
+    }
+
+    private IEnumerator CoroutineFunctionWrapper(MonoBehaviour context)
+    {
+        running = true;
+        yield return context.StartCoroutine(coroutineFunction());
+        running = false;
+        onCoroutineEnd?.Invoke(this, null);
     }
 }
