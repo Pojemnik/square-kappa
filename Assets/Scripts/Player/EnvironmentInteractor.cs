@@ -15,7 +15,7 @@ public class EnvironmentInteractor : MonoBehaviour
     private GameObject firstPresonCamera;
 
     private PlayerCameraController cameraController;
-    private InteractiveObjective selectedObject;
+    private GameObject selectedObject;
 
     private void Awake()
     {
@@ -40,24 +40,23 @@ public class EnvironmentInteractor : MonoBehaviour
 
     private void SelectWorldObject(GameObject selection)
     {
-        if (selectedObject != null && selectedObject.gameObject == selection)
+        if (selectedObject != null && selectedObject == selection)
         {
             //Update tip position
             Vector3 screenPos = Camera.main.WorldToScreenPoint(selection.transform.position);
             interactionTip.DisplayTip(screenPos, InteractionTipController.TipType.Interact);
             return;
         }
+        selectedObject = selection;
         if (selection == null)
         {
-            selectedObject = null;
             interactionTip.HideTip(InteractionTipController.TipType.Interact);
         }
         else
         {
             if (selection.CompareTag("Interactive"))
             {
-                selectedObject = selection.GetComponent<InteractiveObjective>();
-                if (selectedObject == null)
+                if (selection.GetComponent<IInteractive>() == null)
                 {
                     Debug.LogErrorFormat("Error. Selecteed object {0} tagged interactive, but without interactive component.", selection.name);
                     interactionTip.HideTip(InteractionTipController.TipType.Interact);
@@ -83,6 +82,6 @@ public class EnvironmentInteractor : MonoBehaviour
 
     public void InteractWithSelected()
     {
-        selectedObject?.Interact();
+        selectedObject?.GetComponent<IInteractive>().Interact();
     }
 }
