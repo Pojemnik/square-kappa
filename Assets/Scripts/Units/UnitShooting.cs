@@ -163,6 +163,7 @@ public class UnitShooting : MonoBehaviour
         {
             StopFire();
         }
+        owner.AnimationController?.ChangeMirrorState();
     }
 
     private void OnWeaponShootWrapper(object sender, System.EventArgs args)

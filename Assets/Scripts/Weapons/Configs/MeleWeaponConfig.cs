@@ -8,4 +8,5 @@ public class MeleWeaponConfig : WeaponConfig
     public float range;
     [Tooltip("Time between attack start and trial of dealing damage to the target")]
     public float damageTimeDelta;
+    public float afterDamageTimeDelta;
 }

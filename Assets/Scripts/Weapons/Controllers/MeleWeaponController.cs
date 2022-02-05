@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(AudioSource))]
 public class MeleWeaponController : WeaponController
 {
     public override WeaponConfig Config { get => meleConfig; }
@@ -18,7 +19,8 @@ public class MeleWeaponController : WeaponController
 
     private Quaternion attackDirection;
     private bool attacking;
-    private bool coroutineRunning;
+    private CoroutineWrapper attackCoroutine;
+    private AudioSource source;
 
     private GameObject GetParentWithHealth(Transform transform)
     {
@@ -29,32 +31,33 @@ public class MeleWeaponController : WeaponController
         return transform.gameObject;
     }
 
-    private IEnumerator AttackCoroutine(float timeDelta)
+    private IEnumerator AttackCoroutine(float timeBeforeHit, float timeAfterHit)
     {
-        coroutineRunning = true;
-        yield return new WaitForSeconds(timeDelta);
-        InvokeAttackEvent();
+        yield return new WaitForSeconds(timeBeforeHit);
         Vector3 startPos = attackDirection * -Vector3.forward * 0.3f + transform.position;
         if (Physics.SphereCast(startPos, 0.2f, attackDirection * Vector3.forward, out RaycastHit hit, meleConfig.range, KappaLayerMask.PlayerMeleAttackMask))
         {
-            //Debug.LogFormat("Target hit: {0}", hit.collider.gameObject.name);
             GameObject target = GetParentWithHealth(hit.transform);
             Health targetsHealth = target.GetComponent<Health>();
             if (targetsHealth != null)
             {
                 targetsHealth.Damaged(new DamageInfo(meleConfig.damage, attackDirection * Vector3.forward, hit.point, hit.normal));
             }
+            source.Play();
         }
-        coroutineRunning = false;
+        yield return new WaitForSeconds(timeAfterHit);
+        InvokeAttackEvent();
     }
 
     public void OnAttackEnd()
     {
+        Debug.Log("Attack end");
         if (attacking)
         {
-            if (!coroutineRunning)
+            if (!attackCoroutine.Running)
             {
-                StartCoroutine(AttackCoroutine(meleConfig.damageTimeDelta));
+                Debug.Log("Rerun");
+                attackCoroutine.Run(this);
             }
         }
     }
@@ -62,6 +65,9 @@ public class MeleWeaponController : WeaponController
     private void Awake()
     {
         attacking = false;
+        source = GetComponent<AudioSource>();
+        attackCoroutine = new CoroutineWrapper(() => AttackCoroutine(meleConfig.damageTimeDelta, meleConfig.afterDamageTimeDelta));
+        attackCoroutine.onCoroutineEnd += (s,e) => OnAttackEnd();
     }
 
     public override int Reload(int _) { return 1; }
@@ -71,11 +77,16 @@ public class MeleWeaponController : WeaponController
     public override void StartAttack()
     {
         attacking = true;
-        StartCoroutine(AttackCoroutine(meleConfig.damageTimeDelta));
+        if (!attackCoroutine.Running)
+        {
+            attackCoroutine.Run(this);
+            Debug.Log("Attack");
+        }
     }
 
     public override void StopAttack()
     {
         attacking = false;
+        Debug.Log("StopAttack");
     }
 }
