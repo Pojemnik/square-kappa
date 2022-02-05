@@ -5,12 +5,26 @@ using UnityEngine;
 public class AmmoBoxController : MonoBehaviour
 {
     public SerializableDictionary<WeaponConfig.WeaponType, int> ammoCount;
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
         {
-            Destroy(transform.parent.gameObject);
+            if (audioSource != null)
+            {
+                audioSource.Play();
+                Destroy(transform.parent.gameObject, audioSource.clip.length);
+            }
+            else
+            {
+                Destroy(transform.parent.gameObject);
+            }
         }
     }
 }
