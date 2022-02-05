@@ -5716,6 +5716,30 @@ PrefabInstance:
       value: "   Kapsu\u0142a Jednoskokowa\nstan: w pe\u0142ni sprawna\npaliwo: 100%\ncel
         podr\xF3\u017Cy: niezdefiniowany\n              OTWARTA"
       objectReference: {fileID: 0}
+    - target: {fileID: 5111062615518996895, guid: 797a5f6c67981414382e0df95e3f4987, type: 3}
+      propertyPath: m_fontSize
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5111062615518996895, guid: 797a5f6c67981414382e0df95e3f4987, type: 3}
+      propertyPath: m_renderer
+      value: 
+      objectReference: {fileID: 2098474859758651461}
+    - target: {fileID: 5111062615518996895, guid: 797a5f6c67981414382e0df95e3f4987, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5111062615518996895, guid: 797a5f6c67981414382e0df95e3f4987, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5111062615518996895, guid: 797a5f6c67981414382e0df95e3f4987, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 5111062615518996895, guid: 797a5f6c67981414382e0df95e3f4987, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6430959991448724953, guid: 797a5f6c67981414382e0df95e3f4987, type: 3}
       propertyPath: onInteraction.m_PersistentCalls.m_Calls.Array.size
       value: 5

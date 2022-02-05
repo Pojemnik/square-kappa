@@ -456,8 +456,8 @@ MonoBehaviour:
   lowerPart: {fileID: 0}
   upperPart: {fileID: 1270607304514402969}
   upperPartConfig:
-    closedPosition: {x: 0, y: 0, z: 0}
-    openedPosition: {x: 0, y: 0, z: 0}
+    closedPosition: {x: 0, y: 2.3, z: 0.4}
+    openedPosition: {x: 0, y: 2.3, z: 0.4}
     closedRotation: {x: 0, y: 0, z: 0}
     openedRotation: {x: -90, y: 0, z: 0}
   lowerPartConfig:

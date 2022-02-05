@@ -147,7 +147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4900634240132301208, guid: ef2cbf837c4d3394298a4297aaab8c32, type: 3}
       propertyPath: m_Intensity
-      value: 300
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4900634240132301208, guid: ef2cbf837c4d3394298a4297aaab8c32, type: 3}
       propertyPath: m_SpotAngle
@@ -552,7 +552,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4900634240132301208, guid: ef2cbf837c4d3394298a4297aaab8c32, type: 3}
       propertyPath: m_Intensity
-      value: 300
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4900634240132301208, guid: ef2cbf837c4d3394298a4297aaab8c32, type: 3}
       propertyPath: m_SpotAngle
@@ -1791,7 +1791,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4900634240132301208, guid: ef2cbf837c4d3394298a4297aaab8c32, type: 3}
       propertyPath: m_Intensity
-      value: 300
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4900634240132301208, guid: ef2cbf837c4d3394298a4297aaab8c32, type: 3}
       propertyPath: m_SpotAngle
@@ -2672,7 +2672,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4900634240132301208, guid: ef2cbf837c4d3394298a4297aaab8c32, type: 3}
       propertyPath: m_Intensity
-      value: 300
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4900634240132301208, guid: ef2cbf837c4d3394298a4297aaab8c32, type: 3}
       propertyPath: m_SpotAngle
