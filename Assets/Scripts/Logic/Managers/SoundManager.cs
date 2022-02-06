@@ -14,6 +14,7 @@ public class SoundManager : Singleton<SoundManager>
     private void Awake()
     {
         RegisterInstance(this);
+        exclusionsFromPause = new HashSet<AudioSource>();
         foreach(AudioSource source in exclusionsFromPauseList)
         {
             exclusionsFromPause.Add(source);

@@ -21,11 +21,30 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  missionCompleteEvent: {fileID: 11400000, guid: d0ec5375e955ab744b03a53e62bad47c, type: 2}
   groups:
+  - completionMode: 2
+    objectiveNames:
+    - c1
+    - c2
+    - c3
+    - c4
+    - c5
+    objectivesGroupCompleteEvent: {fileID: 0}
+    label:
+      m_TableReference:
+        m_TableCollectionName: GUID:eaa43b90ffdb61c46801950545332e16
+      m_TableEntryReference:
+        m_KeyId: 7538164682752
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    objectivesNeededToComplete: 3
   - completionMode: 0
     objectiveNames:
-    - cube
-    objectivesGroupCompleteEvent: {fileID: 11400000, guid: d0ec5375e955ab744b03a53e62bad47c, type: 2}
+    - 
+    objectivesGroupCompleteEvent: {fileID: 0}
     label:
       m_TableReference:
         m_TableCollectionName: GUID:eaa43b90ffdb61c46801950545332e16
@@ -35,7 +54,7 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  missionCompleteEvent: {fileID: 11400000, guid: d0ec5375e955ab744b03a53e62bad47c, type: 2}
+    objectivesNeededToComplete: 0
   references:
     version: 2
     RefIds: []
