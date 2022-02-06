@@ -26,15 +26,8 @@ public class MissionPanelController : MonoBehaviour
         MissionsManager.Instance.ObjectiveGroupChangeEvent.AddListener(OnObjectiveGroupChange);
         missionTextController.hideAfterDisplayEnd = false;
         missionTextDefaultHeight = missionText.rectTransform.rect.height;
-        missionTextController.displayEndEvent += OnMissionTypeEnd;
         objectiveTextController.hideAfterDisplayEnd = false;
         objectiveTextDefaultHeight = objectiveText.rectTransform.rect.height;
-    }
-
-    private void OnMissionTypeEnd(object sender, EventArgs e)
-    {
-        int linesRequired = objectiveTextController.TypeText(nextObjectiveName, 0);
-        UpdateObjectiveTextHeight(linesRequired);
     }
 
     private void Start()
@@ -66,6 +59,8 @@ public class MissionPanelController : MonoBehaviour
         else
         {
             nextObjectiveName = groupLabel;
+            int linesRequired = objectiveTextController.TypeText(nextObjectiveName, 0);
+            UpdateObjectiveTextHeight(linesRequired);
         }
     }
 
