@@ -13,10 +13,15 @@ public class MissionPanelController : MonoBehaviour
     private InfoTextController missionTextController;
     [SerializeField]
     private InfoTextController objectiveTextController;
+    [SerializeField]
+    private TextHighlightController missionHighlight;
+    [SerializeField]
+    private TextHighlightController objectiveHighlight;
 
     private float missionTextDefaultHeight;
     private float objectiveTextDefaultHeight;
     private string nextObjectiveName;
+    private string nextMissionName;
 
     private void Awake()
     {
@@ -35,6 +40,8 @@ public class MissionPanelController : MonoBehaviour
         EventManager.Instance.AddListener("PlayerDeath", HideMissionsPanel);
         EventManager.Instance.AddListener("Victory", HideMissionsPanel);
         EventManager.Instance.AddListener("GameReloaded", ShowMissionsPanel);
+        objectiveHighlight.animationFinished += (_, _) => UpdateObjectiveText();
+        missionHighlight.animationFinished += (_, _) => UpdateMissionText();
     }
 
     private void HideMissionsPanel()
@@ -49,6 +56,11 @@ public class MissionPanelController : MonoBehaviour
         objectiveText.enabled = true;
     }
 
+    private float TestCurve(float t)
+    {
+        return -t * (t - 1.2f) * (1f / 0.36f);
+    }
+
     private void OnObjectiveGroupChange(string groupLabel)
     {
         objectiveText.text = "";
@@ -59,9 +71,14 @@ public class MissionPanelController : MonoBehaviour
         else
         {
             nextObjectiveName = groupLabel;
-            int linesRequired = objectiveTextController.TypeText(nextObjectiveName, 0);
-            UpdateObjectiveTextHeight(linesRequired);
+            objectiveHighlight.PlayAnimation(TestCurve, 1.2f);
         }
+    }
+
+    private void UpdateObjectiveText()
+    {
+        int linesRequired = objectiveTextController.TypeText(nextObjectiveName, 0);
+        UpdateObjectiveTextHeight(linesRequired);
     }
 
     private void UpdateObjectiveTextHeight(int linesRequired)
@@ -82,15 +99,22 @@ public class MissionPanelController : MonoBehaviour
 
     private void OnMissionChange(string missionLabel)
     {
+        missionText.text = "";
         if (missionLabel == null)
         {
-            missionText.text = "";
+            nextMissionName = "";
         }
         else
         {
-            int linesRequired = missionTextController.TypeText(missionLabel, 0);
-            UpdateMissionTextHeight(linesRequired);
+            nextMissionName = missionLabel;
+            missionHighlight.PlayAnimation(TestCurve, 1.2f);
         }
+    }
+
+    private void UpdateMissionText()
+    {
+        int linesRequired = missionTextController.TypeText(nextMissionName, 0);
+        UpdateMissionTextHeight(linesRequired);
     }
 
     private void UpdateMissionTextHeight(int linesRequired)
