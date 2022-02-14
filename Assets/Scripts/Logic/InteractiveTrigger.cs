@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Interactive : MonoBehaviour, IInteractive
+public class InteractiveTrigger : Trigger, IInteractive
 {
-    [SerializeField]
-    private UnityEngine.Events.UnityEvent onInteraction;
-
-    protected void Awake()
+    private void Awake()
     {
         if (!gameObject.CompareTag("Interactive"))
         {
@@ -17,6 +14,6 @@ public class Interactive : MonoBehaviour, IInteractive
 
     public void Interact()
     {
-        onInteraction.Invoke();
+        triggerEvent();
     }
 }

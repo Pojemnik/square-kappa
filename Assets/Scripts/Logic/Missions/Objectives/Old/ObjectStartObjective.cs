@@ -15,16 +15,4 @@ public class ObjectStartObjective : Objective
             MissionsManager.Instance.initFinishedEvent += (s, a) => ChangeState();
         }
     }
-
-    private void ChangeState()
-    {
-        if (defaultState)
-        {
-            Uncomplete();
-        }
-        else
-        {
-            Complete();
-        }
-    }
 }
