@@ -67,6 +67,10 @@ MonoBehaviour:
     m_Key: START-GAME
     m_Metadata:
       m_Items: []
+  - m_Id: 51091785529532416
+    m_Key: CREDITS
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
