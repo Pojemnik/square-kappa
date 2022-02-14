@@ -25,7 +25,6 @@ public class TextHighlightController : MonoBehaviour
             animationTime += Time.deltaTime;
             Color newColor = image.color;
             newColor.a = currentCurve(animationTime);
-            Debug.Log(newColor.a);
             image.color = newColor;
             if(animationTime >= animationDuration)
             {
