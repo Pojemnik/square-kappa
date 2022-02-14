@@ -63,6 +63,30 @@ MonoBehaviour:
     m_Key: MAP-LEFT
     m_Metadata:
       m_Items: []
+  - m_Id: 56537555678416896
+    m_Key: AARON-JONES-PROLOGUE1-01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56537756686241792
+    m_Key: AARON-JONES-PROLOGUE1-02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56537887435280384
+    m_Key: AARON-JONES-PROLOGUE1-03
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56538007534981120
+    m_Key: AARON-JONES-PROLOGUE1-04
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56538115236319232
+    m_Key: AARON-JONES-PROLOGUE1-05
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56538232987209728
+    m_Key: AARON-JONES-PROLOGUE1-06
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

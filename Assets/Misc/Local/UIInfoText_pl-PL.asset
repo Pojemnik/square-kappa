@@ -103,6 +103,54 @@ MonoBehaviour:
       ci\u0119 na strz\u0119py. Zawr\xF3\u0107, p\xF3ki to mo\u017Cliwe!"
     m_Metadata:
       m_Items: []
+  - m_Id: 56537555678416896
+    m_Localized: "Aaron Jones:\r\nNo, marine, uda\u0142o nam si\u0119 ciebie przerzuci\u0107
+      w okolice centrum \u0142\u0105czno\u015Bci wroga. Znajduj\u0105 si\u0119 tam
+      koorydnaty tego przekl\u0119tego dzia\u0142a asteroidowego kt\xF3re musisz
+      pobra\u0107, ale na razie jest ono na pewno zabite na g\u0142ucho. W szafce
+      masz Koenigza z amunicj\u0105, we\u017A go i opu\u015B\u0107 kapsu\u0142\u0119,
+      my w mi\u0119dzyczasie wymy\u015Blimy jak dobra\u0107 si\u0119 do tego centrum
+      dost\u0119pu.\r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56537756686241792
+    m_Localized: "Aaron Jones:\r\nW porz\u0105dku, marine, mamy dla ciebie rozwi\u0105zanie.
+      W okolicy znajduje si\u0119 sporo punkt\xF3w dost\u0119pu zapewniaj\u0105cych
+      stabilno\u015B\u0107 lokalnej sieci. Nasz technik twierdzi \u017Ce wystarczy
+      \u017Ce zhakujesz dowolnych sze\u015B\u0107 z nich, a uruchomi\u0105 si\u0119
+      procedury awaryjne otwieraj\u0105ce g\u0142\xF3wne wej\u015Bcie do centrum
+      \u0142\u0105czno\u015Bci, dzi\u0119ki czemu zdo\u0142asz si\u0119 tam w\u015Blizgn\u0105\u0107
+      i pobra\u0107 koordynaty.\r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56537887435280384
+    m_Localized: "Aaron Jones:\r\n\u015Awietna robota! Sze\u015B\u0107 punkt\xF3w
+      dost\u0119pu zhackowanych, wi\u0119c centrum \u0142\u0105czno\u015Bci powinno
+      teraz wykona\u0107 procedur\u0119 awaryjnego otwierania. To jest twoja okazja
+      \u017Ceby si\u0119 tam dosta\u0107!\r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56538007534981120
+    m_Localized: "Aaron Jones:\r\nDobrze, jeste\u015B w \u015Brodku. Teraz musisz
+      dosta\u0107 si\u0119 do pokoju \u0142\u0105czno\u015Bci, to ten na szczycie
+      budynku. Tam z pewno\u015Bci\u0105 uda ci si\u0119 znale\u017A\u0107 te ca\u0142e
+      koordynaty.\r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56538115236319232
+    m_Localized: "Aaron Jones:\r\nTo tutaj. Za\u0142atw tych go\u015Bci i znajd\u017A
+      konsol\u0119 z koordynatami!\r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56538232987209728
+    m_Localized: "Aaron Jones:\r\nMamy to, marine. Sektor 04x763392... Szlag, to
+      poza naszym zasi\u0119giem, nie damy rady tam przerzuci\u0107 si\u0142. Przykro
+      mi, ale b\u0119dziesz musia\u0142 kontynuowa\u0107 misj\u0119 sam. Znajd\u017A
+      jaki\u015B hangar i wgraj do niego te koordynaty, po czym po\u017Cycz sobie
+      jedn\u0105 kapsu\u0142\u0119. B\u0119dziemy ci\u0119 dalej wspiera\u0107 zdalnie
+      w miar\u0119 naszych mo\u017Cliwo\u015Bci.\r"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMisions:
     list:
+    - {fileID: 11400000, guid: b6985f96c0057c64daa7f6075a789512, type: 2}
+    - {fileID: 11400000, guid: 4451addcaffa374498f7bc0708983063, type: 2}
     - {fileID: 11400000, guid: 67afc1a7396c469428e38a284be8507f, type: 2}
     - {fileID: 11400000, guid: a3219d467dbe4aa4cb20d95859313cf9, type: 2}
   otherMissions:
