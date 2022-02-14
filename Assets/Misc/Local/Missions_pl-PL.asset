@@ -82,6 +82,23 @@ MonoBehaviour:
     m_Localized: "Wyrusz kapsu\u0142\u0105 w kierunku celu"
     m_Metadata:
       m_Items: []
+  - m_Id: 56908039712559104
+    m_Localized: "U\u017Cyj konsoli by otworzy\u0107 w\u0142az"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56908984089464832
+    m_Localized: "Uzyskaj dost\u0119p do centrum \u0142\u0105czno\u015Bci"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56909918165159936
+    m_Localized: "Opu\u015B\u0107 kapsu\u0142\u0119"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56910126445907968
+    m_Localized: "Zhakuj sze\u015B\u0107 punkt\xF3w dost\u0119pu znajduj\u0105cych
+      si\u0119 w budynkach na asteroidach"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

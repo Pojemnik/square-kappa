@@ -460,7 +460,7 @@ MonoBehaviour:
   maxHealth: 20
   collisionDamageForceTreshold: 200
   collisionDamageForceMultipler: 0.15
-  armor: 4
+  armor: 20
   hitParticlePrefab: {fileID: 0}
   destructionParticlePrefab: {fileID: 0}
   deathEvent:

@@ -16,36 +16,52 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
     m_TableEntryReference:
-      m_KeyId: 2518732034048
+      m_KeyId: 31383558554537984
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 1
     m_LocalVariables: []
   groups:
-  - label:
+  - completionMode: 0
+    objectiveNames:
+    - P1M2Q1
+    objectivesGroupCompleteEvent: {fileID: 11400000, guid: bad5150df4efe99468f0e73d20d91866, type: 2}
+    label:
       m_TableReference:
         m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
       m_TableEntryReference:
-        m_KeyId: 3089895575552
+        m_KeyId: 31384458220163072
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 1
       m_LocalVariables: []
+  - completionMode: 0
     objectiveNames:
-    - ArmoryEnter
-    objectivesGroupCompleteEvent: {fileID: 11400000, guid: 126df0d327592ee4bb3431187568921a, type: 2}
-  - label:
+    - P1M2Q2
+    objectivesGroupCompleteEvent: {fileID: 11400000, guid: 7554c1b08316b5446a67a006d8a8a949, type: 2}
+    label:
       m_TableReference:
         m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
       m_TableEntryReference:
-        m_KeyId: 5083593331068928
+        m_KeyId: 31385195209707520
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 1
       m_LocalVariables: []
+  - completionMode: 0
     objectiveNames:
-    - ArmoryLeft
-    objectivesGroupCompleteEvent: {fileID: 11400000, guid: a3b506eebcb7c6c449477a93c5ff6ed4, type: 2}
+    - P1M2Q3
+    objectivesGroupCompleteEvent: {fileID: 11400000, guid: a266a54cd7dd9da449857167c8f74eac, type: 2}
+    label:
+      m_TableReference:
+        m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+      m_TableEntryReference:
+        m_KeyId: 31386219597156352
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 1
+      m_LocalVariables: []
   missionCompleteEvent: {fileID: 0}
   references:
-    version: 1
+    version: 2
+    RefIds: []

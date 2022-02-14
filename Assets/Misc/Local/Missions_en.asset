@@ -82,6 +82,22 @@ MonoBehaviour:
     m_Localized: Launch capsule to the target
     m_Metadata:
       m_Items: []
+  - m_Id: 56908039712559104
+    m_Localized: Use the console to open the hatch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56908984089464832
+    m_Localized: Gain access to comm center
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56909918165159936
+    m_Localized: Leave the capsule
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56910126445907968
+    m_Localized: Hack six access points located in asteroid buildings
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
