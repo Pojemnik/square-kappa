@@ -67,12 +67,8 @@ MonoBehaviour:
     m_Key: Prologue1Mission3Quest1
     m_Metadata:
       m_Items: []
-  - m_Id: 31387093790773248
-    m_Key: Prologue1Mission3Quest2
-    m_Metadata:
-      m_Items: []
   - m_Id: 31387235168178176
-    m_Key: Prologue1Mission3Quest3
+    m_Key: Prologue1Mission3Quest2
     m_Metadata:
       m_Items: []
   - m_Id: 31387418639618048

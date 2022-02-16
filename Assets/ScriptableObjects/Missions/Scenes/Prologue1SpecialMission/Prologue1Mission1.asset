@@ -51,9 +51,18 @@ MonoBehaviour:
       m_WaitForCompletion: 1
       m_LocalVariables: []
     objectivesNeededToComplete: 0
-  - completionMode: 0
+  - completionMode: 2
     objectiveNames:
-    - P1M1Q3
+    - Hack01
+    - Hack02
+    - Hack03
+    - Hack04
+    - Hack05
+    - Hack06
+    - Hack07
+    - Hack08
+    - Hack09
+    - Hack10
     objectivesGroupCompleteEvent: {fileID: 11400000, guid: 7554c1b08316b5446a67a006d8a8a949, type: 2}
     label:
       m_TableReference:
@@ -64,7 +73,7 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 1
       m_LocalVariables: []
-    objectivesNeededToComplete: 0
+    objectivesNeededToComplete: 6
   references:
     version: 2
     RefIds: []

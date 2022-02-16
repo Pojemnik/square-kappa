@@ -70,10 +70,6 @@ MonoBehaviour:
     m_Localized: Dotrzyj do hangaru
     m_Metadata:
       m_Items: []
-  - m_Id: 31387093790773248
-    m_Localized: "Znajd\u017A pok\xF3j kontroli lotu"
-    m_Metadata:
-      m_Items: []
   - m_Id: 31387235168178176
     m_Localized: "Za\u0142aduj koordynaty do konsoli"
     m_Metadata:

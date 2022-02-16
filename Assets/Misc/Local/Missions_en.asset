@@ -70,10 +70,6 @@ MonoBehaviour:
     m_Localized: Reach the hangar
     m_Metadata:
       m_Items: []
-  - m_Id: 31387093790773248
-    m_Localized: Find the flight control room
-    m_Metadata:
-      m_Items: []
   - m_Id: 31387235168178176
     m_Localized: Upload coordinates to the console
     m_Metadata:
