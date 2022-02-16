@@ -1126,7 +1126,7 @@ RectTransform:
   m_GameObject: {fileID: 818766059}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 167735805302202164}
@@ -5539,7 +5539,7 @@ RectTransform:
   m_GameObject: {fileID: 4258299388952726556}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1662558414}
@@ -6743,7 +6743,7 @@ MonoBehaviour:
   cursorVisibleTime: 0.5
   cursorInvisibleTime: 0.3
   cursorPrefab: {fileID: 7483714042738752089, guid: 96f0a6e48f26b1a4b8c1df379c7e8326, type: 3}
-  offset: {x: 16, y: 53}
+  offset: {x: 16, y: 76}
   letterTypeDuration: 0.02
   hideAfterDisplayEnd: 1
 --- !u!222 &5649409099768729460
