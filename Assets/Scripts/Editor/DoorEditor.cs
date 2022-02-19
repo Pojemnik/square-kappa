@@ -11,6 +11,7 @@ public class DoorEditor : Editor
     private SerializedProperty lowerPartConfig;
     private SerializedProperty upperPartConfig;
     private SerializedProperty openingTime;
+    private SerializedProperty defaultState;
 
     private void OnEnable()
     {
@@ -19,6 +20,7 @@ public class DoorEditor : Editor
         lowerPartConfig = serializedObject.FindProperty("lowerPartConfig");
         upperPartConfig = serializedObject.FindProperty("upperPartConfig");
         openingTime = serializedObject.FindProperty("openingTime");
+        defaultState = serializedObject.FindProperty("defaultState");
     }
 
     public override void OnInspectorGUI()
@@ -28,11 +30,17 @@ public class DoorEditor : Editor
         EditorGUILayout.PropertyField(lowerPartConfig);
         EditorGUILayout.PropertyField(upperPartConfig);
         EditorGUILayout.PropertyField(openingTime);
+        EditorGUILayout.PropertyField(defaultState);
 
         if(GUILayout.Button("Open"))
         {
-            (serializedObject.targetObject as DoorController).Open();
+            (serializedObject.targetObject as DoorController)?.Open();
         }
+        if (GUILayout.Button("Close"))
+        {
+            (serializedObject.targetObject as DoorController)?.Close();
+        }
+
 
         serializedObject.ApplyModifiedProperties();
     }
