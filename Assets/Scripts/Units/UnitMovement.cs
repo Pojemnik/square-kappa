@@ -42,5 +42,8 @@ public abstract class UnitMovement : MonoBehaviour
     public abstract void MoveInGlobalCoordinatesIgnoringSpeed(Vector3 direction, bool patrolMode = true);
     public abstract void MoveInGlobalCoordinatesIgnoringSpeedAndTimeDelta(Vector3 direction, bool patrolMode = true);
     public abstract void EnableStopMode();
-
+    public virtual void SlowDown()
+    {
+        MoveInGlobalCoordinates(-Velocity, false);
+    }
 }
