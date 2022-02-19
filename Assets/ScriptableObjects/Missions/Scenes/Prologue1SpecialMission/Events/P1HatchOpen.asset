@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ffbc36b997dfd44ca43f9d0ea759dfc, type: 3}
   m_Name: P1HatchOpen
   m_EditorClassIdentifier: 
-  displayDebugInfo: 0
+  displayDebugInfo: 1
