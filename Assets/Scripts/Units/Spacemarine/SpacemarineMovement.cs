@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//When new type of enemy is added this class needs to be made spacemarine-specific
-//Then add base class/interface for it and any other movement type
 public class SpacemarineMovement : UnitMovement
 {
     [Header("Movement parameters")]

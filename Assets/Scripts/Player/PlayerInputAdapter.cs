@@ -14,10 +14,11 @@ public class PlayerInputAdapter : MonoBehaviour
     private float cameraSensitivity;
     private float zoomCameraSensitivity;
     private bool enableMovement = false;
+    private bool slowingDown;
 
     public void MoveXZ(InputAction.CallbackContext context)
     {
-        if(!enableMovement)
+        if (!enableMovement)
         {
             return;
         }
@@ -151,6 +152,27 @@ public class PlayerInputAdapter : MonoBehaviour
         }
     }
 
+    public void SlowDownCallback(InputAction.CallbackContext context)
+    {
+        if (!enableMovement)
+        {
+            return;
+        }
+        if(context.started)
+        {
+            slowingDown = true;
+        }
+        if(context.canceled)
+        {
+            slowingDown = false;
+        }
+    }
+
+    private void SlowDown()
+    {
+        owner.movement.SlowDown();
+    }
+
     private void Awake()
     {
         ZoomController zoomController = FindObjectOfType<ZoomController>();
@@ -165,5 +187,13 @@ public class PlayerInputAdapter : MonoBehaviour
         zoomCameraSensitivity = SettingsManager.Instance.ZoomMouseSensitivity.Value;
         SettingsManager.Instance.ZoomMouseSensitivity.ValueChanged += (_, val) => { zoomCameraSensitivity = val; };
         EventManager.Instance.AddListener("GameStart", () => enableMovement = true);
+    }
+
+    private void Update()
+    {
+        if(slowingDown)
+        {
+            SlowDown();
+        }
     }
 }
