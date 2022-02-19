@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class Objective : MonoBehaviour
+public class Objective : MonoBehaviour
 {
     private static int idCounter = 0;
     private int id;
