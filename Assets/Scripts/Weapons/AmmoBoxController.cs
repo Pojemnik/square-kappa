@@ -12,19 +12,17 @@ public class AmmoBoxController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnPickup()
     {
-        if(other.CompareTag("PlayerTrigger"))
+        if (audioSource != null)
         {
-            if (audioSource != null)
-            {
-                audioSource.Play();
-                Destroy(transform.parent.gameObject, audioSource.clip.length);
-            }
-            else
-            {
-                Destroy(transform.parent.gameObject);
-            }
+            audioSource.Play();
+            tag = "Untagged";
+            Destroy(transform.parent.gameObject, audioSource.clip.length);
+        }
+        else
+        {
+            Destroy(transform.parent.gameObject);
         }
     }
 }

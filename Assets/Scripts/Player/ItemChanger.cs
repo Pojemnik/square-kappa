@@ -289,6 +289,7 @@ public class ItemChanger : MonoBehaviour
             {
                 shooting.PickUpAmmo(ammo.Key, ammo.Value);
             }
+            ammoBox.OnPickup();
         }
     }
 
