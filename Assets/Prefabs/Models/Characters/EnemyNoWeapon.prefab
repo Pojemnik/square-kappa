@@ -239,7 +239,7 @@ MonoBehaviour:
   visibilitySphereRadius: 10
   visibilityConeAngle: 45
   visibilityConeHeight: 30
-  dropWeaponAfterDeath: 0
+  dropWeaponAfterDeath: 1
   visibilityConeRadius: 24.852814
   points: 50
   coneLines: 6

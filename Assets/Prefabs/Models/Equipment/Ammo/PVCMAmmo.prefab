@@ -165,9 +165,9 @@ MonoBehaviour:
   ammoCount:
     array:
     - Key: 0
-      Value: 25
+      Value: 50
     - Key: 2
-      Value: 25
+      Value: 50
 --- !u!135 &1291086523976472859
 SphereCollider:
   m_ObjectHideFlags: 0

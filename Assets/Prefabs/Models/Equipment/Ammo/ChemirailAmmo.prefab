@@ -49,7 +49,7 @@ MonoBehaviour:
   ammoCount:
     array:
     - Key: 1
-      Value: 10
+      Value: 20
 --- !u!135 &1368665838147144574
 SphereCollider:
   m_ObjectHideFlags: 0
