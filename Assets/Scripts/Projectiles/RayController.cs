@@ -21,6 +21,11 @@ public class RayController : MonoBehaviour
         line.SetPosition(1, transform.InverseTransformDirection(direction) * maxLength);
     }
 
+    public void SetRayEnd(Vector3 rayEnd)
+    {
+        line.SetPosition(1, rayEnd);
+    }
+
     void Awake()
     {
         line = GetComponent<LineRenderer>();

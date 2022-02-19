@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tickDuration: 0.05
   projectilePrefab: {fileID: 3761920593106355367, guid: 67ea47bfd4fcae641a9e5e7c43511ee9, type: 3}
-  projectileOffset: {x: 0, y: 0, z: 0.23}
+  projectileOffset: {x: 0, y: 0, z: -0.04}
   flamePrefab: {fileID: 1362533273023082379, guid: 15601d9cd82f2524484b14a39876c0ae, type: 3}
   flameOffset: {x: 0, y: 0, z: 0.23}
   flameRotation: {x: 180, y: 0, z: 0}

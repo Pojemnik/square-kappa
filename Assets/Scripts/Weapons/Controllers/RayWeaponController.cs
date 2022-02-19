@@ -22,6 +22,10 @@ public class RayWeaponController : RangedWeaponController
         set
         {
             projectileDirection = value;
+            if(triggerHold)
+            {
+                Physics.Raycast(projectile.StartPoint, projectileDirection * Vector3.forward, out raycastHit, 1000, layerMask);
+            }
             UpdateRayDirection();
         }
     }
@@ -49,6 +53,7 @@ public class RayWeaponController : RangedWeaponController
         SetProjectileLayer(projectile.gameObject);
         CalculateLayerMask();
         Physics.Raycast(projectile.StartPoint, projectileDirection * Vector3.forward, out raycastHit, 1000, layerMask);
+        UpdateRayDirection();
         shootCoroutine.Run(this);
         flame.SetActive(true);
     }
@@ -101,7 +106,14 @@ public class RayWeaponController : RangedWeaponController
 
     private void UpdateRayDirection()
     {
-        projectile.SetLocalRayDirection(projectileDirection * Vector3.forward);
+        if (raycastHit.transform == null)
+        {
+            projectile.SetLocalRayDirection(projectileDirection * Vector3.forward);
+        }
+        else
+        {
+            projectile.SetRayEnd(projectile.transform.InverseTransformPoint(raycastHit.point));
+        }
     }
 
     private IEnumerator Shoot()
@@ -153,7 +165,6 @@ public class RayWeaponController : RangedWeaponController
         {
             return;
         }
-        Debug.DrawLine(projectile.StartPoint, projectile.StartPoint + projectileDirection * Vector3.forward * 1000, Color.magenta);
         if (hitEffect == null)
         {
             return;
