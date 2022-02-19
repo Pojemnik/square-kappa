@@ -194,10 +194,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2837422456809556633}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+  secondTrigger:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 175864920982287752}
+        m_TargetAssemblyTypeName: DoorController, Assembly-CSharp
+        m_MethodName: Close
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -206,9 +209,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  secondTrigger:
-    m_PersistentCalls:
-      m_Calls: []
   printDebugMessages: 0
 --- !u!1001 &436688023139364336
 PrefabInstance:
