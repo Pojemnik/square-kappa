@@ -75,7 +75,14 @@ public class EnemyController : MonoBehaviour
 
     private void StartRagdoll()
     {
-        Instantiate(ragdollPrefab, transform.position, transform.rotation);
+        if (ragdollPrefab != null)
+        {
+            Instantiate(ragdollPrefab, transform.position, transform.rotation);
+        }
+        else
+        {
+            Debug.LogWarningFormat("No rogadoll prefab in {0}", gameObject.name);
+        }
         DeactivateComponents();
     }
 
@@ -91,11 +98,14 @@ public class EnemyController : MonoBehaviour
 
     private void DropWeapon()
     {
-        unitController.CurrentWeapon.GetComponent<Rigidbody>().isKinematic = false;
-        unitController.CurrentWeapon.transform.parent = null;
-        unitController.CurrentWeapon.tag = "Item";
-        unitController.CurrentWeapon.layer = 14;
-        unitController.CurrentWeapon = null;
+        if (unitController.CurrentWeapon != null)
+        {
+            unitController.CurrentWeapon.GetComponent<Rigidbody>().isKinematic = false;
+            unitController.CurrentWeapon.transform.parent = null;
+            unitController.CurrentWeapon.tag = "Item";
+            unitController.CurrentWeapon.layer = 14;
+            unitController.CurrentWeapon = null;
+        }
     }
 
     private void DrawGizmo(bool selected)
