@@ -637,6 +637,7 @@ MonoBehaviour:
     closedRotation: {x: 0, y: 0, z: 0}
     openedRotation: {x: 0, y: 0, z: -90}
   openingTime: 2
+  defaultState: 2
 --- !u!1001 &4439339007372447091
 PrefabInstance:
   m_ObjectHideFlags: 0

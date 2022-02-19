@@ -52,10 +52,15 @@ MonoBehaviour:
   upperPartConfig:
     closedPosition: {x: 0, y: 0, z: 0}
     openedPosition: {x: 0, y: 0.37, z: 0}
+    closedRotation: {x: 0, y: 0, z: 0}
+    openedRotation: {x: 0, y: 0, z: 0}
   lowerPartConfig:
     closedPosition: {x: 0, y: 0, z: 0}
     openedPosition: {x: 0, y: -1.16, z: 0}
-  openingTime: 5
+    closedRotation: {x: 0, y: 0, z: 0}
+    openedRotation: {x: 0, y: 0, z: 0}
+  openingTime: 2
+  defaultState: 2
 --- !u!1 &2132056757194780226
 GameObject:
   m_ObjectHideFlags: 0

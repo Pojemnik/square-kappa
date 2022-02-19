@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b50d63bf7539440b0f701ab53dcf86, type: 3}
+  m_Name: Prologue1HatchOpen
+  m_EditorClassIdentifier: 
+  label:
+    m_TableReference:
+      m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+    m_TableEntryReference:
+      m_KeyId: 31386421888438272
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 1
+    m_LocalVariables: []
+  missionCompleteEvent: {fileID: 0}
+  groups:
+  - completionMode: 0
+    objectiveNames:
+    - Enemy1
+    - Enemy2
+    objectivesGroupCompleteEvent: {fileID: 11400000, guid: 8c91d520f9e2d364a96896f7bac62ba4, type: 2}
+    label:
+      m_TableReference:
+        m_TableCollectionName: GUID:2078f49f728cc2a4899209494959fb46
+      m_TableEntryReference:
+        m_KeyId: 31386967038906368
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 1
+      m_LocalVariables: []
+    objectivesNeededToComplete: 0
+  references:
+    version: 2
+    RefIds: []

@@ -478,6 +478,7 @@ MonoBehaviour:
     closedRotation: {x: 0, y: 0, z: 0}
     openedRotation: {x: 0, y: 0, z: -90}
   openingTime: 2
+  defaultState: 2
 --- !u!1 &9123516039509424929
 GameObject:
   m_ObjectHideFlags: 0
