@@ -136,35 +136,36 @@ MonoBehaviour:
     m_Localized: 'WARNING!
 
       Don''t fly away from the asteroids! There are powerful
-      phisics anomalies out of the base area that will reap you apart in a short
-      time. Go back while you still can!'
+      physics anomalies out of the base area that will quickly reap you apart. Go
+      back while you still can!'
     m_Metadata:
       m_Items: []
   - m_Id: 56537555678416896
     m_Localized: "Aaron Jones:\r\nWell, marine, we managed to transfer you close
       to the enemy comm center. It contains coordinates of this goddamned asteroid
       cannon you have to download, but for now it's sure closed. You have Koenigz
-      with ammo in your locker, take it and leave the capsule, meanwhile we'll find
+      with ammo in your locker. Take it and leave the capsule. Meanwhile we'll find
       out how to access this comm center.\r"
     m_Metadata:
       m_Items: []
   - m_Id: 56537756686241792
-    m_Localized: "Aaron Jones:\r\nOk, marine, we have solution for you. Near your
-      position there are many access points that guarante local network stability.
-      Our engineer says that if you'll hack six of those points the emergency procedures
-      will be started that open main entrance to the comm center, thanks to that
-      you'll be able to sneak inside and download these coordinates.\r"
+    m_Localized: "Aaron Jones:\r\nOk, marine, we have solution for you. Around you
+      are many access points that guarante local network stability. Our engineer
+      says that if you hack six of those points, the emergency procedures will start.
+      That will open main entrance to the comm center. Thanks to that you'll be able
+      to sneak inside and download these coordinates.\r"
     m_Metadata:
       m_Items: []
   - m_Id: 56537887435280384
-    m_Localized: "Aaron Jones:\r\nGreat job! Six access points hacked, so comm center
-      now will initiate emergency open. And, good news, these turrets on it are now
-      down. It's your chance to get inside!\r"
+    m_Localized: "Aaron Jones:\r\nGreat job! Six access points hacked, so the comm
+      center will initiate emergency opening now. The turrets on top of it are now
+      disabled. It's your chance to get inside!\r"
     m_Metadata:
       m_Items: []
   - m_Id: 56538007534981120
     m_Localized: "Aaron Jones:\r\nAlright, you're inside. Now reach the comm room,
-      the one on the top of this building. There you will sure find these coordinates.\r"
+      the one on the top of this building. You will surely find those coordinates
+      in there\r."
     m_Metadata:
       m_Items: []
   - m_Id: 56538115236319232
