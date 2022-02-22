@@ -155,6 +155,10 @@ public class UnitShooting : MonoBehaviour
 
     private void OnWeaponShoot()
     {
+        if(this == null)
+        {
+            return;
+        }
         if (!IgnoreRecoil)
         {
             rigidbody.AddForce(-transform.up * weaponController.Config.backwardsForce);
