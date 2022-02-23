@@ -407,7 +407,6 @@ public partial class MissionsManager : Singleton<MissionsManager>
         }
         else
         {
-            currentGroup.Mission.Completed?.Raise();
             MissionData nextMission = currentGroup.Mission.nextMission;
             if (nextMission != null)
             {
