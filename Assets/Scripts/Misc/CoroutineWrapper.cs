@@ -22,7 +22,7 @@ public class CoroutineWrapper
     {
         if(running)
         {
-            Debug.LogWarningFormat("Object {0} is running coroutine {1} ore than once", context, this);
+            Debug.LogWarningFormat("Object {0} is running coroutine {1} more than once", context, this);
         }
         coroutine = context.StartCoroutine(CoroutineFunctionWrapper(context));
     }

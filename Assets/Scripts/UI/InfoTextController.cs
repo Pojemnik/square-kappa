@@ -41,13 +41,13 @@ public class InfoTextController : MonoBehaviour
         EventManager.Instance.AddListener("Unpause", ContinueTyping);
         cursor = Instantiate(cursorPrefab, transform);
         cursor.SetActive(false);
-        blinkCoroutine = new CoroutineWrapper(() => CurosrBlinkCoroutine());
-        typeCoroutine = new CoroutineWrapper(() => TypeTextCoroutine());
+        blinkCoroutine = new CoroutineWrapper(CurosrBlinkCoroutine);
+        typeCoroutine = new CoroutineWrapper(TypeTextCoroutine);
     }
 
     public int TypeText(string text, float hideDelay)
     {
-        StopTyping();
+        StopAllCoroutines();
         textMesh.text = "";
         var info = textMesh.GetTextInfo(text);
         for (int i = 0; i < info.lineCount - 1; i++)
