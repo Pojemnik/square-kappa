@@ -23,7 +23,7 @@ namespace AI
 
         public override void Update()
         {
-            if(owner.enemyController.target == null)
+            if (owner.enemyController.target == null)
             {
                 return;
             }
@@ -82,7 +82,11 @@ namespace AI
         {
             base.Enter();
             owner.status = "Rotating towards point";
-            movement.SetTargetRotation(Quaternion.LookRotation(pathNode.transform.position - owner.transform.position));
+            Vector3 towardsNode = pathNode.transform.position - owner.transform.position;
+            if (towardsNode != Vector3.zero)
+            {
+                movement.SetTargetRotation(Quaternion.LookRotation(towardsNode));
+            }
         }
 
         public override void Update()
