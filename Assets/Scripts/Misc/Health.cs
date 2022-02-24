@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
-public class IntEvent : UnityEvent<int> {}
+public class IntEvent : UnityEvent<int> { }
 
 [System.Serializable]
-public class DamageEvent : UnityEvent<DamageInfo> {}
+public class DamageEvent : UnityEvent<DamageInfo> { }
 
 [RequireComponent(typeof(Collider))]
 public class Health : MonoBehaviour
@@ -49,12 +49,12 @@ public class Health : MonoBehaviour
 
     public void Damaged(DamageInfo info)
     {
-        if(!enabled)
+        if (!enabled)
         {
             return;
         }
         info.amount -= armor;
-        if(info.amount < 0)
+        if (info.amount < 0)
         {
             info.amount = 0;
         }
@@ -65,9 +65,9 @@ public class Health : MonoBehaviour
 
         }
         currentHealth -= info.amount;
-        healthChangeEvent.Invoke(currentHealth);
+        healthChangeEvent.Invoke((int)((float)currentHealth / maxHealth * 100f));
         damageEvent.Invoke(info);
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             currentHealth = 0;
             if (destructionParticlePrefab != null)
@@ -93,7 +93,7 @@ public class Health : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.impulse.magnitude > collisionDamageForceTreshold)
+        if (collision.impulse.magnitude > collisionDamageForceTreshold)
         {
             int damage = (int)((collision.impulse.magnitude - collisionDamageForceTreshold) * collisionDamageForceMultipler);
             Vector3 direction = transform.position - collision.gameObject.transform.position;
@@ -105,7 +105,7 @@ public class Health : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("HealthPack") && currentHealth != maxHealth)
+        if (other.gameObject.CompareTag("HealthPack") && currentHealth != maxHealth)
         {
             HealthPackController packController = other.gameObject.GetComponent<HealthPackController>();
             Heal(packController.HealAmount);
