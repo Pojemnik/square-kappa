@@ -16,6 +16,16 @@ public class UIImageController : MonoBehaviour
         image.SetActive(false);
     }
 
+    private void Start()
+    {
+        EventManager.Instance.AddListener("Unpause", OnUnpause);
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.Instance?.RemoveListener("Unpause", OnUnpause);
+    }
+
     public void ShowScreenForTime()
     {
         image.SetActive(true);
@@ -41,5 +51,13 @@ public class UIImageController : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(time);
         HideScreen();
+    }
+
+    private void OnUnpause()
+    {
+        if (image.activeInHierarchy)
+        {
+            StartCoroutine(WaitAndHideImage(displayTime));
+        }
     }
 }
