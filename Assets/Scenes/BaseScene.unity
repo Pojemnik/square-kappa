@@ -6009,7 +6009,7 @@ PrefabInstance:
       objectReference: {fileID: 1237312521}
     - target: {fileID: 2033507179630016006, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: maxHealth
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 2033507179630016006, guid: 06c1a1698b7ba234288c4e975eb792ec, type: 3}
       propertyPath: healthChangeEvent.m_PersistentCalls.m_Calls.Array.size
@@ -7610,7 +7610,7 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
     missionEvent: {fileID: 0}
-    messageHideDelay: 3
+    messageHideDelay: 10
   callSound: {fileID: 8300000, guid: a71393e60badf1b46b0094310e0c894e, type: 3}
   references:
     version: 2
