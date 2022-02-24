@@ -28,7 +28,7 @@ public class SceneSoundSource : MonoBehaviour
     {
         foreach((string, UnityEngine.Events.UnityAction) action in actions)
         {
-            EventManager.Instance.RemoveListener(action.Item1, action.Item2);
+            EventManager.Instance?.RemoveListener(action.Item1, action.Item2);
         }
     }
 
