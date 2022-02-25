@@ -228,6 +228,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         yield return StartCoroutine(UnloadSceneIfLoaded(loadingScene));
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        Time.timeScale = 1;
     }
 
     private IEnumerator LoadOneScene(string sceneName)
