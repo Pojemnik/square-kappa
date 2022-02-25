@@ -96,9 +96,9 @@ public class InfoTextController : MonoBehaviour
             yield return new WaitForSeconds(letterTypeDuration);
         }
         textMesh.text = textToType;
-        typing = false;
         yield return new WaitForSeconds(letterTypeDuration);
         yield return new WaitForSeconds(endDelay);
+        typing = false;
         OnTypingEnd();
     }
 
