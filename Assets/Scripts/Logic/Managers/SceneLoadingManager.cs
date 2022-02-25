@@ -218,7 +218,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         }
         yield return StartCoroutine(LoadSceneIfNotLoaded(loadingScene, true));
         LoadingScreenController loadingScreen = FindObjectOfType<LoadingScreenController>();
-        loadingScreen.InitLoading(currentLevel);
+        loadingScreen.InitLoading(LevelIndexEnum.Menu);
         if (currentLevel != LevelIndexEnum.Menu && currentLevel != LevelIndexEnum.Other)
         {
             yield return StartCoroutine(UnloadMultipleScenes(levels[(int)currentLevel].scenes));
