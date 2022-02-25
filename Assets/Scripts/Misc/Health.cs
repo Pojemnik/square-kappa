@@ -82,13 +82,13 @@ public class Health : MonoBehaviour
     public void Heal()
     {
         currentHealth = maxHealth;
-        healthChangeEvent.Invoke(currentHealth);
+        healthChangeEvent.Invoke((int)((float)currentHealth / maxHealth * 100f));
     }
 
     public void Heal(int amount)
     {
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
-        healthChangeEvent.Invoke(currentHealth);
+        healthChangeEvent.Invoke((int)((float)currentHealth / maxHealth * 100f));
     }
 
     private void OnCollisionEnter(Collision collision)
