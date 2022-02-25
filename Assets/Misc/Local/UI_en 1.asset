@@ -71,62 +71,21 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 51091785529532416
-    m_Localized: 'Square Kappa
-
-
-      Game design, level design, graphics and animations:
-      Adam "Gahlammon" Dachtera
-
-      Programming: Andrzej "Pojemnik" Gauza
-
-
-      Testing:
-      IDK
-
-      Special thanks to: IDK
-
-
-      Assets form the internet:
-
-      Glass
-      breaking sound by spookymodem https://opengameart.org/content/breaking-bottle,
-      CC-BY 3.0
-
-      Explosion sound by Blender Foundation (Submitted by Lamoot)
-      https://opengameart.org/content/big-explosion, CC-BY 3.0
-
-      Laser sound
-      by zeroisnotnull, opengameart.org (modified)
-
-      Reload sounds:
-
-      SpringySpringo,
-      opengameart.org, Michel Baradari (Submitted by qubodup) https://opengameart.org/content/2-metal-weapon-clicks,
-      CC-BY 3.0
-
-      Ammo pickup and button click sounds by p0ss https://opengameart.org/content/interface-sounds-starter-pack,
-      CC-BY-SA 3.0
-
-      Leaving game area warning sound by Joth opengameart.org
-
-      Fist
-      hit sounds by pauliuw opengameart.org
-
-      Misc. sound effects by jalastram
-      https://opengameart.org/content/gui-sound-effects-4, CC-BY 3.0
-
-      Game
-      over sound: Copyright 2012 Iwan ''qubodup'' Gabovitch http://qubodup.net qubodup@gmail.com
-      |
-
-      License: CC Attribution-ShareAlike 3.0 Unported http://creativecommons.org/licenses/by-sa/3.0/
-
-
-      CC-BY
-      3.0 license: https://creativecommons.org/licenses/by/3.0/legalcode
-
-      CC-BY-SA
-      3.0 license: https://creativecommons.org/licenses/by-sa/3.0/legalcode'
+    m_Localized: "Square Kappa\n\nGame design, level design, graphics and animations:
+      Adam \"Gahlammon\" Dachtera\nProgramming: Andrzej \"Pojemnik\" Gauza\n\nTesting:
+      Gahlammon, Pojemnik, Stachu, JPD, Sodment, Nesia, Szypu\u0142ka, Lora7\n\nAssets
+      form the internet:\nGlass breaking sound by spookymodem https://opengameart.org/content/breaking-bottle,
+      CC-BY 3.0\nExplosion sound by Blender Foundation (Submitted by Lamoot) https://opengameart.org/content/big-explosion,
+      CC-BY 3.0\nLaser sound by zeroisnotnull, opengameart.org (modified)\nReload
+      sounds:\nSpringySpringo, opengameart.org, Michel Baradari (Submitted by qubodup)
+      https://opengameart.org/content/2-metal-weapon-clicks, CC-BY 3.0\nAmmo pickup
+      and button click sounds by p0ss https://opengameart.org/content/interface-sounds-starter-pack,
+      CC-BY-SA 3.0\nLeaving game area warning sound by Joth opengameart.org\nFist
+      hit sounds by pauliuw opengameart.org\nMisc. sound effects by jalastram https://opengameart.org/content/gui-sound-effects-4,
+      CC-BY 3.0\nGame over sound: Copyright 2012 Iwan 'qubodup' Gabovitch http://qubodup.net
+      qubodup@gmail.com |\nLicense: CC Attribution-ShareAlike 3.0 Unported http://creativecommons.org/licenses/by-sa/3.0/\n\nCC-BY
+      3.0 license: https://creativecommons.org/licenses/by/3.0/legalcode\nCC-BY-SA
+      3.0 license: https://creativecommons.org/licenses/by-sa/3.0/legalcode"
     m_Metadata:
       m_Items: []
   references:
