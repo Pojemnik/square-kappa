@@ -81,8 +81,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     - Locale-pl-PL
+  - m_GUID: 478a1730bb5dcd44baf336cd97cb3d40
+    m_Address: MenuLoadingScreenEN
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
   - m_GUID: 49295862dce1b8940a841236a723ce56
     m_Address: KappaLogoEN
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+  - m_GUID: 048c5ac94bde0d74786a3407342bcff1
+    m_Address: Prologue1LoadingScreenEN
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en

@@ -32,6 +32,16 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-pl-PL
+  - m_GUID: 143de370968911c419f01aa384e07276
+    m_Address: MenuLoadingScreenPL
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-pl-PL
+  - m_GUID: 8e8d371c1dbf981458e4cf068a87ff8f
+    m_Address: Prologue1LoadingScreenPL
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-pl-PL
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 45e32cf4f59e9eb47af08082b71f9a04, type: 2}
   m_SchemaSet:

@@ -162,7 +162,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         int currentLevelIndex = (int)currentLevel;
         yield return StartCoroutine(LoadSceneIfNotLoaded(loadingScene, true));
         LoadingScreenController loadingScreen = FindObjectOfType<LoadingScreenController>();
-        loadingScreen.InitLoading(currentLevel);
+        loadingScreen.InitLoading((LevelIndexEnum)levelIndex);
         if(waitForPlayerConfirmation)
         {
             loadingConfirmed = false;
@@ -229,6 +229,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Time.timeScale = 1;
+        currentLevel = LevelIndexEnum.Menu;
     }
 
     private IEnumerator LoadOneScene(string sceneName)

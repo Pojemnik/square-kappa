@@ -5,42 +5,30 @@ using UnityEngine;
 public class LoadingScreenController : MonoBehaviour
 {
     [SerializeField]
-    private SerializableDictionary<SceneLoadingManager.LevelIndexEnum, Sprite> sprites;
-    //[SerializeField]
-    //private SerializableDictionary<SceneLoadingManager.LevelIndexEnum, UnityEngine.Localization.LocalizedString> loadingMessages;
-    [SerializeField]
-    private TMPro.TextMeshProUGUI textMesh;
-    public UnityEngine.UI.Button okButton;
+    private SerializableDictionary<SceneLoadingManager.LevelIndexEnum, GameObject> screens;
 
-    private UnityEngine.UI.Image image;
+    public UnityEngine.UI.Button okButton;
 
     private void Awake()
     {
-        image = GetComponent<UnityEngine.UI.Image>();
-        image.sprite = null;
+        foreach(GameObject screen in screens.Values)
+        {
+            screen.SetActive(false);
+        }
     }
 
     public void InitLoading(SceneLoadingManager.LevelIndexEnum levelIndex)
     {
-        if (!sprites.ContainsKey(levelIndex))
+        Debug.Log(levelIndex);
+        if (!screens.ContainsKey(levelIndex))
         {
             Debug.LogErrorFormat("No loading screen for level {0}", levelIndex);
         }
         else
         {
-            image.sprite = sprites[levelIndex];
+            screens[levelIndex].SetActive(true);
         }
         okButton.gameObject.SetActive(false);
-        //if (!loadingMessages.ContainsKey(levelIndex))
-        //{
-        //    Debug.LogErrorFormat("No loading message for level {0}", levelIndex);
-        //    textMesh.enabled = false;
-        //}
-        //else
-        //{
-        //    textMesh.enabled = true;
-        //    textMesh.text = loadingMessages[levelIndex].GetLocalizedString();
-        //}
     }
 
     public void ShowOKButton()

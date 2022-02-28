@@ -23,14 +23,21 @@ MonoBehaviour:
     m_Key: VICTORY-SCREEN
     m_Metadata:
       m_Items: []
-  - m_Id: 52625346817929216
+  - m_Id: 52667836524449792
     m_Key: LOGO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52667916610490368
+    m_Key: MENU-LOADING
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52667989692043264
+    m_Key: LEVEL-LOADING
     m_Metadata:
       m_Items: []
   m_Metadata:
     m_Items:
     - rid: 0
-    - rid: 6291756926713724930
   m_KeyGenerator:
     rid: 1
   references:
@@ -48,19 +55,21 @@ MonoBehaviour:
           m_TableCodes:
           - en
           - pl-PL
+        - m_KeyId: 52667836524449792
+          m_TableCodes:
+          - en
+          - pl-PL
+        - m_KeyId: 52667916610490368
+          m_TableCodes:
+          - en
+          - pl-PL
+        - m_KeyId: 52667989692043264
+          m_TableCodes:
+          - en
+          - pl-PL
         m_TypeString: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
     - rid: 1
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
         m_CustomEpoch: 1633513661877
-    - rid: 6291756926713724930
-      type: {class: AssetTypeMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_Entries:
-        - m_KeyId: 52625346817929216
-          m_TableCodes:
-          - en
-          - pl-PL
-        m_TypeString: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
