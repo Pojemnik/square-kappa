@@ -17,8 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: b9c57cc7aae9cdd489a8d358c712b7d4
   m_SerializeEntries:
-  - m_GUID: 903d77ed965bd9d45a0b7e956726ca66
-    m_Address: VictoryScreenPL
+  - m_GUID: 3d6cf66fa98ecff408d36382e785ce45
+    m_Address: PrologueVictoryScreenPL
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-pl-PL
