@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/BaseScene.unity
     guid: b811d989a1910744f8d7384917b01c27
   - enabled: 1
-    path: Assets/Scenes/FirstLevel.unity
-    guid: 5bce48518f16ceb49ac172462ea44607
-  - enabled: 1
     path: Assets/Scenes/Prologue1SpecialMissionMainScene.unity
     guid: 901add3b68485164280fdc73078c25de
   - enabled: 1
